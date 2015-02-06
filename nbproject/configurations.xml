@@ -5,6 +5,14 @@
                    displayName="Header Files"
                    projectFiles="true">
       <itemPath>include/solarLight.h</itemPath>
+      <itemPath>include/communication.h</itemPath>
+      <itemPath>include/eeprom.h</itemPath>
+      <itemPath>include/hid.h</itemPath>
+      <itemPath>include/movement.h</itemPath>
+      <itemPath>include/powerman.h</itemPath>
+      <itemPath>include/sensors.h</itemPath>
+      <itemPath>include/usb.h</itemPath>
+      <itemPath>include/shared.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -14,6 +22,13 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>src/solarLight.c</itemPath>
+      <itemPath>src/communication.c</itemPath>
+      <itemPath>src/eeprom.c</itemPath>
+      <itemPath>src/hid.c</itemPath>
+      <itemPath>src/movement.c</itemPath>
+      <itemPath>src/powerman.c</itemPath>
+      <itemPath>src/sensors.c</itemPath>
+      <itemPath>src/usb.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -23,13 +38,14 @@
   </logicalFolder>
   <sourceRootList>
     <Elem>include</Elem>
+    <Elem>src</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
     <conf name="default" type="2">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
-        <targetDevice>PIC18F46K22</targetDevice>
+        <targetDevice>PIC18F67J94</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
         <platformTool>PICkit3PlatformTool</platformTool>
@@ -62,7 +78,7 @@
       <HI-TECH-COMP>
         <property key="asmlist" value="true"/>
         <property key="define-macros" value=""/>
-        <property key="extra-include-directories" value=""/>
+        <property key="extra-include-directories" value="include"/>
         <property key="identifier-length" value="255"/>
         <property key="operation-mode" value="free"/>
         <property key="opt-xc8-compiler-strict_ansi" value="false"/>
@@ -74,7 +90,7 @@
         <property key="optimization-invariant-value" value="16"/>
         <property key="optimization-level" value="9"/>
         <property key="optimization-set" value="default"/>
-        <property key="optimization-speed" value="false"/>
+        <property key="optimization-speed" value="true"/>
         <property key="preprocess-assembler" value="true"/>
         <property key="undefine-macros" value=""/>
         <property key="use-cci" value="false"/>
@@ -110,7 +126,7 @@
         <property key="fill-flash-options-how" value="0"/>
         <property key="fill-flash-options-inc-const" value="1"/>
         <property key="fill-flash-options-increment" value=""/>
-        <property key="fill-flash-options-seq" value=""/>
+        <property key="fill-flash-options-seq" value="0x00"/>
         <property key="fill-flash-options-what" value="0"/>
         <property key="format-hex-file-for-download" value="false"/>
         <property key="initialize-data" value="true"/>
@@ -124,6 +140,39 @@
         <property key="program-the-device-with-default-config-words" value="true"/>
       </HI-TECH-LINK>
       <PICkit3PlatformTool>
+        <property key="AutoSelectMemRanges" value="auto"/>
+        <property key="Freeze Peripherals" value="true"/>
+        <property key="SecureSegment.SegmentProgramming" value="FullChipProgramming"/>
+        <property key="ToolFirmwareFilePath"
+                  value="Press to browse for a specific firmware version"/>
+        <property key="ToolFirmwareOption.UseLatestFirmware" value="true"/>
+        <property key="hwtoolclock.frcindebug" value="false"/>
+        <property key="memories.aux" value="false"/>
+        <property key="memories.bootflash" value="true"/>
+        <property key="memories.configurationmemory" value="true"/>
+        <property key="memories.dataflash" value="true"/>
+        <property key="memories.eeprom" value="true"/>
+        <property key="memories.flashdata" value="true"/>
+        <property key="memories.id" value="true"/>
+        <property key="memories.programmemory" value="true"/>
+        <property key="memories.programmemory.end" value="0xffff"/>
+        <property key="memories.programmemory.start" value="0x0"/>
+        <property key="memories.userotp" value="false"/>
+        <property key="poweroptions.powerenable" value="false"/>
+        <property key="programmertogo.imagename" value=""/>
+        <property key="programoptions.donoteraseauxmem" value="false"/>
+        <property key="programoptions.eraseb4program" value="true"/>
+        <property key="programoptions.pgmspeed" value="2"/>
+        <property key="programoptions.preserveeeprom" value="false"/>
+        <property key="programoptions.preserveprogramrange" value="false"/>
+        <property key="programoptions.preserveprogramrange.end" value="0xffff"/>
+        <property key="programoptions.preserveprogramrange.start" value="0x0"/>
+        <property key="programoptions.preserveuserid" value="false"/>
+        <property key="programoptions.programcalmem" value="false"/>
+        <property key="programoptions.testmodeentrymethod" value="VPPFirst"/>
+        <property key="programoptions.usehighvoltageonmclr" value="false"/>
+        <property key="programoptions.uselvpprogramming" value="false"/>
+        <property key="voltagevalue" value="2.125"/>
       </PICkit3PlatformTool>
       <XC8-config-global>
         <property key="advanced-elf" value="true"/>
