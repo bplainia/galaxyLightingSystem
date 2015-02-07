@@ -13,6 +13,7 @@
       <itemPath>include/sensors.h</itemPath>
       <itemPath>include/usb.h</itemPath>
       <itemPath>include/shared.h</itemPath>
+      <itemPath>include/rtc.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -29,6 +30,7 @@
       <itemPath>src/powerman.c</itemPath>
       <itemPath>src/sensors.c</itemPath>
       <itemPath>src/usb.c</itemPath>
+      <itemPath>src/rtc.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

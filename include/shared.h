@@ -12,5 +12,10 @@
 #define VERSION2 0
 #define COMPANY "Patience, Inc."
 
+#include <xc.h>
+
+// Global Variables (beware race conditions)
+bool rtcSetup;
+
 #endif	/* SHARED_H */
 
