@@ -15,7 +15,12 @@
 #include <xc.h>
 
 // Global Variables (beware race conditions)
-bool rtcSetup;
+struct {
+    unsigned    RTCINIT : 1;
+    unsigned    MMODE   : 1;
+    unsigned    STATE   : 3;
+    unsigned            : 3;
+}status;
 
 #endif	/* SHARED_H */
 
