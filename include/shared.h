@@ -1,6 +1,6 @@
 /* 
  * File:   shared.h
- * Author: 118506
+ * Author: Benjamin Plain
  *
  * Created on February 5, 2015, 7:53 PM
  */
@@ -16,11 +16,13 @@
 
 // Global Variables (beware race conditions)
 struct {
-    unsigned    RTCINIT : 1;
-    unsigned    MMODE   : 1;
-    unsigned    STATE   : 3;
+    unsigned    RTCINIT : 1; // has the rtc been initialized
+    unsigned    MMODE   : 1; // maintenance mode
+    unsigned    STATE   : 3; // night/day, ?, ? 
     unsigned            : 3;
-}status;
+}status1;
+
+//enum {FIRSTRUN, BATTFAIL, VDDFAIL, MEMFAIL, RUNNING} powerStatus;
 
 #endif	/* SHARED_H */
 

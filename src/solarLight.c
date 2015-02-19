@@ -3,7 +3,7 @@
 
 #include <solarLight.h>
 
-// TODO: need config bits and the xc8 header
+// TODO: need config bits
 
 void main(void)
 {
@@ -23,13 +23,13 @@ void main(void)
 void setup() // Initialize stuff here without any interruption
 {
     // Variables
-    unsigned char status;
+    
 
     mem_start(); // First priority is to check the memory
     // TODO: Check to see if the chip started after a POR, BOR, or is from VBATT
     status = mem_check(); // checks where it started up from, and if memory is ok
     hid_start();
-    if(status < VBATT) rtc_start(); // if from POR, then nothing has been started, so start rtc
+    rtc_start();
 }
 
 void loop()
