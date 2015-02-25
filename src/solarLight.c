@@ -41,7 +41,19 @@ void loop()
 
 void interrupt low_priority isr_low()
 {
-   ;
+    if(TX1IE && TX1IF) // Comm Transmit Ready and able too
+    {
+        TX1IF = 0; // Reset TX1 Flag
+        if(COMSTAT.TOKEN && (txPtrOut != txPtrIn))
+        {
+            TXREG1 = txBuff[txPtrOut++];
+        }
+        // TODO: determine where the token and the transmit control will be.
+    }
+    if(RC1IE && RC1IF)
+    {
+
+    }
 }
 
 void interrupt high_priority isr_high()

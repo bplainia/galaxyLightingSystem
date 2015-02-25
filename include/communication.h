@@ -1,0 +1,26 @@
+#ifndef COMM_H
+#define COMM_H
+
+// Definitions
+// Buffer sizes. Maximum of 256 (or need to change pointer size)
+#define RXBUFFSIZE 128
+#define TXBUFFSIZE 32
+
+// Functions for Communication
+
+void comm_start(void); // Initialize Communication
+unsigned char comm_tx(unsigned char); // Transmit a byte (add to TX FIFO) returns boolean
+unsigned char comm_rx(void); // Get a byte from the RX FIFO
+unsigned short comm_rxWord(void); // get a word from the RX FIFO
+
+// Variables
+char comm_overflow;
+struct comstat_t
+{
+    unsigned  TOKEN    : 1; // the token (TOKEN BUS! :)
+    unsigned  TXOVER   : 1; // tx buffer overflow error
+    unsigned  RXOVER   : 1; // rx buffer overflow error
+    unsigned  TERROR   : 1; // no its not a terror, its a token error
+    unsigned           : 4; // leftovers
+}COMSTAT;
+#endif
