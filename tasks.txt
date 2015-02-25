@@ -1,0 +1,12 @@
+Josh
+  Power Management
+  USB control and download
+Luke
+  Sensors
+  Light and motors (PWM)
+Ben
+  LCD
+  RS/EIA-485 Communication
+DJ
+  Keypad interface (RS/EIA-232)
+  RTC/EEPROM
