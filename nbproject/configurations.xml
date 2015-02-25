@@ -14,6 +14,7 @@
       <itemPath>include/shared.h</itemPath>
       <itemPath>include/rtc.h</itemPath>
       <itemPath>src/menu.c</itemPath>
+      <itemPath>src/shared.c</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"

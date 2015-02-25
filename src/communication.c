@@ -12,17 +12,20 @@ unsigned char rxPtrOut, txPtrOut, rxPtrIn, txPtrIn;
 
 void comm_start()
 {
-    unsigned char i;
     //TODO: Communications start function
     // This function initialized the pins and sets up UART1 for 9-bit RS-485
 
     // Setup PPS-Lite
-    // TODO:Check how to use PPS-Lite
-    RPOR22_23bits.RPO22R = 0x1; // TX pin
-    RPOR22_23bits.RPO23R = 0x1; // RX pin
+    RPOR22_23bits.RPO22R = 0x1;  // TX pin output
+    RPINR0_1             = 0x55; // TX\RX pin inputs
+    RPOR22_23bits.RPO23R = 0x1;  // RX pin output
+    TXPIN   = 0;    // Transmit (recieve is already digital input)
+    RXTXPIN = 0;    // Direction Pin
+    RXTXDIR = 0;    // Set to Recieve Mode
 
-    txPtrIn = rxPtrIn = txPtrOut = rxPtrOut = 0; // reset these variables
+    txPtrIn = rxPtrIn = txPtrOut = rxPtrOut = 0; // reset pointers
     comm_overflow = 0; // Has not happened
+    comm_flush();
 }
 
 void comm_flush()
@@ -32,12 +35,12 @@ void comm_flush()
     for(i=0;i<RXBUFFSIZE;i++) rxBuff[i] = 0;
 }
 
-char comm_tx(unsigned char thing)
+unsigned comm_tx(unsigned char data)
 {
     // Detect that there is something in the buffer and no overflow
-    if((txPtrIn + 1) == txPtrOut)
+    if((txPtrIn + 1) != txPtrOut)
     {
-        txBuff[txPtrIn++] = thing;
+        txBuff[txPtrIn++] = data;
         if(txPtrIn >= TXBUFFSIZE) txPtrIn = 0;
         return true;
     }
@@ -48,7 +51,7 @@ char comm_tx(unsigned char thing)
     }
 }
 
-char comm_go()
+unsigned comm_go()
 {
     /// char comm_go(void): activate transmission onto universe
     if(COMSTAT.TOKEN) // Make sure we have the token
@@ -58,6 +61,7 @@ char comm_go()
             TX1IE = 1;                               // enable interrupt
             TXREG1 = txBuff[txPtrOut++];             // begin transmission
             if(txPtrOut >= TXBUFFSIZE) txPtrOut = 0; // reset pointer if done
+            return true;
         }
         else
         {
@@ -73,9 +77,12 @@ char comm_go()
 
 unsigned char comm_rx()
 {
-    
+    unsigned char myReturn;
+    myReturn = rxBuff[rxPtrOut++];
+    if(rxPtrOut >= RXBUFFSIZE) rxPtrOut = 0;
+    // TODO: Add buffer overflow detection
 }
 unsigned short comm_rx_word()
 {
-    
+    return (comm_rx() << 8) + comm_rx();
 }

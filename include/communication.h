@@ -6,6 +6,12 @@
 #define RXBUFFSIZE 128
 #define TXBUFFSIZE 32
 
+// Pins
+#define TXPIN   TRISDbits.TRISD0
+#define RXTXPIN TRISDbits.TRISD1
+#define RXTXDIR LATDbits.LATD1
+
+
 // Functions for Communication
 
 void comm_start(void); // Initialize Communication

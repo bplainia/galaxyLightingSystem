@@ -12,6 +12,9 @@
 #define VERSION2 0
 #define COMPANY "Patience, Inc."
 
+#define true 1
+#define false 0
+
 #include <xc.h>
 
 // Global Variables (beware race conditions)
@@ -21,6 +24,14 @@ struct {
     unsigned    STATE   : 3;
     unsigned            : 2;
 }status;
+
+// Standard Functions
+
+float adcRead(unsigned char); // Read specific pin
+unsigned short adcReadRaw(unsigned char); // Read specific pin - raw
+
+void pwmSetup(); // Initialize TMR2 (you get to setup on your own)
+unsigned pwmSet(unsigned char, unsigned char); // Set pin to duty cycle
 
 #endif	/* SHARED_H */
 
