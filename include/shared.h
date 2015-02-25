@@ -17,9 +17,9 @@
 // Global Variables (beware race conditions)
 struct {
     unsigned    RTCINIT : 1;
-    unsigned    MMODE   : 1;
+    unsigned    MMODE   : 2;
     unsigned    STATE   : 3;
-    unsigned            : 3;
+    unsigned            : 2;
 }status;
 
 #endif	/* SHARED_H */

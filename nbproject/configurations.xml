@@ -13,6 +13,7 @@
       <itemPath>include/sensors.h</itemPath>
       <itemPath>include/shared.h</itemPath>
       <itemPath>include/rtc.h</itemPath>
+      <itemPath>src/menu.c</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
