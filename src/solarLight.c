@@ -80,7 +80,6 @@
 
 #include <solarLight.h>
 
-
 void main(void)
 {
     // A very super-simple main function by Ben. Makes this coding similar
@@ -99,13 +98,13 @@ void main(void)
 void setup() // Initialize stuff here without any interruption
 {
     // Variables
-    unsigned char status;
+    
 
     mem_start(); // First priority is to check the memory
     // TODO: Check to see if the chip started after a POR, BOR, or is from VBATT
     status = mem_check(); // checks where it started up from, and if memory is ok
     hid_start();
-    if(status < VBATT) rtc_start(); // if from POR, then nothing has been started, so start rtc
+    rtc_start();
 }
 
 void loop()
@@ -117,7 +116,19 @@ void loop()
 
 void interrupt low_priority isr_low()
 {
-   ;
+    if(TX1IE && TX1IF) // Comm Transmit Ready and able too
+    {
+        TX1IF = 0; // Reset TX1 Flag
+        if(COMSTAT.TOKEN && (txPtrOut != txPtrIn))
+        {
+            TXREG1 = txBuff[txPtrOut++];
+        }
+        // TODO: determine where the token and the transmit control will be.
+    }
+    if(RC1IE && RC1IF)
+    {
+
+    }
 }
 
 void interrupt high_priority isr_high()
