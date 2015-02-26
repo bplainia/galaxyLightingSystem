@@ -2,7 +2,7 @@
 #include <hid.h>
 
 // HID (keyboard, usb, and lcd) Functions
-void hid_start(void)
+void hid_setup(void)
 {
     // setup LCD pins: memory has already been started, so no need to setup
     RPOR32_33bits.RPO32R = 0x9; // set RP32 to CCP5 for RED PWM
@@ -25,7 +25,7 @@ void hid_start(void)
     // setup USB
     
 }
-void hid_loop(void)
+void hid_loop(void) // execute hid functions; is called from the main loop
 {
 
 }

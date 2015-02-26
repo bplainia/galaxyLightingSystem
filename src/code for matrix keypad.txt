@@ -1,0 +1,106 @@
+//-----------------------------
+// code for 4x4 keypad scanning
+//---------------------------
+#include <delay.h>
+
+int checkKey();
+int readKey();
+char ScanKeyMatrix(void);
+void ScanKeyMatrixInit(void);
+
+char keyPadMatrix[] = 
+{ 
+    '1','2','3','A',
+    '4','5','6','B',
+    '7','8','9','C',
+    '*','0','#','D',
+    0xFF
+};
+char key;
+
+int main(void)
+{
+        ScanKeyMatrixInit();
+        // keyboard
+           key = ScanKeyMatrix();
+
+void ScanKeyMatrixInit()
+{
+    // Scan the keypad by turning on the row outputs and reading the columns 
+    row1tris = 0;
+    row2tris = 0;
+    row3tris = 0;
+    row4tris = 0;
+    col1tris = 1;
+    col2tris = 1;
+    col3tris = 1;
+    col4tris = 1;
+}
+
+char ScanKeyMatrix()
+{
+    // This routine returns the first key found to be pressed during the scan.
+    char key = 0, row;
+    
+    for( row = 0b00000001; row < 0b00010000; row <<= 1 )
+    {       
+        {   // turn on row output
+            row1port = (row & 0x0001)>>0;
+            row2port = (row & 0x0002)>>1;
+            row3port = (row & 0x0004)>>2;
+            row4port = (row & 0x0008)>>3;
+        }
+        
+        // read colums - break when key press detected
+        if( col1port )break;  key++;
+        if( col2port )break;  key++;
+        if( col3port )break;  key++;
+        if( col3port )break;  key++;    
+    }
+
+    row1port = 0;
+    row2port = 0;
+    row3port = 0;
+    row4port = 0;
+    return keyPadMatrix[ key ]; 
+}
+
+//------------ debouncing -----------------
+int checkKey( void)
+{   
+  int i=0, r=0, j=0;
+  int c;
+
+  // wait for a key pressed 
+  do{
+      Delayms( 10);
+      if ((c = readKEY()))
+      {
+          if ( c>r)       // if more than one button pressed
+              r = c;      
+          i++;    
+      }
+      else 
+          i=0;
+  } while ( i<10);
+
+  // wait for key release 
+  i =0;
+  do {
+      Delayms( 10);   
+      if ( (c = readKEY()))
+      {
+          if (c>r)        // if more then one button pressed 
+              r = c;      
+          i=0;            
+          j++;            // detect long button hold
+      }
+      else 
+          i++;
+  } while ( i<10);        
+
+ if ( j>80)                  // longer than 500ms 
+      r+=0x80;
+
+  return r;
+} 

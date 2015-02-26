@@ -19,8 +19,7 @@
 // functions
 void mem_start(void);
 void mem_check(void);
-unsigned char mem_append_log(unsigned char); // saves an event.
-private:
+unsigned char mem_append_log(char); // saves an event.
 
 
 

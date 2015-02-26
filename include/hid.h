@@ -5,7 +5,7 @@
    //none
 
 // HID (keyboard, usb, and lcd) Functions
-void hid_start(void); // setup the HID functions
+void hid_setup(void); // setup the HID functions
 void hid_loop(void);  // simple call to what to do in the loop
 void hid_execute(unsigned char);  // execute a command (usb and lcd can call this)
 
