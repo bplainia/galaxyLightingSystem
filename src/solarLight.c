@@ -99,7 +99,7 @@ void setup() // Initialize stuff here without any interruption
 {
     // Variables
     
-
+    i2cStart();  // Initialize I2C
     mem_start(); // First priority is to check the memory
     // TODO: Check to see if the chip started after a POR, BOR, or is from VBATT
     status = mem_check(); // checks where it started up from, and if memory is ok
@@ -111,7 +111,15 @@ void loop()
 {
     // Put things that you need to process here. Dont' spend too much time
     // in your process. Others want to do stuff too...
-    ;
+    adcUpdateAll(); // Update all the ADC buffers
+    if(status.STATE)
+    {
+
+    }
+    if(status.MMODE)
+    {
+
+    }
 }
 
 void interrupt low_priority isr_low()
@@ -130,6 +138,10 @@ void interrupt low_priority isr_low()
 
     }
 }
+// NOTE from manual: Interrupt flag bits are set when an interrupt condition occurs regardless
+// of the state of its corresponding enable bit or the Global Interrupt Enable bit. User
+// software should ensure the appropriate interrupt flag bits are clear prior to enabling
+// an interrupt. This feature allows for software polling.
 
 void interrupt high_priority isr_high()
 {

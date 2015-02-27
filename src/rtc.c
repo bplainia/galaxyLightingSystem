@@ -34,7 +34,7 @@ unsigned char char2bcd(unsigned char in)
     // Will only return the last 2 digits (will ignore the 1 or 2 if it is there)
     // Make sure to use input validation of some sort.
     return in % 10 | ((in/10)%10 << 4); // byte to 2-decimal BCD
-    // TODO[Review}: Can someone check the RTC stuff?
+    // TODO[Review]: Can someone check the RTC stuff?
 }
 
 unsigned char weekday(unsigned char year, unsigned char month, unsigned char day)

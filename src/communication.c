@@ -84,5 +84,6 @@ unsigned char comm_rx()
 }
 unsigned short comm_rx_word()
 {
+    // TODO: What happens if ther is no data there?
     return (comm_rx() << 8) + comm_rx();
 }
