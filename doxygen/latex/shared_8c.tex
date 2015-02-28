@@ -1,0 +1,130 @@
+\hypertarget{shared_8c}{}\section{C\+:/\+Users/\+Benjaminp/\+Documents/pcc/current/\+E\+L 450/\+Patience\+Inc/firmware/src/shared.c File Reference}
+\label{shared_8c}\index{C\+:/\+Users/\+Benjaminp/\+Documents/pcc/current/\+E\+L 450/\+Patience\+Inc/firmware/src/shared.\+c@{C\+:/\+Users/\+Benjaminp/\+Documents/pcc/current/\+E\+L 450/\+Patience\+Inc/firmware/src/shared.\+c}}
+{\ttfamily \#include $<$shared.\+h$>$}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{shared_8c_af5e0a217880b6f6976ff1c2b1297f7a3}{adc\+\_\+setup} ()
+\item 
+unsigned \hyperlink{shared_8c_a4febdf54c71529dabf077499dbb6bd77}{adc\+\_\+update} (unsigned char ch\+A)
+\item 
+unsigned \hyperlink{shared_8c_acd52fa93052934f2ce8e3b2e6ca5cf2c}{adc\+\_\+update2} (unsigned char ch\+A, unsigned char ch\+B)
+\begin{DoxyCompactList}\small\item\em Updates two A\+D\+C channels to the buffers. \end{DoxyCompactList}\item 
+void \hyperlink{shared_8c_a34a212934599b1e31db42ec3d8c15b73}{adc\+\_\+update\+All} ()
+\begin{DoxyCompactList}\small\item\em Update all the A\+D\+C buffers that are activated in {\ttfamily \hyperlink{shared_8c_af5e0a217880b6f6976ff1c2b1297f7a3}{adc\+\_\+setup()}}. \end{DoxyCompactList}\item 
+void \hyperlink{shared_8c_a6b11f55ddc2f9d1125c97a47e4a799f6}{pwm\+\_\+setup} ()
+\begin{DoxyCompactList}\small\item\em Setup T\+M\+R2 for use by all the C\+C\+P modules. \end{DoxyCompactList}\item 
+unsigned \hyperlink{shared_8c_a501f54f5e2a92a3bc2d8e7c625371aae}{pwm\+\_\+set} (unsigned char channel, unsigned char duty)
+\begin{DoxyCompactList}\small\item\em Sets a specific pwm channel to a certain duty cycle in \%. \end{DoxyCompactList}\item 
+void \hyperlink{shared_8c_a4f4aa63c7d4429490f91bfd80164f309}{i2c\+\_\+setup} ()
+\begin{DoxyCompactList}\small\item\em Sets up the i2c1 module. \end{DoxyCompactList}\item 
+unsigned \hyperlink{shared_8c_aadbd2024d0be81197a7f1080ffdc724f}{i2c\+\_\+tx} (\hyperlink{structi2c_packet}{i2c\+Packet} packet)
+\begin{DoxyCompactList}\small\item\em Takes a packet and transmits it according to its contents. Returns true if successful. \end{DoxyCompactList}\item 
+unsigned char $\ast$ \hyperlink{shared_8c_acbf6726fd48f4e162500460c20403e81}{i2c\+\_\+rx} (unsigned char device, unsigned char addr, unsigned char qty)
+\begin{DoxyCompactList}\small\item\em Gets Data from a slave at a specific address. Returns a char array pointer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{shared_8c_af5e0a217880b6f6976ff1c2b1297f7a3}{}\index{shared.\+c@{shared.\+c}!adc\+\_\+setup@{adc\+\_\+setup}}
+\index{adc\+\_\+setup@{adc\+\_\+setup}!shared.\+c@{shared.\+c}}
+\subsubsection[{adc\+\_\+setup}]{\setlength{\rightskip}{0pt plus 5cm}void adc\+\_\+setup (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{shared_8c_af5e0a217880b6f6976ff1c2b1297f7a3}
+\hypertarget{shared_8c_a4febdf54c71529dabf077499dbb6bd77}{}\index{shared.\+c@{shared.\+c}!adc\+\_\+update@{adc\+\_\+update}}
+\index{adc\+\_\+update@{adc\+\_\+update}!shared.\+c@{shared.\+c}}
+\subsubsection[{adc\+\_\+update}]{\setlength{\rightskip}{0pt plus 5cm}unsigned adc\+\_\+update (
+\begin{DoxyParamCaption}
+\item[{unsigned char}]{ch\+A}
+\end{DoxyParamCaption}
+)}\label{shared_8c_a4febdf54c71529dabf077499dbb6bd77}
+\hypertarget{shared_8c_acd52fa93052934f2ce8e3b2e6ca5cf2c}{}\index{shared.\+c@{shared.\+c}!adc\+\_\+update2@{adc\+\_\+update2}}
+\index{adc\+\_\+update2@{adc\+\_\+update2}!shared.\+c@{shared.\+c}}
+\subsubsection[{adc\+\_\+update2}]{\setlength{\rightskip}{0pt plus 5cm}unsigned adc\+\_\+update2 (
+\begin{DoxyParamCaption}
+\item[{unsigned char}]{ch\+A, }
+\item[{unsigned char}]{ch\+B}
+\end{DoxyParamCaption}
+)}\label{shared_8c_acd52fa93052934f2ce8e3b2e6ca5cf2c}
+
+
+Updates two A\+D\+C channels to the buffers. 
+
+Inputs\+: two unsigned chars, {\ttfamily ch\+A} and {\ttfamily ch\+B}, specify which A\+D\+C channel to update.
+
+Outputs\+: A single bit specifying success. (1=success) \hypertarget{shared_8c_a34a212934599b1e31db42ec3d8c15b73}{}\index{shared.\+c@{shared.\+c}!adc\+\_\+update\+All@{adc\+\_\+update\+All}}
+\index{adc\+\_\+update\+All@{adc\+\_\+update\+All}!shared.\+c@{shared.\+c}}
+\subsubsection[{adc\+\_\+update\+All}]{\setlength{\rightskip}{0pt plus 5cm}void adc\+\_\+update\+All (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{shared_8c_a34a212934599b1e31db42ec3d8c15b73}
+
+
+Update all the A\+D\+C buffers that are activated in {\ttfamily \hyperlink{shared_8c_af5e0a217880b6f6976ff1c2b1297f7a3}{adc\+\_\+setup()}}. 
+
+\hypertarget{shared_8c_acbf6726fd48f4e162500460c20403e81}{}\index{shared.\+c@{shared.\+c}!i2c\+\_\+rx@{i2c\+\_\+rx}}
+\index{i2c\+\_\+rx@{i2c\+\_\+rx}!shared.\+c@{shared.\+c}}
+\subsubsection[{i2c\+\_\+rx}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char$\ast$ i2c\+\_\+rx (
+\begin{DoxyParamCaption}
+\item[{unsigned char}]{device, }
+\item[{unsigned char}]{addr, }
+\item[{unsigned char}]{qty}
+\end{DoxyParamCaption}
+)}\label{shared_8c_acbf6726fd48f4e162500460c20403e81}
+
+
+Gets Data from a slave at a specific address. Returns a char array pointer. 
+
+Inputs\+: {\ttfamily device}\+: The 7-\/bit address of the device. {\ttfamily addr}\+: the 8-\/bit address in i2c\+Rx\+: recieves {\ttfamily qty} bytes from the slave at {\ttfamily addr}. Returns an array {\ttfamily qty} long. \hypertarget{shared_8c_a4f4aa63c7d4429490f91bfd80164f309}{}\index{shared.\+c@{shared.\+c}!i2c\+\_\+setup@{i2c\+\_\+setup}}
+\index{i2c\+\_\+setup@{i2c\+\_\+setup}!shared.\+c@{shared.\+c}}
+\subsubsection[{i2c\+\_\+setup}]{\setlength{\rightskip}{0pt plus 5cm}void i2c\+\_\+setup (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{shared_8c_a4f4aa63c7d4429490f91bfd80164f309}
+
+
+Sets up the i2c1 module. 
+
+\hypertarget{shared_8c_aadbd2024d0be81197a7f1080ffdc724f}{}\index{shared.\+c@{shared.\+c}!i2c\+\_\+tx@{i2c\+\_\+tx}}
+\index{i2c\+\_\+tx@{i2c\+\_\+tx}!shared.\+c@{shared.\+c}}
+\subsubsection[{i2c\+\_\+tx}]{\setlength{\rightskip}{0pt plus 5cm}unsigned i2c\+\_\+tx (
+\begin{DoxyParamCaption}
+\item[{{\bf i2c\+Packet}}]{packet}
+\end{DoxyParamCaption}
+)}\label{shared_8c_aadbd2024d0be81197a7f1080ffdc724f}
+
+
+Takes a packet and transmits it according to its contents. Returns true if successful. 
+
+Inputs\+: a i2c transmission packet (consists of address and array of data)
+
+Outputs\+: a single bit specifying failure or success
+
+Description\+: This function takes the packet and transmits the {\ttfamily packet.\+addr} byte first. It then transmits {\ttfamily packet.\+data\+Length} bytes from the {\ttfamily packet.\+data} array. If at any time a byte is not acknowleged, the function will return 0 (false). \hypertarget{shared_8c_a501f54f5e2a92a3bc2d8e7c625371aae}{}\index{shared.\+c@{shared.\+c}!pwm\+\_\+set@{pwm\+\_\+set}}
+\index{pwm\+\_\+set@{pwm\+\_\+set}!shared.\+c@{shared.\+c}}
+\subsubsection[{pwm\+\_\+set}]{\setlength{\rightskip}{0pt plus 5cm}unsigned pwm\+\_\+set (
+\begin{DoxyParamCaption}
+\item[{unsigned char}]{channel, }
+\item[{unsigned char}]{duty}
+\end{DoxyParamCaption}
+)}\label{shared_8c_a501f54f5e2a92a3bc2d8e7c625371aae}
+
+
+Sets a specific pwm channel to a certain duty cycle in \%. 
+
+Inputs\+: Channel -\/ which P\+W\+M channel to use, duty -\/ the duty cycle in percent.
+
+Outputs\+: A single bit specifying whether or not the command succeded (1 = success) \hypertarget{shared_8c_a6b11f55ddc2f9d1125c97a47e4a799f6}{}\index{shared.\+c@{shared.\+c}!pwm\+\_\+setup@{pwm\+\_\+setup}}
+\index{pwm\+\_\+setup@{pwm\+\_\+setup}!shared.\+c@{shared.\+c}}
+\subsubsection[{pwm\+\_\+setup}]{\setlength{\rightskip}{0pt plus 5cm}void pwm\+\_\+setup (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{shared_8c_a6b11f55ddc2f9d1125c97a47e4a799f6}
+
+
+Setup T\+M\+R2 for use by all the C\+C\+P modules. 
+

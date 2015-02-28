@@ -53,7 +53,8 @@ unsigned comm_tx(unsigned char data)
 
 unsigned comm_go()
 {
-    /// char comm_go(void): activate transmission onto universe
+    /*! \brief Activate transmission onto universe
+     */
     if(COMSTAT.TOKEN) // Make sure we have the token
     {
         if(txPtrOut != txPtrIn)

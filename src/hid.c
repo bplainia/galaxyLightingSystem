@@ -1,16 +1,15 @@
 #include <shared.h>
 #include <hid.h>
 
-// HID (keyboard, usb, and lcd) Functions
+/// Sets up the Human Interface Periphrials (keyboard, usb, and lcd) and their pins.
 void hid_setup(void)
 {
     // setup LCD pins: memory has already been started, so no need to setup
+    TRISD &= 0b01110000;        // set the three pins to be outputs
     RPOR32_33bits.RPO32R = 0x9; // set RP32 to CCP5 for RED PWM
     RPOR34_35bits.RPO34R = 0x9; // set RP34 to CCP6 for GRN PWM
     RPOR36_37bits.RPO37R = 0x8; // set RP37 to CCP7 for BLU PWM
-    // TODO: Check what to do with pins before setting to PPS-Lite functions
 
-    //FIXME: Is Luke seting up tmr2 for pwm?
     
     // setup keypad port
     SPBRGH3         = 0x00; // TODO: initialize baud rate to 9600
@@ -19,15 +18,29 @@ void hid_setup(void)
     RCSTA3bits.SPEN = 1;
     RC3IE           = 0; // Make sure the keypad is not causing interrupts right now.
     RCSTA3bits.CREN = 1; // Enable
-    // TODO: CHeck
-    RPOR28_29bits.RPO28R = 0x2; // set RP28 to USART3_RX
+    RPINR4_5bits.U3RXR   = 0x7; // set USART3 to RP28 for input of keypad
 
     // setup USB
     
 }
+
+/// Execute the Maintainence Mode State Machine. Please see the State Machine Page.
 void hid_loop(void) // execute hid functions; is called from the main loop
 {
+    // check pins and flags for changes for the mmode state machine
 
+    // execute the state machine
+    switch (status.mmode)
+    {
+        case 0: // Off. Only check if something was plugged in or we got a byte from the keypad.
+            break;
+        case 1:
+            break;
+        case 2:
+            break;
+        case 3: // ERROR State
+            break;
+    }
 }
 void hid_execute(unsigned char)  // execute a command (usb and lcd can call this)
 {

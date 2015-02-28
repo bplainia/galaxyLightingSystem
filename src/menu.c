@@ -19,13 +19,10 @@ typedef struct lcdEntry
     char line2[20];
 };
 
-typedef char menuEntry[19];
-
-
-menuEntry menu_main[8];
-
-menu[0].line1 = "> Exit Maint-Mode   ";
-menu[0].line1 = "  Light Settings    ";
+/// Contains each entry for the menu. This is a constant.
+const char* menuEntries[] = {"Exit M-Mode        ", // calls lcd_end();
+                             "Light Settings     "  // shows menu1
+                            };
 
 
 void menu1()

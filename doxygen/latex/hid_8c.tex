@@ -1,0 +1,190 @@
+\hypertarget{hid_8c}{}\section{C\+:/\+Users/\+Benjaminp/\+Documents/pcc/current/\+E\+L 450/\+Patience\+Inc/firmware/src/hid.c File Reference}
+\label{hid_8c}\index{C\+:/\+Users/\+Benjaminp/\+Documents/pcc/current/\+E\+L 450/\+Patience\+Inc/firmware/src/hid.\+c@{C\+:/\+Users/\+Benjaminp/\+Documents/pcc/current/\+E\+L 450/\+Patience\+Inc/firmware/src/hid.\+c}}
+{\ttfamily \#include $<$shared.\+h$>$}\\*
+{\ttfamily \#include $<$hid.\+h$>$}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{hid_8c_a914e6f1d1791841a025c442762a4e7ea}{hid\+\_\+setup} (void)
+\begin{DoxyCompactList}\small\item\em Sets up the Human Interface Periphrials (keyboard, usb, and lcd) and their pins. \end{DoxyCompactList}\item 
+void \hyperlink{hid_8c_a3adc740464e5cf31ec498fa7038a6ea0}{hid\+\_\+loop} (void)
+\begin{DoxyCompactList}\small\item\em Execute the Maintainence Mode State Machine. Please see the State Machine Page. \end{DoxyCompactList}\item 
+void \hyperlink{hid_8c_ad86bb70da5f2a8d68f034c87319e92b5}{hid\+\_\+execute} (unsigned char)
+\item 
+void \hyperlink{hid_8c_a438f617a14d9f21cbb2bd06d8c7c9ecf}{lcd\+\_\+begin} (void)
+\item 
+void \hyperlink{hid_8c_a1001e29b61b78e45ebce8276372e6312}{lcd\+\_\+menu} (unsigned char)
+\item 
+void \hyperlink{hid_8c_a0431a8630ef511318148f35739c630fa}{lcd\+\_\+execute} (unsigned char, unsigned char)
+\item 
+void \hyperlink{hid_8c_ae525221879a89187005664747d197386}{lcd\+\_\+usb} (unsigned char)
+\item 
+void \hyperlink{hid_8c_a666482694abca54ecd49341cb21859e2}{lcd\+\_\+end} (void)
+\item 
+void \hyperlink{hid_8c_aec7d7c0c8f3da40e3ac22e6afdd5409a}{key\+\_\+isr} (void)
+\item 
+void \hyperlink{hid_8c_a95fbf67e1f4e955662a6a195f6c3ecbe}{key\+\_\+insertion} (void)
+\item 
+void \hyperlink{hid_8c_a20e8465b449308ba37b0de5494742c4c}{key\+\_\+removal} (void)
+\item 
+void \hyperlink{hid_8c_a9dd0caa7d41601fb1547f79cdb8c4726}{usb\+\_\+isr} (void)
+\item 
+void \hyperlink{hid_8c_a029c5235c430f6625bcd58d4a081c2fa}{usb\+\_\+insertion} (void)
+\item 
+void \hyperlink{hid_8c_ade5ee0d0d942cf40705c058ad24f23a6}{usb\+\_\+removal} (void)
+\item 
+void \hyperlink{hid_8c_a82e62e9a42197f93a21fe7e26b60ff8a}{usb\+\_\+begin} (void)
+\item 
+void \hyperlink{hid_8c_af2e28fc5e977463f0118e3f959175d1d}{usb\+\_\+one\+Status} ()
+\item 
+void \hyperlink{hid_8c_a08245c1b8fa8ab614af4afc687e83ad7}{usb\+\_\+my\+Status} ()
+\item 
+void \hyperlink{hid_8c_ab26a4ce64c0b47da8c58fc24f1f1653f}{usb\+\_\+all\+Status} ()
+\item 
+void \hyperlink{hid_8c_aecd52c6957ef22df00468190b442a640}{usb\+\_\+end} (void)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{hid_8c_ad86bb70da5f2a8d68f034c87319e92b5}{}\index{hid.\+c@{hid.\+c}!hid\+\_\+execute@{hid\+\_\+execute}}
+\index{hid\+\_\+execute@{hid\+\_\+execute}!hid.\+c@{hid.\+c}}
+\subsubsection[{hid\+\_\+execute}]{\setlength{\rightskip}{0pt plus 5cm}void hid\+\_\+execute (
+\begin{DoxyParamCaption}
+\item[{unsigned}]{char}
+\end{DoxyParamCaption}
+)}\label{hid_8c_ad86bb70da5f2a8d68f034c87319e92b5}
+\hypertarget{hid_8c_a3adc740464e5cf31ec498fa7038a6ea0}{}\index{hid.\+c@{hid.\+c}!hid\+\_\+loop@{hid\+\_\+loop}}
+\index{hid\+\_\+loop@{hid\+\_\+loop}!hid.\+c@{hid.\+c}}
+\subsubsection[{hid\+\_\+loop}]{\setlength{\rightskip}{0pt plus 5cm}void hid\+\_\+loop (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{hid_8c_a3adc740464e5cf31ec498fa7038a6ea0}
+
+
+Execute the Maintainence Mode State Machine. Please see the State Machine Page. 
+
+\hypertarget{hid_8c_a914e6f1d1791841a025c442762a4e7ea}{}\index{hid.\+c@{hid.\+c}!hid\+\_\+setup@{hid\+\_\+setup}}
+\index{hid\+\_\+setup@{hid\+\_\+setup}!hid.\+c@{hid.\+c}}
+\subsubsection[{hid\+\_\+setup}]{\setlength{\rightskip}{0pt plus 5cm}void hid\+\_\+setup (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{hid_8c_a914e6f1d1791841a025c442762a4e7ea}
+
+
+Sets up the Human Interface Periphrials (keyboard, usb, and lcd) and their pins. 
+
+\hypertarget{hid_8c_a95fbf67e1f4e955662a6a195f6c3ecbe}{}\index{hid.\+c@{hid.\+c}!key\+\_\+insertion@{key\+\_\+insertion}}
+\index{key\+\_\+insertion@{key\+\_\+insertion}!hid.\+c@{hid.\+c}}
+\subsubsection[{key\+\_\+insertion}]{\setlength{\rightskip}{0pt plus 5cm}void key\+\_\+insertion (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{hid_8c_a95fbf67e1f4e955662a6a195f6c3ecbe}
+\hypertarget{hid_8c_aec7d7c0c8f3da40e3ac22e6afdd5409a}{}\index{hid.\+c@{hid.\+c}!key\+\_\+isr@{key\+\_\+isr}}
+\index{key\+\_\+isr@{key\+\_\+isr}!hid.\+c@{hid.\+c}}
+\subsubsection[{key\+\_\+isr}]{\setlength{\rightskip}{0pt plus 5cm}void key\+\_\+isr (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{hid_8c_aec7d7c0c8f3da40e3ac22e6afdd5409a}
+\hypertarget{hid_8c_a20e8465b449308ba37b0de5494742c4c}{}\index{hid.\+c@{hid.\+c}!key\+\_\+removal@{key\+\_\+removal}}
+\index{key\+\_\+removal@{key\+\_\+removal}!hid.\+c@{hid.\+c}}
+\subsubsection[{key\+\_\+removal}]{\setlength{\rightskip}{0pt plus 5cm}void key\+\_\+removal (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{hid_8c_a20e8465b449308ba37b0de5494742c4c}
+\hypertarget{hid_8c_a438f617a14d9f21cbb2bd06d8c7c9ecf}{}\index{hid.\+c@{hid.\+c}!lcd\+\_\+begin@{lcd\+\_\+begin}}
+\index{lcd\+\_\+begin@{lcd\+\_\+begin}!hid.\+c@{hid.\+c}}
+\subsubsection[{lcd\+\_\+begin}]{\setlength{\rightskip}{0pt plus 5cm}void lcd\+\_\+begin (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{hid_8c_a438f617a14d9f21cbb2bd06d8c7c9ecf}
+\hypertarget{hid_8c_a666482694abca54ecd49341cb21859e2}{}\index{hid.\+c@{hid.\+c}!lcd\+\_\+end@{lcd\+\_\+end}}
+\index{lcd\+\_\+end@{lcd\+\_\+end}!hid.\+c@{hid.\+c}}
+\subsubsection[{lcd\+\_\+end}]{\setlength{\rightskip}{0pt plus 5cm}void lcd\+\_\+end (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{hid_8c_a666482694abca54ecd49341cb21859e2}
+\hypertarget{hid_8c_a0431a8630ef511318148f35739c630fa}{}\index{hid.\+c@{hid.\+c}!lcd\+\_\+execute@{lcd\+\_\+execute}}
+\index{lcd\+\_\+execute@{lcd\+\_\+execute}!hid.\+c@{hid.\+c}}
+\subsubsection[{lcd\+\_\+execute}]{\setlength{\rightskip}{0pt plus 5cm}void lcd\+\_\+execute (
+\begin{DoxyParamCaption}
+\item[{unsigned}]{char, }
+\item[{unsigned}]{char}
+\end{DoxyParamCaption}
+)}\label{hid_8c_a0431a8630ef511318148f35739c630fa}
+\hypertarget{hid_8c_a1001e29b61b78e45ebce8276372e6312}{}\index{hid.\+c@{hid.\+c}!lcd\+\_\+menu@{lcd\+\_\+menu}}
+\index{lcd\+\_\+menu@{lcd\+\_\+menu}!hid.\+c@{hid.\+c}}
+\subsubsection[{lcd\+\_\+menu}]{\setlength{\rightskip}{0pt plus 5cm}void lcd\+\_\+menu (
+\begin{DoxyParamCaption}
+\item[{unsigned}]{char}
+\end{DoxyParamCaption}
+)}\label{hid_8c_a1001e29b61b78e45ebce8276372e6312}
+\hypertarget{hid_8c_ae525221879a89187005664747d197386}{}\index{hid.\+c@{hid.\+c}!lcd\+\_\+usb@{lcd\+\_\+usb}}
+\index{lcd\+\_\+usb@{lcd\+\_\+usb}!hid.\+c@{hid.\+c}}
+\subsubsection[{lcd\+\_\+usb}]{\setlength{\rightskip}{0pt plus 5cm}void lcd\+\_\+usb (
+\begin{DoxyParamCaption}
+\item[{unsigned}]{char}
+\end{DoxyParamCaption}
+)}\label{hid_8c_ae525221879a89187005664747d197386}
+\hypertarget{hid_8c_ab26a4ce64c0b47da8c58fc24f1f1653f}{}\index{hid.\+c@{hid.\+c}!usb\+\_\+all\+Status@{usb\+\_\+all\+Status}}
+\index{usb\+\_\+all\+Status@{usb\+\_\+all\+Status}!hid.\+c@{hid.\+c}}
+\subsubsection[{usb\+\_\+all\+Status}]{\setlength{\rightskip}{0pt plus 5cm}void usb\+\_\+all\+Status (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{hid_8c_ab26a4ce64c0b47da8c58fc24f1f1653f}
+\hypertarget{hid_8c_a82e62e9a42197f93a21fe7e26b60ff8a}{}\index{hid.\+c@{hid.\+c}!usb\+\_\+begin@{usb\+\_\+begin}}
+\index{usb\+\_\+begin@{usb\+\_\+begin}!hid.\+c@{hid.\+c}}
+\subsubsection[{usb\+\_\+begin}]{\setlength{\rightskip}{0pt plus 5cm}void usb\+\_\+begin (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{hid_8c_a82e62e9a42197f93a21fe7e26b60ff8a}
+\hypertarget{hid_8c_aecd52c6957ef22df00468190b442a640}{}\index{hid.\+c@{hid.\+c}!usb\+\_\+end@{usb\+\_\+end}}
+\index{usb\+\_\+end@{usb\+\_\+end}!hid.\+c@{hid.\+c}}
+\subsubsection[{usb\+\_\+end}]{\setlength{\rightskip}{0pt plus 5cm}void usb\+\_\+end (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{hid_8c_aecd52c6957ef22df00468190b442a640}
+\hypertarget{hid_8c_a029c5235c430f6625bcd58d4a081c2fa}{}\index{hid.\+c@{hid.\+c}!usb\+\_\+insertion@{usb\+\_\+insertion}}
+\index{usb\+\_\+insertion@{usb\+\_\+insertion}!hid.\+c@{hid.\+c}}
+\subsubsection[{usb\+\_\+insertion}]{\setlength{\rightskip}{0pt plus 5cm}void usb\+\_\+insertion (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{hid_8c_a029c5235c430f6625bcd58d4a081c2fa}
+\hypertarget{hid_8c_a9dd0caa7d41601fb1547f79cdb8c4726}{}\index{hid.\+c@{hid.\+c}!usb\+\_\+isr@{usb\+\_\+isr}}
+\index{usb\+\_\+isr@{usb\+\_\+isr}!hid.\+c@{hid.\+c}}
+\subsubsection[{usb\+\_\+isr}]{\setlength{\rightskip}{0pt plus 5cm}void usb\+\_\+isr (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{hid_8c_a9dd0caa7d41601fb1547f79cdb8c4726}
+\hypertarget{hid_8c_a08245c1b8fa8ab614af4afc687e83ad7}{}\index{hid.\+c@{hid.\+c}!usb\+\_\+my\+Status@{usb\+\_\+my\+Status}}
+\index{usb\+\_\+my\+Status@{usb\+\_\+my\+Status}!hid.\+c@{hid.\+c}}
+\subsubsection[{usb\+\_\+my\+Status}]{\setlength{\rightskip}{0pt plus 5cm}void usb\+\_\+my\+Status (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{hid_8c_a08245c1b8fa8ab614af4afc687e83ad7}
+\hypertarget{hid_8c_af2e28fc5e977463f0118e3f959175d1d}{}\index{hid.\+c@{hid.\+c}!usb\+\_\+one\+Status@{usb\+\_\+one\+Status}}
+\index{usb\+\_\+one\+Status@{usb\+\_\+one\+Status}!hid.\+c@{hid.\+c}}
+\subsubsection[{usb\+\_\+one\+Status}]{\setlength{\rightskip}{0pt plus 5cm}void usb\+\_\+one\+Status (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{hid_8c_af2e28fc5e977463f0118e3f959175d1d}
+\hypertarget{hid_8c_ade5ee0d0d942cf40705c058ad24f23a6}{}\index{hid.\+c@{hid.\+c}!usb\+\_\+removal@{usb\+\_\+removal}}
+\index{usb\+\_\+removal@{usb\+\_\+removal}!hid.\+c@{hid.\+c}}
+\subsubsection[{usb\+\_\+removal}]{\setlength{\rightskip}{0pt plus 5cm}void usb\+\_\+removal (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{hid_8c_ade5ee0d0d942cf40705c058ad24f23a6}

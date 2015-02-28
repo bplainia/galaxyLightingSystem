@@ -20,12 +20,14 @@
 #include <xc.h>
 
 // Global Variables (beware race conditions)
+
 struct {
-    unsigned    RTCINIT : 1;
-    unsigned    MMODE   : 2; // 0=off, 1=main, 2=slave
-    unsigned    STATE   : 3;
-    unsigned            : 2;
-}status;
+    unsigned    rtcInit   : 1;
+    unsigned    mmode     : 2; // 0=off, 1=main, 2=slave
+    unsigned    state     : 2;
+    unsigned    sleepable : 1;
+    unsigned              : 2;
+}status; /// The first status byte - Includes the two state machine states, the rtc initialization state, and whether or not the loop will sleep at the end.
 
 typedef struct i2cPacket
 {
@@ -36,15 +38,17 @@ typedef struct i2cPacket
 
 // Standard Functions
 
-float adcRead(unsigned char); // Read specific pin
-unsigned short adcReadRaw(unsigned char); // Read specific pin - raw
+void adc_setup(void); // setup the adc module
+unsigned adc_update(unsigned char); // Update a pin
+unsigned adc_update2(unsigned char, unsigned char); // Update 2 pins consecutively
+unsigned adc_updateAll(); // Update all the ADC buffers that were selected in setup
 
-void pwmSetup(); // Initialize TMR2 (you get to setup on your own)
-unsigned pwmSet(unsigned char, unsigned char); // Set pin to duty cycle
+void pwm_setup(void); // Initialize TMR2 (you get to setup on your own)
+unsigned pwm_set(unsigned char, unsigned char); // Set pin to duty cycle
 
-void i2cSetup(); // Initialize the I2C pins
-unsigned i2cTx(unsigned char, unsigned char); // send data to address
-unsigned char i2cRx(unsigned char); // recieve data from address
+void i2c_setup(void); // Initialize the I2C pins
+unsigned i2c_tx(i2cPacket); // send data to address
+unsigned char* i2c_rx(unsigned char, unsigned char); // recieve data from address
 
 #endif	/* SHARED_H */
 

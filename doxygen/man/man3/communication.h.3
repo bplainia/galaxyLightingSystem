@@ -1,0 +1,91 @@
+.TH "C:/Users/Benjaminp/Documents/pcc/current/EL 450/PatienceInc/firmware/include/communication.h" 3 "Sat Feb 28 2015" "Sr. Design 2015" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+C:/Users/Benjaminp/Documents/pcc/current/EL 450/PatienceInc/firmware/include/communication.h \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fBcomstat_t\fP"
+.br
+.in -1c
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBRXBUFFSIZE\fP   128"
+.br
+.ti -1c
+.RI "#define \fBTXBUFFSIZE\fP   32"
+.br
+.ti -1c
+.RI "#define \fBTXPIN\fP   TRISDbits\&.TRISD0"
+.br
+.ti -1c
+.RI "#define \fBRXTXPIN\fP   TRISDbits\&.TRISD1"
+.br
+.ti -1c
+.RI "#define \fBRXTXDIR\fP   LATDbits\&.LATD1"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBcomm_start\fP (void)"
+.br
+.ti -1c
+.RI "unsigned char \fBcomm_tx\fP (unsigned char)"
+.br
+.ti -1c
+.RI "unsigned char \fBcomm_rx\fP (void)"
+.br
+.ti -1c
+.RI "unsigned short \fBcomm_rx_word\fP (void)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "char \fBcomm_overflow\fP"
+.br
+.ti -1c
+.RI "struct \fBcomstat_t\fP \fBCOMSTAT\fP"
+.br
+.in -1c
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define RXBUFFSIZE   128"
+
+.SS "#define RXTXDIR   LATDbits\&.LATD1"
+
+.SS "#define RXTXPIN   TRISDbits\&.TRISD1"
+
+.SS "#define TXBUFFSIZE   32"
+
+.SS "#define TXPIN   TRISDbits\&.TRISD0"
+
+.SH "Function Documentation"
+.PP 
+.SS "unsigned char comm_rx (void)"
+
+.SS "unsigned short comm_rx_word (void)"
+
+.SS "void comm_start (void)"
+
+.SS "unsigned char comm_tx (unsigned char)"
+
+.SH "Variable Documentation"
+.PP 
+.SS "char comm_overflow"
+
+.SS "struct \fBcomstat_t\fP COMSTAT"
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Sr\&. Design 2015 from the source code\&.

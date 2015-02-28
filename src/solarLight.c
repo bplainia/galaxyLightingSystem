@@ -1,6 +1,25 @@
 // Main file
 // Created by benjamin Plain
 
+// The following are pages for doxygen:
+/*! \mainpage Solar Light Index Page
+ *
+ * \section intro_sect Introduction
+ *
+ * In the Fall 2014 semester, it was decided that a solar light was to be built for the Sr. Design Class.
+ */
+
+/*! \page statemachines State Machines
+ * \tableofcontents
+ * \section daynight_sm The Day/Night State Machine
+ * There should be a picture here of the day/night state machine.
+ *
+ * \section mmode_sm Maintainence Mode State Machine
+ *  ![The Maintainence Mode State Machine](../images/mmode-sm.png)
+ * \subsection standbymode Mode 0: Standby
+ * \subsection mastermode Modes 1 and 3: Master Mode
+ * \subsection slavemode Mode 2: Slave Mode
+ */
 
 // PIC18F67J94 Configuration Bit Settings
 
@@ -27,7 +46,7 @@
 #pragma config IESO = ON        // Internal External Oscillator Switch Over Mode (Enabled)
 
 // CONFIG2H
-#pragma config PLLDIV = PLL4X   // PLL Frequency Multiplier Select bits (4x PLL selected)
+#pragma config PLLDIV = DIV4   // 96MHz PLL
 
 // CONFIG3L
 #pragma config POSCMD = HS      // Primary Oscillator Select (HS oscillator mode selected(10 MHz - 40 MHz))
@@ -80,6 +99,7 @@
 
 #include <solarLight.h>
 
+/// Run setup and main loops.
 void main(void)
 {
     // A very super-simple main function by Ben. Makes this coding similar
@@ -88,18 +108,20 @@ void main(void)
     INTCONbits.GIEH = 1; // enable interrupts
     INTCONbits.GIEL = 1;
     INTCONbits.PEIE = 1; // enable priority interrupts
+    
     setup();             // setup everything
+
     INTCONbits.GIEH = 1; // enable interrupts
     INTCONbits.GIEL = 1;
     while(1) loop();     // execute loop forever
 }
 
-
+/// Run all the setup routines
 void setup() // Initialize stuff here without any interruption
 {
     // Variables
     
-    i2cStart();  // Initialize I2C
+    i2c_start();  // Initialize I2C
     mem_start(); // First priority is to check the memory
     // TODO: Check to see if the chip started after a POR, BOR, or is from VBATT
     status = mem_check(); // checks where it started up from, and if memory is ok
@@ -107,18 +129,33 @@ void setup() // Initialize stuff here without any interruption
     rtc_start();
 }
 
+/*! /brief The MAIN loop that executes EVERYTHING!
+ *
+ * No inputs or outputs besides what goes in and out of the pins.
+ */
 void loop()
 {
     // Put things that you need to process here. Dont' spend too much time
     // in your process. Others want to do stuff too...
-    adcUpdateAll(); // Update all the ADC buffers
-    if(status.STATE)
+    adc_updateAll(); // Update all the ADC buffers every loop
+    switch(status.state)
     {
-
+        case 1: // Daytime Mode
+            break;
+        case 2: // Nighttime mode
+            break;
+        case 3: // ERROR mode
+            // light off
     }
-    if(status.MMODE)
-    {
+    hid_loop(); // Maintainence Mode State Machine.
 
+    if(status.state == 1) // If daytime
+    {
+        // do a full sleep
+    }
+    else if(status.state == 2)
+    {
+        // do an idle "sleep"
     }
 }
 

@@ -1,0 +1,89 @@
+.TH "C:/Users/Benjaminp/Documents/pcc/current/EL 450/PatienceInc/firmware/include/movement.h" 3 "Sat Feb 28 2015" "Sr. Design 2015" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+C:/Users/Benjaminp/Documents/pcc/current/EL 450/PatienceInc/firmware/include/movement.h \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBPINIO_MOVE_LEFTRIGHT\fP   1"
+.br
+.ti -1c
+.RI "#define \fBPINIO_MOVE_UPDOWN\fP   1"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBmovement_initialize\fP (void)"
+.br
+.ti -1c
+.RI "void \fBmovement_test\fP (void)"
+.br
+.ti -1c
+.RI "void \fBdaytime_move\fP (void)"
+.br
+.ti -1c
+.RI "void \fBdusk_moveback\fP (void)"
+.br
+.ti -1c
+.RI "void \fBseasonal_adjust\fP (void)"
+.br
+.ti -1c
+.RI "void \fBmaintenance_move\fP (unsigned char)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "unsigned int \fBleftlimit\fP"
+.br
+.ti -1c
+.RI "unsigned int \fBrightlimit\fP"
+.br
+.ti -1c
+.RI "unsigned int \fBuplimit\fP"
+.br
+.ti -1c
+.RI "unsigned int \fBdownlimit\fP"
+.br
+.in -1c
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define PINIO_MOVE_LEFTRIGHT   1"
+
+.SS "#define PINIO_MOVE_UPDOWN   1"
+
+.SH "Function Documentation"
+.PP 
+.SS "void daytime_move (void)"
+
+.SS "void dusk_moveback (void)"
+
+.SS "void maintenance_move (unsigned char)"
+
+.SS "void movement_initialize (void)"
+
+.SS "void movement_test (void)"
+
+.SS "void seasonal_adjust (void)"
+
+.SH "Variable Documentation"
+.PP 
+.SS "unsigned int downlimit"
+
+.SS "unsigned int leftlimit"
+
+.SS "unsigned int rightlimit"
+
+.SS "unsigned int uplimit"
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Sr\&. Design 2015 from the source code\&.

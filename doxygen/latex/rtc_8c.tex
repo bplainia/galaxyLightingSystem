@@ -1,0 +1,53 @@
+\hypertarget{rtc_8c}{}\section{C\+:/\+Users/\+Benjaminp/\+Documents/pcc/current/\+E\+L 450/\+Patience\+Inc/firmware/src/rtc.c File Reference}
+\label{rtc_8c}\index{C\+:/\+Users/\+Benjaminp/\+Documents/pcc/current/\+E\+L 450/\+Patience\+Inc/firmware/src/rtc.\+c@{C\+:/\+Users/\+Benjaminp/\+Documents/pcc/current/\+E\+L 450/\+Patience\+Inc/firmware/src/rtc.\+c}}
+{\ttfamily \#include $<$shared.\+h$>$}\\*
+{\ttfamily \#include $<$rtc.\+h$>$}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+unsigned char \hyperlink{rtc_8c_abddf36c71d985867b280fdefcd254ab9}{char2bcd} (unsigned char)
+\item 
+unsigned char \hyperlink{rtc_8c_af81d05bd28660147418f31ab1be8dda5}{weekday} (unsigned char, unsigned char, unsigned char)
+\item 
+void \hyperlink{rtc_8c_abc313237e00236eec84b5263f56e08ab}{rtc\+\_\+start} ()
+\item 
+unsigned char \hyperlink{rtc_8c_a73ffc43e2135facfc4595dc0ae4eca57}{rtc\+\_\+set} (unsigned char year, unsigned char month, unsigned char day, unsigned char hour, unsigned char minute, unsigned char second)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{rtc_8c_abddf36c71d985867b280fdefcd254ab9}{}\index{rtc.\+c@{rtc.\+c}!char2bcd@{char2bcd}}
+\index{char2bcd@{char2bcd}!rtc.\+c@{rtc.\+c}}
+\subsubsection[{char2bcd}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char char2bcd (
+\begin{DoxyParamCaption}
+\item[{unsigned char}]{in}
+\end{DoxyParamCaption}
+)}\label{rtc_8c_abddf36c71d985867b280fdefcd254ab9}
+\hypertarget{rtc_8c_a73ffc43e2135facfc4595dc0ae4eca57}{}\index{rtc.\+c@{rtc.\+c}!rtc\+\_\+set@{rtc\+\_\+set}}
+\index{rtc\+\_\+set@{rtc\+\_\+set}!rtc.\+c@{rtc.\+c}}
+\subsubsection[{rtc\+\_\+set}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char rtc\+\_\+set (
+\begin{DoxyParamCaption}
+\item[{unsigned char}]{year, }
+\item[{unsigned char}]{month, }
+\item[{unsigned char}]{day, }
+\item[{unsigned char}]{hour, }
+\item[{unsigned char}]{minute, }
+\item[{unsigned char}]{second}
+\end{DoxyParamCaption}
+)}\label{rtc_8c_a73ffc43e2135facfc4595dc0ae4eca57}
+\hypertarget{rtc_8c_abc313237e00236eec84b5263f56e08ab}{}\index{rtc.\+c@{rtc.\+c}!rtc\+\_\+start@{rtc\+\_\+start}}
+\index{rtc\+\_\+start@{rtc\+\_\+start}!rtc.\+c@{rtc.\+c}}
+\subsubsection[{rtc\+\_\+start}]{\setlength{\rightskip}{0pt plus 5cm}void rtc\+\_\+start (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{rtc_8c_abc313237e00236eec84b5263f56e08ab}
+\hypertarget{rtc_8c_af81d05bd28660147418f31ab1be8dda5}{}\index{rtc.\+c@{rtc.\+c}!weekday@{weekday}}
+\index{weekday@{weekday}!rtc.\+c@{rtc.\+c}}
+\subsubsection[{weekday}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char weekday (
+\begin{DoxyParamCaption}
+\item[{unsigned char}]{year, }
+\item[{unsigned char}]{month, }
+\item[{unsigned char}]{day}
+\end{DoxyParamCaption}
+)}\label{rtc_8c_af81d05bd28660147418f31ab1be8dda5}
