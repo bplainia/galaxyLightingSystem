@@ -21,20 +21,23 @@
 
 // Global Variables (beware race conditions)
 
+/// The first status byte - Includes the two state machine states, the rtc initialization state, and whether or not the loop will sleep at the end.
 struct {
     unsigned    rtcInit   : 1;
     unsigned    mmode     : 2; // 0=off, 1=main, 2=slave
     unsigned    state     : 2;
     unsigned    sleepable : 1;
     unsigned              : 2;
-}status; /// The first status byte - Includes the two state machine states, the rtc initialization state, and whether or not the loop will sleep at the end.
+}status; 
 
-typedef struct i2cPacket
+/// A packet that contains an address (8 or 10bit), a data array, and how long the array is.
+typedef struct 
 {
-    unsigned char addr;
-    unsigned char data[];
-    unsigned char dataLength;
-};
+    unsigned short addr;
+    unsigned      addr16; // Is the address 10 bits or not?
+    unsigned char *data;  // The data
+    unsigned char dataLength; // the length of the data
+}i2cPacket;
 
 // Standard Functions
 

@@ -13,7 +13,7 @@
 // Functions
 
 void rtc_start(void);
-void rtc_set(unsigned char, unsigned char, unsigned char, unsigned char,
+unsigned rtc_set(unsigned char, unsigned char, unsigned char, unsigned char,
         unsigned char, unsigned char);
 
 

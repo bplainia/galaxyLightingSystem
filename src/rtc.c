@@ -9,10 +9,10 @@ unsigned char weekday(unsigned char, unsigned char, unsigned char);
 void rtc_start()
 {
     RTCCON1bits.RTCEN = 1; // Enable RTC Clock
-    rtcSetup = 0; // real time clock has not been setup since reset!
+    status.rtcInit = 0; // real time clock has not been setup since reset!
 }
 
-unsigned char rtc_set(unsigned char year, unsigned char month, unsigned char day,
+unsigned rtc_set(unsigned char year, unsigned char month, unsigned char day,
         unsigned char hour, unsigned char minute, unsigned char second)
 {
     EECON2 = 0x55;           // Perform unlock sequence for special things
@@ -27,6 +27,8 @@ unsigned char rtc_set(unsigned char year, unsigned char month, unsigned char day
     RTCVALH = char2bcd(minute); // write minutes
     RTCVALL = char2bcd(second); // write seconds (most likely 0)
     RTCCON1bits.RTCWREN = 0; // Finished. Disable write to rtc.
+    status.rtcInit = 1;
+    return true;
 }
 
 unsigned char char2bcd(unsigned char in)
@@ -37,7 +39,8 @@ unsigned char char2bcd(unsigned char in)
     // TODO[Review]: Can someone check the RTC stuff?
 }
 
-unsigned char weekday(unsigned char year, unsigned char month, unsigned char day)
+/// What day of the week is it? (0=sunday) (Private)
+static unsigned char weekday(unsigned char year, unsigned char month, unsigned char day)
 {
     // Calculation retrieved from http://www.timeanddate.com/date/doomsday-weekday.html (Feb 6, 2015)
     char mod, diff, div;

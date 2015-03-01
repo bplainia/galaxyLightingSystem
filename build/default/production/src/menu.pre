@@ -1,0 +1,58 @@
+
+# 1 "src/menu.c"
+
+# 8 "include\hid.h"
+void hid_setup(void);
+void hid_loop(void);
+void hid_execute(unsigned char);
+
+
+void lcd_begin(void);
+void lcd_menu(unsigned char);
+void lcd_execute(unsigned char, unsigned char);
+void lcd_usb(unsigned char);
+void lcd_end(void);
+
+
+void key_isr(void);
+void key_insertion(void);
+void key_removal(void);
+
+
+void usb_isr(void);
+void usb_insertion(void);
+void usb_removal(void);
+void usb_begin(void);
+void usb_oneStatus();
+void usb_myStatus();
+void usb_allStatus();
+void usb_end(void);
+
+# 36 "include\sensors.h"
+void sensor_start(void);
+unsigned short photo_value(unsigned char);
+unsigned short temperature(void);
+unsigned short rotational_postion(unsigned char);
+void pir_enable(unsigned char);
+
+# 16 "src/menu.c"
+typedef struct lcdEntry
+{
+char line1[20];
+char line2[20];
+};
+
+
+const char* menuEntries[] = {"Exit M-Mode        ",
+"Light Settings     "
+};
+
+
+void menu1()
+{
+lcd_menu(2);
+}
+void menu2()
+{
+light_toggle();
+}

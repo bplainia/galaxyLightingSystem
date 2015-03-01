@@ -1,2 +1,52 @@
 
 # 1 "src/movement.c"
+
+# 6 "include\movement.h"
+unsigned int leftlimit;
+unsigned int rightlimit;
+unsigned int uplimit;
+unsigned int downlimit;
+
+# 20
+void movement_initialize(void);
+void movement_test(void);
+void daytime_move(void);
+void dusk_moveback(void);
+void seasonal_adjust(void);
+void maintenance_move(unsigned char);
+
+# 6 "src/movement.c"
+void movement_initialize(void){
+
+
+
+1 = 0;
+1 = 0;
+}
+
+
+void movement_test(void)
+{
+
+}
+
+void daytime_move(void)
+{
+
+}
+
+void dusk_moveback(void)
+{
+
+}
+
+void seasonal_adjust(void)
+{
+
+}
+
+void maintenance_move(unsigned char)
+{
+
+}
+

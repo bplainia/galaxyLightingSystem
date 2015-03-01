@@ -5,11 +5,9 @@
 #include <shared.h>
 #include <communication.h>
 
-// Variables for this library (PRIVATE)
-unsigned char rxBuff[RXBUFFSIZE];
-unsigned char txBuff[TXBUFFSIZE];
-unsigned char rxPtrOut, txPtrOut, rxPtrIn, txPtrIn;
-
+/// Setup the pins and modules for communication outside the pole.
+///
+/// See [baudrate](baudrate.html "Baud Rate Calculation") note.
 void comm_start()
 {
     //TODO: Communications start function
@@ -23,6 +21,19 @@ void comm_start()
     RXTXPIN = 0;    // Direction Pin
     RXTXDIR = 0;    // Set to Recieve Mode
 
+    // TODO: Setup UART Module 1 Transmision
+    SPBRGH1 = 0; // Baud rate
+    SPBRG1  = 63; // set for 250kbps
+    //sync is zero
+    //spen is set
+    //txen = 1
+    //enable tx1ie after clearing flag
+    TXSTA1bits.TX9 = 1; // Enable 9-bit mode
+
+    // TODO: Setup UART Module 1 Recieving
+    // rx9, adden, cren, see RCSTA1 for errors and 9th bit.
+    // address will be in RCREG1
+
     txPtrIn = rxPtrIn = txPtrOut = rxPtrOut = 0; // reset pointers
     comm_overflow = 0; // Has not happened
     comm_flush();
@@ -31,8 +42,8 @@ void comm_start()
 void comm_flush()
 {
     unsigned char i;
-    for(i=0;i<TXBUFFSIZE;i++) txBuff[i] = 0; // Clear the Buffer
-    for(i=0;i<RXBUFFSIZE;i++) rxBuff[i] = 0;
+    for(i=0;i<TXBUFFSIZE;++i) txBuff[i] = 0; // Clear the Buffer
+    for(i=0;i<RXBUFFSIZE;++i) rxBuff[i] = 0;
 }
 
 unsigned comm_tx(unsigned char data)

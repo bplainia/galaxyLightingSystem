@@ -4,12 +4,15 @@ var NAVTREE =
     [ "Solar Light Index Page", "index.html", [
       [ "Introduction", "index.html#intro_sect", null ]
     ] ],
-    [ "State Machines", "statemachines.html", [
-      [ "The Day/Night State Machine", "statemachines.html#daynight_sm", null ],
-      [ "Maintainence Mode State Machine", "statemachines.html#mmode_sm", [
-        [ "Mode 0: Standby", "statemachines.html#standbymode", null ],
-        [ "Modes 1 and 3: Master Mode", "statemachines.html#mastermode", null ],
-        [ "Mode 2: Slave Mode", "statemachines.html#slavemode", null ]
+    [ "Baud Rate for UARTs", "md__c_1__users__benjaminp__documents_pcc_current__e_l_450__patience_inc_firmware_doc_baudrates.html", [
+      [ "Baud Rate selection", "md__c_1__users__benjaminp__documents_pcc_current__e_l_450__patience_inc_firmware_doc_baudrates.html#selection", null ]
+    ] ],
+    [ "State Machines", "md__c_1__users__benjaminp__documents_pcc_current__e_l_450__patience_inc_firmware_doc_statemachine.html", [
+      [ "The Day/Night State Machine", "md__c_1__users__benjaminp__documents_pcc_current__e_l_450__patience_inc_firmware_doc_statemachine.html#daynight_sm", null ],
+      [ "Maintainence Mode State Machine", "md__c_1__users__benjaminp__documents_pcc_current__e_l_450__patience_inc_firmware_doc_statemachine.html#mmode_sm", [
+        [ "Mode 0: Standby", "md__c_1__users__benjaminp__documents_pcc_current__e_l_450__patience_inc_firmware_doc_statemachine.html#standbymode", null ],
+        [ "Modes 1 and 3: Master Mode", "md__c_1__users__benjaminp__documents_pcc_current__e_l_450__patience_inc_firmware_doc_statemachine.html#mastermode", null ],
+        [ "Mode 2: Slave Mode", "md__c_1__users__benjaminp__documents_pcc_current__e_l_450__patience_inc_firmware_doc_statemachine.html#slavemode", null ]
       ] ]
     ] ],
     [ "Data Structures", null, [

@@ -1,17 +1,13 @@
 var searchData=
 [
-  ['main',['main',['../solar_light_8c.html#a6288eba0f8e8ad3ab1544ad731eb7667',1,'solarLight.c']]],
-  ['maintenance_5fmove',['maintenance_move',['../movement_8c.html#ae271753fb4d08bbffe1f403133ce62ae',1,'maintenance_move(unsigned char):&#160;movement.c'],['../movement_8h.html#ae271753fb4d08bbffe1f403133ce62ae',1,'maintenance_move(unsigned char):&#160;movement.c']]],
-  ['mem_5fappend_5flog',['mem_append_log',['../eeprom_8h.html#ac7f220f8cddbd5023b5a7848b37e55ff',1,'eeprom.h']]],
-  ['mem_5fcheck',['mem_check',['../eeprom_8h.html#aa9b4bf6e66a49c4c69d2a552553b0784',1,'eeprom.h']]],
-  ['mem_5fstart',['mem_start',['../eeprom_8h.html#a7e6fbba99ff9ff170a4b38da80652ece',1,'eeprom.h']]],
-  ['menu_2ec',['menu.c',['../menu_8c.html',1,'']]],
-  ['menu1',['menu1',['../menu_8c.html#a49fa1336abeb5443d70a08f235af8e61',1,'menu.c']]],
-  ['menu2',['menu2',['../menu_8c.html#a850dcd293fa06f0b488371b86313ee63',1,'menu.c']]],
-  ['menuentries',['menuEntries',['../menu_8c.html#a996fc8c4f4e723475f4684fab5d54b89',1,'menu.c']]],
-  ['mmode',['mmode',['../shared_8h.html#ade5c47f4639380ed520dd5d0032d8a0e',1,'shared.h']]],
-  ['movement_2ec',['movement.c',['../movement_8c.html',1,'']]],
-  ['movement_2eh',['movement.h',['../movement_8h.html',1,'']]],
-  ['movement_5finitialize',['movement_initialize',['../movement_8c.html#acff6ef558f3959fa2f1d5c15f66f5da1',1,'movement_initialize(void):&#160;movement.c'],['../movement_8h.html#acff6ef558f3959fa2f1d5c15f66f5da1',1,'movement_initialize(void):&#160;movement.c']]],
-  ['movement_5ftest',['movement_test',['../movement_8c.html#af7294bab5b8d64d9f7bb16aa38234743',1,'movement_test(void):&#160;movement.c'],['../movement_8h.html#af7294bab5b8d64d9f7bb16aa38234743',1,'movement_test(void):&#160;movement.c']]]
+  ['lcd_5fbegin',['lcd_begin',['../hid_8h.html#a438f617a14d9f21cbb2bd06d8c7c9ecf',1,'lcd_begin(void):&#160;hid.c'],['../hid_8c.html#a438f617a14d9f21cbb2bd06d8c7c9ecf',1,'lcd_begin(void):&#160;hid.c']]],
+  ['lcd_5fend',['lcd_end',['../hid_8h.html#a666482694abca54ecd49341cb21859e2',1,'lcd_end(void):&#160;hid.c'],['../hid_8c.html#a666482694abca54ecd49341cb21859e2',1,'lcd_end(void):&#160;hid.c']]],
+  ['lcd_5fexecute',['lcd_execute',['../hid_8h.html#a0431a8630ef511318148f35739c630fa',1,'lcd_execute(unsigned char, unsigned char):&#160;hid.c'],['../hid_8c.html#a0431a8630ef511318148f35739c630fa',1,'lcd_execute(unsigned char, unsigned char):&#160;hid.c']]],
+  ['lcd_5fmenu',['lcd_menu',['../hid_8h.html#a1001e29b61b78e45ebce8276372e6312',1,'lcd_menu(unsigned char):&#160;hid.c'],['../hid_8c.html#a1001e29b61b78e45ebce8276372e6312',1,'lcd_menu(unsigned char):&#160;hid.c']]],
+  ['lcd_5fusb',['lcd_usb',['../hid_8h.html#ae525221879a89187005664747d197386',1,'lcd_usb(unsigned char):&#160;hid.c'],['../hid_8c.html#ae525221879a89187005664747d197386',1,'lcd_usb(unsigned char):&#160;hid.c']]],
+  ['lcdentry',['lcdEntry',['../structlcd_entry.html',1,'']]],
+  ['leftlimit',['leftlimit',['../movement_8h.html#a4067496e3172d94e54ef306faa591dce',1,'movement.h']]],
+  ['line1',['line1',['../structlcd_entry.html#a8e4e66e1ba151b283b0be689e44cc7fa',1,'lcdEntry']]],
+  ['line2',['line2',['../structlcd_entry.html#a4f73c55cecd195b3cbd9082903ef5ec8',1,'lcdEntry']]],
+  ['loop',['loop',['../solar_light_8h.html#a0b33edabd7f1c4e4a0bf32c67269be2f',1,'loop(void):&#160;solarLight.c'],['../solar_light_8c.html#afe461d27b9c48d5921c00d521181f12f',1,'loop():&#160;solarLight.c']]]
 ];

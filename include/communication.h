@@ -15,6 +15,7 @@
 // Functions for Communication
 
 void comm_start(void); // Initialize Communication
+void comm_flush(void); // Flush the buffers
 unsigned char comm_tx(unsigned char); // Transmit a byte (add to TX FIFO) returns boolean
 unsigned char comm_rx(void); // Get a byte from the RX FIFO
 unsigned short comm_rx_word(void); // get a word from the RX FIFO
@@ -29,4 +30,8 @@ struct comstat_t
     unsigned  TERROR   : 1; // no its not a terror, its a token error
     unsigned           : 4; // leftovers
 }COMSTAT;
+
+unsigned char rxBuff[RXBUFFSIZE];
+unsigned char txBuff[TXBUFFSIZE];
+unsigned char rxPtrOut, txPtrOut, rxPtrIn, txPtrIn;
 #endif

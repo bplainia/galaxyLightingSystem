@@ -1,26 +1,6 @@
 // Main file
 // Created by benjamin Plain
 
-// The following are pages for doxygen:
-/*! \mainpage Solar Light Index Page
- *
- * \section intro_sect Introduction
- *
- * In the Fall 2014 semester, it was decided that a solar light was to be built for the Sr. Design Class.
- */
-
-/*! \page statemachines State Machines
- * \tableofcontents
- * \section daynight_sm The Day/Night State Machine
- * There should be a picture here of the day/night state machine.
- *
- * \section mmode_sm Maintainence Mode State Machine
- *  ![The Maintainence Mode State Machine](../images/mmode-sm.png)
- * \subsection standbymode Mode 0: Standby
- * \subsection mastermode Modes 1 and 3: Master Mode
- * \subsection slavemode Mode 2: Slave Mode
- */
-
 // PIC18F67J94 Configuration Bit Settings
 
 // 'C' source line config statements
@@ -146,6 +126,7 @@ void loop()
             break;
         case 3: // ERROR mode
             // light off
+            ;
     }
     hid_loop(); // Maintainence Mode State Machine.
 
@@ -172,7 +153,7 @@ void interrupt low_priority isr_low()
     }
     if(RC1IE && RC1IF)
     {
-
+        // If in slave mode, check the address.
     }
 }
 // NOTE from manual: Interrupt flag bits are set when an interrupt condition occurs regardless

@@ -1,2 +1,84 @@
 
 # 1 "src/sensors.c"
+
+# 36 "include\sensors.h"
+void sensor_start(void);
+unsigned short photo_value(unsigned char);
+unsigned short temperature(void);
+unsigned short rotational_postion(unsigned char);
+void pir_enable(unsigned char);
+
+# 6 "src/sensors.c"
+void sensor_start(void){
+
+
+TRISAbits.TRISA2 = 1;
+TRISAbits.TRISA3 = 1;
+TRISGbits.TRISG0 = 1;
+TRISGbits.TRISG1 = 1;
+TRISGbits.TRISG2 = 1;
+TRISGbits.TRISG3 = 1;
+TRISAbits.TRISA0 = 1;
+TRISCbits.TRISC6 = 1;
+TRISGbits.TRISG4 = 1;
+TRISFbits.TRISF2 = 1;
+TRISFbits.TRISF6 = 1;
+TRISFbits.TRISF7 = 1;
+
+
+ANCON1bits.ANSEL2 = 1;
+ANCON1bits.ANSEL3 = 1;
+ANCON1bits.ANSEL7 = 1;
+ANCON2bits.ANSEL12 = 1;
+ANCON2bits.ANSEL13 = 1;
+ANCON2bits.ANSEL14 = 1;
+ANCON1bits.ANSEL0 = 1;
+ANCON2bits.ANSEL15 = 0;
+ANCON1bits.ANSEL6 = 0;
+ANCON2bits.ANSEL10 = 0;
+ANCON2bits.ANSEL11 = 0;
+
+# 39
+}
+
+unsigned short photo_value(unsigned char photonum){
+switch (photonum)
+case 1:
+return 0;
+break;
+case 2:
+return 0;
+break;
+case 3:
+return 0;
+break;
+case 4:
+return 0;
+break;
+default:
+return 0;
+}
+
+unsigned short temperature(void){
+return 0;
+}
+
+unsigned short rotational_postion(unsigned char potnum){
+switch (potnum)
+case 1:
+return 0;
+break;
+case 2:
+return 0;
+break;
+default:
+return 0;
+}
+
+void pir_enable(unsigned char pironoff){
+if (pironoff == 1)
+;
+else
+;
+}
+

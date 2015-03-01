@@ -1,12 +1,13 @@
 var searchData=
 [
-  ['uplimit',['uplimit',['../movement_8h.html#a0a2f7f339d92975c4f4dae780f87b12d',1,'movement.h']]],
-  ['usb_5fallstatus',['usb_allStatus',['../hid_8c.html#ab26a4ce64c0b47da8c58fc24f1f1653f',1,'usb_allStatus():&#160;hid.c'],['../hid_8h.html#ab26a4ce64c0b47da8c58fc24f1f1653f',1,'usb_allStatus():&#160;hid.c']]],
-  ['usb_5fbegin',['usb_begin',['../hid_8c.html#a82e62e9a42197f93a21fe7e26b60ff8a',1,'usb_begin(void):&#160;hid.c'],['../hid_8h.html#a82e62e9a42197f93a21fe7e26b60ff8a',1,'usb_begin(void):&#160;hid.c']]],
-  ['usb_5fend',['usb_end',['../hid_8c.html#aecd52c6957ef22df00468190b442a640',1,'usb_end(void):&#160;hid.c'],['../hid_8h.html#aecd52c6957ef22df00468190b442a640',1,'usb_end(void):&#160;hid.c']]],
-  ['usb_5finsertion',['usb_insertion',['../hid_8c.html#a029c5235c430f6625bcd58d4a081c2fa',1,'usb_insertion(void):&#160;hid.c'],['../hid_8h.html#a029c5235c430f6625bcd58d4a081c2fa',1,'usb_insertion(void):&#160;hid.c']]],
-  ['usb_5fisr',['usb_isr',['../hid_8c.html#a9dd0caa7d41601fb1547f79cdb8c4726',1,'usb_isr(void):&#160;hid.c'],['../hid_8h.html#a9dd0caa7d41601fb1547f79cdb8c4726',1,'usb_isr(void):&#160;hid.c']]],
-  ['usb_5fmystatus',['usb_myStatus',['../hid_8c.html#a08245c1b8fa8ab614af4afc687e83ad7',1,'usb_myStatus():&#160;hid.c'],['../hid_8h.html#a08245c1b8fa8ab614af4afc687e83ad7',1,'usb_myStatus():&#160;hid.c']]],
-  ['usb_5fonestatus',['usb_oneStatus',['../hid_8c.html#af2e28fc5e977463f0118e3f959175d1d',1,'usb_oneStatus():&#160;hid.c'],['../hid_8h.html#af2e28fc5e977463f0118e3f959175d1d',1,'usb_oneStatus():&#160;hid.c']]],
-  ['usb_5fremoval',['usb_removal',['../hid_8c.html#ade5ee0d0d942cf40705c058ad24f23a6',1,'usb_removal(void):&#160;hid.c'],['../hid_8h.html#ade5ee0d0d942cf40705c058ad24f23a6',1,'usb_removal(void):&#160;hid.c']]]
+  ['temperature',['temperature',['../sensors_8h.html#a3e4eb3fcad4273ffb3db6da8e52602be',1,'temperature(void):&#160;sensors.c'],['../sensors_8c.html#a3e4eb3fcad4273ffb3db6da8e52602be',1,'temperature(void):&#160;sensors.c']]],
+  ['terror',['TERROR',['../structcomstat__t.html#a6280d63145bb20f921aed12654cca74b',1,'comstat_t']]],
+  ['token',['TOKEN',['../structcomstat__t.html#a286e5d66a5e535c50a8b89c9d4870370',1,'comstat_t']]],
+  ['true',['true',['../shared_8h.html#a41f9c5fb8b08eb5dc3edce4dcb37fee7',1,'shared.h']]],
+  ['txbuff',['txBuff',['../communication_8c.html#abc737f2c9d39d271c27259772a2fe691',1,'communication.c']]],
+  ['txbuffsize',['TXBUFFSIZE',['../communication_8h.html#afa6659b1a6ac30d274c24ebbf8578fe8',1,'communication.h']]],
+  ['txover',['TXOVER',['../structcomstat__t.html#a008f2e947c6ef85c19ebd817436ae178',1,'comstat_t']]],
+  ['txpin',['TXPIN',['../communication_8h.html#ad7371134b74d77a9646ab529bda75f1f',1,'communication.h']]],
+  ['txptrin',['txPtrIn',['../communication_8c.html#ae17d4c3096cc992bce9f4204f118cf95',1,'communication.c']]],
+  ['txptrout',['txPtrOut',['../communication_8c.html#ab5d6de3c972cebd1aa0162e41cb64b54',1,'communication.c']]]
 ];

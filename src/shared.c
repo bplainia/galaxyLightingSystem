@@ -116,7 +116,7 @@ unsigned i2c_tx(i2cPacket packet)
     // check the acknowledge bit
     //if(SSP1CON2bits.ack bit 6);
     // check SSP1IF again to see if it is done
-    for(i = 0; i < packet.dataLength; i++)
+    for(i = 0; i < packet.dataLength; ++i)
     {
         SSP1BUF = packet.data[i];
         while(!SSP1IF) continue;

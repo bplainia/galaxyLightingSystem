@@ -197,8 +197,6 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Updates two ADC channels to the buffers. </p>
 <p>Inputs: two unsigned chars, <code>chA</code> and <code>chB</code>, specify which ADC channel to update.</p>
 <p>Outputs: A single bit specifying success. (1=success) </p>
 
@@ -216,8 +214,6 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Update all the ADC buffers that are activated in <code><a class="el" href="shared_8c.html#af5e0a217880b6f6976ff1c2b1297f7a3">adc_setup()</a></code>. </p>
 
 </div>
 </div>
@@ -250,8 +246,6 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Gets Data from a slave at a specific address. Returns a char array pointer. </p>
 <p>Inputs: <code>device</code>: The 7-bit address of the device. <code>addr</code>: the 8-bit address in </p>
 <p>i2cRx: recieves <code>qty</code> bytes from the slave at <code>addr</code>. Returns an array <code>qty</code> long. </p>
 
@@ -271,8 +265,6 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Sets up the i2c1 module. </p>
-
 </div>
 </div>
 <a class="anchor" id="aadbd2024d0be81197a7f1080ffdc724f"></a>
@@ -288,8 +280,6 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Takes a packet and transmits it according to its contents. Returns true if successful. </p>
 <p>Inputs: a i2c transmission packet (consists of address and array of data)</p>
 <p>Outputs: a single bit specifying failure or success</p>
 <p>Description: This function takes the packet and transmits the <code>packet.addr</code> byte first. It then transmits <code>packet.dataLength</code> bytes from the <code>packet.data</code> array. If at any time a byte is not acknowleged, the function will return 0 (false). </p>
@@ -319,8 +309,6 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Sets a specific pwm channel to a certain duty cycle in %. </p>
 <p>Inputs: Channel - which PWM channel to use, duty - the duty cycle in percent.</p>
 <p>Outputs: A single bit specifying whether or not the command succeded (1 = success) </p>
 
@@ -340,8 +328,6 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Setup TMR2 for use by all the CCP modules. </p>
-
 </div>
 </div>
 </div><!-- contents -->
@@ -350,7 +336,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="shared_8c.html">shared.c</a></li>
-    <li class="footer">Generated on Sat Feb 28 2015 17:23:38 for Sr. Design 2015 by
+    <li class="footer">Generated on Sat Feb 28 2015 22:45:07 for Sr. Design 2015 by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.9.1 </li>
   </ul>

@@ -14,7 +14,7 @@ void hid_setup(void)
     // setup keypad port
     SPBRGH3         = 0x00; // TODO: initialize baud rate to 9600
     SPBRG3          = 0x00;
-    RCSTA3bits.SYNC = 0;
+    TXSTA3bits.SYNC = 0;
     RCSTA3bits.SPEN = 1;
     RC3IE           = 0; // Make sure the keypad is not causing interrupts right now.
     RCSTA3bits.CREN = 1; // Enable
@@ -24,7 +24,7 @@ void hid_setup(void)
     
 }
 
-/// Execute the Maintainence Mode State Machine. Please see the State Machine Page.
+/// Execute the Maintainence Mode State Machine. Please see the [State Machine Page](/statemachine.html#mmode_sm "Maintainence Mode State Machine").
 void hid_loop(void) // execute hid functions; is called from the main loop
 {
     // check pins and flags for changes for the mmode state machine
