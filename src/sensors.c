@@ -1,5 +1,3 @@
-
-//#include <xc8.h>
 #include <sensors.h>
 
 
@@ -32,50 +30,55 @@ void sensor_start(void){
     PINAD_LIMIT_EAST = 0;
     PINAD_LIMIT_WEST = 0;
 
-    // Setup ADC
-
     // Setup inturrupts
 
 }
 
+
 unsigned short photo_value(unsigned char photonum){
     switch (photonum)
             case 1:
-                return 0; //adc off PIN_LIGHTLEVEL
+                return 500; //adc off PIN_LIGHTLEVEL
             break;
             case 2:
-                return 0; //adc off PIN_DAYLEVEL1
+                return 1000; //adc off PIN_DAYEAST
             break;
             case 3:
-                return 0; //adc off PIN_DAYLEVEL2
+                return 1500; //adc off PIN_DAYWEST
             break;
             case 4:
-                return 0; //adc off PIN_YEARLEVEL
+                return 2000; //adc off PIN_YEARLEVEL
             break;
             default:
-                return 0;
+                return 2500;
 }
 
-unsigned short temperature(void){
-    return 0; //adc off PIN_TEMP
+char temperature(void){
+            //adc off PIN_TEMP
+    // temp = f(adc)
+    // return temp
+
+    return 25;
 }
 
 unsigned short rotational_postion(unsigned char potnum){
     switch (potnum)
             case 1:
-                return 0; //adc off PIN_DAY_POT
+                return 3000; //adc off PIN_DAY_POT
             break;
             case 2:
-                return 0; //adc off PIN_YEAR_POT
+                return 3500; //adc off PIN_YEAR_POT
             break;
             default:
-                return 0;
+                return 4000;
 }
 
-void pir_enable(unsigned char pironoff){
+void pir_enable(unsigned char pironoff){    // pironoff
     if (pironoff == 1)
-        ; // turn on motion sensor inturrupt pin = PIN_PIR
+        pir = 1;
+         // turn on motion sensor inturrupt pin = PIN_PIR
     else
-        ; //turn off motion sensor inturrupt
+        pir = 0;
+         //turn off motion sensor inturrupt
 }
 

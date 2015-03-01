@@ -1,10 +1,24 @@
 #ifndef SENSORS_H
 #define SENSORS_H
 
+// Headers
+#include <shared.h>
+#include <xc.h>
+#include <communication.h>
+#include <eeprom.h>
+#include <hid.h>
+#include <movement.h>
+#include <powerman.h>
+#include <rtc.h>
+#include <solarLight.h>
+
 // Varibles
+unsigned int duskLevel = 2000;
+
+// for test
+unsigned char pir = 2;
 
 // Defines
-
 #define PINIO_POT_LEFTRIGHT TRISAbits.TRISA2
 #define PINIO_POT_UPDOWN TRISAbits.TRISA3
 #define PINIO_LIGHTLEVEL TRISGbits.TRISG0
@@ -35,7 +49,7 @@
 
 void sensor_start(void);
 unsigned short photo_value(unsigned char);
-unsigned short temperature(void);
+char temperature(void);
 unsigned short rotational_postion(unsigned char);
 void pir_enable(unsigned char);
 
