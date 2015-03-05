@@ -18812,7 +18812,7 @@ extern __nonreentrant void _delaywdt(unsigned long);
 #pragma intrinsic(_delay3)
 extern __nonreentrant void _delay3(unsigned char);
 
-# 25 "include\shared.h"
+# 29 "include\shared.h"
 struct {
 unsigned rtcInit : 1;
 unsigned mmode : 2;
@@ -18824,8 +18824,7 @@ unsigned : 2;
 
 typedef struct
 {
-unsigned short addr;
-unsigned addr16;
+unsigned char addr;
 unsigned char *data;
 unsigned char dataLength;
 }i2cPacket;
@@ -18843,6 +18842,8 @@ unsigned pwm_set(unsigned char, unsigned char);
 void i2c_setup(void);
 unsigned i2c_tx(i2cPacket);
 unsigned char* i2c_rx(unsigned char, unsigned char);
+static void i2c_start();
+static unsigned i2c_send(unsigned char);
 
 # 8 "include\hid.h"
 void hid_setup(void);
@@ -18870,120 +18871,3 @@ void usb_oneStatus();
 void usb_myStatus();
 void usb_allStatus();
 void usb_end(void);
-
-# 5 "src/hid.c"
-void hid_setup(void)
-{
-
-TRISD &= 0b01110000;
-RPOR32_33bits.RPO32R = 0x9;
-RPOR34_35bits.RPO34R = 0x9;
-RPOR36_37bits.RPO37R = 0x8;
-
-
-
-SPBRGH3 = 0x00;
-SPBRG3 = 0x00;
-TXSTA3bits.SYNC = 0;
-RCSTA3bits.SPEN = 1;
-RC3IE = 0;
-RCSTA3bits.CREN = 1;
-RPINR4_5bits.U3RXR = 0x7;
-
-
-
-}
-
-
-void hid_loop(void)
-{
-
-
-
-switch (status.mmode)
-{
-case 0:
-break;
-case 1:
-break;
-case 2:
-break;
-case 3:
-break;
-}
-}
-void hid_execute(unsigned char)
-{
-
-}
-
-
-void lcd_begin(void)
-{
-
-status.MMODE = 1;
-}
-void lcd_menu(unsigned char)
-{
-
-}
-void lcd_execute(unsigned char, unsigned char)
-{
-
-}
-void lcd_usb(unsigned char)
-{
-
-}
-void lcd_end(void)
-{
-
-}
-
-
-void key_isr(void)
-{
-
-}
-void key_insertion(void)
-{
-
-}
-void key_removal(void)
-{
-
-}
-
-
-void usb_isr(void)
-{
-
-}
-void usb_insertion(void)
-{
-
-}
-void usb_removal(void)
-{
-
-}
-void usb_begin(void)
-{
-
-}
-void usb_oneStatus()
-{
-
-}
-void usb_myStatus()
-{
-
-}
-void usb_allStatus()
-{
-
-}
-void usb_end(void)
-{
-
-}

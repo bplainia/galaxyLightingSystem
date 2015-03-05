@@ -100,13 +100,13 @@ void main(void)
 void setup() // Initialize stuff here without any interruption
 {
     // Variables
-    
-    i2c_start();  // Initialize I2C
-    mem_start(); // First priority is to check the memory
+    unsigned char memStatus;
+
+    i2c_setup();  // Initialize I2C
     // TODO: Check to see if the chip started after a POR, BOR, or is from VBATT
-    status = mem_check(); // checks where it started up from, and if memory is ok
-    hid_start();
-    rtc_start();
+    memStatus = mem_check(); // checks where it started up from, and if memory is ok
+    hid_setup();
+    rtc_setup();
 }
 
 /*! /brief The MAIN loop that executes EVERYTHING!
@@ -163,5 +163,5 @@ void interrupt low_priority isr_low()
 
 void interrupt high_priority isr_high()
 {
-    ;
+    continue;
 }

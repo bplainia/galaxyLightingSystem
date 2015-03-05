@@ -12,10 +12,14 @@
 #define VERSION2 0
 #define COMPANY "Patience, Inc."
 
+/// Address for communicaiton between poles
+#define ADDRESS 0x05
+
 #define true 1
 #define false 0
 
-#define _XTAL_FREQ 48000000 // our frequency is 48MHz
+/// System frequency is 64MHz. USB is at 48MHz
+#define _XTAL_FREQ 64000000 //
 
 #include <xc.h>
 
@@ -33,9 +37,8 @@ struct {
 /// A packet that contains an address (8 or 10bit), a data array, and how long the array is.
 typedef struct 
 {
-    unsigned short addr;
-    unsigned      addr16; // Is the address 10 bits or not?
-    unsigned char *data;  // The data
+    unsigned char addr;
+    unsigned char *data;  // The pointer to the data
     unsigned char dataLength; // the length of the data
 }i2cPacket;
 
@@ -52,6 +55,8 @@ unsigned pwm_set(unsigned char, unsigned char); // Set pin to duty cycle
 void i2c_setup(void); // Initialize the I2C pins
 unsigned i2c_tx(i2cPacket); // send data to address
 unsigned char* i2c_rx(unsigned char, unsigned char); // recieve data from address
+static void i2c_start(); // transmit a start byte
+static unsigned i2c_send(unsigned char); // private function to send a byte
 
 #endif	/* SHARED_H */
 

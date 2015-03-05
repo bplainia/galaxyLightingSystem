@@ -1,12 +1,7 @@
 #include <shared.h>
 #include <rtc.h>
 
-// Private Functions
-unsigned char char2bcd(unsigned char);
-unsigned char weekday(unsigned char, unsigned char, unsigned char);
-
-
-void rtc_start()
+void rtc_setup()
 {
     RTCCON1bits.RTCEN = 1; // Enable RTC Clock
     status.rtcInit = 0; // real time clock has not been setup since reset!

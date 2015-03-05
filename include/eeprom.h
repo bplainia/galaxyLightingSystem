@@ -16,11 +16,14 @@
  RUNNING : everything is ok now
  */
 
-// functions
-void mem_start(void);
-void mem_check(void);
-unsigned char mem_append_log(char); // saves an event.
+typedef enum errorCode {NONE,SPACEOVERRIDE,BATTERYLOW};
 
+// functions
+unsigned char mem_check(void); // Check the memory. Certain things are checksumed.
+void mem_push(void); // Save special bytes that are in ram to eeprom.
+unsigned char mem_append_log(char); // saves an event to the log space.
+static unsigned mem_write(unsigned short, unsigned char[], unsigned char); // Write byte(s) to address
+static unsigned char* mem_read(unsigned short, unsigned char); // read bytes at address
 
 
 #endif

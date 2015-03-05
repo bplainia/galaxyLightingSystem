@@ -5,6 +5,7 @@
 
 #include <shared.h>
 
+/// Setup the ADC module
 void adc_setup()
 {
     // AN4 = Battery, AN2,3 = Pots, 8,19,18,17 = Photocells, AN0 = Temp
@@ -15,9 +16,14 @@ void adc_setup()
     SAMC1   = 10;// sample time
     ADRC    = 1;// auto conversion trigger
     // enable ADC
-    // TODO: Finish setting up ADC (clock, other)
+    //! \todo TODO: Finish setting up ADC (clock, other)
 }
 
+/*! \brief Update a single ADC buffer
+ *
+ * Input: A single number specifying which channel to update from 0 to 15.
+ * Outputs: A single bit specifying success. (1=success)
+ */
 unsigned adc_update(unsigned char chA) // Read specific pin - raw
 {
     if(chA > 0b11111) return false;
@@ -83,7 +89,7 @@ unsigned pwm_set(unsigned char channel, unsigned char duty) // Set pin to duty c
     return true;
 }
 
-/// Sets up the i2c1 module
+/// Set up the i2c1 module
 void i2c_setup() // Initialize the I2C pins
 {
     SSP1CON1 = 0b00101000; // Enable MSSP in master i2c mode. Auto-configs the pins.
@@ -105,17 +111,7 @@ unsigned i2c_tx(i2cPacket packet)
 {
 
     unsigned char i;
-    SSP1CON2bits.SEN = 1;
-    // Wait until SSP1IF is set
-    SSP1BUF = packet.addr;
-    while(!SSP1IF) continue; // wait for transmission to finish
-    if(SSP1CON2bits.ACKDT || SSP1CON2bits.ACKSTAT) // if not acknoleged or got NO-ACK
-    {
-        return false; // failed to get object
-    }
-    // check the acknowledge bit
-    //if(SSP1CON2bits.ack bit 6);
-    // check SSP1IF again to see if it is done
+    i2c_start(packet.addr, packet.addr16);
     for(i = 0; i < packet.dataLength; ++i)
     {
         SSP1BUF = packet.data[i];
@@ -134,16 +130,51 @@ unsigned i2c_tx(i2cPacket packet)
 
 /*! \brief Gets Data from a slave at a specific address. Returns a char array pointer.
  *
- *  Inputs: `device`: The 7-bit address of the device. `addr`: the 8-bit address in
+ * Inputs: `packet`: A packet consisting of an address, a number for quantity, and an array to fill with the quantity.
+ * Outputs: None formally. Modifies the `data` portion of the packet pointer that was given.
  */
-unsigned char* i2c_rx(unsigned char device, unsigned char addr, unsigned char qty) // recieve data from address
+void i2c_rx(i2cPacket *packet) // recieve data from address
 {
-    /// i2cRx: recieves `qty` bytes from the slave at `addr`. Returns an array `qty` long.
-    unsigned char data[qty];
+    #define pack (*packet) // macro to make coding easer since we call it a lot
     
-
     // write address
+    i2c_start();
+    i2c_send()
     // enable recieve
     // read number of chars
-    return data;
+}
+
+/// Transmit a start bit on the i2c bus
+static void i2c_start()
+{
+    SSP1IF = 0;
+    SSP1CON2bits.SEN = 1; // do a start bit.
+    while(!SSP1IF) continue; // Wait until SSP1IF is set
+    SSP1IF = 0;
+
+    // check the acknowledge bit
+    //if(SSP1CON2bits.ack bit 6);
+    // check SSP1IF again to see if it is done
+}
+
+// Transmit a stop bit on the i2c bus
+static void i2c_stop()
+{
+    SSP1IF = 0;
+    SSP1CON2bits.PEN = 1;
+    while(!SSP1IF) continue;
+    SSP1IF = 0;
+}
+
+/*! \brief Transmit a specific byte onto I2C (Private function)
+ * 
+ * Inputs: a byte to send. 
+ * Outputs: the ack bit or lack therof.
+ */
+static unsigned i2c_send(unsigned char byte)
+{
+    SSP1IF = 0; // make sure the flag is clear
+    SSP1BUF = byte; // begin transmitting the byte
+    while(!SSP1IF) continue; // wait for transmission to finish
+    return (SSP1CON2bits.ACKDT || SSP1CON2bits.ACKSTAT); // if not acknoleged or got NO-ACK
 }

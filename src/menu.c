@@ -15,16 +15,31 @@
 
 typedef struct lcdEntry
 {
-    char line1[20]; // twenty characters long plus \0
-    char line2[20];
+    char *line1;
+    char *line2;
+};
+
+typedef void (*menuFunction)();
+
+typedef struct menuEntry
+{
+    const char text[20]; // twenty characters long plus \0
+    const menuFunction function;
+};
+
+typedef struct usbEntry
+{
+    const menuFunction function;
 };
 
 /// Contains each entry for the menu. This is a constant.
-const char* menuEntries[] = {"Exit M-Mode        ", // calls lcd_end();
+const menuEntry menuEntries[] = {{"Exit M-Mode        ",lcd_end}, // calls lcd_end();
                              "Light Settings     "  // shows menu1
                             };
+const usbEntry usbEntries[] = {{lcd_end}};
 
 
+// Functions that are for the above menu entries.
 void menu1()
 {
     lcd_menu(2);

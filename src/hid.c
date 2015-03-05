@@ -1,5 +1,6 @@
 #include <shared.h>
 #include <hid.h>
+#include <menu.c>
 
 /// Sets up the Human Interface Periphrials (keyboard, usb, and lcd) and their pins.
 void hid_setup(void)
@@ -34,40 +35,48 @@ void hid_loop(void) // execute hid functions; is called from the main loop
     {
         case 0: // Off. Only check if something was plugged in or we got a byte from the keypad.
             break;
-        case 1:
+        case 1: // LCD Mode
             break;
-        case 2:
+        case 2: // USB Mode
             break;
-        case 3: // ERROR State
+        case 3: // Slave Mode
             break;
     }
 }
-void hid_execute(unsigned char)  // execute a command (usb and lcd can call this)
+void hid_execute(unsigned char command)  // execute a command (usb and lcd can call this)
 {
-
+    if(command < 150)
+    {
+        // Execute a function from the menu
+        menuEntries[command].function();
+    }
+    else
+    {
+        usbEntries[command-150].function(); // 255-150 = 105 commands left for usb
+    }
 }
 
 // LCD functions
 void lcd_begin(void)             // Welcome and setup screen for menu system
 {
-
-    status.MMODE = 1; // Entered Maintenence Mode (LCD and Communications are now on)
+    if(status.mmode < 1) status.mmode = 1; // Entered Maintenence Mode (LCD and Communications are now on)
+    else return;
 }
-void lcd_menu(unsigned char)     // display a menu item
+void lcd_menu(unsigned char)     // execute a menu item.
 {
 
 }
-void lcd_execute(unsigned char, unsigned char)  // execute a menu item
+
+/// display USB connected on lcd. Press the special key to disconnect.
+void lcd_usb(unsigned char)      
 {
 
 }
-void lcd_usb(unsigned char)      // display USB connected. Press ? to disconnect.
-{
 
-}
+/// display "exiting", then turn off the led, and exit maintainence mode
 void lcd_end(void)               // exit out of menu and return to normal
 {
-
+    status.mmode = 0; // maintainence mode off
 }
 
 // Keypad functions

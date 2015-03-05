@@ -12,10 +12,12 @@
 
 // Functions
 
-void rtc_start(void);
+void rtc_setup(void);
 unsigned rtc_set(unsigned char, unsigned char, unsigned char, unsigned char,
         unsigned char, unsigned char);
 
+static unsigned char char2bcd(unsigned char);
+static unsigned char weekday(unsigned char, unsigned char, unsigned char);
 
 #endif	/* RTC_H */
 

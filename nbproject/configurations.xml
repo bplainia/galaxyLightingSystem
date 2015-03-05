@@ -29,7 +29,6 @@
       <itemPath>src/powerman.c</itemPath>
       <itemPath>src/sensors.c</itemPath>
       <itemPath>src/rtc.c</itemPath>
-      <itemPath>src/pages.md</itemPath>
       <itemPath>src/shared.c</itemPath>
       <itemPath>src/menu.c</itemPath>
     </logicalFolder>
@@ -185,14 +184,6 @@
         <property key="stack-size-main" value="auto"/>
         <property key="stack-type" value="compiled"/>
       </XC8-config-global>
-      <item path="src/pages.md" ex="true" overriding="false">
-        <HI-TECH-COMP>
-        </HI-TECH-COMP>
-        <HI-TECH-LINK>
-        </HI-TECH-LINK>
-        <XC8-config-global>
-        </XC8-config-global>
-      </item>
     </conf>
   </confs>
 </configurationDescriptor>

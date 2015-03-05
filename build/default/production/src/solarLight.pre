@@ -18880,7 +18880,7 @@ extern __nonreentrant void _delay3(unsigned char);
 #pragma config DSWDTEN = ON
 #pragma config DSWDTOSC = SOSC
 
-# 25 "include\shared.h"
+# 29 "include\shared.h"
 struct {
 unsigned rtcInit : 1;
 unsigned mmode : 2;
@@ -18892,8 +18892,7 @@ unsigned : 2;
 
 typedef struct
 {
-unsigned short addr;
-unsigned addr16;
+unsigned char addr;
 unsigned char *data;
 unsigned char dataLength;
 }i2cPacket;
@@ -18911,6 +18910,8 @@ unsigned pwm_set(unsigned char, unsigned char);
 void i2c_setup(void);
 unsigned i2c_tx(i2cPacket);
 unsigned char* i2c_rx(unsigned char, unsigned char);
+static void i2c_start();
+static unsigned i2c_send(unsigned char);
 
 # 17 "include\communication.h"
 void comm_start(void);
@@ -18935,14 +18936,22 @@ unsigned char txBuff[32];
 unsigned char rxPtrOut, txPtrOut, rxPtrIn, txPtrIn;
 
 # 15 "include\rtc.h"
-void rtc_start(void);
+void rtc_setup(void);
 unsigned rtc_set(unsigned char, unsigned char, unsigned char, unsigned char,
 unsigned char, unsigned char);
 
-# 20 "include\eeprom.h"
-void mem_start(void);
-void mem_check(void);
+static unsigned char char2bcd(unsigned char);
+static unsigned char weekday(unsigned char, unsigned char, unsigned char);
+
+# 19 "include\eeprom.h"
+typedef enum errorCode {NONE,SPACEOVERRIDE,BATTERYLOW};
+
+
+unsigned char mem_check(void);
+void mem_push(void);
 unsigned char mem_append_log(char);
+static unsigned mem_write(unsigned short, unsigned char[], unsigned char);
+static unsigned char* mem_read(unsigned short, unsigned char);
 
 # 8 "include\hid.h"
 void hid_setup(void);
@@ -18985,7 +18994,7 @@ void dusk_moveback(void);
 void seasonal_adjust(void);
 void maintenance_move(unsigned char);
 
-# 36 "include\sensors.h"
+# 38 "include\sensors.h"
 void sensor_start(void);
 unsigned short photo_value(unsigned char);
 unsigned short temperature(void);
@@ -19019,13 +19028,13 @@ while(1) loop();
 void setup()
 {
 
+unsigned char memStatus;
 
-i2c_start();
-mem_start();
+i2c_setup();
 
-status = mem_check();
-hid_start();
-rtc_start();
+memStatus = mem_check();
+hid_setup();
+rtc_setup();
 }
 
 # 116
@@ -19076,5 +19085,5 @@ if(RC1IE && RC1IF)
 # 164
 void interrupt high_priority isr_high()
 {
-;
+continue;
 }

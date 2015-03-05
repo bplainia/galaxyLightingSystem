@@ -18812,7 +18812,7 @@ extern __nonreentrant void _delaywdt(unsigned long);
 #pragma intrinsic(_delay3)
 extern __nonreentrant void _delay3(unsigned char);
 
-# 25 "include\shared.h"
+# 29 "include\shared.h"
 struct {
 unsigned rtcInit : 1;
 unsigned mmode : 2;
@@ -18824,8 +18824,7 @@ unsigned : 2;
 
 typedef struct
 {
-unsigned short addr;
-unsigned addr16;
+unsigned char addr;
 unsigned char *data;
 unsigned char dataLength;
 }i2cPacket;
@@ -18843,18 +18842,19 @@ unsigned pwm_set(unsigned char, unsigned char);
 void i2c_setup(void);
 unsigned i2c_tx(i2cPacket);
 unsigned char* i2c_rx(unsigned char, unsigned char);
+static void i2c_start();
+static unsigned i2c_send(unsigned char);
 
 # 15 "include\rtc.h"
-void rtc_start(void);
+void rtc_setup(void);
 unsigned rtc_set(unsigned char, unsigned char, unsigned char, unsigned char,
 unsigned char, unsigned char);
 
-# 5 "src/rtc.c"
-unsigned char char2bcd(unsigned char);
-unsigned char weekday(unsigned char, unsigned char, unsigned char);
+static unsigned char char2bcd(unsigned char);
+static unsigned char weekday(unsigned char, unsigned char, unsigned char);
 
-
-void rtc_start()
+# 4 "src/rtc.c"
+void rtc_setup()
 {
 RTCCON1bits.RTCEN = 1;
 status.rtcInit = 0;

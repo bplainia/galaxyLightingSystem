@@ -10,7 +10,7 @@
 /// See [baudrate](baudrate.html "Baud Rate Calculation") note.
 void comm_start()
 {
-    //TODO: Communications start function
+    //! \todo TODO: Communications start function
     // This function initialized the pins and sets up UART1 for 9-bit RS-485
 
     // Setup PPS-Lite
@@ -21,18 +21,23 @@ void comm_start()
     RXTXPIN = 0;    // Direction Pin
     RXTXDIR = 0;    // Set to Recieve Mode
 
-    // TODO: Setup UART Module 1 Transmision
+    //! \todo TODO: Setup UART Module 1 Transmision
+    TXSTA1bits.BRGH = 1; // High Baud Rate mode
     SPBRGH1 = 0; // Baud rate
     SPBRG1  = 63; // set for 250kbps
-    //sync is zero
-    //spen is set
-    //txen = 1
+    TXSTA1bits.SYNC = 0; // Make sure the module is not in syncronous mode
+    RCSTA1bits.SPEN = 1; // Enable serial port
+    TXSTA1bits.TXEN = 1; // Enable transmitter
+    TX1IF = 0;
+    TX1IE = 0;
+    TX1IP = 0; // Low Priority
     //enable tx1ie after clearing flag
     TXSTA1bits.TX9 = 1; // Enable 9-bit mode
 
-    // TODO: Setup UART Module 1 Recieving
-    // rx9, adden, cren, see RCSTA1 for errors and 9th bit.
-    // address will be in RCREG1
+    //! \todo TODO: Setup UART Module 1 Recieving
+    RCSTA1 = 0b11111000; // Enable 9 bit reciever. Put into address mode first.
+    /// Use the last 3 bits of RCSTA1 for errors and 9th bit.
+    /// Address that is received will be in RCREG1
 
     txPtrIn = rxPtrIn = txPtrOut = rxPtrOut = 0; // reset pointers
     comm_overflow = 0; // Has not happened
