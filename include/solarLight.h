@@ -1,9 +1,8 @@
 #ifndef SOLARLIGHT_H
 #define SOLARLIGHT_H
 
-// Headers
+// Include all the headers
 #include <shared.h>
-#include <xc.h>
 #include <communication.h>
 #include <eeprom.h>
 #include <hid.h>
@@ -12,24 +11,11 @@
 #include <rtc.h>
 #include <sensors.h>
 
-// Defines
-
-#define LED_IO TRISCbits.TRISC7
-#define LED_OUT PORTCbits.PORTC7
-
-#define AUTO 1
-#define ON 2
-#define DIM 3
-#define OFF 4
-
-/// varibles for debug testing, will have bits toggled depending on function entered
-
-unsigned char light = 0;
-
 // Functions
-
-void led_setup(void);
-void led_auto(unsigned char);
-void led_maintenance(unsigned char);
+// void main() is in the associated C file
+void setup(void); // setup things with out any interrupts
+void loop(void);  // do this stuff forever. Interrupts enabled.
+void interrupt low_priority isr_low(void);
+void interrupt high_priority isr_high(void);
 
 #endif
