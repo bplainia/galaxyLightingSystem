@@ -1,6 +1,7 @@
 #include <sensors.h>
 
-
+/*! \brief setup sensors
+ */
 void sensor_start(void){
 
     // Define sensor pins as inputs
@@ -29,13 +30,16 @@ void sensor_start(void){
     PINAD_LIMIT_UP = 0;
     PINAD_LIMIT_EAST = 0;
     PINAD_LIMIT_WEST = 0;
-
-    // Setup ADC
-
-    // Setup inturrupts
-
 }
 
+/*! \brief Check the analog value of a particular photoresistor
+ *
+ * Inputs: designator of photoresistor to be checked (1, 2, 3, or 4)
+ *
+ * Outputs: analog value off that photoresistor in binary
+ *
+ * --> Test values (returns) used to show if function preformed as desired
+ */
 unsigned short photo_value(unsigned char photonum){
     switch (photonum)
     {
@@ -52,10 +56,28 @@ unsigned short photo_value(unsigned char photonum){
     }
 }
 
-unsigned short temperature(void){
-    return 0; //adc off PIN_TEMP
+/*! \brief Check the temperature inside the enclosure
+ *
+ * Outputs: Temperature at the sensor in degF
+ *
+ * --> Test value (return) used to show if function preformed as desired
+ */
+char temperature(void){
+            //adc off PIN_TEMP
+    // temp = f(adc)
+    // return temp
+
+    return 25;
 }
 
+/*! \brief Check the analog value of a particular potentimeter
+ *
+ * Inputs: designator of potentimeter to be checked (1 or 2)
+ *
+ * Outputs: analog value off that potentimeter in binary
+ *
+ * --> Test values (returns) used to show if function preformed as desired
+ */
 unsigned short rotational_postion(unsigned char potnum){
     switch (potnum)
     {
@@ -67,10 +89,16 @@ unsigned short rotational_postion(unsigned char potnum){
     return 0;
 }
 
-void pir_enable(unsigned char pironoff){
+/*! \brief turn the PIR sensor on or off
+ *
+ * Inputs: signal to turn the pir on or off (1 = on, 0 = off)
+ */
+void pir_enable(unsigned char pironoff){    // pironoff
     if (pironoff == 1)
-        ; // turn on motion sensor inturrupt pin = PIN_PIR
+        pir = 1;            // Test value to show functioning
+         // turn on motion sensor inturrupt pin = PIN_PIR
     else
-        ; //turn off motion sensor inturrupt
+        pir = 0;            // Test value to show functioning
+         //turn off motion sensor inturrupt
 }
 

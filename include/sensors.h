@@ -4,9 +4,12 @@
 #include <shared.h>
 
 // Varibles
+unsigned int duskLevel = 2000;      //
+
+/// for testing purposes, will change when pir() is entered to show action taken
+unsigned char pir = 2;
 
 // Defines
-
 #define PINIO_POT_LEFTRIGHT TRISAbits.TRISA2
 #define PINIO_POT_UPDOWN TRISAbits.TRISA3
 #define PINIO_LIGHTLEVEL TRISGbits.TRISG0
@@ -37,7 +40,7 @@
 
 void sensor_start(void);
 unsigned short photo_value(unsigned char);
-unsigned short temperature(void);
+char temperature(void);
 unsigned short rotational_postion(unsigned char);
 void pir_enable(unsigned char);
 
