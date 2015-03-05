@@ -13,9 +13,9 @@
 #include <solarLight.h>
 
 // Varibles
-unsigned int duskLevel = 2000;
+unsigned int duskLevel = 2000;      //
 
-// for test
+/// for testing purposes, will change when pir() is entered to show action taken
 unsigned char pir = 2;
 
 // Defines

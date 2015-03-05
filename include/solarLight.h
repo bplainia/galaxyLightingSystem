@@ -22,14 +22,14 @@
 #define DIM 3
 #define OFF 4
 
-// test variables
+/// varibles for debug testing, will have bits toggled depending on function entered
 
 unsigned char light = 0;
 
 // Functions
 
 void led_setup(void);
-void led_light(unsigned char);
+void led_auto(unsigned char);
 void led_maintenance(unsigned char);
 
 #endif

@@ -13,7 +13,7 @@
 #include <solarLight.h>
 
 // Varibles
-
+// Limits will show the analog values on the pots where the limits are
 unsigned int leftlimit = 0;
 unsigned int rightlimit = 0;
 unsigned int uplimit = 0;
@@ -30,7 +30,7 @@ unsigned int downlimit = 0;
 #define PINIO_MOVE_UPDOWN_3 TRISDbits.TRISD6
 #define PINIO_MOVE_UPDOWN_4 TRISDbits.TRISD7
 
-// varibles for test
+/// varibles for debug testing, will have bits toggled depending on function entered
 unsigned char move = 0;
 
 // Functions
