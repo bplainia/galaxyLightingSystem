@@ -115,7 +115,7 @@ $(document).ready(function(){initNavTree('eeprom_8c_source.html','');});
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div>
 <div class="line"><a name="l00006"></a><span class="lineno"><a class="line" href="eeprom_8c.html#a544c8ef7decf65b9c8dc0f6d1806bd6a">    6</a></span>&#160;<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> <a class="code" href="eeprom_8c.html#a544c8ef7decf65b9c8dc0f6d1806bd6a">mem_check</a>()</div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;}</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;</div>
 <div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="eeprom_8c.html#aba77f7c6751899c63bd457d7f1347f0b">   12</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="eeprom_8c.html#aba77f7c6751899c63bd457d7f1347f0b">mem_push</a>()</div>
@@ -123,7 +123,7 @@ $(document).ready(function(){initNavTree('eeprom_8c_source.html','');});
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="keywordflow">return</span>;</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;}</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;</div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="eeprom_8c.html#a866a9933ffbda8712fc68d862ba96a97">   31</a></span>&#160;<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> <a class="code" href="eeprom_8c.html#a866a9933ffbda8712fc68d862ba96a97">mem_append_log</a>(<a class="code" href="eeprom_8h.html#ab19a8e0fe3ea0ea5c7259400cb389056">errorCode</a> err)</div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="eeprom_8c.html#a96ae66a54ceac6e85dc2532b9a69e8c2">   31</a></span>&#160;<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> <a class="code" href="eeprom_8c.html#a96ae66a54ceac6e85dc2532b9a69e8c2">mem_append_log</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> err)</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;{</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordflow">return</span> 0; <span class="comment">// default return is no error</span></div>
@@ -140,28 +140,27 @@ $(document).ready(function(){initNavTree('eeprom_8c_source.html','');});
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="keyword">static</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>* mem_read(<span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> addr, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> length)</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;{</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="comment">// Create packet and byte array for the i2c function to write to</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>* data[256];</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>* data[50];</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <a class="code" href="structi2c_packet.html">i2cPacket</a> packet; </div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <a class="code" href="shared_8h.html#a918d282046fdbfa4e4d6320d84af20b6">i2c_rx</a>(packet);</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <a class="code" href="shared_8h.html#aceb0f2f4746818c3817203111997455d">i2c_rx</a>(&amp;packet);</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordflow">return</span> 0; <span class="comment">// default return is no error</span></div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;}</div>
 <div class="ttc" id="rtc_8h_html"><div class="ttname"><a href="rtc_8h.html">rtc.h</a></div></div>
 <div class="ttc" id="eeprom_8c_html_aba77f7c6751899c63bd457d7f1347f0b"><div class="ttname"><a href="eeprom_8c.html#aba77f7c6751899c63bd457d7f1347f0b">mem_push</a></div><div class="ttdeci">void mem_push()</div><div class="ttdoc">Save special bytes that are in ram to eeprom. </div><div class="ttdef"><b>Definition:</b> <a href="eeprom_8c_source.html#l00012">eeprom.c:12</a></div></div>
-<div class="ttc" id="shared_8h_html_a918d282046fdbfa4e4d6320d84af20b6"><div class="ttname"><a href="shared_8h.html#a918d282046fdbfa4e4d6320d84af20b6">i2c_rx</a></div><div class="ttdeci">unsigned char * i2c_rx(unsigned char, unsigned char)</div></div>
-<div class="ttc" id="eeprom_8c_html_a866a9933ffbda8712fc68d862ba96a97"><div class="ttname"><a href="eeprom_8c.html#a866a9933ffbda8712fc68d862ba96a97">mem_append_log</a></div><div class="ttdeci">unsigned char mem_append_log(errorCode err)</div><div class="ttdoc">saves an event to the log space. </div><div class="ttdef"><b>Definition:</b> <a href="eeprom_8c_source.html#l00031">eeprom.c:31</a></div></div>
+<div class="ttc" id="shared_8h_html_aceb0f2f4746818c3817203111997455d"><div class="ttname"><a href="shared_8h.html#aceb0f2f4746818c3817203111997455d">i2c_rx</a></div><div class="ttdeci">unsigned i2c_rx(i2cPacket *)</div><div class="ttdoc">Gets Data from a slave at a specific address. Returns a char array pointer. </div><div class="ttdef"><b>Definition:</b> <a href="shared_8c_source.html#l00135">shared.c:135</a></div></div>
 <div class="ttc" id="eeprom_8h_html"><div class="ttname"><a href="eeprom_8h.html">eeprom.h</a></div></div>
 <div class="ttc" id="structi2c_packet_html"><div class="ttname"><a href="structi2c_packet.html">i2cPacket</a></div><div class="ttdoc">A packet that contains an address (8 or 10bit), a data array, and how long the array is...</div><div class="ttdef"><b>Definition:</b> <a href="shared_8h_source.html#l00038">shared.h:38</a></div></div>
 <div class="ttc" id="eeprom_8c_html_a544c8ef7decf65b9c8dc0f6d1806bd6a"><div class="ttname"><a href="eeprom_8c.html#a544c8ef7decf65b9c8dc0f6d1806bd6a">mem_check</a></div><div class="ttdeci">unsigned char mem_check()</div><div class="ttdoc">Check the memory. Certain things are checksumed. </div><div class="ttdef"><b>Definition:</b> <a href="eeprom_8c_source.html#l00006">eeprom.c:6</a></div></div>
 <div class="ttc" id="shared_8h_html"><div class="ttname"><a href="shared_8h.html">shared.h</a></div></div>
-<div class="ttc" id="eeprom_8h_html_ab19a8e0fe3ea0ea5c7259400cb389056"><div class="ttname"><a href="eeprom_8h.html#ab19a8e0fe3ea0ea5c7259400cb389056">errorCode</a></div><div class="ttdeci">errorCode</div><div class="ttdef"><b>Definition:</b> <a href="eeprom_8h_source.html#l00019">eeprom.h:19</a></div></div>
+<div class="ttc" id="eeprom_8c_html_a96ae66a54ceac6e85dc2532b9a69e8c2"><div class="ttname"><a href="eeprom_8c.html#a96ae66a54ceac6e85dc2532b9a69e8c2">mem_append_log</a></div><div class="ttdeci">unsigned char mem_append_log(unsigned char err)</div><div class="ttdoc">saves an event to the log space. </div><div class="ttdef"><b>Definition:</b> <a href="eeprom_8c_source.html#l00031">eeprom.c:31</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="eeprom_8c.html">eeprom.c</a></li>
-    <li class="footer">Generated on Thu Mar 5 2015 19:41:50 for Sr. Design 2015 by
+    <li class="footer">Generated on Thu Mar 5 2015 22:25:50 for Sr. Design 2015 by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.9.1 </li>
   </ul>

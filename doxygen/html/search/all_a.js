@@ -6,7 +6,7 @@ var searchData=
   ['lcd_5fmenu',['lcd_menu',['../hid_8h.html#a1001e29b61b78e45ebce8276372e6312',1,'lcd_menu(unsigned char):&#160;hid.c'],['../hid_8c.html#a1001e29b61b78e45ebce8276372e6312',1,'lcd_menu(unsigned char):&#160;hid.c']]],
   ['lcd_5fusb',['lcd_usb',['../hid_8h.html#ae525221879a89187005664747d197386',1,'lcd_usb(unsigned char):&#160;hid.c'],['../hid_8c.html#ae525221879a89187005664747d197386',1,'lcd_usb(unsigned char):&#160;hid.c']]],
   ['lcdentry',['lcdEntry',['../structlcd_entry.html',1,'']]],
-  ['led_5fauto',['led_auto',['../light_8h.html#a8bd52a39df456b36209c969fdc414634',1,'led_auto(unsigned char):&#160;light.h'],['../light_8c.html#a8597319bcbaed4f163f51c40b4fcd414',1,'led_auto(void):&#160;light.c']]],
+  ['led_5fauto',['led_auto',['../light_8h.html#a8597319bcbaed4f163f51c40b4fcd414',1,'led_auto(void):&#160;light.c'],['../light_8c.html#a8597319bcbaed4f163f51c40b4fcd414',1,'led_auto(void):&#160;light.c']]],
   ['led_5fio',['LED_IO',['../light_8h.html#a5d7a28fdd4d7cde00f81fb8e47d0a798',1,'light.h']]],
   ['led_5fmaintenance',['led_maintenance',['../light_8h.html#a0c118b1a36dafc7fca65a90d7935d629',1,'led_maintenance(unsigned char):&#160;light.c'],['../light_8c.html#a0bf4480a904cbe89381d0ef8a83924ab',1,'led_maintenance(unsigned char lightState):&#160;light.c']]],
   ['led_5fout',['LED_OUT',['../light_8h.html#a916128c66228f04bfe04c69a5bc5a322',1,'light.h']]],

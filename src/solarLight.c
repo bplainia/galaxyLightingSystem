@@ -149,7 +149,7 @@ void loop()
         // do an idle "sleep"
     }
 }
-/*! \Brief Low Priority Interrupt Service Routine
+/*! \brief Low Priority Interrupt Service Routine
  * 
  * Items that are dealt with in this ISR:
  *  - UART 1 TX/RX Interrupts

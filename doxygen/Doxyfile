@@ -107,7 +107,7 @@ BRIEF_MEMBER_DESC      = YES
 # brief descriptions will be completely suppressed.
 # The default value is: YES.
 
-REPEAT_BRIEF           = NO
+REPEAT_BRIEF           = YES
 
 # This tag implements a quasi-intelligent brief description abbreviator that is
 # used to form the text in various listings. Each string in this list, if found
@@ -922,7 +922,7 @@ USE_MDFILE_AS_MAINPAGE =
 # also VERBATIM_HEADERS is set to NO.
 # The default value is: NO.
 
-SOURCE_BROWSER         = NO
+SOURCE_BROWSER         = YES
 
 # Setting the INLINE_SOURCES tag to YES will include the body of functions,
 # classes and enums directly into the documentation.
@@ -941,7 +941,7 @@ STRIP_CODE_COMMENTS    = YES
 # function all documented functions referencing it will be listed.
 # The default value is: NO.
 
-REFERENCED_BY_RELATION = NO
+REFERENCED_BY_RELATION = YES
 
 # If the REFERENCES_RELATION tag is set to YES then for each documented function
 # all documented entities called/used by that function will be listed.
@@ -1974,7 +1974,7 @@ ENABLE_PREPROCESSING   = YES
 # The default value is: NO.
 # This tag requires that the tag ENABLE_PREPROCESSING is set to YES.
 
-MACRO_EXPANSION        = NO
+MACRO_EXPANSION        = YES
 
 # If the EXPAND_ONLY_PREDEF and MACRO_EXPANSION tags are both set to YES then
 # the macro expansion is limited to the macros specified with the PREDEFINED and
@@ -1996,7 +1996,7 @@ SEARCH_INCLUDES        = YES
 # preprocessor.
 # This tag requires that the tag SEARCH_INCLUDES is set to YES.
 
-INCLUDE_PATH           = ../include/
+INCLUDE_PATH           = 
 
 # You can use the INCLUDE_FILE_PATTERNS tag to specify one or more wildcard
 # patterns (like *.h and *.hpp) to filter out the header-files in the

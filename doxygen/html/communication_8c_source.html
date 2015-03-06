@@ -193,31 +193,28 @@ $(document).ready(function(){initNavTree('communication_8c_source.html','');});
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        }</div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    }</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    {</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    }</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;}</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;</div>
-<div class="line"><a name="l00110"></a><span class="lineno"><a class="line" href="communication_8c.html#abdf20e6b5b4aeef53ff46994668db800">  110</a></span>&#160;<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> <a class="code" href="communication_8c.html#abdf20e6b5b4aeef53ff46994668db800">comm_rx</a>()</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;{</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> myReturn;</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    myReturn = <a class="code" href="communication_8h.html#a4be594763d3af94bdb9bd5725c63224f">rxBuff</a>[<a class="code" href="communication_8h.html#a571268af8b0b42dc7347a4acfc4941b5">rxPtrOut</a>++];</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keywordflow">if</span>(<a class="code" href="communication_8h.html#a571268af8b0b42dc7347a4acfc4941b5">rxPtrOut</a> &gt;= <a class="code" href="communication_8h.html#aa142c3ac1397c2b82176b4b486cc3330">RXBUFFSIZE</a>) <a class="code" href="communication_8h.html#a571268af8b0b42dc7347a4acfc4941b5">rxPtrOut</a> = 0;</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;}</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;</div>
-<div class="line"><a name="l00119"></a><span class="lineno"><a class="line" href="communication_8c.html#a387a712f460e0298392bcf0755ad2737">  119</a></span>&#160;<span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> <a class="code" href="communication_8c.html#a387a712f460e0298392bcf0755ad2737">comm_rx_word</a>()</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;{</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    <span class="keywordflow">return</span> (<a class="code" href="communication_8c.html#abdf20e6b5b4aeef53ff46994668db800">comm_rx</a>() &lt;&lt; 8) + <a class="code" href="communication_8c.html#abdf20e6b5b4aeef53ff46994668db800">comm_rx</a>();</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;}</div>
-<div class="ttc" id="communication_8c_html_abdf20e6b5b4aeef53ff46994668db800"><div class="ttname"><a href="communication_8c.html#abdf20e6b5b4aeef53ff46994668db800">comm_rx</a></div><div class="ttdeci">unsigned char comm_rx()</div><div class="ttdoc">Get a byte off the stack. Returns that byte. </div><div class="ttdef"><b>Definition:</b> <a href="communication_8c_source.html#l00110">communication.c:110</a></div></div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;}</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;</div>
+<div class="line"><a name="l00106"></a><span class="lineno"><a class="line" href="communication_8c.html#abdf20e6b5b4aeef53ff46994668db800">  106</a></span>&#160;<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> <a class="code" href="communication_8c.html#abdf20e6b5b4aeef53ff46994668db800">comm_rx</a>()</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;{</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> myReturn;</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    myReturn = <a class="code" href="communication_8h.html#a4be594763d3af94bdb9bd5725c63224f">rxBuff</a>[<a class="code" href="communication_8h.html#a571268af8b0b42dc7347a4acfc4941b5">rxPtrOut</a>++];</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="keywordflow">if</span>(<a class="code" href="communication_8h.html#a571268af8b0b42dc7347a4acfc4941b5">rxPtrOut</a> &gt;= <a class="code" href="communication_8h.html#aa142c3ac1397c2b82176b4b486cc3330">RXBUFFSIZE</a>) <a class="code" href="communication_8h.html#a571268af8b0b42dc7347a4acfc4941b5">rxPtrOut</a> = 0;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keywordflow">return</span> myReturn;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;}</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;</div>
+<div class="line"><a name="l00116"></a><span class="lineno"><a class="line" href="communication_8c.html#a387a712f460e0298392bcf0755ad2737">  116</a></span>&#160;<span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> <a class="code" href="communication_8c.html#a387a712f460e0298392bcf0755ad2737">comm_rx_word</a>()</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;{</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <span class="keywordflow">return</span> (<a class="code" href="communication_8c.html#abdf20e6b5b4aeef53ff46994668db800">comm_rx</a>() &lt;&lt; 8) + <a class="code" href="communication_8c.html#abdf20e6b5b4aeef53ff46994668db800">comm_rx</a>();</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;}</div>
+<div class="ttc" id="communication_8c_html_abdf20e6b5b4aeef53ff46994668db800"><div class="ttname"><a href="communication_8c.html#abdf20e6b5b4aeef53ff46994668db800">comm_rx</a></div><div class="ttdeci">unsigned char comm_rx()</div><div class="ttdoc">Get a byte off the stack. Returns that byte. </div><div class="ttdef"><b>Definition:</b> <a href="communication_8c_source.html#l00106">communication.c:106</a></div></div>
 <div class="ttc" id="communication_8h_html"><div class="ttname"><a href="communication_8h.html">communication.h</a></div></div>
 <div class="ttc" id="communication_8h_html_a571268af8b0b42dc7347a4acfc4941b5"><div class="ttname"><a href="communication_8h.html#a571268af8b0b42dc7347a4acfc4941b5">rxPtrOut</a></div><div class="ttdeci">unsigned char rxPtrOut</div><div class="ttdef"><b>Definition:</b> <a href="communication_8h_source.html#l00037">communication.h:37</a></div></div>
 <div class="ttc" id="structcomstat__t_html_a286e5d66a5e535c50a8b89c9d4870370"><div class="ttname"><a href="structcomstat__t.html#a286e5d66a5e535c50a8b89c9d4870370">comstat_t::TOKEN</a></div><div class="ttdeci">unsigned TOKEN</div><div class="ttdef"><b>Definition:</b> <a href="communication_8h_source.html#l00028">communication.h:28</a></div></div>
 <div class="ttc" id="communication_8c_html_a5e07c8337b5c325fbe5a933a10b13a37"><div class="ttname"><a href="communication_8c.html#a5e07c8337b5c325fbe5a933a10b13a37">comm_flush</a></div><div class="ttdeci">void comm_flush()</div><div class="ttdoc">Flush both communications buffers. </div><div class="ttdef"><b>Definition:</b> <a href="communication_8c_source.html#l00051">communication.c:51</a></div></div>
 <div class="ttc" id="communication_8h_html_aac46ad6f4f709ac12f0f081cf9b751cd"><div class="ttname"><a href="communication_8h.html#aac46ad6f4f709ac12f0f081cf9b751cd">RXTXDIR</a></div><div class="ttdeci">#define RXTXDIR</div><div class="ttdef"><b>Definition:</b> <a href="communication_8h_source.html#l00012">communication.h:12</a></div></div>
-<div class="ttc" id="communication_8c_html_a387a712f460e0298392bcf0755ad2737"><div class="ttname"><a href="communication_8c.html#a387a712f460e0298392bcf0755ad2737">comm_rx_word</a></div><div class="ttdeci">unsigned short comm_rx_word()</div><div class="ttdoc">Get two bytes off the stack. Returns a short. </div><div class="ttdef"><b>Definition:</b> <a href="communication_8c_source.html#l00119">communication.c:119</a></div></div>
+<div class="ttc" id="communication_8c_html_a387a712f460e0298392bcf0755ad2737"><div class="ttname"><a href="communication_8c.html#a387a712f460e0298392bcf0755ad2737">comm_rx_word</a></div><div class="ttdeci">unsigned short comm_rx_word()</div><div class="ttdoc">Get two bytes off the stack. Returns a short. </div><div class="ttdef"><b>Definition:</b> <a href="communication_8c_source.html#l00116">communication.c:116</a></div></div>
 <div class="ttc" id="communication_8h_html_a4be594763d3af94bdb9bd5725c63224f"><div class="ttname"><a href="communication_8h.html#a4be594763d3af94bdb9bd5725c63224f">rxBuff</a></div><div class="ttdeci">unsigned char rxBuff[128]</div><div class="ttdef"><b>Definition:</b> <a href="communication_8h_source.html#l00035">communication.h:35</a></div></div>
 <div class="ttc" id="communication_8h_html_a3756e98322979532efd9b045579c3bfe"><div class="ttname"><a href="communication_8h.html#a3756e98322979532efd9b045579c3bfe">txBuff</a></div><div class="ttdeci">unsigned char txBuff[32]</div><div class="ttdef"><b>Definition:</b> <a href="communication_8h_source.html#l00036">communication.h:36</a></div></div>
 <div class="ttc" id="communication_8c_html_a3a46641f9c63b1c2b0e6d55716e5de91"><div class="ttname"><a href="communication_8c.html#a3a46641f9c63b1c2b0e6d55716e5de91">comm_start</a></div><div class="ttdeci">void comm_start()</div><div class="ttdoc">Setup the pins and modules for communication outside the pole. </div><div class="ttdef"><b>Definition:</b> <a href="communication_8c_source.html#l00015">communication.c:15</a></div></div>
@@ -240,7 +237,7 @@ $(document).ready(function(){initNavTree('communication_8c_source.html','');});
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="communication_8c.html">communication.c</a></li>
-    <li class="footer">Generated on Thu Mar 5 2015 19:41:50 for Sr. Design 2015 by
+    <li class="footer">Generated on Thu Mar 5 2015 22:25:50 for Sr. Design 2015 by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.9.1 </li>
   </ul>
