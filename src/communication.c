@@ -1,5 +1,5 @@
-/*! \page
- *  \breif This page includes the communications functions to talk to other poles via RS/EIA-485.
+/*! \file
+ *  \brief This page includes the communications functions to talk to other poles via RS/EIA-485.
  *
  * See [baudrate](baudrate.html "Baud Rate Calculation") note.
  * Author: Benjamin Plain

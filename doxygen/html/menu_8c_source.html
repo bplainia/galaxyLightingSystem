@@ -109,77 +109,13 @@ $(document).ready(function(){initNavTree('menu_8c_source.html','');});
 <div class="title">menu.c</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="menu_8c.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">// Author: Benjamin Plain</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">// Menu Listings and functions</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"> * The menu structure of the maintenence controller goes in categories and commands.</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"> * Menu Structure:</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"> * Exit Maintenence Mode</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"> * Light Settings</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="hid_8h.html">hid.h</a>&gt;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="sensors_8h.html">sensors.h</a>&gt;</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;</div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="structlcd_entry.html">   16</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structlcd_entry.html">lcdEntry</a></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="structlcd_entry.html#a6ca18c08bd9a82ac11906cd9dadc25b8">   18</a></span>&#160;    <span class="keywordtype">char</span> *<a class="code" href="structlcd_entry.html#a6ca18c08bd9a82ac11906cd9dadc25b8">line1</a>;</div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="structlcd_entry.html#ae9b48aae0f50eaf6f0927ac7c174ffb4">   19</a></span>&#160;    <span class="keywordtype">char</span> *<a class="code" href="structlcd_entry.html#ae9b48aae0f50eaf6f0927ac7c174ffb4">line2</a>;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;};</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;</div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="menu_8c.html#ae2d98d35c30bae83d84fb6288684f64d">   22</a></span>&#160;<span class="keyword">typedef</span> void (*<a class="code" href="menu_8c.html#ae2d98d35c30bae83d84fb6288684f64d">menuFunction</a>)();</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;</div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="structmenu_entry.html">   24</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structmenu_entry.html">menuEntry</a></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;{</div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="structmenu_entry.html#a9e24e16d679ba6833c43a2b32f3769c0">   26</a></span>&#160;    <span class="keyword">const</span> <span class="keywordtype">char</span> <a class="code" href="structmenu_entry.html#a9e24e16d679ba6833c43a2b32f3769c0">text</a>[20]; <span class="comment">// twenty characters long plus \0</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="structmenu_entry.html#a4481971b9b4aceceefd5897bc8622e94">   27</a></span>&#160;    <span class="keyword">const</span> <a class="code" href="menu_8c.html#ae2d98d35c30bae83d84fb6288684f64d">menuFunction</a> <span class="keyword">function</span>;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;};</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="structusb_entry.html">   30</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structusb_entry.html">usbEntry</a></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;{</div>
-<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="structusb_entry.html#a4481971b9b4aceceefd5897bc8622e94">   32</a></span>&#160;    <span class="keyword">const</span> <a class="code" href="menu_8c.html#ae2d98d35c30bae83d84fb6288684f64d">menuFunction</a> <span class="keyword">function</span>;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;};</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;</div>
-<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="menu_8c.html#a1cb8e3bfbae2b182ee03115e49af0cc4">   36</a></span>&#160;<span class="keyword">const</span> <a class="code" href="structmenu_entry.html">menuEntry</a> <a class="code" href="menu_8c.html#a1cb8e3bfbae2b182ee03115e49af0cc4">menuEntries</a>[] = {{<span class="stringliteral">&quot;Exit M-Mode        &quot;</span>,<a class="code" href="hid_8h.html#a666482694abca54ecd49341cb21859e2">lcd_end</a>}, <span class="comment">// calls lcd_end();</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;                             <span class="stringliteral">&quot;Light Settings     &quot;</span>  <span class="comment">// shows menu1</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;                            };</div>
-<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="menu_8c.html#aefc8f836fcc0f6b0d7e54fe482119d20">   39</a></span>&#160;<span class="keyword">const</span> <a class="code" href="structusb_entry.html">usbEntry</a> <a class="code" href="menu_8c.html#aefc8f836fcc0f6b0d7e54fe482119d20">usbEntries</a>[] = {{<a class="code" href="hid_8h.html#a666482694abca54ecd49341cb21859e2">lcd_end</a>}};</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">// Functions that are for the above menu entries.</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="menu_8c.html#a49fa1336abeb5443d70a08f235af8e61">   43</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="menu_8c.html#a49fa1336abeb5443d70a08f235af8e61">menu1</a>()</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;{</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <a class="code" href="hid_8h.html#a1001e29b61b78e45ebce8276372e6312">lcd_menu</a>(2);</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;}</div>
-<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="menu_8c.html#a850dcd293fa06f0b488371b86313ee63">   47</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="menu_8c.html#a850dcd293fa06f0b488371b86313ee63">menu2</a>()</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;{</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    light_toggle();</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;}</div>
-<div class="ttc" id="structusb_entry_html"><div class="ttname"><a href="structusb_entry.html">usbEntry</a></div><div class="ttdef"><b>Definition:</b> <a href="menu_8c_source.html#l00030">menu.c:30</a></div></div>
-<div class="ttc" id="hid_8h_html"><div class="ttname"><a href="hid_8h.html">hid.h</a></div></div>
-<div class="ttc" id="structmenu_entry_html_a9e24e16d679ba6833c43a2b32f3769c0"><div class="ttname"><a href="structmenu_entry.html#a9e24e16d679ba6833c43a2b32f3769c0">menuEntry::text</a></div><div class="ttdeci">const char text[20]</div><div class="ttdef"><b>Definition:</b> <a href="menu_8c_source.html#l00026">menu.c:26</a></div></div>
-<div class="ttc" id="structmenu_entry_html"><div class="ttname"><a href="structmenu_entry.html">menuEntry</a></div><div class="ttdef"><b>Definition:</b> <a href="menu_8c_source.html#l00024">menu.c:24</a></div></div>
-<div class="ttc" id="menu_8c_html_a49fa1336abeb5443d70a08f235af8e61"><div class="ttname"><a href="menu_8c.html#a49fa1336abeb5443d70a08f235af8e61">menu1</a></div><div class="ttdeci">void menu1()</div><div class="ttdef"><b>Definition:</b> <a href="menu_8c_source.html#l00043">menu.c:43</a></div></div>
-<div class="ttc" id="menu_8c_html_ae2d98d35c30bae83d84fb6288684f64d"><div class="ttname"><a href="menu_8c.html#ae2d98d35c30bae83d84fb6288684f64d">menuFunction</a></div><div class="ttdeci">void(* menuFunction)()</div><div class="ttdef"><b>Definition:</b> <a href="menu_8c_source.html#l00022">menu.c:22</a></div></div>
-<div class="ttc" id="sensors_8h_html"><div class="ttname"><a href="sensors_8h.html">sensors.h</a></div></div>
-<div class="ttc" id="menu_8c_html_a850dcd293fa06f0b488371b86313ee63"><div class="ttname"><a href="menu_8c.html#a850dcd293fa06f0b488371b86313ee63">menu2</a></div><div class="ttdeci">void menu2()</div><div class="ttdef"><b>Definition:</b> <a href="menu_8c_source.html#l00047">menu.c:47</a></div></div>
-<div class="ttc" id="structlcd_entry_html_a6ca18c08bd9a82ac11906cd9dadc25b8"><div class="ttname"><a href="structlcd_entry.html#a6ca18c08bd9a82ac11906cd9dadc25b8">lcdEntry::line1</a></div><div class="ttdeci">char * line1</div><div class="ttdef"><b>Definition:</b> <a href="menu_8c_source.html#l00018">menu.c:18</a></div></div>
-<div class="ttc" id="hid_8h_html_a1001e29b61b78e45ebce8276372e6312"><div class="ttname"><a href="hid_8h.html#a1001e29b61b78e45ebce8276372e6312">lcd_menu</a></div><div class="ttdeci">void lcd_menu(unsigned char)</div><div class="ttdef"><b>Definition:</b> <a href="hid_8c_source.html#l00065">hid.c:65</a></div></div>
-<div class="ttc" id="menu_8c_html_aefc8f836fcc0f6b0d7e54fe482119d20"><div class="ttname"><a href="menu_8c.html#aefc8f836fcc0f6b0d7e54fe482119d20">usbEntries</a></div><div class="ttdeci">const usbEntry usbEntries[]</div><div class="ttdef"><b>Definition:</b> <a href="menu_8c_source.html#l00039">menu.c:39</a></div></div>
-<div class="ttc" id="hid_8h_html_a666482694abca54ecd49341cb21859e2"><div class="ttname"><a href="hid_8h.html#a666482694abca54ecd49341cb21859e2">lcd_end</a></div><div class="ttdeci">void lcd_end(void)</div><div class="ttdoc">display "exiting", then turn off the led, and exit maintainence mode </div><div class="ttdef"><b>Definition:</b> <a href="hid_8c_source.html#l00077">hid.c:77</a></div></div>
-<div class="ttc" id="menu_8c_html_a1cb8e3bfbae2b182ee03115e49af0cc4"><div class="ttname"><a href="menu_8c.html#a1cb8e3bfbae2b182ee03115e49af0cc4">menuEntries</a></div><div class="ttdeci">const menuEntry menuEntries[]</div><div class="ttdoc">Contains each entry for the menu. This is a constant. </div><div class="ttdef"><b>Definition:</b> <a href="menu_8c_source.html#l00036">menu.c:36</a></div></div>
-<div class="ttc" id="structlcd_entry_html"><div class="ttname"><a href="structlcd_entry.html">lcdEntry</a></div><div class="ttdef"><b>Definition:</b> <a href="menu_8c_source.html#l00016">menu.c:16</a></div></div>
-<div class="ttc" id="structlcd_entry_html_ae9b48aae0f50eaf6f0927ac7c174ffb4"><div class="ttname"><a href="structlcd_entry.html#ae9b48aae0f50eaf6f0927ac7c174ffb4">lcdEntry::line2</a></div><div class="ttdeci">char * line2</div><div class="ttdef"><b>Definition:</b> <a href="menu_8c_source.html#l00019">menu.c:19</a></div></div>
-</div><!-- fragment --></div><!-- contents -->
+<a href="menu_8c.html">Go to the documentation of this file.</a><div class="fragment"></div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="menu_8c.html">menu.c</a></li>
-    <li class="footer">Generated on Thu Mar 5 2015 19:41:50 for Sr. Design 2015 by
+    <li class="footer">Generated on Thu Mar 5 2015 22:25:50 for Sr. Design 2015 by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.9.1 </li>
   </ul>

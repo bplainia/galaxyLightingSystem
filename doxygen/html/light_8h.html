@@ -121,7 +121,7 @@ $(document).ready(function(){initNavTree('light_8h.html','');});
 Macros</h2></td></tr>
 <tr class="memitem:a5d7a28fdd4d7cde00f81fb8e47d0a798"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="light_8h.html#a5d7a28fdd4d7cde00f81fb8e47d0a798">LED_IO</a>&#160;&#160;&#160;TRISCbits.TRISC7</td></tr>
 <tr class="separator:a5d7a28fdd4d7cde00f81fb8e47d0a798"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a916128c66228f04bfe04c69a5bc5a322"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="light_8h.html#a916128c66228f04bfe04c69a5bc5a322">LED_OUT</a>&#160;&#160;&#160;PORTCbits.PORTC7</td></tr>
+<tr class="memitem:a916128c66228f04bfe04c69a5bc5a322"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="light_8h.html#a916128c66228f04bfe04c69a5bc5a322">LED_OUT</a>&#160;&#160;&#160;PORTCbits.RC7</td></tr>
 <tr class="separator:a916128c66228f04bfe04c69a5bc5a322"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0cc6f7717df9fbdc0f33efb88720a639"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="light_8h.html#a0cc6f7717df9fbdc0f33efb88720a639">AUTO</a>&#160;&#160;&#160;1</td></tr>
 <tr class="separator:a0cc6f7717df9fbdc0f33efb88720a639"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -137,8 +137,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a45a4dce2a793aa9be79132acc6527869"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="light_8h.html#a45a4dce2a793aa9be79132acc6527869">led_setup</a> (void)</td></tr>
 <tr class="memdesc:a45a4dce2a793aa9be79132acc6527869"><td class="mdescLeft">&#160;</td><td class="mdescRight">setup for light  <a href="#a45a4dce2a793aa9be79132acc6527869">More...</a><br /></td></tr>
 <tr class="separator:a45a4dce2a793aa9be79132acc6527869"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8bd52a39df456b36209c969fdc414634"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="light_8h.html#a8bd52a39df456b36209c969fdc414634">led_auto</a> (unsigned char)</td></tr>
-<tr class="separator:a8bd52a39df456b36209c969fdc414634"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8597319bcbaed4f163f51c40b4fcd414"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="light_8h.html#a8597319bcbaed4f163f51c40b4fcd414">led_auto</a> (void)</td></tr>
+<tr class="memdesc:a8597319bcbaed4f163f51c40b4fcd414"><td class="mdescLeft">&#160;</td><td class="mdescRight">operate the light as normal  <a href="#a8597319bcbaed4f163f51c40b4fcd414">More...</a><br /></td></tr>
+<tr class="separator:a8597319bcbaed4f163f51c40b4fcd414"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0c118b1a36dafc7fca65a90d7935d629"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="light_8h.html#a0c118b1a36dafc7fca65a90d7935d629">led_maintenance</a> (unsigned char)</td></tr>
 <tr class="memdesc:a0c118b1a36dafc7fca65a90d7935d629"><td class="mdescLeft">&#160;</td><td class="mdescRight">change the light as directed by maintenance panel  <a href="#a0c118b1a36dafc7fca65a90d7935d629">More...</a><br /></td></tr>
 <tr class="separator:a0c118b1a36dafc7fca65a90d7935d629"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -203,7 +204,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define LED_OUT&#160;&#160;&#160;PORTCbits.PORTC7</td>
+          <td class="memname">#define LED_OUT&#160;&#160;&#160;PORTCbits.RC7</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -247,19 +248,27 @@ Variables</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="a8bd52a39df456b36209c969fdc414634"></a>
+<a class="anchor" id="a8597319bcbaed4f163f51c40b4fcd414"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">void led_auto </td>
           <td>(</td>
-          <td class="paramtype">unsigned&#160;</td>
-          <td class="paramname"><em>char</em></td><td>)</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>operate the light as normal </p>
+<p>Outputs: change state on light pin to control the light</p>
+<p>&ndash;&gt; Test value (global var) used to show if function was entered </p>
+
+<p>Definition at line <a class="el" href="light_8c_source.html#l00020">20</a> of file <a class="el" href="light_8c_source.html">light.c</a>.</p>
+
+<p>Referenced by <a class="el" href="light_8c_source.html#l00038">led_maintenance()</a>.</p>
 
 </div>
 </div>
@@ -333,7 +342,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="light_8h.html">light.h</a></li>
-    <li class="footer">Generated on Thu Mar 5 2015 19:41:50 for Sr. Design 2015 by
+    <li class="footer">Generated on Thu Mar 5 2015 22:25:50 for Sr. Design 2015 by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.9.1 </li>
   </ul>

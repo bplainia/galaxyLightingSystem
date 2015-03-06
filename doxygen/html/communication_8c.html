@@ -111,6 +111,9 @@ $(document).ready(function(){initNavTree('communication_8c.html','');});
 <div class="title">communication.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>This page includes the communications functions to talk to other poles via RS/EIA-485.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;<a class="el" href="shared_8h_source.html">shared.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="communication_8h_source.html">communication.h</a>&gt;</code><br />
 </div>
@@ -136,7 +139,12 @@ Functions</h2></td></tr>
 <tr class="memdesc:a387a712f460e0298392bcf0755ad2737"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get two bytes off the stack. Returns a short.  <a href="#a387a712f460e0298392bcf0755ad2737">More...</a><br /></td></tr>
 <tr class="separator:a387a712f460e0298392bcf0755ad2737"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>This page includes the communications functions to talk to other poles via RS/EIA-485. </p>
+<p>See <a href="baudrate.html" title="Baud Rate Calculation">baudrate</a> note. Author: Benjamin Plain </p>
+
+<p>Definition in file <a class="el" href="communication_8c_source.html">communication.c</a>.</p>
+</div><h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="a5e07c8337b5c325fbe5a933a10b13a37"></a>
 <div class="memitem">
 <div class="memproto">
@@ -197,9 +205,9 @@ Functions</h2></td></tr>
 <p>Get a byte off the stack. Returns that byte. </p>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000003">Todo:</a></b></dt><dd>TODO: Add buffer overflow detection </dd></dl>
 
-<p>Definition at line <a class="el" href="communication_8c_source.html#l00110">110</a> of file <a class="el" href="communication_8c_source.html">communication.c</a>.</p>
+<p>Definition at line <a class="el" href="communication_8c_source.html#l00106">106</a> of file <a class="el" href="communication_8c_source.html">communication.c</a>.</p>
 
-<p>Referenced by <a class="el" href="communication_8c_source.html#l00119">comm_rx_word()</a>.</p>
+<p>Referenced by <a class="el" href="communication_8c_source.html#l00116">comm_rx_word()</a>.</p>
 
 </div>
 </div>
@@ -220,7 +228,7 @@ Functions</h2></td></tr>
 <p>Get two bytes off the stack. Returns a short. </p>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000004">Todo:</a></b></dt><dd>TODO: What happens if ther is no data there? </dd></dl>
 
-<p>Definition at line <a class="el" href="communication_8c_source.html#l00119">119</a> of file <a class="el" href="communication_8c_source.html">communication.c</a>.</p>
+<p>Definition at line <a class="el" href="communication_8c_source.html#l00116">116</a> of file <a class="el" href="communication_8c_source.html">communication.c</a>.</p>
 
 </div>
 </div>
@@ -273,7 +281,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="communication_8c.html">communication.c</a></li>
-    <li class="footer">Generated on Thu Mar 5 2015 19:41:50 for Sr. Design 2015 by
+    <li class="footer">Generated on Thu Mar 5 2015 22:25:50 for Sr. Design 2015 by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.9.1 </li>
   </ul>

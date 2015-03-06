@@ -1,6 +1,9 @@
 var searchData=
 [
   ['refday',['REFDAY',['../rtc_8h.html#ad439936f13fd20ae93d13302f9117a83',1,'rtc.h']]],
+  ['reg16',['reg16',['../structi2c_packet.html#a7396e2ff3fd00170efa2db8697e27e0c',1,'i2cPacket']]],
+  ['regh',['regh',['../structi2c_packet.html#a7ddb1f7f4079afc024428f3037e13318',1,'i2cPacket']]],
+  ['regl',['regl',['../structi2c_packet.html#aaba17fa9b2f7dcb9a9bc01d1ea072c2d',1,'i2cPacket']]],
   ['rightlimit',['rightlimit',['../movement_8h.html#aa22518e326ee6fc5f367cadc3f435d15',1,'movement.h']]],
   ['rotational_5fpostion',['rotational_postion',['../sensors_8h.html#a8fe4c4277265333ced809e31c397900a',1,'rotational_postion(unsigned char):&#160;sensors.c'],['../sensors_8c.html#a4de9c1c99cf313da71af8202740cce5e',1,'rotational_postion(unsigned char potnum):&#160;sensors.c']]],
   ['rtc_2ec',['rtc.c',['../rtc_8c.html',1,'']]],

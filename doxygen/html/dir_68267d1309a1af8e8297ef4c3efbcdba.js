@@ -4,7 +4,7 @@ var dir_68267d1309a1af8e8297ef4c3efbcdba =
     [ "eeprom.c", "eeprom_8c.html", "eeprom_8c" ],
     [ "hid.c", "hid_8c.html", "hid_8c" ],
     [ "light.c", "light_8c.html", "light_8c" ],
-    [ "menu.c", "menu_8c.html", "menu_8c" ],
+    [ "menu.c", "menu_8c.html", null ],
     [ "movement.c", "movement_8c.html", "movement_8c" ],
     [ "powerman.c", "powerman_8c.html", null ],
     [ "rtc.c", "rtc_8c.html", "rtc_8c" ],

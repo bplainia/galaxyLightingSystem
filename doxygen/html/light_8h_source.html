@@ -118,7 +118,7 @@ $(document).ready(function(){initNavTree('light_8h_source.html','');});
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">// Defines</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;</div>
 <div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="light_8h.html#a5d7a28fdd4d7cde00f81fb8e47d0a798">    9</a></span>&#160;<span class="preprocessor">#define LED_IO TRISCbits.TRISC7</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="light_8h.html#a916128c66228f04bfe04c69a5bc5a322">   10</a></span>&#160;<span class="preprocessor">#define LED_OUT PORTCbits.PORTC7</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="light_8h.html#a916128c66228f04bfe04c69a5bc5a322">   10</a></span>&#160;<span class="preprocessor">#define LED_OUT PORTCbits.RC7</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div>
 <div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="light_8h.html#a0cc6f7717df9fbdc0f33efb88720a639">   12</a></span>&#160;<span class="preprocessor">#define AUTO 1</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="light_8h.html#ad76d1750a6cdeebd506bfcd6752554d2">   13</a></span>&#160;<span class="preprocessor">#define ON 2</span></div>
@@ -131,22 +131,22 @@ $(document).ready(function(){initNavTree('light_8h_source.html','');});
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">// Functions</span></div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keywordtype">void</span> <a class="code" href="light_8h.html#a45a4dce2a793aa9be79132acc6527869">led_setup</a>(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keywordtype">void</span> <a class="code" href="light_8h.html#a8bd52a39df456b36209c969fdc414634">led_auto</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>);</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keywordtype">void</span> <a class="code" href="light_8h.html#a8597319bcbaed4f163f51c40b4fcd414">led_auto</a>(<span class="keywordtype">void</span>);</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keywordtype">void</span> <a class="code" href="light_8h.html#a0c118b1a36dafc7fca65a90d7935d629">led_maintenance</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>);</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="light_8h_html_a5afba49262f211583852aff8213e8d93"><div class="ttname"><a href="light_8h.html#a5afba49262f211583852aff8213e8d93">light</a></div><div class="ttdeci">unsigned char light</div><div class="ttdoc">varibles for debug testing, will have bits toggled depending on function entered </div><div class="ttdef"><b>Definition:</b> <a href="light_8h_source.html#l00019">light.h:19</a></div></div>
 <div class="ttc" id="light_8h_html_a0c118b1a36dafc7fca65a90d7935d629"><div class="ttname"><a href="light_8h.html#a0c118b1a36dafc7fca65a90d7935d629">led_maintenance</a></div><div class="ttdeci">void led_maintenance(unsigned char)</div><div class="ttdoc">change the light as directed by maintenance panel </div><div class="ttdef"><b>Definition:</b> <a href="light_8c_source.html#l00038">light.c:38</a></div></div>
 <div class="ttc" id="shared_8h_html"><div class="ttname"><a href="shared_8h.html">shared.h</a></div></div>
+<div class="ttc" id="light_8h_html_a8597319bcbaed4f163f51c40b4fcd414"><div class="ttname"><a href="light_8h.html#a8597319bcbaed4f163f51c40b4fcd414">led_auto</a></div><div class="ttdeci">void led_auto(void)</div><div class="ttdoc">operate the light as normal </div><div class="ttdef"><b>Definition:</b> <a href="light_8c_source.html#l00020">light.c:20</a></div></div>
 <div class="ttc" id="light_8h_html_a45a4dce2a793aa9be79132acc6527869"><div class="ttname"><a href="light_8h.html#a45a4dce2a793aa9be79132acc6527869">led_setup</a></div><div class="ttdeci">void led_setup(void)</div><div class="ttdoc">setup for light </div><div class="ttdef"><b>Definition:</b> <a href="light_8c_source.html#l00007">light.c:7</a></div></div>
-<div class="ttc" id="light_8h_html_a8bd52a39df456b36209c969fdc414634"><div class="ttname"><a href="light_8h.html#a8bd52a39df456b36209c969fdc414634">led_auto</a></div><div class="ttdeci">void led_auto(unsigned char)</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="light_8h.html">light.h</a></li>
-    <li class="footer">Generated on Thu Mar 5 2015 19:41:50 for Sr. Design 2015 by
+    <li class="footer">Generated on Thu Mar 5 2015 22:25:50 for Sr. Design 2015 by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.9.1 </li>
   </ul>

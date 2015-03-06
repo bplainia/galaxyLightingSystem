@@ -9,6 +9,6 @@ var searchData=
   ['usb_5fmystatus',['usb_myStatus',['../hid_8h.html#a08245c1b8fa8ab614af4afc687e83ad7',1,'usb_myStatus():&#160;hid.c'],['../hid_8c.html#a08245c1b8fa8ab614af4afc687e83ad7',1,'usb_myStatus():&#160;hid.c']]],
   ['usb_5fonestatus',['usb_oneStatus',['../hid_8h.html#af2e28fc5e977463f0118e3f959175d1d',1,'usb_oneStatus():&#160;hid.c'],['../hid_8c.html#af2e28fc5e977463f0118e3f959175d1d',1,'usb_oneStatus():&#160;hid.c']]],
   ['usb_5fremoval',['usb_removal',['../hid_8h.html#ade5ee0d0d942cf40705c058ad24f23a6',1,'usb_removal(void):&#160;hid.c'],['../hid_8c.html#ade5ee0d0d942cf40705c058ad24f23a6',1,'usb_removal(void):&#160;hid.c']]],
-  ['usbentries',['usbEntries',['../menu_8c.html#aefc8f836fcc0f6b0d7e54fe482119d20',1,'menu.c']]],
+  ['usbe',['usbe',['../menu_8h.html#a4b4ce94feafd6952ac441ceb090a2b53',1,'menu.h']]],
   ['usbentry',['usbEntry',['../structusb_entry.html',1,'']]]
 ];
