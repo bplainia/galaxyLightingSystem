@@ -18825,6 +18825,9 @@ unsigned : 2;
 typedef struct
 {
 unsigned char addr;
+unsigned char regl;
+unsigned char regh;
+unsigned reg16;
 unsigned char *data;
 unsigned char dataLength;
 }i2cPacket;
@@ -18832,20 +18835,22 @@ unsigned char dataLength;
 
 
 void adc_setup(void);
-unsigned adc_update(unsigned char);
-unsigned adc_update2(unsigned char, unsigned char);
-unsigned adc_updateAll();
+void adc_update(unsigned char);
+void adc_update2(unsigned char, unsigned char);
+void adc_updateAll();
 
 void pwm_setup(void);
 unsigned pwm_set(unsigned char, unsigned char);
 
 void i2c_setup(void);
 unsigned i2c_tx(i2cPacket);
-unsigned char* i2c_rx(unsigned char, unsigned char);
-static void i2c_start();
+unsigned i2c_rx(i2cPacket*);
+static void i2c_start(unsigned);
+static void i2c_stop(void);
 static unsigned i2c_send(unsigned char);
+static unsigned char i2c_recv(unsigned);
 
-# 9 "src/shared.c"
+# 10 "src/shared.c"
 void adc_setup()
 {
 
@@ -18859,18 +18864,18 @@ ADRC = 1;
 
 }
 
-# 27
-unsigned adc_update(unsigned char chA)
+# 28
+void adc_update(unsigned char chA)
 {
-if(chA > 0b11111) return 0;
+if(chA > 0b11111) return;
 ADCHS0Lbits.CH0SA = chA;
 SAMP = 1;
 }
 
-# 40
-unsigned adc_update2(unsigned char chA, unsigned char chB)
+# 41
+void adc_update2(unsigned char chA, unsigned char chB)
 {
-if((chA > 0b11111) || (chB > 0b11111)) return 0;
+if((chA > 0b11111) || (chB > 0b11111)) return;
 ADCHS0Lbits.CH0SA = chA;
 ADCHS0Hbits.CH0SB = chB;
 ADCON2Lbits.ALTS = 1;
@@ -18882,7 +18887,6 @@ DONE = 0;
 
 
 ADCON2Lbits.ALTS = 0;
-return 1;
 }
 
 
@@ -18925,7 +18929,8 @@ unsigned i2c_tx(i2cPacket packet)
 {
 
 unsigned char i;
-i2c_start(packet.addr, packet.addr16);
+i2c_start(0);
+i2c_send(packet.addr & 0b11111110);
 for(i = 0; i < packet.dataLength; ++i)
 {
 SSP1BUF = packet.data[i];
@@ -18936,29 +18941,40 @@ return 0;
 }
 
 }
-
-SSP1CON2bits.PEN = 1;
-
+i2c_stop();
 return 0;
 }
 
-# 136
-void i2c_rx(i2cPacket *packet)
+# 135
+unsigned i2c_rx(i2cPacket *packet)
 {
 
+unsigned char i;
+if((*packet).dataLength == 0) return 1;
 
 
-i2c_start();
-i2c_send()
-
-
+i2c_start(0);
+if(i2c_send((*packet).addr & 0b11111110)) return 1;
+if((*packet).reg16) i2c_send((*packet).regh);
+if(i2c_send((*packet).regl)) return 1;
+i2c_start(1);
+if(i2c_send((*packet).addr | 0b00000001)) return 1;
+do
+{
+(*packet).data[i] = i2c_recv(0);
+}
+while (++i < (*packet).dataLength);
+(*packet).data[i] = i2c_recv(1);
+i2c_stop();
+return 0;
 }
 
 
-static void i2c_start()
+static void i2c_start(unsigned repeat)
 {
 SSP1IF = 0;
-SSP1CON2bits.SEN = 1;
+if (repeat) SSP1CON2bits.RSEN = 1;
+else SSP1CON2bits.SEN = 1;
 while(!SSP1IF) continue;
 SSP1IF = 0;
 
@@ -18976,11 +18992,21 @@ while(!SSP1IF) continue;
 SSP1IF = 0;
 }
 
-# 174
+# 186
 static unsigned i2c_send(unsigned char byte)
 {
 SSP1IF = 0;
 SSP1BUF = byte;
 while(!SSP1IF) continue;
 return (SSP1CON2bits.ACKDT || SSP1CON2bits.ACKSTAT);
+}
+
+# 196
+static unsigned char i2c_recv(unsigned ack)
+{
+SSP1IF = 0;
+SSP1CON2bits.RCEN = 1;
+while(!SSP1IF) continue;
+SSP1CON2bits.ACKEN = ack;
+SSP1CON2bits.ACKEN = 1;
 }

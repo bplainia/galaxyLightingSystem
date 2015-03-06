@@ -123,22 +123,24 @@ $(document).ready(function(){initNavTree('rtc_8h_source.html','');});
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">// Functions</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keywordtype">void</span> <a class="code" href="rtc_8h.html#a31f8f7699356088ad529a87df0185e35">rtc_start</a>(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keywordtype">void</span> <a class="code" href="rtc_8h.html#aa2af9e41dfdd46f621603055df68c147">rtc_set</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>,</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keywordtype">void</span> <a class="code" href="rtc_8h.html#ae83559199d1a128c09c800d2622d5628">rtc_setup</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keywordtype">unsigned</span> <a class="code" href="rtc_8h.html#a96f8f56d203877c59db854d5ec425a7c">rtc_set</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>,</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>);</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">/* RTC_H */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">static</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> char2bcd(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>);</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">static</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> weekday(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>);</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;</div>
-<div class="ttc" id="rtc_8h_html_aa2af9e41dfdd46f621603055df68c147"><div class="ttname"><a href="rtc_8h.html#aa2af9e41dfdd46f621603055df68c147">rtc_set</a></div><div class="ttdeci">void rtc_set(unsigned char, unsigned char, unsigned char, unsigned char, unsigned char, unsigned char)</div><div class="ttdef"><b>Definition:</b> rtc.c:15</div></div>
-<div class="ttc" id="rtc_8h_html_a31f8f7699356088ad529a87df0185e35"><div class="ttname"><a href="rtc_8h.html#a31f8f7699356088ad529a87df0185e35">rtc_start</a></div><div class="ttdeci">void rtc_start(void)</div><div class="ttdef"><b>Definition:</b> rtc.c:9</div></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">/* RTC_H */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;</div>
+<div class="ttc" id="rtc_8h_html_a96f8f56d203877c59db854d5ec425a7c"><div class="ttname"><a href="rtc_8h.html#a96f8f56d203877c59db854d5ec425a7c">rtc_set</a></div><div class="ttdeci">unsigned rtc_set(unsigned char, unsigned char, unsigned char, unsigned char, unsigned char, unsigned char)</div><div class="ttdoc">Set the time on the RTCC. </div><div class="ttdef"><b>Definition:</b> <a href="rtc_8c_source.html#l00019">rtc.c:19</a></div></div>
+<div class="ttc" id="rtc_8h_html_ae83559199d1a128c09c800d2622d5628"><div class="ttname"><a href="rtc_8h.html#ae83559199d1a128c09c800d2622d5628">rtc_setup</a></div><div class="ttdeci">void rtc_setup(void)</div><div class="ttdoc">Real-time Clock/Calendar Module setup. </div><div class="ttdef"><b>Definition:</b> <a href="rtc_8c_source.html#l00005">rtc.c:5</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="rtc_8h.html">rtc.h</a></li>
-    <li class="footer">Generated on Sat Feb 28 2015 22:45:07 for Sr. Design 2015 by
+    <li class="footer">Generated on Thu Mar 5 2015 19:41:50 for Sr. Design 2015 by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.9.1 </li>
   </ul>

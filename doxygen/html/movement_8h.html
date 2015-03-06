@@ -113,64 +113,198 @@ $(document).ready(function(){initNavTree('movement_8h.html','');});
 <div class="title">movement.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-
+<div class="textblock"><code>#include &lt;<a class="el" href="shared_8h_source.html">shared.h</a>&gt;</code><br />
+<code>#include &lt;xc.h&gt;</code><br />
+<code>#include &lt;<a class="el" href="communication_8h_source.html">communication.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="eeprom_8h_source.html">eeprom.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="hid_8h_source.html">hid.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="powerman_8h_source.html">powerman.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="rtc_8h_source.html">rtc.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="sensors_8h_source.html">sensors.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="solar_light_8h_source.html">solarLight.h</a>&gt;</code><br />
+</div>
 <p><a href="movement_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a424b1f3d8e8cc9cbf0202bc10a6fbcf6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="movement_8h.html#a424b1f3d8e8cc9cbf0202bc10a6fbcf6">PINIO_MOVE_LEFTRIGHT</a>&#160;&#160;&#160;1</td></tr>
-<tr class="separator:a424b1f3d8e8cc9cbf0202bc10a6fbcf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af56c27be0c50458bbee312d1eb9a35fb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="movement_8h.html#af56c27be0c50458bbee312d1eb9a35fb">PINIO_MOVE_UPDOWN</a>&#160;&#160;&#160;1</td></tr>
-<tr class="separator:af56c27be0c50458bbee312d1eb9a35fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a234bdd09e7d7d3f473d05a3fdc259b29"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="movement_8h.html#a234bdd09e7d7d3f473d05a3fdc259b29">PINIO_MOVE_LEFTRIGHT_1</a>&#160;&#160;&#160;TRISBbits.TRISB1</td></tr>
+<tr class="separator:a234bdd09e7d7d3f473d05a3fdc259b29"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec7b95ac6a27f87db0db66f5da1a8ca2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="movement_8h.html#aec7b95ac6a27f87db0db66f5da1a8ca2">PINIO_MOVE_LEFTRIGHT_2</a>&#160;&#160;&#160;TRISBbits.TRISB2</td></tr>
+<tr class="separator:aec7b95ac6a27f87db0db66f5da1a8ca2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f00bac77ff4fd58a75b0a2db5f6dc2e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="movement_8h.html#a5f00bac77ff4fd58a75b0a2db5f6dc2e">PINIO_MOVE_LEFTRIGHT_3</a>&#160;&#160;&#160;TRISBbits.TRISB3</td></tr>
+<tr class="separator:a5f00bac77ff4fd58a75b0a2db5f6dc2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb792fe2b3cf92173449203fd8caaae0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="movement_8h.html#aeb792fe2b3cf92173449203fd8caaae0">PINIO_MOVE_LEFTRIGHT_4</a>&#160;&#160;&#160;TRISBbits.TRISB4</td></tr>
+<tr class="separator:aeb792fe2b3cf92173449203fd8caaae0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e83871933247385ef574a047f0d8392"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="movement_8h.html#a0e83871933247385ef574a047f0d8392">PINIO_MOVE_UPDOWN_1</a>&#160;&#160;&#160;TRISDbits.TRISD4</td></tr>
+<tr class="separator:a0e83871933247385ef574a047f0d8392"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac06d9d32c67d365b0042c52ae5be6d21"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="movement_8h.html#ac06d9d32c67d365b0042c52ae5be6d21">PINIO_MOVE_UPDOWN_2</a>&#160;&#160;&#160;TRISDbits.TRISD5</td></tr>
+<tr class="separator:ac06d9d32c67d365b0042c52ae5be6d21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5131f37d9086015f5bb8d6e6f9da391"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="movement_8h.html#af5131f37d9086015f5bb8d6e6f9da391">PINIO_MOVE_UPDOWN_3</a>&#160;&#160;&#160;TRISDbits.TRISD6</td></tr>
+<tr class="separator:af5131f37d9086015f5bb8d6e6f9da391"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a778b3b6d3c5de66fa76f94205932696a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="movement_8h.html#a778b3b6d3c5de66fa76f94205932696a">PINIO_MOVE_UPDOWN_4</a>&#160;&#160;&#160;TRISDbits.TRISD7</td></tr>
+<tr class="separator:a778b3b6d3c5de66fa76f94205932696a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:acff6ef558f3959fa2f1d5c15f66f5da1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="movement_8h.html#acff6ef558f3959fa2f1d5c15f66f5da1">movement_initialize</a> (void)</td></tr>
-<tr class="separator:acff6ef558f3959fa2f1d5c15f66f5da1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af7294bab5b8d64d9f7bb16aa38234743"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="movement_8h.html#af7294bab5b8d64d9f7bb16aa38234743">movement_test</a> (void)</td></tr>
-<tr class="separator:af7294bab5b8d64d9f7bb16aa38234743"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa67ee4459e10af395a01589adac59d6b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="movement_8h.html#aa67ee4459e10af395a01589adac59d6b">movement_setup</a> (void)</td></tr>
+<tr class="memdesc:aa67ee4459e10af395a01589adac59d6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">setup motors  <a href="#aa67ee4459e10af395a01589adac59d6b">More...</a><br /></td></tr>
+<tr class="separator:aa67ee4459e10af395a01589adac59d6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e3d487fc2cf3a8946fc4045ece08ca5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="movement_8h.html#a9e3d487fc2cf3a8946fc4045ece08ca5">limit_test</a> (void)</td></tr>
+<tr class="memdesc:a9e3d487fc2cf3a8946fc4045ece08ca5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move the panel to each limit to find values on pots.  <a href="#a9e3d487fc2cf3a8946fc4045ece08ca5">More...</a><br /></td></tr>
+<tr class="separator:a9e3d487fc2cf3a8946fc4045ece08ca5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa8591ba7e28cdff297c7c02f76cc9a36"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="movement_8h.html#aa8591ba7e28cdff297c7c02f76cc9a36">daytime_move</a> (void)</td></tr>
+<tr class="memdesc:aa8591ba7e28cdff297c7c02f76cc9a36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move the panel to point at the sun, either from sensors or memory.  <a href="#aa8591ba7e28cdff297c7c02f76cc9a36">More...</a><br /></td></tr>
 <tr class="separator:aa8591ba7e28cdff297c7c02f76cc9a36"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1b7b82bcb06887dd1e0b337963861bfc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="movement_8h.html#a1b7b82bcb06887dd1e0b337963861bfc">dusk_moveback</a> (void)</td></tr>
+<tr class="memdesc:a1b7b82bcb06887dd1e0b337963861bfc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move back to the east for the next day.  <a href="#a1b7b82bcb06887dd1e0b337963861bfc">More...</a><br /></td></tr>
 <tr class="separator:a1b7b82bcb06887dd1e0b337963861bfc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7fea1b5cfa78f6d0574f0d5a91497080"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="movement_8h.html#a7fea1b5cfa78f6d0574f0d5a91497080">seasonal_adjust</a> (void)</td></tr>
-<tr class="separator:a7fea1b5cfa78f6d0574f0d5a91497080"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8bf89395b9cf8aa5b7f45722394c59b4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="movement_8h.html#a8bf89395b9cf8aa5b7f45722394c59b4">season_adjust</a> (void)</td></tr>
+<tr class="memdesc:a8bf89395b9cf8aa5b7f45722394c59b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adjust the panel (if needed) based on the season.  <a href="#a8bf89395b9cf8aa5b7f45722394c59b4">More...</a><br /></td></tr>
+<tr class="separator:a8bf89395b9cf8aa5b7f45722394c59b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae271753fb4d08bbffe1f403133ce62ae"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="movement_8h.html#ae271753fb4d08bbffe1f403133ce62ae">maintenance_move</a> (unsigned char)</td></tr>
+<tr class="memdesc:ae271753fb4d08bbffe1f403133ce62ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move as directed by maintenance panel.  <a href="#ae271753fb4d08bbffe1f403133ce62ae">More...</a><br /></td></tr>
 <tr class="separator:ae271753fb4d08bbffe1f403133ce62ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a4067496e3172d94e54ef306faa591dce"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="movement_8h.html#a4067496e3172d94e54ef306faa591dce">leftlimit</a></td></tr>
+<tr class="memitem:a4067496e3172d94e54ef306faa591dce"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="movement_8h.html#a4067496e3172d94e54ef306faa591dce">leftlimit</a> = 0</td></tr>
 <tr class="separator:a4067496e3172d94e54ef306faa591dce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa22518e326ee6fc5f367cadc3f435d15"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="movement_8h.html#aa22518e326ee6fc5f367cadc3f435d15">rightlimit</a></td></tr>
+<tr class="memitem:aa22518e326ee6fc5f367cadc3f435d15"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="movement_8h.html#aa22518e326ee6fc5f367cadc3f435d15">rightlimit</a> = 0</td></tr>
 <tr class="separator:aa22518e326ee6fc5f367cadc3f435d15"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0a2f7f339d92975c4f4dae780f87b12d"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="movement_8h.html#a0a2f7f339d92975c4f4dae780f87b12d">uplimit</a></td></tr>
+<tr class="memitem:a0a2f7f339d92975c4f4dae780f87b12d"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="movement_8h.html#a0a2f7f339d92975c4f4dae780f87b12d">uplimit</a> = 0</td></tr>
 <tr class="separator:a0a2f7f339d92975c4f4dae780f87b12d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abb3344ceab7734d4d4a37fdee9f13bab"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="movement_8h.html#abb3344ceab7734d4d4a37fdee9f13bab">downlimit</a></td></tr>
+<tr class="memitem:abb3344ceab7734d4d4a37fdee9f13bab"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="movement_8h.html#abb3344ceab7734d4d4a37fdee9f13bab">downlimit</a> = 0</td></tr>
 <tr class="separator:abb3344ceab7734d4d4a37fdee9f13bab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4a4a20abb68b85961028b7187194725"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="movement_8h.html#ad4a4a20abb68b85961028b7187194725">move</a> = 0</td></tr>
+<tr class="memdesc:ad4a4a20abb68b85961028b7187194725"><td class="mdescLeft">&#160;</td><td class="mdescRight">varibles for debug testing, will have bits toggled depending on function entered  <a href="#ad4a4a20abb68b85961028b7187194725">More...</a><br /></td></tr>
+<tr class="separator:ad4a4a20abb68b85961028b7187194725"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
-<a class="anchor" id="a424b1f3d8e8cc9cbf0202bc10a6fbcf6"></a>
+<a class="anchor" id="a234bdd09e7d7d3f473d05a3fdc259b29"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define PINIO_MOVE_LEFTRIGHT&#160;&#160;&#160;1</td>
+          <td class="memname">#define PINIO_MOVE_LEFTRIGHT_1&#160;&#160;&#160;TRISBbits.TRISB1</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
+<p>Definition at line <a class="el" href="movement_8h_source.html#l00024">24</a> of file <a class="el" href="movement_8h_source.html">movement.h</a>.</p>
+
+<p>Referenced by <a class="el" href="movement_8c_source.html#l00005">movement_setup()</a>.</p>
+
 </div>
 </div>
-<a class="anchor" id="af56c27be0c50458bbee312d1eb9a35fb"></a>
+<a class="anchor" id="aec7b95ac6a27f87db0db66f5da1a8ca2"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define PINIO_MOVE_UPDOWN&#160;&#160;&#160;1</td>
+          <td class="memname">#define PINIO_MOVE_LEFTRIGHT_2&#160;&#160;&#160;TRISBbits.TRISB2</td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="movement_8h_source.html#l00025">25</a> of file <a class="el" href="movement_8h_source.html">movement.h</a>.</p>
+
+<p>Referenced by <a class="el" href="movement_8c_source.html#l00005">movement_setup()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a5f00bac77ff4fd58a75b0a2db5f6dc2e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PINIO_MOVE_LEFTRIGHT_3&#160;&#160;&#160;TRISBbits.TRISB3</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="movement_8h_source.html#l00026">26</a> of file <a class="el" href="movement_8h_source.html">movement.h</a>.</p>
+
+<p>Referenced by <a class="el" href="movement_8c_source.html#l00005">movement_setup()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aeb792fe2b3cf92173449203fd8caaae0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PINIO_MOVE_LEFTRIGHT_4&#160;&#160;&#160;TRISBbits.TRISB4</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="movement_8h_source.html#l00027">27</a> of file <a class="el" href="movement_8h_source.html">movement.h</a>.</p>
+
+<p>Referenced by <a class="el" href="movement_8c_source.html#l00005">movement_setup()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a0e83871933247385ef574a047f0d8392"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PINIO_MOVE_UPDOWN_1&#160;&#160;&#160;TRISDbits.TRISD4</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="movement_8h_source.html#l00028">28</a> of file <a class="el" href="movement_8h_source.html">movement.h</a>.</p>
+
+<p>Referenced by <a class="el" href="movement_8c_source.html#l00005">movement_setup()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac06d9d32c67d365b0042c52ae5be6d21"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PINIO_MOVE_UPDOWN_2&#160;&#160;&#160;TRISDbits.TRISD5</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="movement_8h_source.html#l00029">29</a> of file <a class="el" href="movement_8h_source.html">movement.h</a>.</p>
+
+<p>Referenced by <a class="el" href="movement_8c_source.html#l00005">movement_setup()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="af5131f37d9086015f5bb8d6e6f9da391"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PINIO_MOVE_UPDOWN_3&#160;&#160;&#160;TRISDbits.TRISD6</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="movement_8h_source.html#l00030">30</a> of file <a class="el" href="movement_8h_source.html">movement.h</a>.</p>
+
+<p>Referenced by <a class="el" href="movement_8c_source.html#l00005">movement_setup()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a778b3b6d3c5de66fa76f94205932696a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PINIO_MOVE_UPDOWN_4&#160;&#160;&#160;TRISDbits.TRISD7</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="movement_8h_source.html#l00031">31</a> of file <a class="el" href="movement_8h_source.html">movement.h</a>.</p>
+
+<p>Referenced by <a class="el" href="movement_8c_source.html#l00005">movement_setup()</a>.</p>
 
 </div>
 </div>
@@ -189,6 +323,11 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Move the panel to point at the sun, either from sensors or memory. </p>
+<p>&ndash;&gt; Test values (global var) used to show if function was entered </p>
+
+<p>Definition at line <a class="el" href="movement_8c_source.html#l00046">46</a> of file <a class="el" href="movement_8c_source.html">movement.c</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a1b7b82bcb06887dd1e0b337963861bfc"></a>
@@ -204,6 +343,33 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Move back to the east for the next day. </p>
+<p>&ndash;&gt; Test value (global var) used to show if function was entered </p>
+
+<p>Definition at line <a class="el" href="movement_8c_source.html#l00054">54</a> of file <a class="el" href="movement_8c_source.html">movement.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a9e3d487fc2cf3a8946fc4045ece08ca5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void limit_test </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Move the panel to each limit to find values on pots. </p>
+<p>&ndash;&gt; Test value (global var) used to show if function was entered </p>
+<p>Move down all the way (rec: downlimit) Move right all the way (rec: eastlimit) Move left all the way (rec: westlimit) Move to the lr middle (eastlimit/2 + westlimit/2) (noon) Mov up all the way (uplimit) if photo_value(1) &gt; cloudy <a class="el" href="movement_8c.html#a8bf89395b9cf8aa5b7f45722394c59b4" title="Adjust the panel (if needed) based on the season. ">season_adjust()</a> <a class="el" href="movement_8c.html#aa8591ba7e28cdff297c7c02f76cc9a36" title="Move the panel to point at the sun, either from sensors or memory. ">daytime_move()</a> else move to updown middle (uplimit/2 + downlimit/2) move to lr time_estimate</p>
+
+<p>Definition at line <a class="el" href="movement_8c_source.html#l00025">25</a> of file <a class="el" href="movement_8c_source.html">movement.c</a>.</p>
 
 </div>
 </div>
@@ -221,14 +387,33 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Move as directed by maintenance panel. </p>
+<p>Inputs: desired operation of the panel (1-8)</p>
+<p>Outputs: commands to the motors</p>
+<p>&ndash;&gt; Test values (returns) used to show if function preformed was entered </p>
+<p>Cases</p>
+<p>SETTINGS: will be permenant until changed by maintenance</p>
+<p>auto = function as normal</p>
+<p>hurricane = fixed horizantal</p>
+<p>fixed = move to optimal position, day flat, year 30ish</p>
+<p>fixed seasonal = only move day to day</p>
+<p>stop = do not move, adjust physically</p>
+<p>TESTS: will default back to auto when maintenance mode exitted</p>
+<p>auto = function as normal</p>
+<p>thurricane = fixed horizantal</p>
+<p>tfixed = move to optimal position, day flat, year 30ish</p>
+<p>limits = invoke <a class="el" href="movement_8c.html#a9e3d487fc2cf3a8946fc4045ece08ca5" title="Move the panel to each limit to find values on pots. ">limit_test()</a></p>
+
+<p>Definition at line <a class="el" href="movement_8c_source.html#l00076">76</a> of file <a class="el" href="movement_8c_source.html">movement.c</a>.</p>
+
 </div>
 </div>
-<a class="anchor" id="acff6ef558f3959fa2f1d5c15f66f5da1"></a>
+<a class="anchor" id="aa67ee4459e10af395a01589adac59d6b"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void movement_initialize </td>
+          <td class="memname">void movement_setup </td>
           <td>(</td>
           <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
@@ -237,14 +422,21 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>setup motors </p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000007">Todo:</a></b></dt><dd>TODO -&gt; Setup PWM for motors </dd></dl>
+
+<p>Definition at line <a class="el" href="movement_8c_source.html#l00005">5</a> of file <a class="el" href="movement_8c_source.html">movement.c</a>.</p>
+
+<p>Referenced by <a class="el" href="solar_light_8c_source.html#l00106">setup()</a>.</p>
+
 </div>
 </div>
-<a class="anchor" id="af7294bab5b8d64d9f7bb16aa38234743"></a>
+<a class="anchor" id="a8bf89395b9cf8aa5b7f45722394c59b4"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void movement_test </td>
+          <td class="memname">void season_adjust </td>
           <td>(</td>
           <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
@@ -253,21 +445,11 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-</div>
-</div>
-<a class="anchor" id="a7fea1b5cfa78f6d0574f0d5a91497080"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void seasonal_adjust </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
+<p>Adjust the panel (if needed) based on the season. </p>
+<p>Outputs: commands to the motors</p>
+<p>&ndash;&gt; Test value (global var) used to show if function was entered </p>
+
+<p>Definition at line <a class="el" href="movement_8c_source.html#l00064">64</a> of file <a class="el" href="movement_8c_source.html">movement.c</a>.</p>
 
 </div>
 </div>
@@ -277,10 +459,12 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">unsigned int downlimit</td>
+          <td class="memname">unsigned int downlimit = 0</td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="movement_8h_source.html#l00020">20</a> of file <a class="el" href="movement_8h_source.html">movement.h</a>.</p>
 
 </div>
 </div>
@@ -289,10 +473,30 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">unsigned int leftlimit</td>
+          <td class="memname">unsigned int leftlimit = 0</td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="movement_8h_source.html#l00017">17</a> of file <a class="el" href="movement_8h_source.html">movement.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad4a4a20abb68b85961028b7187194725"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned char move = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>varibles for debug testing, will have bits toggled depending on function entered </p>
+
+<p>Definition at line <a class="el" href="movement_8h_source.html#l00034">34</a> of file <a class="el" href="movement_8h_source.html">movement.h</a>.</p>
+
+<p>Referenced by <a class="el" href="movement_8c_source.html#l00046">daytime_move()</a>, <a class="el" href="movement_8c_source.html#l00054">dusk_moveback()</a>, <a class="el" href="movement_8c_source.html#l00025">limit_test()</a>, <a class="el" href="movement_8c_source.html#l00076">maintenance_move()</a>, and <a class="el" href="movement_8c_source.html#l00064">season_adjust()</a>.</p>
 
 </div>
 </div>
@@ -301,10 +505,12 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">unsigned int rightlimit</td>
+          <td class="memname">unsigned int rightlimit = 0</td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="movement_8h_source.html#l00018">18</a> of file <a class="el" href="movement_8h_source.html">movement.h</a>.</p>
 
 </div>
 </div>
@@ -313,10 +519,12 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">unsigned int uplimit</td>
+          <td class="memname">unsigned int uplimit = 0</td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="movement_8h_source.html#l00019">19</a> of file <a class="el" href="movement_8h_source.html">movement.h</a>.</p>
 
 </div>
 </div>
@@ -326,7 +534,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="movement_8h.html">movement.h</a></li>
-    <li class="footer">Generated on Sat Feb 28 2015 22:45:07 for Sr. Design 2015 by
+    <li class="footer">Generated on Thu Mar 5 2015 19:41:50 for Sr. Design 2015 by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.9.1 </li>
   </ul>

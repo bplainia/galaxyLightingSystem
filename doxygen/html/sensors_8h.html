@@ -107,12 +107,14 @@ $(document).ready(function(){initNavTree('sensors_8h.html','');});
 <div class="header">
   <div class="summary">
 <a href="#define-members">Macros</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">sensors.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-
+<div class="textblock"><code>#include &lt;<a class="el" href="shared_8h_source.html">shared.h</a>&gt;</code><br />
+</div>
 <p><a href="sensors_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
@@ -167,15 +169,28 @@ Macros</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a15b4e13f99c0445196f2854067fd86b4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sensors_8h.html#a15b4e13f99c0445196f2854067fd86b4">sensor_start</a> (void)</td></tr>
+<tr class="memdesc:a15b4e13f99c0445196f2854067fd86b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">setup sensors  <a href="#a15b4e13f99c0445196f2854067fd86b4">More...</a><br /></td></tr>
 <tr class="separator:a15b4e13f99c0445196f2854067fd86b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0aba81f5c2352a5dbdeb6f16dda6029d"><td class="memItemLeft" align="right" valign="top">unsigned short&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sensors_8h.html#a0aba81f5c2352a5dbdeb6f16dda6029d">photo_value</a> (unsigned char)</td></tr>
+<tr class="memdesc:a0aba81f5c2352a5dbdeb6f16dda6029d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check the analog value of a particular photoresistor.  <a href="#a0aba81f5c2352a5dbdeb6f16dda6029d">More...</a><br /></td></tr>
 <tr class="separator:a0aba81f5c2352a5dbdeb6f16dda6029d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3e4eb3fcad4273ffb3db6da8e52602be"><td class="memItemLeft" align="right" valign="top">unsigned short&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sensors_8h.html#a3e4eb3fcad4273ffb3db6da8e52602be">temperature</a> (void)</td></tr>
-<tr class="separator:a3e4eb3fcad4273ffb3db6da8e52602be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aedd2f48fdfb46392bb48cd9f356cd862"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sensors_8h.html#aedd2f48fdfb46392bb48cd9f356cd862">temperature</a> (void)</td></tr>
+<tr class="memdesc:aedd2f48fdfb46392bb48cd9f356cd862"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check the temperature inside the enclosure.  <a href="#aedd2f48fdfb46392bb48cd9f356cd862">More...</a><br /></td></tr>
+<tr class="separator:aedd2f48fdfb46392bb48cd9f356cd862"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8fe4c4277265333ced809e31c397900a"><td class="memItemLeft" align="right" valign="top">unsigned short&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sensors_8h.html#a8fe4c4277265333ced809e31c397900a">rotational_postion</a> (unsigned char)</td></tr>
+<tr class="memdesc:a8fe4c4277265333ced809e31c397900a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check the analog value of a particular potentimeter.  <a href="#a8fe4c4277265333ced809e31c397900a">More...</a><br /></td></tr>
 <tr class="separator:a8fe4c4277265333ced809e31c397900a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a11766a5678a9098ee83d7c4530ffca3e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sensors_8h.html#a11766a5678a9098ee83d7c4530ffca3e">pir_enable</a> (unsigned char)</td></tr>
+<tr class="memdesc:a11766a5678a9098ee83d7c4530ffca3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">turn the PIR sensor on or off  <a href="#a11766a5678a9098ee83d7c4530ffca3e">More...</a><br /></td></tr>
 <tr class="separator:a11766a5678a9098ee83d7c4530ffca3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a6fee01f475a8e86595eb4c0af534adc6"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sensors_8h.html#a6fee01f475a8e86595eb4c0af534adc6">duskLevel</a> = 2000</td></tr>
+<tr class="separator:a6fee01f475a8e86595eb4c0af534adc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa6f73dedae5fd741be9fca2815bdd9cc"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sensors_8h.html#aa6f73dedae5fd741be9fca2815bdd9cc">pir</a> = 2</td></tr>
+<tr class="memdesc:aa6f73dedae5fd741be9fca2815bdd9cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">for testing purposes, will change when <a class="el" href="sensors_8h.html#aa6f73dedae5fd741be9fca2815bdd9cc" title="for testing purposes, will change when pir() is entered to show action taken ">pir()</a> is entered to show action taken  <a href="#aa6f73dedae5fd741be9fca2815bdd9cc">More...</a><br /></td></tr>
+<tr class="separator:aa6f73dedae5fd741be9fca2815bdd9cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a class="anchor" id="a30c175022c33773fa879d28d759c0098"></a>
@@ -187,6 +202,10 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="sensors_8h_source.html#l00030">30</a> of file <a class="el" href="sensors_8h_source.html">sensors.h</a>.</p>
+
+<p>Referenced by <a class="el" href="sensors_8c_source.html#l00005">sensor_start()</a>.</p>
 
 </div>
 </div>
@@ -200,6 +219,10 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Definition at line <a class="el" href="sensors_8h_source.html#l00031">31</a> of file <a class="el" href="sensors_8h_source.html">sensors.h</a>.</p>
+
+<p>Referenced by <a class="el" href="sensors_8c_source.html#l00005">sensor_start()</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ace31d9774ca1c512dc8c3d3786a8db00"></a>
@@ -211,6 +234,10 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="sensors_8h_source.html#l00028">28</a> of file <a class="el" href="sensors_8h_source.html">sensors.h</a>.</p>
+
+<p>Referenced by <a class="el" href="sensors_8c_source.html#l00005">sensor_start()</a>.</p>
 
 </div>
 </div>
@@ -224,6 +251,10 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Definition at line <a class="el" href="sensors_8h_source.html#l00033">33</a> of file <a class="el" href="sensors_8h_source.html">sensors.h</a>.</p>
+
+<p>Referenced by <a class="el" href="sensors_8c_source.html#l00005">sensor_start()</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="afc2ca3692d28db3a7ffceeba3b883d9f"></a>
@@ -235,6 +266,10 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="sensors_8h_source.html#l00035">35</a> of file <a class="el" href="sensors_8h_source.html">sensors.h</a>.</p>
+
+<p>Referenced by <a class="el" href="sensors_8c_source.html#l00005">sensor_start()</a>.</p>
 
 </div>
 </div>
@@ -248,6 +283,10 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Definition at line <a class="el" href="sensors_8h_source.html#l00034">34</a> of file <a class="el" href="sensors_8h_source.html">sensors.h</a>.</p>
+
+<p>Referenced by <a class="el" href="sensors_8c_source.html#l00005">sensor_start()</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a8170eada8b5fb897a85e74b842689f3a"></a>
@@ -259,6 +298,10 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="sensors_8h_source.html#l00036">36</a> of file <a class="el" href="sensors_8h_source.html">sensors.h</a>.</p>
+
+<p>Referenced by <a class="el" href="sensors_8c_source.html#l00005">sensor_start()</a>.</p>
 
 </div>
 </div>
@@ -272,6 +315,10 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Definition at line <a class="el" href="sensors_8h_source.html#l00026">26</a> of file <a class="el" href="sensors_8h_source.html">sensors.h</a>.</p>
+
+<p>Referenced by <a class="el" href="sensors_8c_source.html#l00005">sensor_start()</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ab4557e7b49745e613bc3cfe2399dd976"></a>
@@ -283,6 +330,10 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="sensors_8h_source.html#l00027">27</a> of file <a class="el" href="sensors_8h_source.html">sensors.h</a>.</p>
+
+<p>Referenced by <a class="el" href="sensors_8c_source.html#l00005">sensor_start()</a>.</p>
 
 </div>
 </div>
@@ -296,6 +347,10 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Definition at line <a class="el" href="sensors_8h_source.html#l00032">32</a> of file <a class="el" href="sensors_8h_source.html">sensors.h</a>.</p>
+
+<p>Referenced by <a class="el" href="sensors_8c_source.html#l00005">sensor_start()</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a40c71fc221e9ba1511e1d74c3e3ef957"></a>
@@ -307,6 +362,10 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="sensors_8h_source.html#l00029">29</a> of file <a class="el" href="sensors_8h_source.html">sensors.h</a>.</p>
+
+<p>Referenced by <a class="el" href="sensors_8c_source.html#l00005">sensor_start()</a>.</p>
 
 </div>
 </div>
@@ -320,6 +379,10 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Definition at line <a class="el" href="sensors_8h_source.html#l00017">17</a> of file <a class="el" href="sensors_8h_source.html">sensors.h</a>.</p>
+
+<p>Referenced by <a class="el" href="sensors_8c_source.html#l00005">sensor_start()</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ae596a6bfcd81ff351bad6ca92fc7da04"></a>
@@ -331,6 +394,10 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="sensors_8h_source.html#l00018">18</a> of file <a class="el" href="sensors_8h_source.html">sensors.h</a>.</p>
+
+<p>Referenced by <a class="el" href="sensors_8c_source.html#l00005">sensor_start()</a>.</p>
 
 </div>
 </div>
@@ -344,6 +411,10 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Definition at line <a class="el" href="sensors_8h_source.html#l00015">15</a> of file <a class="el" href="sensors_8h_source.html">sensors.h</a>.</p>
+
+<p>Referenced by <a class="el" href="sensors_8c_source.html#l00005">sensor_start()</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="adc71bfa091f58097d9005e39c496afaa"></a>
@@ -355,6 +426,10 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="sensors_8h_source.html#l00021">21</a> of file <a class="el" href="sensors_8h_source.html">sensors.h</a>.</p>
+
+<p>Referenced by <a class="el" href="sensors_8c_source.html#l00005">sensor_start()</a>.</p>
 
 </div>
 </div>
@@ -368,6 +443,10 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Definition at line <a class="el" href="sensors_8h_source.html#l00023">23</a> of file <a class="el" href="sensors_8h_source.html">sensors.h</a>.</p>
+
+<p>Referenced by <a class="el" href="sensors_8c_source.html#l00005">sensor_start()</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a4d28a9fcdefb95d9830ec1ede2ac7f0f"></a>
@@ -379,6 +458,10 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="sensors_8h_source.html#l00022">22</a> of file <a class="el" href="sensors_8h_source.html">sensors.h</a>.</p>
+
+<p>Referenced by <a class="el" href="sensors_8c_source.html#l00005">sensor_start()</a>.</p>
 
 </div>
 </div>
@@ -392,6 +475,10 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Definition at line <a class="el" href="sensors_8h_source.html#l00024">24</a> of file <a class="el" href="sensors_8h_source.html">sensors.h</a>.</p>
+
+<p>Referenced by <a class="el" href="sensors_8c_source.html#l00005">sensor_start()</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a79dba93bf84fd9c5cd7f491eb016e658"></a>
@@ -403,6 +490,10 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="sensors_8h_source.html#l00020">20</a> of file <a class="el" href="sensors_8h_source.html">sensors.h</a>.</p>
+
+<p>Referenced by <a class="el" href="sensors_8c_source.html#l00005">sensor_start()</a>.</p>
 
 </div>
 </div>
@@ -416,6 +507,10 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Definition at line <a class="el" href="sensors_8h_source.html#l00013">13</a> of file <a class="el" href="sensors_8h_source.html">sensors.h</a>.</p>
+
+<p>Referenced by <a class="el" href="sensors_8c_source.html#l00005">sensor_start()</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ad30d0b0859725a732f77c0319f73773c"></a>
@@ -427,6 +522,10 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="sensors_8h_source.html#l00014">14</a> of file <a class="el" href="sensors_8h_source.html">sensors.h</a>.</p>
+
+<p>Referenced by <a class="el" href="sensors_8c_source.html#l00005">sensor_start()</a>.</p>
 
 </div>
 </div>
@@ -440,6 +539,10 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Definition at line <a class="el" href="sensors_8h_source.html#l00019">19</a> of file <a class="el" href="sensors_8h_source.html">sensors.h</a>.</p>
+
+<p>Referenced by <a class="el" href="sensors_8c_source.html#l00005">sensor_start()</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a112b8fd2cb6122960aefc47a796ac789"></a>
@@ -452,6 +555,10 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Definition at line <a class="el" href="sensors_8h_source.html#l00016">16</a> of file <a class="el" href="sensors_8h_source.html">sensors.h</a>.</p>
+
+<p>Referenced by <a class="el" href="sensors_8c_source.html#l00005">sensor_start()</a>.</p>
+
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
@@ -462,12 +569,19 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">unsigned short photo_value </td>
           <td>(</td>
-          <td class="paramtype">unsigned&#160;</td>
-          <td class="paramname"><em>char</em></td><td>)</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>photonum</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Check the analog value of a particular photoresistor. </p>
+<p>Inputs: designator of photoresistor to be checked (1, 2, 3, or 4)</p>
+<p>Outputs: analog value off that photoresistor in binary</p>
+<p>&ndash;&gt; Test values (returns) used to show if function preformed as desired </p>
+
+<p>Definition at line <a class="el" href="sensors_8c_source.html#l00043">43</a> of file <a class="el" href="sensors_8c_source.html">sensors.c</a>.</p>
 
 </div>
 </div>
@@ -478,12 +592,17 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void pir_enable </td>
           <td>(</td>
-          <td class="paramtype">unsigned&#160;</td>
-          <td class="paramname"><em>char</em></td><td>)</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>pironoff</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>turn the PIR sensor on or off </p>
+<p>Inputs: signal to turn the pir on or off (1 = on, 0 = off) </p>
+
+<p>Definition at line <a class="el" href="sensors_8c_source.html#l00096">96</a> of file <a class="el" href="sensors_8c_source.html">sensors.c</a>.</p>
 
 </div>
 </div>
@@ -494,12 +613,19 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">unsigned short rotational_postion </td>
           <td>(</td>
-          <td class="paramtype">unsigned&#160;</td>
-          <td class="paramname"><em>char</em></td><td>)</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>potnum</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Check the analog value of a particular potentimeter. </p>
+<p>Inputs: designator of potentimeter to be checked (1 or 2)</p>
+<p>Outputs: analog value off that potentimeter in binary</p>
+<p>&ndash;&gt; Test values (returns) used to show if function preformed as desired </p>
+
+<p>Definition at line <a class="el" href="sensors_8c_source.html#l00081">81</a> of file <a class="el" href="sensors_8c_source.html">sensors.c</a>.</p>
 
 </div>
 </div>
@@ -517,14 +643,18 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>setup sensors </p>
+
+<p>Definition at line <a class="el" href="sensors_8c_source.html#l00005">5</a> of file <a class="el" href="sensors_8c_source.html">sensors.c</a>.</p>
+
 </div>
 </div>
-<a class="anchor" id="a3e4eb3fcad4273ffb3db6da8e52602be"></a>
+<a class="anchor" id="aedd2f48fdfb46392bb48cd9f356cd862"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">unsigned short temperature </td>
+          <td class="memname">char temperature </td>
           <td>(</td>
           <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
@@ -532,6 +662,45 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Check the temperature inside the enclosure. </p>
+<p>Outputs: Temperature at the sensor in degF</p>
+<p>&ndash;&gt; Test value (return) used to show if function preformed as desired </p>
+
+<p>Definition at line <a class="el" href="sensors_8c_source.html#l00065">65</a> of file <a class="el" href="sensors_8c_source.html">sensors.c</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a class="anchor" id="a6fee01f475a8e86595eb4c0af534adc6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int duskLevel = 2000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="sensors_8h_source.html#l00007">7</a> of file <a class="el" href="sensors_8h_source.html">sensors.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aa6f73dedae5fd741be9fca2815bdd9cc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned char pir = 2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>for testing purposes, will change when <a class="el" href="sensors_8h.html#aa6f73dedae5fd741be9fca2815bdd9cc" title="for testing purposes, will change when pir() is entered to show action taken ">pir()</a> is entered to show action taken </p>
+
+<p>Definition at line <a class="el" href="sensors_8h_source.html#l00010">10</a> of file <a class="el" href="sensors_8h_source.html">sensors.h</a>.</p>
+
+<p>Referenced by <a class="el" href="sensors_8c_source.html#l00096">pir_enable()</a>.</p>
 
 </div>
 </div>
@@ -541,7 +710,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="sensors_8h.html">sensors.h</a></li>
-    <li class="footer">Generated on Sat Feb 28 2015 22:45:07 for Sr. Design 2015 by
+    <li class="footer">Generated on Thu Mar 5 2015 19:41:50 for Sr. Design 2015 by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.9.1 </li>
   </ul>

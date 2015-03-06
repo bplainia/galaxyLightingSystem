@@ -1,5 +1,6 @@
-/*
- * Shared Functions
+/*! \file
+ * This file containes the functions that are used in more than one file.
+ * This includes the ADC, I2C, and PWM.
  * Author: Benjamin Plain
  */
 
@@ -24,9 +25,9 @@ void adc_setup()
  * Input: A single number specifying which channel to update from 0 to 15.
  * Outputs: A single bit specifying success. (1=success)
  */
-unsigned adc_update(unsigned char chA) // Read specific pin - raw
+void adc_update(unsigned char chA) // Read specific pin - raw
 {
-    if(chA > 0b11111) return false;
+    if(chA > 0b11111) return;
     ADCHS0Lbits.CH0SA = chA;
     SAMP = 1; // Initiate sample
 }
@@ -37,9 +38,9 @@ unsigned adc_update(unsigned char chA) // Read specific pin - raw
  *
  *  Outputs: A single bit specifying success. (1=success)
  */
-unsigned adc_update2(unsigned char chA, unsigned char chB)
+void adc_update2(unsigned char chA, unsigned char chB)
 {
-    if((chA > 0b11111) || (chB > 0b11111)) return false;
+    if((chA > 0b11111) || (chB > 0b11111)) return;
     ADCHS0Lbits.CH0SA = chA;
     ADCHS0Hbits.CH0SB = chB;
     ADCON2Lbits.ALTS = 1;
@@ -51,14 +52,13 @@ unsigned adc_update2(unsigned char chA, unsigned char chB)
 
     // Done.
     ADCON2Lbits.ALTS = 0;
-    return true; // TODO: adc updates: what will cause false to be returned?
 }
 
 /// Update all the ADC buffers that are activated in `adc_setup()`.
 void adc_updateAll() 
 {
     ADCON2Hbits.CSCNA = 1; // Enable Channel Scan
-    // TODO: adcUpdateAll() needs finisheds
+    //! \todo  TODO: adcUpdateAll() needs finisheds
     ADCON2Hbits.CSCNA = 0; // Disable Channel Scan
 
 }
@@ -67,7 +67,7 @@ void adc_updateAll()
 void pwm_setup() 
 {
     // Initialize TMR2
-    // TODO: Setup the timer for PWM
+    //! \todo  TODO: Setup the timer for PWM
     PR2   = 0XFF;       //
     T2CON = 0b00000111; // 1:16 prescaler from instruction = 750kHz
 
@@ -94,7 +94,7 @@ void i2c_setup() // Initialize the I2C pins
 {
     SSP1CON1 = 0b00101000; // Enable MSSP in master i2c mode. Auto-configs the pins.
     SSP1ADD  = 0x4B; // for 400kHz Clock at 48MHz primary clock.
-    // FIXME: Check the baud rate generator or test it. Needs to be 100kHz.
+    //! \todo  FIXME: Check the baud rate generator or test it. Needs to be 100kHz.
 }
 
 /*! \brief Takes a packet and transmits it according to its contents. Returns true if successful.
@@ -111,7 +111,8 @@ unsigned i2c_tx(i2cPacket packet)
 {
 
     unsigned char i;
-    i2c_start(packet.addr, packet.addr16);
+    i2c_start(0);
+    i2c_send(packet.addr & 0b11111110); // write mode; address
     for(i = 0; i < packet.dataLength; ++i)
     {
         SSP1BUF = packet.data[i];
@@ -122,9 +123,7 @@ unsigned i2c_tx(i2cPacket packet)
         }
         // check ack bit and flag again
     }
-    // generate stop bit
-    SSP1CON2bits.PEN = 1;
-    // interrupt flag is set again
+    i2c_stop(); // generate stop bit
     return false;
 }
 
@@ -133,22 +132,35 @@ unsigned i2c_tx(i2cPacket packet)
  * Inputs: `packet`: A packet consisting of an address, a number for quantity, and an array to fill with the quantity.
  * Outputs: None formally. Modifies the `data` portion of the packet pointer that was given.
  */
-void i2c_rx(i2cPacket *packet) // recieve data from address
+unsigned i2c_rx(i2cPacket *packet) // recieve data from address
 {
     #define pack (*packet) // macro to make coding easer since we call it a lot
+    unsigned char i;
+    if(pack.dataLength == 0) return true; // Do nothing if there is a zero data length.
     
     // write address
-    i2c_start();
-    i2c_send()
-    // enable recieve
-    // read number of chars
+    i2c_start(0);
+    if(i2c_send(pack.addr & 0b11111110)) return true; // write mode at address
+    if(pack.reg16) i2c_send(pack.regh); // Address High Byte
+    if(i2c_send(pack.regl)) return true; // Address Low Byte
+    i2c_start(1); // exit write mode
+    if(i2c_send(pack.addr | 0b00000001)) return true; // read mode at address
+    do
+    {
+        pack.data[i] = i2c_recv(0); // Ack
+    }
+    while (++i < pack.dataLength);
+    pack.data[i] = i2c_recv(1); // NOAck
+    i2c_stop();
+    return false;
 }
 
-/// Transmit a start bit on the i2c bus
-static void i2c_start()
+//! \brief Transmit a start bit on the i2c bus
+static void i2c_start(unsigned repeat)
 {
     SSP1IF = 0;
-    SSP1CON2bits.SEN = 1; // do a start bit.
+    if (repeat) SSP1CON2bits.RSEN = 1; // do a repeat start bit.
+    else SSP1CON2bits.SEN = 1; // do a start bit.
     while(!SSP1IF) continue; // Wait until SSP1IF is set
     SSP1IF = 0;
 
@@ -157,7 +169,7 @@ static void i2c_start()
     // check SSP1IF again to see if it is done
 }
 
-// Transmit a stop bit on the i2c bus
+//! \brief Transmit a stop bit on the i2c bus
 static void i2c_stop()
 {
     SSP1IF = 0;
@@ -177,4 +189,15 @@ static unsigned i2c_send(unsigned char byte)
     SSP1BUF = byte; // begin transmitting the byte
     while(!SSP1IF) continue; // wait for transmission to finish
     return (SSP1CON2bits.ACKDT || SSP1CON2bits.ACKSTAT); // if not acknoleged or got NO-ACK
+}
+
+/*! \brief Recieve a byte from the I2C device
+ */
+static unsigned char i2c_recv(unsigned ack)
+{
+    SSP1IF = 0;
+    SSP1CON2bits.RCEN = 1; // Enable recieve of bits.
+    while(!SSP1IF) continue; // wait for recieving to finish
+    SSP1CON2bits.ACKEN = ack; // ACK
+    SSP1CON2bits.ACKEN = 1; // Send the ACK bit
 }

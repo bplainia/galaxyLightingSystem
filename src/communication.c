@@ -1,13 +1,17 @@
-//TODO: Finish skeleton For communications
-//TODO[Review]: Communications (BEN)
-// Author: Benjamin Plain
-// Communications chip library
+/*! \page
+ *  \breif This page includes the communications functions to talk to other poles via RS/EIA-485.
+ *
+ * See [baudrate](baudrate.html "Baud Rate Calculation") note.
+ * Author: Benjamin Plain
+ */
+
+//! \todo TODO: Finish skeleton For communications
+//! \todo TODO[Review]: Communications (BEN)
+// 
 #include <shared.h>
 #include <communication.h>
 
 /// Setup the pins and modules for communication outside the pole.
-///
-/// See [baudrate](baudrate.html "Baud Rate Calculation") note.
 void comm_start()
 {
     //! \todo TODO: Communications start function
@@ -21,7 +25,7 @@ void comm_start()
     RXTXPIN = 0;    // Direction Pin
     RXTXDIR = 0;    // Set to Recieve Mode
 
-    //! \todo TODO: Setup UART Module 1 Transmision
+    //Setup UART Module 1 Transmision
     TXSTA1bits.BRGH = 1; // High Baud Rate mode
     SPBRGH1 = 0; // Baud rate
     SPBRG1  = 63; // set for 250kbps
@@ -34,23 +38,30 @@ void comm_start()
     //enable tx1ie after clearing flag
     TXSTA1bits.TX9 = 1; // Enable 9-bit mode
 
-    //! \todo TODO: Setup UART Module 1 Recieving
+    //Setup UART Module 1 Recieving
     RCSTA1 = 0b11111000; // Enable 9 bit reciever. Put into address mode first.
     /// Use the last 3 bits of RCSTA1 for errors and 9th bit.
     /// Address that is received will be in RCREG1
 
-    txPtrIn = rxPtrIn = txPtrOut = rxPtrOut = 0; // reset pointers
-    comm_overflow = 0; // Has not happened
     comm_flush();
+    comm_overflow = 0; // Has not happened
 }
 
+/// Flush both communications buffers
 void comm_flush()
 {
     unsigned char i;
     for(i=0;i<TXBUFFSIZE;++i) txBuff[i] = 0; // Clear the Buffer
     for(i=0;i<RXBUFFSIZE;++i) rxBuff[i] = 0;
+    txPtrIn = rxPtrIn = txPtrOut = rxPtrOut = 0; // reset pointers
 }
 
+/* \brief Add a byte to the transmit stack
+ *
+ * Inputs:
+ * Outputs: Outputs the success bit.
+ * Description: Adds a single byte to the transmit stack. Make sure to call `comm_go()` so that the
+ */
 unsigned comm_tx(unsigned char data)
 {
     // Detect that there is something in the buffer and no overflow
@@ -58,19 +69,22 @@ unsigned comm_tx(unsigned char data)
     {
         txBuff[txPtrIn++] = data;
         if(txPtrIn >= TXBUFFSIZE) txPtrIn = 0;
-        return true;
+        return false;
     }
     else
     {
         COMSTAT.TXOVER = 1; // Set the tx overflow flag. I can't take any more
-        return false;
+        return true;
     }
 }
 
+/*! \brief Activate transmission onto universe
+ *
+ * Returns success if there are no impedances
+ */
 unsigned comm_go()
 {
-    /*! \brief Activate transmission onto universe
-     */
+    
     if(COMSTAT.TOKEN) // Make sure we have the token
     {
         if(txPtrOut != txPtrIn)
@@ -78,29 +92,29 @@ unsigned comm_go()
             TX1IE = 1;                               // enable interrupt
             TXREG1 = txBuff[txPtrOut++];             // begin transmission
             if(txPtrOut >= TXBUFFSIZE) txPtrOut = 0; // reset pointer if done
-            return true;
+            return false;
         }
         else
         {
-            return false;
+            return true;
         }
-    }
-    else
-    {
-        return false;
     }
     return true;
 }
 
+/// Get a byte off the stack. Returns that byte.
 unsigned char comm_rx()
 {
     unsigned char myReturn;
     myReturn = rxBuff[rxPtrOut++];
     if(rxPtrOut >= RXBUFFSIZE) rxPtrOut = 0;
-    // TODO: Add buffer overflow detection
+    //! \todo  TODO: Add buffer overflow detection
+    return myReturn;
 }
+
+/// Get two bytes off the stack. Returns a short.
 unsigned short comm_rx_word()
 {
-    // TODO: What happens if ther is no data there?
+    //! \todo  TODO: What happens if ther is no data there?
     return (comm_rx() << 8) + comm_rx();
 }

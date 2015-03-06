@@ -15,6 +15,7 @@ var NAVTREE =
         [ "Mode 2: Slave Mode", "md__c_1__users__benjaminp__documents_pcc_current__e_l_450__patience_inc_firmware_doc_statemachine.html#slavemode", null ]
       ] ]
     ] ],
+    [ "Todo List", "todo.html", null ],
     [ "Data Structures", null, [
       [ "Data Structures", "annotated.html", "annotated" ],
       [ "Data Structure Index", "classes.html", null ],
@@ -29,6 +30,9 @@ var NAVTREE =
         [ "All", "globals.html", null ],
         [ "Functions", "globals_func.html", null ],
         [ "Variables", "globals_vars.html", null ],
+        [ "Typedefs", "globals_type.html", null ],
+        [ "Enumerations", "globals_enum.html", null ],
+        [ "Enumerator", "globals_eval.html", null ],
         [ "Macros", "globals_defs.html", null ]
       ] ]
     ] ]
@@ -37,7 +41,8 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"annotated.html"
+"annotated.html",
+"shared_8h.html#ae09373d8ca18beabb0c12aacc5346a54"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

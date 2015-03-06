@@ -1,13 +1,18 @@
 var searchData=
 [
-  ['temperature',['temperature',['../sensors_8h.html#a3e4eb3fcad4273ffb3db6da8e52602be',1,'temperature(void):&#160;sensors.c'],['../sensors_8c.html#a3e4eb3fcad4273ffb3db6da8e52602be',1,'temperature(void):&#160;sensors.c']]],
-  ['terror',['TERROR',['../structcomstat__t.html#a6280d63145bb20f921aed12654cca74b',1,'comstat_t']]],
-  ['token',['TOKEN',['../structcomstat__t.html#a286e5d66a5e535c50a8b89c9d4870370',1,'comstat_t']]],
-  ['true',['true',['../shared_8h.html#a41f9c5fb8b08eb5dc3edce4dcb37fee7',1,'shared.h']]],
-  ['txbuff',['txBuff',['../communication_8c.html#abc737f2c9d39d271c27259772a2fe691',1,'communication.c']]],
-  ['txbuffsize',['TXBUFFSIZE',['../communication_8h.html#afa6659b1a6ac30d274c24ebbf8578fe8',1,'communication.h']]],
-  ['txover',['TXOVER',['../structcomstat__t.html#a008f2e947c6ef85c19ebd817436ae178',1,'comstat_t']]],
-  ['txpin',['TXPIN',['../communication_8h.html#ad7371134b74d77a9646ab529bda75f1f',1,'communication.h']]],
-  ['txptrin',['txPtrIn',['../communication_8c.html#ae17d4c3096cc992bce9f4204f118cf95',1,'communication.c']]],
-  ['txptrout',['txPtrOut',['../communication_8c.html#ab5d6de3c972cebd1aa0162e41cb64b54',1,'communication.c']]]
+  ['refday',['REFDAY',['../rtc_8h.html#ad439936f13fd20ae93d13302f9117a83',1,'rtc.h']]],
+  ['rightlimit',['rightlimit',['../movement_8h.html#aa22518e326ee6fc5f367cadc3f435d15',1,'movement.h']]],
+  ['rotational_5fpostion',['rotational_postion',['../sensors_8h.html#a8fe4c4277265333ced809e31c397900a',1,'rotational_postion(unsigned char):&#160;sensors.c'],['../sensors_8c.html#a4de9c1c99cf313da71af8202740cce5e',1,'rotational_postion(unsigned char potnum):&#160;sensors.c']]],
+  ['rtc_2ec',['rtc.c',['../rtc_8c.html',1,'']]],
+  ['rtc_2eh',['rtc.h',['../rtc_8h.html',1,'']]],
+  ['rtc_5fset',['rtc_set',['../rtc_8h.html#a96f8f56d203877c59db854d5ec425a7c',1,'rtc_set(unsigned char, unsigned char, unsigned char, unsigned char, unsigned char, unsigned char):&#160;rtc.c'],['../rtc_8c.html#a4bfdeddb5688e60286998294b6f85445',1,'rtc_set(unsigned char year, unsigned char month, unsigned char day, unsigned char hour, unsigned char minute, unsigned char second):&#160;rtc.c']]],
+  ['rtc_5fsetup',['rtc_setup',['../rtc_8h.html#ae83559199d1a128c09c800d2622d5628',1,'rtc_setup(void):&#160;rtc.c'],['../rtc_8c.html#a9e961a2e8e8309e4fd490ac35f68a293',1,'rtc_setup():&#160;rtc.c']]],
+  ['rtcinit',['rtcInit',['../shared_8h.html#a11fd95187603059b4e22f79d5826d9ca',1,'shared.h']]],
+  ['rxbuff',['rxBuff',['../communication_8h.html#a4be594763d3af94bdb9bd5725c63224f',1,'communication.h']]],
+  ['rxbuffsize',['RXBUFFSIZE',['../communication_8h.html#aa142c3ac1397c2b82176b4b486cc3330',1,'communication.h']]],
+  ['rxover',['RXOVER',['../structcomstat__t.html#aaeb85551df9d078c5e89a1e210072572',1,'comstat_t']]],
+  ['rxptrin',['rxPtrIn',['../communication_8h.html#a6446f8ab84d55f9028e687d49e53c63d',1,'communication.h']]],
+  ['rxptrout',['rxPtrOut',['../communication_8h.html#a571268af8b0b42dc7347a4acfc4941b5',1,'communication.h']]],
+  ['rxtxdir',['RXTXDIR',['../communication_8h.html#aac46ad6f4f709ac12f0f081cf9b751cd',1,'communication.h']]],
+  ['rxtxpin',['RXTXPIN',['../communication_8h.html#af56dd38d0962fb04632920f1545b2c46',1,'communication.h']]]
 ];

@@ -38,6 +38,7 @@ void led_auto(void){
 void led_maintenance(unsigned char lightState)
 {
     switch (lightState)
+    {
         case AUTO:
             led_auto();
         break;
@@ -53,5 +54,6 @@ void led_maintenance(unsigned char lightState)
         break;
         default:
             led_auto();
+    }
 
 }

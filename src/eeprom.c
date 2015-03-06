@@ -5,7 +5,7 @@
 /// Check the memory. Certain things are checksumed.
 unsigned char mem_check()
 {
-    return;
+    return false;
 }
 
 /// Save special bytes that are in ram to eeprom.
@@ -28,7 +28,7 @@ void mem_push()
  * 1    | No EEPROM or not responding
  * 2    | Not enough space left in LOG space
  */
-unsigned char mem_append_log(errorCode err)
+unsigned char mem_append_log(unsigned char err)
 {
 
     return 0; // default return is no error
@@ -59,9 +59,9 @@ static unsigned mem_write(unsigned short addr, unsigned char* data, unsigned cha
 static unsigned char* mem_read(unsigned short addr, unsigned char length)
 {
     // Create packet and byte array for the i2c function to write to
-    unsigned char* data[256];
+    unsigned char* data[50];
     i2cPacket packet; //! \todo FIXME: need to do the address of eeprom and memory correctly
-    i2c_rx(packet);
+    i2c_rx(&packet);
 
     return 0; // default return is no error
 }

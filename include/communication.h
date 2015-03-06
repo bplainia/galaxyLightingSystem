@@ -16,7 +16,8 @@
 
 void comm_start(void); // Initialize Communication
 void comm_flush(void); // Flush the buffers
-unsigned char comm_tx(unsigned char); // Transmit a byte (add to TX FIFO) returns boolean
+unsigned comm_go(void); // Begin transmission of the buffer
+unsigned comm_tx(unsigned char); // Transmit a byte (add to TX FIFO) returns boolean
 unsigned char comm_rx(void); // Get a byte from the RX FIFO
 unsigned short comm_rx_word(void); // get a word from the RX FIFO
 

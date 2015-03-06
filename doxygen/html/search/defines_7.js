@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['version1',['VERSION1',['../shared_8h.html#a19efa2f81d63ff13a7e60e352b9eb929',1,'shared.h']]],
-  ['version2',['VERSION2',['../shared_8h.html#a30448eb6a744ed516cfd498fc188a14c',1,'shared.h']]]
+  ['off',['OFF',['../light_8h.html#a29e413f6725b2ba32d165ffaa35b01e5',1,'light.h']]],
+  ['on',['ON',['../light_8h.html#ad76d1750a6cdeebd506bfcd6752554d2',1,'light.h']]]
 ];

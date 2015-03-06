@@ -18825,6 +18825,9 @@ unsigned : 2;
 typedef struct
 {
 unsigned char addr;
+unsigned char regl;
+unsigned char regh;
+unsigned reg16;
 unsigned char *data;
 unsigned char dataLength;
 }i2cPacket;
@@ -18832,18 +18835,20 @@ unsigned char dataLength;
 
 
 void adc_setup(void);
-unsigned adc_update(unsigned char);
-unsigned adc_update2(unsigned char, unsigned char);
-unsigned adc_updateAll();
+void adc_update(unsigned char);
+void adc_update2(unsigned char, unsigned char);
+void adc_updateAll();
 
 void pwm_setup(void);
 unsigned pwm_set(unsigned char, unsigned char);
 
 void i2c_setup(void);
 unsigned i2c_tx(i2cPacket);
-unsigned char* i2c_rx(unsigned char, unsigned char);
-static void i2c_start();
+unsigned i2c_rx(i2cPacket*);
+static void i2c_start(unsigned);
+static void i2c_stop(void);
 static unsigned i2c_send(unsigned char);
+static unsigned char i2c_recv(unsigned);
 
 # 15 "include\rtc.h"
 void rtc_setup(void);
@@ -18854,19 +18859,19 @@ static unsigned char char2bcd(unsigned char);
 static unsigned char weekday(unsigned char, unsigned char, unsigned char);
 
 # 19 "include\eeprom.h"
-typedef enum errorCode {NONE,SPACEOVERRIDE,BATTERYLOW};
+typedef enum errorCode {NONE=0,SPACEOVERRIDE=1,BATTERYLOW=2};
 
 
 unsigned char mem_check(void);
 void mem_push(void);
-unsigned char mem_append_log(char);
+unsigned char mem_append_log(unsigned char);
 static unsigned mem_write(unsigned short, unsigned char[], unsigned char);
 static unsigned char* mem_read(unsigned short, unsigned char);
 
 # 6 "src/eeprom.c"
 unsigned char mem_check()
 {
-return;
+return 0;
 }
 
 
@@ -18876,7 +18881,7 @@ return;
 }
 
 # 31
-unsigned char mem_append_log(errorCode err)
+unsigned char mem_append_log(unsigned char err)
 {
 
 return 0;
@@ -18895,9 +18900,9 @@ return 0;
 static unsigned char* mem_read(unsigned short addr, unsigned char length)
 {
 
-unsigned char* data[256];
+unsigned char* data[50];
 i2cPacket packet;
-i2c_rx(packet);
+i2c_rx(&packet);
 
 return 0;
 }

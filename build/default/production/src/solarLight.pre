@@ -18813,7 +18813,7 @@ extern __nonreentrant void _delaywdt(unsigned long);
 extern __nonreentrant void _delay3(unsigned char);
 
 
-# 14 "src/solarLight.c"
+# 19 "src/solarLight.c"
 #pragma config STVREN = OFF
 #pragma config XINST = ON
 
@@ -18893,6 +18893,9 @@ unsigned : 2;
 typedef struct
 {
 unsigned char addr;
+unsigned char regl;
+unsigned char regh;
+unsigned reg16;
 unsigned char *data;
 unsigned char dataLength;
 }i2cPacket;
@@ -18900,23 +18903,26 @@ unsigned char dataLength;
 
 
 void adc_setup(void);
-unsigned adc_update(unsigned char);
-unsigned adc_update2(unsigned char, unsigned char);
-unsigned adc_updateAll();
+void adc_update(unsigned char);
+void adc_update2(unsigned char, unsigned char);
+void adc_updateAll();
 
 void pwm_setup(void);
 unsigned pwm_set(unsigned char, unsigned char);
 
 void i2c_setup(void);
 unsigned i2c_tx(i2cPacket);
-unsigned char* i2c_rx(unsigned char, unsigned char);
-static void i2c_start();
+unsigned i2c_rx(i2cPacket*);
+static void i2c_start(unsigned);
+static void i2c_stop(void);
 static unsigned i2c_send(unsigned char);
+static unsigned char i2c_recv(unsigned);
 
 # 17 "include\communication.h"
 void comm_start(void);
 void comm_flush(void);
-unsigned char comm_tx(unsigned char);
+unsigned comm_go(void);
+unsigned comm_tx(unsigned char);
 unsigned char comm_rx(void);
 unsigned short comm_rx_word(void);
 
@@ -18944,12 +18950,12 @@ static unsigned char char2bcd(unsigned char);
 static unsigned char weekday(unsigned char, unsigned char, unsigned char);
 
 # 19 "include\eeprom.h"
-typedef enum errorCode {NONE,SPACEOVERRIDE,BATTERYLOW};
+typedef enum errorCode {NONE=0,SPACEOVERRIDE=1,BATTERYLOW=2};
 
 
 unsigned char mem_check(void);
 void mem_push(void);
-unsigned char mem_append_log(char);
+unsigned char mem_append_log(unsigned char);
 static unsigned mem_write(unsigned short, unsigned char[], unsigned char);
 static unsigned char* mem_read(unsigned short, unsigned char);
 
@@ -18980,26 +18986,36 @@ void usb_myStatus();
 void usb_allStatus();
 void usb_end(void);
 
-# 6 "include\movement.h"
-unsigned int leftlimit;
-unsigned int rightlimit;
-unsigned int uplimit;
-unsigned int downlimit;
+# 7 "include\sensors.h"
+unsigned int duskLevel = 2000;
 
-# 20
-void movement_initialize(void);
-void movement_test(void);
-void daytime_move(void);
-void dusk_moveback(void);
-void seasonal_adjust(void);
-void maintenance_move(unsigned char);
 
-# 38 "include\sensors.h"
+unsigned char pir = 2;
+
+# 41
 void sensor_start(void);
 unsigned short photo_value(unsigned char);
-unsigned short temperature(void);
+char temperature(void);
 unsigned short rotational_postion(unsigned char);
 void pir_enable(unsigned char);
+
+# 17 "include\movement.h"
+unsigned int leftlimit = 0;
+unsigned int rightlimit = 0;
+unsigned int uplimit = 0;
+unsigned int downlimit = 0;
+
+# 34
+unsigned char move = 0;
+
+
+
+void movement_setup(void);
+void limit_test(void);
+void daytime_move(void);
+void dusk_moveback(void);
+void season_adjust(void);
+void maintenance_move(unsigned char);
 
 # 16 "include\solarLight.h"
 void setup(void);
@@ -19007,7 +19023,7 @@ void loop(void);
 void interrupt low_priority isr_low(void);
 void interrupt high_priority isr_high(void);
 
-# 83 "src/solarLight.c"
+# 89 "src/solarLight.c"
 void main(void)
 {
 
@@ -19033,11 +19049,15 @@ unsigned char memStatus;
 i2c_setup();
 
 memStatus = mem_check();
+pwm_setup();
+adc_setup();
+movement_setup();
+led_setup();
 hid_setup();
 rtc_setup();
 }
 
-# 116
+# 126
 void loop()
 {
 
@@ -19065,6 +19085,7 @@ else if(status.state == 2)
 }
 }
 
+# 162
 void interrupt low_priority isr_low()
 {
 if(TX1IE && TX1IF)
@@ -19082,8 +19103,8 @@ if(RC1IE && RC1IF)
 }
 }
 
-# 164
+# 186
 void interrupt high_priority isr_high()
 {
-continue;
+;
 }

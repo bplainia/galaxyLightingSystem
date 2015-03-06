@@ -1,5 +1,10 @@
-// Main file
-// Created by benjamin Plain
+/*! \file
+ * \brief This is the main file for the project (project name is "solarLight").
+ *
+ * It contains the main, setup, and loop functions, which are setup similar to an arduino.
+ *
+ * Created by benjamin Plain
+*/
 
 // PIC18F67J94 Configuration Bit Settings
 
@@ -71,11 +76,12 @@
 // CONFIG7H
 
 // CONFIG8L
-#pragma config DSWDTPS = DSWDTPS1A// Deep Sleep Watchdog Timer Postscale Select (1:2147483648 (19.2 Hours))
+#pragma config DSWDTPS = DSWDTPS1A ///< Deep Sleep Watchdog Timer Postscale Select (1:2147483648 (19.2 Hours))
 
 // CONFIG8H
-#pragma config DSWDTEN = ON     // Deep Sleep Watchdog Timer Enable (DSWDT Enabled)
-#pragma config DSWDTOSC = SOSC  // DSWDT Reference Clock Select (DSWDT uses SOSC as reference clock)
+#pragma config DSWDTEN = ON     ///< Deep Sleep Watchdog Timer Enable (DSWDT Enabled)
+#pragma config DSWDTOSC = SOSC  ///< DSWDT Reference Clock Select (DSWDT uses SOSC as reference clock)
+
 
 #include <solarLight.h>
 
@@ -102,8 +108,8 @@ void setup()
     // Variables
     unsigned char memStatus;
 
-    i2c_start();  // Initialize I2C
-    // TODO: Check to see if the chip started after a POR, BOR, or is from VBATT
+    i2c_setup();  // Initialize I2C
+    //! \todo  TODO: Check to see if the chip started after a POR, BOR, or is from VBATT
     memStatus = mem_check(); // checks where it started up from, and if memory is ok
     pwm_setup();
     adc_setup();
@@ -143,7 +149,16 @@ void loop()
         // do an idle "sleep"
     }
 }
-
+/*! \Brief Low Priority Interrupt Service Routine
+ * 
+ * Items that are dealt with in this ISR:
+ *  - UART 1 TX/RX Interrupts
+ *
+ * NOTE from manual: Interrupt flag bits are set when an interrupt condition occurs regardless
+ * of the state of its corresponding enable bit or the Global Interrupt Enable bit. User
+ * software should ensure the appropriate interrupt flag bits are clear prior to enabling
+ * an interrupt. This feature allows for software polling.
+ */
 void interrupt low_priority isr_low()
 {
     if(TX1IE && TX1IF) // Comm Transmit Ready and able too
@@ -153,18 +168,21 @@ void interrupt low_priority isr_low()
         {
             TXREG1 = txBuff[txPtrOut++];
         }
-        // TODO: determine where the token and the transmit control will be.
+        //! \todo  TODO: determine where the token and the transmit control will be.
     }
     if(RC1IE && RC1IF)
     {
         // If in slave mode, check the address.
     }
 }
-// NOTE from manual: Interrupt flag bits are set when an interrupt condition occurs regardless
-// of the state of its corresponding enable bit or the Global Interrupt Enable bit. User
-// software should ensure the appropriate interrupt flag bits are clear prior to enabling
-// an interrupt. This feature allows for software polling.
 
+/*! \brief High Priority Interrupt Service Routine
+ *
+ * Items that are dealt with in this ISR:
+ *  - none yet
+ *
+ * Make sure to enable priority interrupts before using this routine.
+ */
 void interrupt high_priority isr_high()
 {
     ;

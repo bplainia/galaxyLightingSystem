@@ -2,6 +2,7 @@ var shared_8h =
 [
     [ "i2cPacket", "structi2c_packet.html", "structi2c_packet" ],
     [ "_XTAL_FREQ", "shared_8h.html#a024148e99a7143db044a48216664d03d", null ],
+    [ "ADDRESS", "shared_8h.html#a280feb883e9d4a7edcc69c8bcb9f38f2", null ],
     [ "COMPANY", "shared_8h.html#a66d6a95c2ba69f100898e9a415dfea64", null ],
     [ "false", "shared_8h.html#a65e9886d74aaee76545e83dd09011727", null ],
     [ "true", "shared_8h.html#a41f9c5fb8b08eb5dc3edce4dcb37fee7", null ],

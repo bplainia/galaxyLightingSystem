@@ -27,5 +27,7 @@ var sensors_8h =
     [ "pir_enable", "sensors_8h.html#a11766a5678a9098ee83d7c4530ffca3e", null ],
     [ "rotational_postion", "sensors_8h.html#a8fe4c4277265333ced809e31c397900a", null ],
     [ "sensor_start", "sensors_8h.html#a15b4e13f99c0445196f2854067fd86b4", null ],
-    [ "temperature", "sensors_8h.html#a3e4eb3fcad4273ffb3db6da8e52602be", null ]
+    [ "temperature", "sensors_8h.html#aedd2f48fdfb46392bb48cd9f356cd862", null ],
+    [ "duskLevel", "sensors_8h.html#a6fee01f475a8e86595eb4c0af534adc6", null ],
+    [ "pir", "sensors_8h.html#aa6f73dedae5fd741be9fca2815bdd9cc", null ]
 ];

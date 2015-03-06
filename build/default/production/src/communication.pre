@@ -18825,6 +18825,9 @@ unsigned : 2;
 typedef struct
 {
 unsigned char addr;
+unsigned char regl;
+unsigned char regh;
+unsigned reg16;
 unsigned char *data;
 unsigned char dataLength;
 }i2cPacket;
@@ -18832,23 +18835,26 @@ unsigned char dataLength;
 
 
 void adc_setup(void);
-unsigned adc_update(unsigned char);
-unsigned adc_update2(unsigned char, unsigned char);
-unsigned adc_updateAll();
+void adc_update(unsigned char);
+void adc_update2(unsigned char, unsigned char);
+void adc_updateAll();
 
 void pwm_setup(void);
 unsigned pwm_set(unsigned char, unsigned char);
 
 void i2c_setup(void);
 unsigned i2c_tx(i2cPacket);
-unsigned char* i2c_rx(unsigned char, unsigned char);
-static void i2c_start();
+unsigned i2c_rx(i2cPacket*);
+static void i2c_start(unsigned);
+static void i2c_stop(void);
 static unsigned i2c_send(unsigned char);
+static unsigned char i2c_recv(unsigned);
 
 # 17 "include\communication.h"
 void comm_start(void);
 void comm_flush(void);
-unsigned char comm_tx(unsigned char);
+unsigned comm_go(void);
+unsigned comm_tx(unsigned char);
 unsigned char comm_rx(void);
 unsigned short comm_rx_word(void);
 
@@ -18867,7 +18873,7 @@ unsigned char rxBuff[128];
 unsigned char txBuff[32];
 unsigned char rxPtrOut, txPtrOut, rxPtrIn, txPtrIn;
 
-# 11 "src/communication.c"
+# 15 "src/communication.c"
 void comm_start()
 {
 
@@ -18899,18 +18905,20 @@ RCSTA1 = 0b11111000;
 
 
 
-txPtrIn = rxPtrIn = txPtrOut = rxPtrOut = 0;
-comm_overflow = 0;
 comm_flush();
+comm_overflow = 0;
 }
+
 
 void comm_flush()
 {
 unsigned char i;
 for(i=0;i<32;++i) txBuff[i] = 0;
 for(i=0;i<128;++i) rxBuff[i] = 0;
+txPtrIn = rxPtrIn = txPtrOut = rxPtrOut = 0;
 }
 
+# 65
 unsigned comm_tx(unsigned char data)
 {
 
@@ -18918,19 +18926,19 @@ if((txPtrIn + 1) != txPtrOut)
 {
 txBuff[txPtrIn++] = data;
 if(txPtrIn >= 32) txPtrIn = 0;
-return 1;
+return 0;
 }
 else
 {
 COMSTAT.TXOVER = 1;
-return 0;
+return 1;
 }
 }
 
+# 85
 unsigned comm_go()
 {
 
-# 74
 if(COMSTAT.TOKEN)
 {
 if(txPtrOut != txPtrIn)
@@ -18938,19 +18946,16 @@ if(txPtrOut != txPtrIn)
 TX1IE = 1;
 TXREG1 = txBuff[txPtrOut++];
 if(txPtrOut >= 32) txPtrOut = 0;
-return 1;
+return 0;
 }
 else
 {
-return 0;
+return 1;
 }
-}
-else
-{
-return 0;
 }
 return 1;
 }
+
 
 unsigned char comm_rx()
 {
@@ -18958,7 +18963,10 @@ unsigned char myReturn;
 myReturn = rxBuff[rxPtrOut++];
 if(rxPtrOut >= 128) rxPtrOut = 0;
 
+return myReturn;
 }
+
+
 unsigned short comm_rx_word()
 {
 

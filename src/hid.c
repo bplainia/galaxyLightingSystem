@@ -1,6 +1,6 @@
 #include <shared.h>
 #include <hid.h>
-#include <menu.c>
+#include <menu.h>
 
 /// Sets up the Human Interface Periphrials (keyboard, usb, and lcd) and their pins.
 void hid_setup(void)
@@ -13,7 +13,7 @@ void hid_setup(void)
 
     
     // setup keypad port
-    SPBRGH3         = 0x00; // TODO: initialize baud rate to 9600
+    SPBRGH3         = 0x00; //! \todo  TODO: initialize baud rate to 9600
     SPBRG3          = 0x00;
     TXSTA3bits.SYNC = 0;
     RCSTA3bits.SPEN = 1;
@@ -48,11 +48,11 @@ void hid_execute(unsigned char command)  // execute a command (usb and lcd can c
     if(command < 150)
     {
         // Execute a function from the menu
-        menuEntries[command].function();
+        (menue[command]).function();
     }
     else
     {
-        usbEntries[command-150].function(); // 255-150 = 105 commands left for usb
+        (usbe[command-150]).function(); // 255-150 = 105 commands left for usb
     }
 }
 

@@ -7,7 +7,7 @@
 // Defines
 
 #define LED_IO TRISCbits.TRISC7
-#define LED_OUT PORTCbits.PORTC7
+#define LED_OUT PORTCbits.RC7
 
 #define AUTO 1
 #define ON 2
@@ -21,7 +21,7 @@ unsigned char light = 0;
 // Functions
 
 void led_setup(void);
-void led_auto(unsigned char);
+void led_auto(void);
 void led_maintenance(unsigned char);
 
 #endif

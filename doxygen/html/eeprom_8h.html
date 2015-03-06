@@ -107,6 +107,7 @@ $(document).ready(function(){initNavTree('eeprom_8h.html','');});
 <div class="header">
   <div class="summary">
 <a href="#define-members">Macros</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">eeprom.h File Reference</div>  </div>
@@ -122,12 +123,22 @@ Macros</h2></td></tr>
 <tr class="memitem:aa7bace3b92f69cd5b64ae8b8cbf76019"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eeprom_8h.html#aa7bace3b92f69cd5b64ae8b8cbf76019">EEPROMADDR</a>&#160;&#160;&#160;0xA0</td></tr>
 <tr class="separator:aa7bace3b92f69cd5b64ae8b8cbf76019"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:ab19a8e0fe3ea0ea5c7259400cb389056"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eeprom_8h.html#ab19a8e0fe3ea0ea5c7259400cb389056">errorCode</a> { <a class="el" href="eeprom_8h.html#ab19a8e0fe3ea0ea5c7259400cb389056ac157bdf0b85a40d2619cbc8bc1ae5fe2">NONE</a>, 
+<a class="el" href="eeprom_8h.html#ab19a8e0fe3ea0ea5c7259400cb389056aa049f67ec48d1687c523d7f8426e3c24">SPACEOVERRIDE</a>, 
+<a class="el" href="eeprom_8h.html#ab19a8e0fe3ea0ea5c7259400cb389056a44f2a0f7431dbe780bb10e0c85a39b0b">BATTERYLOW</a>
+ }</td></tr>
+<tr class="separator:ab19a8e0fe3ea0ea5c7259400cb389056"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a7e6fbba99ff9ff170a4b38da80652ece"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eeprom_8h.html#a7e6fbba99ff9ff170a4b38da80652ece">mem_start</a> (void)</td></tr>
-<tr class="separator:a7e6fbba99ff9ff170a4b38da80652ece"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa9b4bf6e66a49c4c69d2a552553b0784"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eeprom_8h.html#aa9b4bf6e66a49c4c69d2a552553b0784">mem_check</a> (void)</td></tr>
-<tr class="separator:aa9b4bf6e66a49c4c69d2a552553b0784"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa789d6d450a00d09493308ff6c22179e"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eeprom_8h.html#aa789d6d450a00d09493308ff6c22179e">mem_check</a> (void)</td></tr>
+<tr class="memdesc:aa789d6d450a00d09493308ff6c22179e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check the memory. Certain things are checksumed.  <a href="#aa789d6d450a00d09493308ff6c22179e">More...</a><br /></td></tr>
+<tr class="separator:aa789d6d450a00d09493308ff6c22179e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae8573a0726c83c11ebe850334ce1dc9a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eeprom_8h.html#ae8573a0726c83c11ebe850334ce1dc9a">mem_push</a> (void)</td></tr>
+<tr class="memdesc:ae8573a0726c83c11ebe850334ce1dc9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Save special bytes that are in ram to eeprom.  <a href="#ae8573a0726c83c11ebe850334ce1dc9a">More...</a><br /></td></tr>
+<tr class="separator:ae8573a0726c83c11ebe850334ce1dc9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac7f220f8cddbd5023b5a7848b37e55ff"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eeprom_8h.html#ac7f220f8cddbd5023b5a7848b37e55ff">mem_append_log</a> (char)</td></tr>
 <tr class="separator:ac7f220f8cddbd5023b5a7848b37e55ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -141,6 +152,31 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="eeprom_8h_source.html#l00008">8</a> of file <a class="el" href="eeprom_8h_source.html">eeprom.h</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
+<a class="anchor" id="ab19a8e0fe3ea0ea5c7259400cb389056"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="eeprom_8h.html#ab19a8e0fe3ea0ea5c7259400cb389056">errorCode</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a class="anchor" id="ab19a8e0fe3ea0ea5c7259400cb389056ac157bdf0b85a40d2619cbc8bc1ae5fe2"></a>NONE&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="ab19a8e0fe3ea0ea5c7259400cb389056aa049f67ec48d1687c523d7f8426e3c24"></a>SPACEOVERRIDE&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="ab19a8e0fe3ea0ea5c7259400cb389056a44f2a0f7431dbe780bb10e0c85a39b0b"></a>BATTERYLOW&#160;</td><td class="fielddoc">
+</td></tr>
+</table>
+
+<p>Definition at line <a class="el" href="eeprom_8h_source.html#l00019">19</a> of file <a class="el" href="eeprom_8h_source.html">eeprom.h</a>.</p>
 
 </div>
 </div>
@@ -161,12 +197,12 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="aa9b4bf6e66a49c4c69d2a552553b0784"></a>
+<a class="anchor" id="aa789d6d450a00d09493308ff6c22179e"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void mem_check </td>
+          <td class="memname">unsigned char mem_check </td>
           <td>(</td>
           <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
@@ -175,14 +211,20 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Check the memory. Certain things are checksumed. </p>
+
+<p>Definition at line <a class="el" href="eeprom_8c_source.html#l00006">6</a> of file <a class="el" href="eeprom_8c_source.html">eeprom.c</a>.</p>
+
+<p>Referenced by <a class="el" href="solar_light_8c_source.html#l00106">setup()</a>.</p>
+
 </div>
 </div>
-<a class="anchor" id="a7e6fbba99ff9ff170a4b38da80652ece"></a>
+<a class="anchor" id="ae8573a0726c83c11ebe850334ce1dc9a"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void mem_start </td>
+          <td class="memname">void mem_push </td>
           <td>(</td>
           <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
@@ -190,6 +232,10 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Save special bytes that are in ram to eeprom. </p>
+
+<p>Definition at line <a class="el" href="eeprom_8c_source.html#l00012">12</a> of file <a class="el" href="eeprom_8c_source.html">eeprom.c</a>.</p>
 
 </div>
 </div>
@@ -199,7 +245,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="eeprom_8h.html">eeprom.h</a></li>
-    <li class="footer">Generated on Sat Feb 28 2015 22:45:07 for Sr. Design 2015 by
+    <li class="footer">Generated on Thu Mar 5 2015 19:41:50 for Sr. Design 2015 by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.9.1 </li>
   </ul>

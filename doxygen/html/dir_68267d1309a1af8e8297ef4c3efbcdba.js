@@ -1,8 +1,9 @@
 var dir_68267d1309a1af8e8297ef4c3efbcdba =
 [
     [ "communication.c", "communication_8c.html", "communication_8c" ],
-    [ "eeprom.c", "eeprom_8c.html", null ],
+    [ "eeprom.c", "eeprom_8c.html", "eeprom_8c" ],
     [ "hid.c", "hid_8c.html", "hid_8c" ],
+    [ "light.c", "light_8c.html", "light_8c" ],
     [ "menu.c", "menu_8c.html", "menu_8c" ],
     [ "movement.c", "movement_8c.html", "movement_8c" ],
     [ "powerman.c", "powerman_8c.html", null ],

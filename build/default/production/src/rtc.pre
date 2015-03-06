@@ -18825,6 +18825,9 @@ unsigned : 2;
 typedef struct
 {
 unsigned char addr;
+unsigned char regl;
+unsigned char regh;
+unsigned reg16;
 unsigned char *data;
 unsigned char dataLength;
 }i2cPacket;
@@ -18832,18 +18835,20 @@ unsigned char dataLength;
 
 
 void adc_setup(void);
-unsigned adc_update(unsigned char);
-unsigned adc_update2(unsigned char, unsigned char);
-unsigned adc_updateAll();
+void adc_update(unsigned char);
+void adc_update2(unsigned char, unsigned char);
+void adc_updateAll();
 
 void pwm_setup(void);
 unsigned pwm_set(unsigned char, unsigned char);
 
 void i2c_setup(void);
 unsigned i2c_tx(i2cPacket);
-unsigned char* i2c_rx(unsigned char, unsigned char);
-static void i2c_start();
+unsigned i2c_rx(i2cPacket*);
+static void i2c_start(unsigned);
+static void i2c_stop(void);
 static unsigned i2c_send(unsigned char);
+static unsigned char i2c_recv(unsigned);
 
 # 15 "include\rtc.h"
 void rtc_setup(void);
@@ -18853,13 +18858,15 @@ unsigned char, unsigned char);
 static unsigned char char2bcd(unsigned char);
 static unsigned char weekday(unsigned char, unsigned char, unsigned char);
 
-# 4 "src/rtc.c"
+# 5 "src/rtc.c"
 void rtc_setup()
 {
+
 RTCCON1bits.RTCEN = 1;
 status.rtcInit = 0;
 }
 
+# 19
 unsigned rtc_set(unsigned char year, unsigned char month, unsigned char day,
 unsigned char hour, unsigned char minute, unsigned char second)
 {
@@ -18876,15 +18883,22 @@ RTCVALH = char2bcd(minute);
 RTCVALL = char2bcd(second);
 RTCCON1bits.RTCWREN = 0;
 status.rtcInit = 1;
-return 1;
+return 0;
 }
 
-unsigned char char2bcd(unsigned char in)
+
+static unsigned char char2bcd(unsigned char in)
 {
 
 
 return in % 10 | ((in/10)%10 << 4);
 
+}
+
+
+static unsigned char bcd2char(unsigned char in)
+{
+return (((in >> 4)*10) + (in & 0x0F));
 }
 
 

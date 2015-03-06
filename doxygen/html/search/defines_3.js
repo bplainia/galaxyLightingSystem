@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['false',['false',['../shared_8h.html#a65e9886d74aaee76545e83dd09011727',1,'shared.h']]]
+  ['dim',['DIM',['../light_8h.html#ac25189db92959bff3c6c2adf4c34b50a',1,'light.h']]]
 ];

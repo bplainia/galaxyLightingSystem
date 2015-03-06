@@ -1,12 +1,21 @@
 #include <shared.h>
 #include <rtc.h>
 
+/// Real-time Clock/Calendar Module setup
 void rtc_setup()
 {
+    //! \todo TODO: Check to see if the rtcc is setup already
     RTCCON1bits.RTCEN = 1; // Enable RTC Clock
     status.rtcInit = 0; // real time clock has not been setup since reset!
 }
 
+/*! \brief Set the time on the RTCC
+ *
+ * Inputs: a bunch of bytes specifying the year, month,day, hour, minutes, and seconds.
+ * Outputs: A single bit. Probably will never return failure.
+ * Detailed Description:
+ * Note: Will convert the numbers to BCD endcoding before returning them
+ */
 unsigned rtc_set(unsigned char year, unsigned char month, unsigned char day,
         unsigned char hour, unsigned char minute, unsigned char second)
 {
@@ -23,18 +32,25 @@ unsigned rtc_set(unsigned char year, unsigned char month, unsigned char day,
     RTCVALL = char2bcd(second); // write seconds (most likely 0)
     RTCCON1bits.RTCWREN = 0; // Finished. Disable write to rtc.
     status.rtcInit = 1;
-    return true;
+    return false;
 }
 
-unsigned char char2bcd(unsigned char in)
+/// Convert a byte into a BCD encoded byte
+static unsigned char char2bcd(unsigned char in)
 {
     // Will only return the last 2 digits (will ignore the 1 or 2 if it is there)
     // Make sure to use input validation of some sort.
     return in % 10 | ((in/10)%10 << 4); // byte to 2-decimal BCD
-    // TODO[Review]: Can someone check the RTC stuff?
+    //! \todo  TODO[Review]: Can someone check the RTC stuff?
 }
 
-/// What day of the week is it? (0=sunday) (Private)
+/// Convert a character from BCD encoded to a normal byte
+static unsigned char bcd2char(unsigned char in)
+{
+    return (((in >> 4)*10) + (in & 0x0F));
+}
+
+/// What day of the week is it? (0=sunday)
 static unsigned char weekday(unsigned char year, unsigned char month, unsigned char day)
 {
     // Calculation retrieved from http://www.timeanddate.com/date/doomsday-weekday.html (Feb 6, 2015)

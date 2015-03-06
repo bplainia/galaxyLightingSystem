@@ -105,17 +105,113 @@ $(document).ready(function(){initNavTree('eeprom_8c.html','');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">eeprom.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+<div class="textblock"><code>#include &lt;<a class="el" href="shared_8h_source.html">shared.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="eeprom_8h_source.html">eeprom.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="rtc_8h_source.html">rtc.h</a>&gt;</code><br />
+</div>
+<p><a href="eeprom_8c_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a544c8ef7decf65b9c8dc0f6d1806bd6a"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eeprom_8c.html#a544c8ef7decf65b9c8dc0f6d1806bd6a">mem_check</a> ()</td></tr>
+<tr class="memdesc:a544c8ef7decf65b9c8dc0f6d1806bd6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check the memory. Certain things are checksumed.  <a href="#a544c8ef7decf65b9c8dc0f6d1806bd6a">More...</a><br /></td></tr>
+<tr class="separator:a544c8ef7decf65b9c8dc0f6d1806bd6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba77f7c6751899c63bd457d7f1347f0b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eeprom_8c.html#aba77f7c6751899c63bd457d7f1347f0b">mem_push</a> ()</td></tr>
+<tr class="memdesc:aba77f7c6751899c63bd457d7f1347f0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Save special bytes that are in ram to eeprom.  <a href="#aba77f7c6751899c63bd457d7f1347f0b">More...</a><br /></td></tr>
+<tr class="separator:aba77f7c6751899c63bd457d7f1347f0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a866a9933ffbda8712fc68d862ba96a97"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eeprom_8c.html#a866a9933ffbda8712fc68d862ba96a97">mem_append_log</a> (<a class="el" href="eeprom_8h.html#ab19a8e0fe3ea0ea5c7259400cb389056">errorCode</a> err)</td></tr>
+<tr class="memdesc:a866a9933ffbda8712fc68d862ba96a97"><td class="mdescLeft">&#160;</td><td class="mdescRight">saves an event to the log space.  <a href="#a866a9933ffbda8712fc68d862ba96a97">More...</a><br /></td></tr>
+<tr class="separator:a866a9933ffbda8712fc68d862ba96a97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="a866a9933ffbda8712fc68d862ba96a97"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned char mem_append_log </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="eeprom_8h.html#ab19a8e0fe3ea0ea5c7259400cb389056">errorCode</a>&#160;</td>
+          <td class="paramname"><em>err</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>saves an event to the log space. </p>
+<p>Inputs: An error code specifying what happened</p>
+<p>Description: Takes the error code and saves it with the current time stamp from the RTCC module.</p>
+<p>Ouput: A single byte specifying success (0=success). If there is no space, or the eeprom is not responding, this will return a number.</p>
+<table class="doxtable">
+<tr>
+<th>Code </th><th>Reason  </th></tr>
+<tr>
+<td>0 </td><td>Everything was OK </td></tr>
+<tr>
+<td>1 </td><td>No EEPROM or not responding </td></tr>
+<tr>
+<td>2 </td><td>Not enough space left in LOG space </td></tr>
+</table>
+
+<p>Definition at line <a class="el" href="eeprom_8c_source.html#l00031">31</a> of file <a class="el" href="eeprom_8c_source.html">eeprom.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a544c8ef7decf65b9c8dc0f6d1806bd6a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned char mem_check </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Check the memory. Certain things are checksumed. </p>
+
+<p>Definition at line <a class="el" href="eeprom_8c_source.html#l00006">6</a> of file <a class="el" href="eeprom_8c_source.html">eeprom.c</a>.</p>
+
+<p>Referenced by <a class="el" href="solar_light_8c_source.html#l00106">setup()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aba77f7c6751899c63bd457d7f1347f0b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void mem_push </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Save special bytes that are in ram to eeprom. </p>
+
+<p>Definition at line <a class="el" href="eeprom_8c_source.html#l00012">12</a> of file <a class="el" href="eeprom_8c_source.html">eeprom.c</a>.</p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="eeprom_8c.html">eeprom.c</a></li>
-    <li class="footer">Generated on Sat Feb 28 2015 22:45:07 for Sr. Design 2015 by
+    <li class="footer">Generated on Thu Mar 5 2015 19:41:50 for Sr. Design 2015 by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.9.1 </li>
   </ul>

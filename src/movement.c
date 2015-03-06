@@ -1,5 +1,7 @@
 #include <movement.h>
 
+//! \todo TODO: For Luke: Change the functions according to our format (e.g. move_setup(), move_maint(), etc.)
+
 /*! \brief setup motors
  */
 void movement_setup(void){
@@ -14,7 +16,7 @@ void movement_setup(void){
     PINIO_MOVE_UPDOWN_3 = 0;
     PINIO_MOVE_UPDOWN_4 = 0;
 
-    // TODO -> Setup PWM for motors
+    //! \todo  TODO -> Setup PWM for motors
 
 }
 

@@ -1,6 +1,6 @@
 var hid_8c =
 [
-    [ "hid_execute", "hid_8c.html#ad86bb70da5f2a8d68f034c87319e92b5", null ],
+    [ "hid_execute", "hid_8c.html#a87297c7e5c418ae60c137951308bcb1b", null ],
     [ "hid_loop", "hid_8c.html#a3adc740464e5cf31ec498fa7038a6ea0", null ],
     [ "hid_setup", "hid_8c.html#a914e6f1d1791841a025c442762a4e7ea", null ],
     [ "key_insertion", "hid_8c.html#a95fbf67e1f4e955662a6a195f6c3ecbe", null ],
@@ -8,7 +8,6 @@ var hid_8c =
     [ "key_removal", "hid_8c.html#a20e8465b449308ba37b0de5494742c4c", null ],
     [ "lcd_begin", "hid_8c.html#a438f617a14d9f21cbb2bd06d8c7c9ecf", null ],
     [ "lcd_end", "hid_8c.html#a666482694abca54ecd49341cb21859e2", null ],
-    [ "lcd_execute", "hid_8c.html#a0431a8630ef511318148f35739c630fa", null ],
     [ "lcd_menu", "hid_8c.html#a1001e29b61b78e45ebce8276372e6312", null ],
     [ "lcd_usb", "hid_8c.html#ae525221879a89187005664747d197386", null ],
     [ "usb_allStatus", "hid_8c.html#ab26a4ce64c0b47da8c58fc24f1f1653f", null ],

@@ -38,6 +38,9 @@ struct {
 typedef struct 
 {
     unsigned char addr;
+    unsigned char regl; // low byte of register
+    unsigned char regh; // high byte of register
+    unsigned reg16; // is a 16 bit register address
     unsigned char *data;  // The pointer to the data
     unsigned char dataLength; // the length of the data
 }i2cPacket;
@@ -45,18 +48,20 @@ typedef struct
 // Standard Functions
 
 void adc_setup(void); // setup the adc module
-unsigned adc_update(unsigned char); // Update a pin
-unsigned adc_update2(unsigned char, unsigned char); // Update 2 pins consecutively
-unsigned adc_updateAll(); // Update all the ADC buffers that were selected in setup
+void adc_update(unsigned char); // Update a pin
+void adc_update2(unsigned char, unsigned char); // Update 2 pins consecutively
+void adc_updateAll(); // Update all the ADC buffers that were selected in setup
 
 void pwm_setup(void); // Initialize TMR2 (you get to setup on your own)
 unsigned pwm_set(unsigned char, unsigned char); // Set pin to duty cycle
 
 void i2c_setup(void); // Initialize the I2C pins
 unsigned i2c_tx(i2cPacket); // send data to address
-unsigned char* i2c_rx(unsigned char, unsigned char); // recieve data from address
-static void i2c_start(); // transmit a start byte
+unsigned i2c_rx(i2cPacket*); // recieve data from address
+static void i2c_start(unsigned); // transmit a start bit (0 if fist, 1 if repeated)
+static void i2c_stop(void); // transmit a stop bit
 static unsigned i2c_send(unsigned char); // private function to send a byte
+static unsigned char i2c_recv(unsigned); // private function to recieve a byte
 
 #endif	/* SHARED_H */
 

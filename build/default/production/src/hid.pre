@@ -18825,6 +18825,9 @@ unsigned : 2;
 typedef struct
 {
 unsigned char addr;
+unsigned char regl;
+unsigned char regh;
+unsigned reg16;
 unsigned char *data;
 unsigned char dataLength;
 }i2cPacket;
@@ -18832,18 +18835,20 @@ unsigned char dataLength;
 
 
 void adc_setup(void);
-unsigned adc_update(unsigned char);
-unsigned adc_update2(unsigned char, unsigned char);
-unsigned adc_updateAll();
+void adc_update(unsigned char);
+void adc_update2(unsigned char, unsigned char);
+void adc_updateAll();
 
 void pwm_setup(void);
 unsigned pwm_set(unsigned char, unsigned char);
 
 void i2c_setup(void);
 unsigned i2c_tx(i2cPacket);
-unsigned char* i2c_rx(unsigned char, unsigned char);
-static void i2c_start();
+unsigned i2c_rx(i2cPacket*);
+static void i2c_start(unsigned);
+static void i2c_stop(void);
 static unsigned i2c_send(unsigned char);
+static unsigned char i2c_recv(unsigned);
 
 # 8 "include\hid.h"
 void hid_setup(void);
@@ -18871,3 +18876,217 @@ void usb_oneStatus();
 void usb_myStatus();
 void usb_allStatus();
 void usb_end(void);
+
+# 7 "include\sensors.h"
+unsigned int duskLevel = 2000;
+
+
+unsigned char pir = 2;
+
+# 41
+void sensor_start(void);
+unsigned short photo_value(unsigned char);
+char temperature(void);
+unsigned short rotational_postion(unsigned char);
+void pir_enable(unsigned char);
+
+# 22 "C:\Program Files (x86)\Microchip\xc8\v1.33\include\string.h"
+extern void * memcpy(void *, const void *, size_t);
+extern void * memmove(void *, const void *, size_t);
+extern void * memset(void *, int, size_t);
+
+# 42
+extern char * strcat(char *, const char *);
+extern char * strcpy(char *, const char *);
+extern char * strncat(char *, const char *, size_t);
+extern char * strncpy(char *, const char *, size_t);
+extern char * strdup(const char *);
+extern char * strtok(char *, const char *);
+
+
+extern int memcmp(const void *, const void *, size_t);
+extern int strcmp(const char *, const char *);
+extern int stricmp(const char *, const char *);
+extern int strncmp(const char *, const char *, size_t);
+extern int strnicmp(const char *, const char *, size_t);
+extern void * memchr(const void *, int, size_t);
+extern size_t strcspn(const char *, const char *);
+extern char * strpbrk(const char *, const char *);
+extern size_t strspn(const char *, const char *);
+extern char * strstr(const char *, const char *);
+extern char * stristr(const char *, const char *);
+extern char * strerror(int);
+extern size_t strlen(const char *);
+extern char * strchr(const char *, int);
+extern char * strichr(const char *, int);
+extern char * strrchr(const char *, int);
+extern char * strrichr(const char *, int);
+
+# 17 "include\menu.h"
+typedef struct lcdEntry
+{
+char *line1;
+char *line2;
+};
+
+typedef struct
+{
+const char *text;
+void (*function)(void);
+}menuEntry;
+
+typedef struct
+{
+void (*function)(void);
+}usbEntry;
+
+menuEntry menue[150];
+usbEntry usbe[85];
+
+
+void menu1();
+void menu2();
+void menu1()
+{
+lcd_menu(2);
+}
+void menu2()
+{
+
+menu1();
+}
+void menu_setup()
+{
+
+
+menue[0].text = "Exit M-Mode        ";
+menue[0].function = lcd_end;
+menue[1].text = "Light Settings     ";
+menue[1].function = menu1;
+usbe[0].function = lcd_end;
+}
+
+# 6 "src/hid.c"
+void hid_setup(void)
+{
+
+TRISD &= 0b01110000;
+RPOR32_33bits.RPO32R = 0x9;
+RPOR34_35bits.RPO34R = 0x9;
+RPOR36_37bits.RPO37R = 0x8;
+
+
+
+SPBRGH3 = 0x00;
+SPBRG3 = 0x00;
+TXSTA3bits.SYNC = 0;
+RCSTA3bits.SPEN = 1;
+RC3IE = 0;
+RCSTA3bits.CREN = 1;
+RPINR4_5bits.U3RXR = 0x7;
+
+
+
+}
+
+
+void hid_loop(void)
+{
+
+
+
+switch (status.mmode)
+{
+case 0:
+break;
+case 1:
+break;
+case 2:
+break;
+case 3:
+break;
+}
+}
+void hid_execute(unsigned char command)
+{
+if(command < 150)
+{
+
+(menue[command]).function();
+}
+else
+{
+(usbe[command-150]).function();
+}
+}
+
+
+void lcd_begin(void)
+{
+if(status.mmode < 1) status.mmode = 1;
+else return;
+}
+void lcd_menu(unsigned char)
+{
+
+}
+
+
+void lcd_usb(unsigned char)
+{
+
+}
+
+
+void lcd_end(void)
+{
+status.mmode = 0;
+}
+
+
+void key_isr(void)
+{
+
+}
+void key_insertion(void)
+{
+
+}
+void key_removal(void)
+{
+
+}
+
+
+void usb_isr(void)
+{
+
+}
+void usb_insertion(void)
+{
+
+}
+void usb_removal(void)
+{
+
+}
+void usb_begin(void)
+{
+
+}
+void usb_oneStatus()
+{
+
+}
+void usb_myStatus()
+{
+
+}
+void usb_allStatus()
+{
+
+}
+void usb_end(void)
+{
+
+}
