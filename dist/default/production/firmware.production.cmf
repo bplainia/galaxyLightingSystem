@@ -11,7 +11,7 @@
 # All addresses and the length are given in unqualified hexadecimal
 # in delta units.  Any other numeric values are decimal.
 %PSECTS
-$C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.obj
+$C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.obj
 end_init CODE 0 D0 D0 4 1
 reset_vec CODE 0 0 0 4 1
 config CONFIG 0 1FFF0 1FFF0 10 1
@@ -102,54 +102,54 @@ $dist/default/production\firmware.production.obj
 "C:\Users\Benjaminp\Documents\pcc\current\EL 450\PatienceInc\firmware\src/solarLight.c":177 8A intcodelo CODE
 "C:\Users\Benjaminp\Documents\pcc\current\EL 450\PatienceInc\firmware\src/solarLight.c":186 E2A intcode_body CODE
 "C:\Users\Benjaminp\Documents\pcc\current\EL 450\PatienceInc\firmware\src/solarLight.c":189 E56 intcode_body CODE
-"C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.":10204 E90 cinit CODE
-"C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.":10206 E90 cinit CODE
-"C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.":10209 E90 cinit CODE
-"C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.":10294 E90 cinit CODE
-"C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.":10295 E94 cinit CODE
-"C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.":10296 E98 cinit CODE
-"C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.":10297 E98 cinit CODE
-"C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.":10298 E9A cinit CODE
-"C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.":10299 E9C cinit CODE
-"C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.":10300 E9E cinit CODE
-"C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.":10301 EA0 cinit CODE
-"C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.":10302 EA2 cinit CODE
-"C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.":10305 EA4 cinit CODE
-"C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.":10306 EA8 cinit CODE
-"C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.":10307 EAC cinit CODE
-"C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.":10308 EAC cinit CODE
-"C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.":10309 EAE cinit CODE
-"C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.":10310 EB0 cinit CODE
-"C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.":10311 EB2 cinit CODE
-"C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.":10312 EB4 cinit CODE
-"C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.":10313 EB6 cinit CODE
-"C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.":10316 EB8 cinit CODE
-"C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.":10317 EBC cinit CODE
-"C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.":10318 EBE cinit CODE
-"C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.":10319 EBE cinit CODE
-"C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.":10320 EC0 cinit CODE
-"C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.":10321 EC2 cinit CODE
-"C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.":10324 EC4 cinit CODE
-"C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.":10325 EC8 cinit CODE
-"C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.":10326 ECA cinit CODE
-"C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.":10327 ECA cinit CODE
-"C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.":10328 ECC cinit CODE
-"C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.":10329 ECE cinit CODE
-"C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.":10334 ED0 cinit CODE
-"C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.":10335 ED2 cinit CODE
-"C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.":10336 ED4 cinit CODE
-"C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.":10337 ED6 cinit CODE
-"C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.":10338 ED8 cinit CODE
-"C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.":10339 EDA cinit CODE
-"C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.":10340 EDC cinit CODE
-"C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.":10341 EDE cinit CODE
-"C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.":10342 EE2 cinit CODE
-"C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.":10343 EE4 cinit CODE
-"C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.":10344 EE8 cinit CODE
-"C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.":10345 EEA cinit CODE
-"C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.":10351 EEE cinit CODE
-"C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.":10352 EEE cinit CODE
-"C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.":10353 EF0 cinit CODE
+"C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.":10204 E90 cinit CODE
+"C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.":10206 E90 cinit CODE
+"C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.":10209 E90 cinit CODE
+"C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.":10294 E90 cinit CODE
+"C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.":10295 E94 cinit CODE
+"C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.":10296 E98 cinit CODE
+"C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.":10297 E98 cinit CODE
+"C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.":10298 E9A cinit CODE
+"C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.":10299 E9C cinit CODE
+"C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.":10300 E9E cinit CODE
+"C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.":10301 EA0 cinit CODE
+"C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.":10302 EA2 cinit CODE
+"C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.":10305 EA4 cinit CODE
+"C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.":10306 EA8 cinit CODE
+"C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.":10307 EAC cinit CODE
+"C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.":10308 EAC cinit CODE
+"C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.":10309 EAE cinit CODE
+"C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.":10310 EB0 cinit CODE
+"C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.":10311 EB2 cinit CODE
+"C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.":10312 EB4 cinit CODE
+"C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.":10313 EB6 cinit CODE
+"C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.":10316 EB8 cinit CODE
+"C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.":10317 EBC cinit CODE
+"C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.":10318 EBE cinit CODE
+"C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.":10319 EBE cinit CODE
+"C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.":10320 EC0 cinit CODE
+"C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.":10321 EC2 cinit CODE
+"C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.":10324 EC4 cinit CODE
+"C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.":10325 EC8 cinit CODE
+"C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.":10326 ECA cinit CODE
+"C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.":10327 ECA cinit CODE
+"C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.":10328 ECC cinit CODE
+"C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.":10329 ECE cinit CODE
+"C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.":10334 ED0 cinit CODE
+"C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.":10335 ED2 cinit CODE
+"C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.":10336 ED4 cinit CODE
+"C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.":10337 ED6 cinit CODE
+"C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.":10338 ED8 cinit CODE
+"C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.":10339 EDA cinit CODE
+"C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.":10340 EDC cinit CODE
+"C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.":10341 EDE cinit CODE
+"C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.":10342 EE2 cinit CODE
+"C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.":10343 EE4 cinit CODE
+"C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.":10344 EE8 cinit CODE
+"C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.":10345 EEA cinit CODE
+"C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.":10351 EEE cinit CODE
+"C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.":10352 EEE cinit CODE
+"C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.":10353 EF0 cinit CODE
 "C:\Users\Benjaminp\Documents\pcc\current\EL 450\PatienceInc\firmware\src/hid.c":6 EF4 text8 CODE
 "C:\Users\Benjaminp\Documents\pcc\current\EL 450\PatienceInc\firmware\src/hid.c":9 EF4 text8 CODE
 "C:\Users\Benjaminp\Documents\pcc\current\EL 450\PatienceInc\firmware\src/hid.c":10 EF8 text8 CODE
@@ -263,9 +263,9 @@ _SAMP 7E01 0 ABS 0 - dist/default/production\firmware.production.obj
 _usbe 100 0 BANK1 1 bssBANK1 dist/default/production\firmware.production.obj
 _main FC2 0 CODE 0 text0 dist/default/production\firmware.production.obj
 _move 2B 0 COMRAM 1 bssCOMRAM dist/default/production\firmware.production.obj
-___sp 0 0 STACK 2 stack C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.obj
+___sp 0 0 STACK 2 stack C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.obj
 _loop F8A 0 CODE 0 text10 dist/default/production\firmware.production.obj
-start D0 0 CODE 0 init C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.obj
+start D0 0 CODE 0 init C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.obj
 __CFG_DSBITEN$ON 0 0 ABS 0 - dist/default/production\firmware.production.obj
 _SAMC1 7459 0 ABS 0 - dist/default/production\firmware.production.obj
 _RC1IE 7CED 0 ABS 0 - dist/default/production\firmware.production.obj
@@ -360,11 +360,11 @@ __Hdata 0 0 ABS 0 data dist/default/production\firmware.production.obj
 __Ldata 0 0 ABS 0 data dist/default/production\firmware.production.obj
 _rxBuff 60 0 BANK0 1 bssBANK0 dist/default/production\firmware.production.obj
 _txBuff 1 0 COMRAM 1 bssCOMRAM dist/default/production\firmware.production.obj
-stackhi 9FF 0 ABS 0 - C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.obj
+stackhi 9FF 0 ABS 0 - C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.obj
 _duskLevel 51 0 COMRAM 1 dataCOMRAM dist/default/production\firmware.production.obj
 __Htemp 0 0 COMRAM 1 temp dist/default/production\firmware.production.obj
 __Ltemp 0 0 COMRAM 1 temp dist/default/production\firmware.production.obj
-stacklo 4ED 0 ABS 0 - C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.obj
+stacklo 4ED 0 ABS 0 - C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.obj
 __Hrbit 0 0 COMRAM 1 rbit dist/default/production\firmware.production.obj
 __Lrbit 0 0 COMRAM 1 rbit dist/default/production\firmware.production.obj
 __Hinit D0 0 CODE 0 init dist/default/production\firmware.production.obj
@@ -529,8 +529,8 @@ __Hcinit 0 0 ABS 0 cinit dist/default/production\firmware.production.obj
 __Lcinit 0 0 ABS 0 cinit dist/default/production\firmware.production.obj
 __pcinit E90 0 CODE 0 cinit dist/default/production\firmware.production.obj
 _uplimit 27 0 COMRAM 1 bssCOMRAM dist/default/production\firmware.production.obj
-__ramtop E00 0 RAM 0 ramtop C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.obj
-__mediumconst 0 0 MEDIUMCONST 0 mediumconst C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.obj
+__ramtop E00 0 RAM 0 ramtop C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.obj
+__mediumconst 0 0 MEDIUMCONST 0 mediumconst C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.obj
 __size_of_main 0 0 ABS 0 - dist/default/production\firmware.production.obj
 _RPOR22_23bits E1D 0 ABS 0 - dist/default/production\firmware.production.obj
 __Hconst 0 0 CODE 0 const dist/default/production\firmware.production.obj
@@ -573,9 +573,9 @@ _RCSTA3bits F2F 0 ABS 0 - dist/default/production\firmware.production.obj
 _TXSTA3bits F2E 0 ABS 0 - dist/default/production\firmware.production.obj
 _ANCON1bits E47 0 ABS 0 - dist/default/production\firmware.production.obj
 _ANCON2bits E46 0 ABS 0 - dist/default/production\firmware.production.obj
-___inthi_sp 0 0 STACK 2 stack C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.obj
+___inthi_sp 0 0 STACK 2 stack C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.obj
 __CFG_WDTEN$OFF 0 0 ABS 0 - dist/default/production\firmware.production.obj
-___intlo_sp 0 0 STACK 2 stack C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.obj
+___intlo_sp 0 0 STACK 2 stack C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.obj
 _INTCONbits FF2 0 ABS 0 - dist/default/production\firmware.production.obj
 __Hend_init D4 0 CODE 0 end_init dist/default/production\firmware.production.obj
 __Lend_init D0 0 CODE 0 end_init dist/default/production\firmware.production.obj
@@ -588,20 +588,20 @@ __CFG_WPDIS$WPDIS 0 0 ABS 0 - dist/default/production\firmware.production.obj
 __Ljflash_buffer 1FBF8 0 CODE 0 jflash_buffer dist/default/production\firmware.production.obj
 __end_of_setup F68 0 CODE 0 text1 dist/default/production\firmware.production.obj
 __CFG_CP0$OFF 0 0 ABS 0 - dist/default/production\firmware.production.obj
-__smallconst E00 0 SMALLCONST 0 smallconst C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.obj
+__smallconst E00 0 SMALLCONST 0 smallconst C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.obj
 __CFG_LS48MHZ$SYSX2 0 0 ABS 0 - dist/default/production\firmware.production.obj
 __Hreset_vec 4 0 CODE 0 reset_vec dist/default/production\firmware.production.obj
 __Lreset_vec 0 0 CODE 0 reset_vec dist/default/production\firmware.production.obj
 __size_of_led_setup 0 0 ABS 0 - dist/default/production\firmware.production.obj
 __stringdata E01 0 SMALLCONST 0 smallconst dist/default/production\firmware.production.obj
-__accesstop 60 0 ABS 0 - C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.obj
+__accesstop 60 0 ABS 0 - C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.obj
 __Hintcode_body 0 0 ABS 0 intcode_body dist/default/production\firmware.production.obj
 __Lintcode_body 0 0 ABS 0 intcode_body dist/default/production\firmware.production.obj
 __pintcode_body E2A 0 CODE 0 intcode_body dist/default/production\firmware.production.obj
-intlevel0 0 0 CODE 0 text C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.obj
-intlevel1 0 0 CODE 0 text C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.obj
-intlevel2 0 0 CODE 0 text C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.obj
-intlevel3 0 0 CODE 0 text C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.obj
+intlevel0 0 0 CODE 0 text C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.obj
+intlevel1 0 0 CODE 0 text C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.obj
+intlevel2 0 0 CODE 0 text C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.obj
+intlevel3 0 0 CODE 0 text C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.obj
 __end_of_movement_setup FE8 0 CODE 0 text4 dist/default/production\firmware.production.obj
 _SSP1CON2bits FC5 0 ABS 0 - dist/default/production\firmware.production.obj
 __CFG_DSWDTPS$DSWDTPS1A 0 0 ABS 0 - dist/default/production\firmware.production.obj

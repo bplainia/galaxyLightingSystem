@@ -17,7 +17,7 @@
 
 // CONFIG1L
 #pragma config STVREN = OFF     // Stack Overflow/Underflow Reset (Disabled)
-#pragma config XINST = ON       // Extended Instruction Set (Enabled)
+#pragma config XINST = OFF       // Extended Instruction Set (Enabled)
 
 // CONFIG1H
 #pragma config BOREN = ON       // Brown-Out Reset Enable (Controlled with SBOREN bit, disabled in Deep Sleep)

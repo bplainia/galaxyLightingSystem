@@ -5,7 +5,7 @@ Linker command line:
 --edf=C:\Program Files (x86)\Microchip\xc8\v1.33\dat\en_msgs.txt -cs \
   -h+dist/default/production\firmware.production.sym \
   --cmf=dist/default/production\firmware.production.cmf -z -Q18F67J94 \
-  -oC:\Users\BENJAM~1\AppData\Local\Temp\ssh4.6 \
+  -oC:\Users\BENJAM~1\AppData\Local\Temp\s7vk.6 \
   -Mdist/default/production/firmware.production.map -E1 -ver=XC8 \
   -ASTACK=04EDh-09ffh -pstack=STACK -ACODE=00h-01FFEFh -ACONST=00h-01FFEFh \
   -ASMALLCONST=0E00h-0EFFhx497,01FF00h-01FFEFh \
@@ -26,7 +26,7 @@ Linker command line:
   -pfarbss=FARRAM,fardata=FARRAM,nvFARRAM=FARRAM \
   -pintsave_regs=BIGRAM,bigbss=BIGRAM,bigdata=BIGRAM -pbss=RAM \
   -pidata=CODE,irdata=CODE,ibigdata=CODE,ifardata=CODE \
-  C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.obj \
+  C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.obj \
   dist/default/production\firmware.production.obj 
 
 Object code version is 3.11
@@ -39,7 +39,7 @@ Call graph: (short form)
 
 
                 Name                               Link     Load   Length Selector   Space Scale
-C:\Users\BENJAM~1\AppData\Local\Temp\ssh4.obj
+C:\Users\BENJAM~1\AppData\Local\Temp\s7vk.obj
                 end_init                             D0       D0        4        C       0
                 reset_vec                             0        0        4        0       0
                 config                            1FFF0    1FFF0       10    1FFF0       0
