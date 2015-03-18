@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['version1',['VERSION1',['../shared_8h.html#a19efa2f81d63ff13a7e60e352b9eb929',1,'shared.h']]],
-  ['version2',['VERSION2',['../shared_8h.html#a30448eb6a744ed516cfd498fc188a14c',1,'shared.h']]]
+  ['refday',['REFDAY',['../rtc_8h.html#ad439936f13fd20ae93d13302f9117a83',1,'rtc.h']]],
+  ['rxbuffsize',['RXBUFFSIZE',['../communication_8h.html#aa142c3ac1397c2b82176b4b486cc3330',1,'communication.h']]],
+  ['rxtxdir',['RXTXDIR',['../communication_8h.html#aac46ad6f4f709ac12f0f081cf9b751cd',1,'communication.h']]],
+  ['rxtxpin',['RXTXPIN',['../communication_8h.html#af56dd38d0962fb04632920f1545b2c46',1,'communication.h']]]
 ];

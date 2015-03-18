@@ -18815,10 +18815,11 @@ extern __nonreentrant void _delay3(unsigned char);
 # 29 "include\shared.h"
 struct {
 unsigned rtcInit : 1;
+unsigned alarmInit : 1;
 unsigned mmode : 2;
 unsigned state : 2;
 unsigned sleepable : 1;
-unsigned : 2;
+unsigned : 1;
 }status;
 
 
@@ -18873,12 +18874,43 @@ unsigned char rxBuff[128];
 unsigned char txBuff[32];
 unsigned char rxPtrOut, txPtrOut, rxPtrIn, txPtrIn;
 
-# 15 "include\rtc.h"
+# 26 "include\rtc.h"
+typedef struct
+{
+unsigned char year;
+unsigned char month;
+unsigned char weekday;
+unsigned char weekofyear;
+unsigned char day;
+unsigned char hour;
+unsigned char minute;
+unsigned char second;
+}datetime;
+
+typedef struct
+{
+unsigned char month;
+unsigned char day;
+unsigned char hour;
+unsigned char minute;
+unsigned char second;
+unsigned char times;
+unsigned char frequency;
+unsigned char repeat;
+}alarmtime;
+
+
+
 void rtc_setup(void);
-unsigned rtc_set(unsigned char, unsigned char, unsigned char, unsigned char,
-unsigned char, unsigned char);
+unsigned rtc_set(datetime);
+unsigned rtc_get(datetime*);
+
+unsigned alarm_set(alarmtime);
+unsigned alarm_enable();
+unsigned alarm_disable();
 
 static unsigned char char2bcd(unsigned char);
+static unsigned char bcd2char(unsigned char);
 static unsigned char weekday(unsigned char, unsigned char, unsigned char);
 
 # 19 "include\eeprom.h"

@@ -1,7 +1,7 @@
 Version 3.2 HI-TECH Software Intermediate Code
 "29 include\shared.h
-[s S1784 :1 `uc 1 :2 `uc 1 :2 `uc 1 :1 `uc 1 :2 `uc 1 ]
-[n S1784 . rtcInit mmode state sleepable . ]
+[s S1784 :1 `uc 1 :1 `uc 1 :2 `uc 1 :2 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S1784 . rtcInit alarmInit mmode state sleepable . ]
 "7729 C:\Program Files (x86)\Microchip\xc8\v1.33\include\pic18f67j94.h
 [v _ADCSS0L `Vuc ~T0 @X0 0 e@3714 ]
 "7798
@@ -68,12 +68,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _SSP1CON1 `Vuc ~T0 @X0 0 e@4038 ]
 "28970
 [v _SSP1ADD `Vuc ~T0 @X0 0 e@4040 ]
-"39 include\shared.h
+"40 include\shared.h
 [s S1785 `uc 1 `uc 1 `uc 1 `ui 1 `*uc 1 `uc 1 ]
 [n S1785 . addr regl regh reg16 data dataLength ]
-"61
+"62
 [v _i2c_start `(v ~T0 @X0 0 sf1`ui ]
-"63
+"64
 [v _i2c_send `(ui ~T0 @X0 0 sf1`uc ]
 "29131 C:\Program Files (x86)\Microchip\xc8\v1.33\include\pic18f67j94.h
 [v _SSP1BUF `Vuc ~T0 @X0 0 e@4041 ]
@@ -132,9 +132,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S1555 . . . . . . . . . . . . . . . . . ]
 "28396
 [v _SSP1CON2bits `VS1555 ~T0 @X0 0 e@4037 ]
-"62 include\shared.h
+"63 include\shared.h
 [v _i2c_stop `(v ~T0 @X0 0 sf ]
-"64
+"65
 [v _i2c_recv `(uc ~T0 @X0 0 sf1`ui ]
 [; ;htc.h: 21: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 24: extern void __builtin_software_breakpoint(void);
@@ -14241,37 +14241,38 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic18.h: 147: extern __nonreentrant void _delay(unsigned long);
 [; ;pic18.h: 149: extern __nonreentrant void _delaywdt(unsigned long);
 [; ;pic18.h: 151: extern __nonreentrant void _delay3(unsigned char);
-"35 include\shared.h
+"36 include\shared.h
 [v _status `S1784 ~T0 @X0 1 e ]
 [; ;shared.h: 29: struct {
 [; ;shared.h: 30: unsigned rtcInit : 1;
-[; ;shared.h: 31: unsigned mmode : 2;
-[; ;shared.h: 32: unsigned state : 2;
-[; ;shared.h: 33: unsigned sleepable : 1;
-[; ;shared.h: 34: unsigned : 2;
-[; ;shared.h: 35: }status;
-[; ;shared.h: 38: typedef struct
-[; ;shared.h: 39: {
-[; ;shared.h: 40: unsigned char addr;
-[; ;shared.h: 41: unsigned char regl;
-[; ;shared.h: 42: unsigned char regh;
-[; ;shared.h: 43: unsigned reg16;
-[; ;shared.h: 44: unsigned char *data;
-[; ;shared.h: 45: unsigned char dataLength;
-[; ;shared.h: 46: }i2cPacket;
-[; ;shared.h: 50: void adc_setup(void);
-[; ;shared.h: 51: void adc_update(unsigned char);
-[; ;shared.h: 52: void adc_update2(unsigned char, unsigned char);
-[; ;shared.h: 53: void adc_updateAll();
-[; ;shared.h: 55: void pwm_setup(void);
-[; ;shared.h: 56: unsigned pwm_set(unsigned char, unsigned char);
-[; ;shared.h: 58: void i2c_setup(void);
-[; ;shared.h: 59: unsigned i2c_tx(i2cPacket);
-[; ;shared.h: 60: unsigned i2c_rx(i2cPacket*);
-[; ;shared.h: 61: static void i2c_start(unsigned);
-[; ;shared.h: 62: static void i2c_stop(void);
-[; ;shared.h: 63: static unsigned i2c_send(unsigned char);
-[; ;shared.h: 64: static unsigned char i2c_recv(unsigned);
+[; ;shared.h: 31: unsigned alarmInit : 1;
+[; ;shared.h: 32: unsigned mmode : 2;
+[; ;shared.h: 33: unsigned state : 2;
+[; ;shared.h: 34: unsigned sleepable : 1;
+[; ;shared.h: 35: unsigned : 1;
+[; ;shared.h: 36: }status;
+[; ;shared.h: 39: typedef struct
+[; ;shared.h: 40: {
+[; ;shared.h: 41: unsigned char addr;
+[; ;shared.h: 42: unsigned char regl;
+[; ;shared.h: 43: unsigned char regh;
+[; ;shared.h: 44: unsigned reg16;
+[; ;shared.h: 45: unsigned char *data;
+[; ;shared.h: 46: unsigned char dataLength;
+[; ;shared.h: 47: }i2cPacket;
+[; ;shared.h: 51: void adc_setup(void);
+[; ;shared.h: 52: void adc_update(unsigned char);
+[; ;shared.h: 53: void adc_update2(unsigned char, unsigned char);
+[; ;shared.h: 54: void adc_updateAll();
+[; ;shared.h: 56: void pwm_setup(void);
+[; ;shared.h: 57: unsigned pwm_set(unsigned char, unsigned char);
+[; ;shared.h: 59: void i2c_setup(void);
+[; ;shared.h: 60: unsigned i2c_tx(i2cPacket);
+[; ;shared.h: 61: unsigned i2c_rx(i2cPacket*);
+[; ;shared.h: 62: static void i2c_start(unsigned);
+[; ;shared.h: 63: static void i2c_stop(void);
+[; ;shared.h: 64: static unsigned i2c_send(unsigned char);
+[; ;shared.h: 65: static unsigned char i2c_recv(unsigned);
 "10 src/shared.c
 [v _adc_setup `(v ~T0 @X0 1 ef ]
 "11
@@ -14578,175 +14579,182 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;shared.c: 146: i2c_start(1);
 "146
 [e ( _i2c_start (1 -> -> 1 `i `ui ]
-[; ;shared.c: 147: if(i2c_send((*packet).addr | 0b00000001)) return 1;
+[; ;shared.c: 147: i = 0;
 "147
+[e = _i -> -> 0 `i `uc ]
+[; ;shared.c: 148: if(i2c_send((*packet).addr | 0b00000001)) return 1;
+"148
 [e $ ! != ( _i2c_send (1 -> | -> . *U _packet 0 `i -> 1 `i `uc -> -> 0 `i `ui 1815  ]
 [e ) -> -> 1 `i `ui ]
 [e $UE 1810  ]
 [e :U 1815 ]
-[; ;shared.c: 148: do
-"148
-[e :U 1818 ]
-[; ;shared.c: 149: {
+[; ;shared.c: 149: do
 "149
-{
-[; ;shared.c: 150: (*packet).data[i] = i2c_recv(0);
+[e :U 1818 ]
+[; ;shared.c: 150: {
 "150
-[e = *U + . *U _packet 4 * -> _i `ux -> -> # *U . *U _packet 4 `ui `ux ( _i2c_recv (1 -> -> 0 `i `ui ]
+{
+[; ;shared.c: 151: (*packet).data[i] = i2c_recv(0);
 "151
-}
-[; ;shared.c: 151: }
-[; ;shared.c: 152: while (++i < (*packet).dataLength);
+[e = *U + . *U _packet 4 * -> _i `ux -> -> # *U . *U _packet 4 `ui `ux ( _i2c_recv (1 -> -> 0 `i `ui ]
 "152
+}
+[; ;shared.c: 152: }
+[; ;shared.c: 153: while (++i < (*packet).dataLength);
+"153
 [e $ < -> =+ _i -> -> 1 `i `uc `i -> . *U _packet 5 `i 1818  ]
 [e :U 1817 ]
-[; ;shared.c: 153: (*packet).data[i] = i2c_recv(1);
-"153
-[e = *U + . *U _packet 4 * -> _i `ux -> -> # *U . *U _packet 4 `ui `ux ( _i2c_recv (1 -> -> 1 `i `ui ]
-[; ;shared.c: 154: i2c_stop();
+[; ;shared.c: 154: (*packet).data[i] = i2c_recv(1);
 "154
-[e ( _i2c_stop ..  ]
-[; ;shared.c: 155: return 0;
+[e = *U + . *U _packet 4 * -> _i `ux -> -> # *U . *U _packet 4 `ui `ux ( _i2c_recv (1 -> -> 1 `i `ui ]
+[; ;shared.c: 155: i2c_stop();
 "155
+[e ( _i2c_stop ..  ]
+[; ;shared.c: 156: return 0;
+"156
 [e ) -> -> 0 `i `ui ]
 [e $UE 1810  ]
-[; ;shared.c: 156: }
-"156
+[; ;shared.c: 157: }
+"157
 [e :UE 1810 ]
 }
-"159
+"160
 [v _i2c_start `(v ~T0 @X0 1 sf1`ui ]
-"160
-{
-[; ;shared.c: 159: static void i2c_start(unsigned repeat)
-[; ;shared.c: 160: {
-[e :U _i2c_start ]
-"159
-[v _repeat `ui ~T0 @X0 1 r1 ]
-"160
-[f ]
-[; ;shared.c: 161: SSP1IF = 0;
 "161
-[e = _SSP1IF -> -> 0 `i `b ]
-[; ;shared.c: 162: if (repeat) SSP1CON2bits.RSEN = 1;
+{
+[; ;shared.c: 160: static void i2c_start(unsigned repeat)
+[; ;shared.c: 161: {
+[e :U _i2c_start ]
+"160
+[v _repeat `ui ~T0 @X0 1 r1 ]
+"161
+[f ]
+[; ;shared.c: 162: SSP1IF = 0;
 "162
+[e = _SSP1IF -> -> 0 `i `b ]
+[; ;shared.c: 163: if (repeat) SSP1CON2bits.RSEN = 1;
+"163
 [e $ ! != _repeat -> -> 0 `i `ui 1820  ]
 [e = . . _SSP1CON2bits 0 1 -> -> 1 `i `uc ]
 [e $U 1821  ]
-"163
+"164
 [e :U 1820 ]
-[; ;shared.c: 163: else SSP1CON2bits.SEN = 1;
+[; ;shared.c: 164: else SSP1CON2bits.SEN = 1;
 [e = . . _SSP1CON2bits 0 0 -> -> 1 `i `uc ]
 [e :U 1821 ]
-[; ;shared.c: 164: while(!SSP1IF) continue;
-"164
+[; ;shared.c: 165: while(!SSP1IF) continue;
+"165
 [e $U 1822  ]
 [e :U 1823 ]
 [e $U 1822  ]
 [e :U 1822 ]
 [e $ ! _SSP1IF 1823  ]
 [e :U 1824 ]
-[; ;shared.c: 165: SSP1IF = 0;
-"165
+[; ;shared.c: 166: SSP1IF = 0;
+"166
 [e = _SSP1IF -> -> 0 `i `b ]
-[; ;shared.c: 170: }
-"170
+[; ;shared.c: 171: }
+"171
 [e :UE 1819 ]
 }
-"173
-[v _i2c_stop `(v ~T0 @X0 1 sf ]
 "174
+[v _i2c_stop `(v ~T0 @X0 1 sf ]
+"175
 {
-[; ;shared.c: 173: static void i2c_stop()
-[; ;shared.c: 174: {
+[; ;shared.c: 174: static void i2c_stop()
+[; ;shared.c: 175: {
 [e :U _i2c_stop ]
 [f ]
-[; ;shared.c: 175: SSP1IF = 0;
-"175
-[e = _SSP1IF -> -> 0 `i `b ]
-[; ;shared.c: 176: SSP1CON2bits.PEN = 1;
+[; ;shared.c: 176: SSP1IF = 0;
 "176
-[e = . . _SSP1CON2bits 0 2 -> -> 1 `i `uc ]
-[; ;shared.c: 177: while(!SSP1IF) continue;
+[e = _SSP1IF -> -> 0 `i `b ]
+[; ;shared.c: 177: SSP1CON2bits.PEN = 1;
 "177
+[e = . . _SSP1CON2bits 0 2 -> -> 1 `i `uc ]
+[; ;shared.c: 178: while(!SSP1IF) continue;
+"178
 [e $U 1826  ]
 [e :U 1827 ]
 [e $U 1826  ]
 [e :U 1826 ]
 [e $ ! _SSP1IF 1827  ]
 [e :U 1828 ]
-[; ;shared.c: 178: SSP1IF = 0;
-"178
-[e = _SSP1IF -> -> 0 `i `b ]
-[; ;shared.c: 179: }
+[; ;shared.c: 179: SSP1IF = 0;
 "179
+[e = _SSP1IF -> -> 0 `i `b ]
+[; ;shared.c: 180: }
+"180
 [e :UE 1825 ]
 }
-"186
+"187
 [v _i2c_send `(ui ~T0 @X0 1 sf1`uc ]
-"187
-{
-[; ;shared.c: 186: static unsigned i2c_send(unsigned char byte)
-[; ;shared.c: 187: {
-[e :U _i2c_send ]
-"186
-[v _byte `uc ~T0 @X0 1 r1 ]
-"187
-[f ]
-[; ;shared.c: 188: SSP1IF = 0;
 "188
-[e = _SSP1IF -> -> 0 `i `b ]
-[; ;shared.c: 189: SSP1BUF = byte;
+{
+[; ;shared.c: 187: static unsigned i2c_send(unsigned char byte)
+[; ;shared.c: 188: {
+[e :U _i2c_send ]
+"187
+[v _byte `uc ~T0 @X0 1 r1 ]
+"188
+[f ]
+[; ;shared.c: 189: SSP1IF = 0;
 "189
-[e = _SSP1BUF _byte ]
-[; ;shared.c: 190: while(!SSP1IF) continue;
+[e = _SSP1IF -> -> 0 `i `b ]
+[; ;shared.c: 190: SSP1BUF = byte;
 "190
+[e = _SSP1BUF _byte ]
+[; ;shared.c: 191: while(!SSP1IF) continue;
+"191
 [e $U 1830  ]
 [e :U 1831 ]
 [e $U 1830  ]
 [e :U 1830 ]
 [e $ ! _SSP1IF 1831  ]
 [e :U 1832 ]
-[; ;shared.c: 191: return (SSP1CON2bits.ACKDT || SSP1CON2bits.ACKSTAT);
-"191
+[; ;shared.c: 192: return (SSP1CON2bits.ACKDT || SSP1CON2bits.ACKSTAT);
+"192
 [e ) -> -> || != -> . . _SSP1CON2bits 0 5 `i -> -> -> 0 `i `Vuc `i != -> . . _SSP1CON2bits 0 6 `i -> -> -> 0 `i `Vuc `i `i `ui ]
 [e $UE 1829  ]
-[; ;shared.c: 192: }
-"192
+[; ;shared.c: 193: }
+"193
 [e :UE 1829 ]
 }
-"196
+"197
 [v _i2c_recv `(uc ~T0 @X0 1 sf1`ui ]
-"197
-{
-[; ;shared.c: 196: static unsigned char i2c_recv(unsigned ack)
-[; ;shared.c: 197: {
-[e :U _i2c_recv ]
-"196
-[v _ack `ui ~T0 @X0 1 r1 ]
-"197
-[f ]
-[; ;shared.c: 198: SSP1IF = 0;
 "198
-[e = _SSP1IF -> -> 0 `i `b ]
-[; ;shared.c: 199: SSP1CON2bits.RCEN = 1;
+{
+[; ;shared.c: 197: static unsigned char i2c_recv(unsigned ack)
+[; ;shared.c: 198: {
+[e :U _i2c_recv ]
+"197
+[v _ack `ui ~T0 @X0 1 r1 ]
+"198
+[f ]
+[; ;shared.c: 199: SSP1IF = 0;
 "199
-[e = . . _SSP1CON2bits 0 3 -> -> 1 `i `uc ]
-[; ;shared.c: 200: while(!SSP1IF) continue;
+[e = _SSP1IF -> -> 0 `i `b ]
+[; ;shared.c: 200: SSP1CON2bits.RCEN = 1;
 "200
+[e = . . _SSP1CON2bits 0 3 -> -> 1 `i `uc ]
+[; ;shared.c: 201: while(!SSP1IF) continue;
+"201
 [e $U 1834  ]
 [e :U 1835 ]
 [e $U 1834  ]
 [e :U 1834 ]
 [e $ ! _SSP1IF 1835  ]
 [e :U 1836 ]
-[; ;shared.c: 201: SSP1CON2bits.ACKEN = ack;
-"201
-[e = . . _SSP1CON2bits 0 4 -> _ack `uc ]
-[; ;shared.c: 202: SSP1CON2bits.ACKEN = 1;
+[; ;shared.c: 202: SSP1CON2bits.ACKEN = ack;
 "202
-[e = . . _SSP1CON2bits 0 4 -> -> 1 `i `uc ]
-[; ;shared.c: 203: }
+[e = . . _SSP1CON2bits 0 4 -> _ack `uc ]
+[; ;shared.c: 203: SSP1CON2bits.ACKEN = 1;
 "203
+[e = . . _SSP1CON2bits 0 4 -> -> 1 `i `uc ]
+[; ;shared.c: 204: return 0;
+"204
+[e ) -> -> 0 `i `uc ]
+[e $UE 1833  ]
+[; ;shared.c: 205: }
+"205
 [e :UE 1833 ]
 }

@@ -1,7 +1,7 @@
 Version 3.2 HI-TECH Software Intermediate Code
 "29 include\shared.h
-[s S1784 :1 `uc 1 :2 `uc 1 :2 `uc 1 :1 `uc 1 :2 `uc 1 ]
-[n S1784 . rtcInit mmode state sleepable . ]
+[s S1784 :1 `uc 1 :1 `uc 1 :2 `uc 1 :2 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S1784 . rtcInit alarmInit mmode state sleepable . ]
 "26 include\communication.h
 [s S1786 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :4 `uc 1 ]
 [n S1786 comstat_t TOKEN TXOVER RXOVER TERROR . ]
@@ -24,13 +24,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _setup `(v ~T0 @X0 0 ef ]
 "17
 [v _loop `(v ~T0 @X0 0 ef ]
-"58 include\shared.h
+"59 include\shared.h
 [v _i2c_setup `(v ~T0 @X0 0 ef ]
 "22 include\eeprom.h
 [v _mem_check `(uc ~T0 @X0 0 ef ]
-"55 include\shared.h
+"56 include\shared.h
 [v _pwm_setup `(v ~T0 @X0 0 ef ]
-"50
+"51
 [v _adc_setup `(v ~T0 @X0 0 ef ]
 "38 include\movement.h
 [v _movement_setup `(v ~T0 @X0 0 ef ]
@@ -38,9 +38,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _led_setup `(i ~T0 @X0 0 ef ]
 "8 include\hid.h
 [v _hid_setup `(v ~T0 @X0 0 ef ]
-"15 include\rtc.h
+"52 include\rtc.h
 [v _rtc_setup `(v ~T0 @X0 0 ef ]
-"53 include\shared.h
+"54 include\shared.h
 [v _adc_updateAll `(v ~T0 @X0 0 ef ]
 "9 include\hid.h
 [v _hid_loop `(v ~T0 @X0 0 ef ]
@@ -14162,7 +14162,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 "19 src/solarLight.c
 [p x STVREN=OFF ]
 "20
-[p x XINST=ON ]
+[p x XINST=OFF ]
 "23
 [p x BOREN=ON ]
 "24
@@ -14229,37 +14229,38 @@ Version 3.2 HI-TECH Software Intermediate Code
 [p x DSWDTEN=ON ]
 "83
 [p x DSWDTOSC=SOSC ]
-"35 include\shared.h
+"36 include\shared.h
 [v _status `S1784 ~T0 @X0 1 e ]
 [; ;shared.h: 29: struct {
 [; ;shared.h: 30: unsigned rtcInit : 1;
-[; ;shared.h: 31: unsigned mmode : 2;
-[; ;shared.h: 32: unsigned state : 2;
-[; ;shared.h: 33: unsigned sleepable : 1;
-[; ;shared.h: 34: unsigned : 2;
-[; ;shared.h: 35: }status;
-[; ;shared.h: 38: typedef struct
-[; ;shared.h: 39: {
-[; ;shared.h: 40: unsigned char addr;
-[; ;shared.h: 41: unsigned char regl;
-[; ;shared.h: 42: unsigned char regh;
-[; ;shared.h: 43: unsigned reg16;
-[; ;shared.h: 44: unsigned char *data;
-[; ;shared.h: 45: unsigned char dataLength;
-[; ;shared.h: 46: }i2cPacket;
-[; ;shared.h: 50: void adc_setup(void);
-[; ;shared.h: 51: void adc_update(unsigned char);
-[; ;shared.h: 52: void adc_update2(unsigned char, unsigned char);
-[; ;shared.h: 53: void adc_updateAll();
-[; ;shared.h: 55: void pwm_setup(void);
-[; ;shared.h: 56: unsigned pwm_set(unsigned char, unsigned char);
-[; ;shared.h: 58: void i2c_setup(void);
-[; ;shared.h: 59: unsigned i2c_tx(i2cPacket);
-[; ;shared.h: 60: unsigned i2c_rx(i2cPacket*);
-[; ;shared.h: 61: static void i2c_start(unsigned);
-[; ;shared.h: 62: static void i2c_stop(void);
-[; ;shared.h: 63: static unsigned i2c_send(unsigned char);
-[; ;shared.h: 64: static unsigned char i2c_recv(unsigned);
+[; ;shared.h: 31: unsigned alarmInit : 1;
+[; ;shared.h: 32: unsigned mmode : 2;
+[; ;shared.h: 33: unsigned state : 2;
+[; ;shared.h: 34: unsigned sleepable : 1;
+[; ;shared.h: 35: unsigned : 1;
+[; ;shared.h: 36: }status;
+[; ;shared.h: 39: typedef struct
+[; ;shared.h: 40: {
+[; ;shared.h: 41: unsigned char addr;
+[; ;shared.h: 42: unsigned char regl;
+[; ;shared.h: 43: unsigned char regh;
+[; ;shared.h: 44: unsigned reg16;
+[; ;shared.h: 45: unsigned char *data;
+[; ;shared.h: 46: unsigned char dataLength;
+[; ;shared.h: 47: }i2cPacket;
+[; ;shared.h: 51: void adc_setup(void);
+[; ;shared.h: 52: void adc_update(unsigned char);
+[; ;shared.h: 53: void adc_update2(unsigned char, unsigned char);
+[; ;shared.h: 54: void adc_updateAll();
+[; ;shared.h: 56: void pwm_setup(void);
+[; ;shared.h: 57: unsigned pwm_set(unsigned char, unsigned char);
+[; ;shared.h: 59: void i2c_setup(void);
+[; ;shared.h: 60: unsigned i2c_tx(i2cPacket);
+[; ;shared.h: 61: unsigned i2c_rx(i2cPacket*);
+[; ;shared.h: 62: static void i2c_start(unsigned);
+[; ;shared.h: 63: static void i2c_stop(void);
+[; ;shared.h: 64: static unsigned i2c_send(unsigned char);
+[; ;shared.h: 65: static unsigned char i2c_recv(unsigned);
 [; ;communication.h: 17: void comm_start(void);
 [; ;communication.h: 18: void comm_flush(void);
 [; ;communication.h: 19: unsigned comm_go(void);
@@ -14291,11 +14292,37 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _rxPtrIn `uc ~T0 @X0 1 e ]
 [v _txPtrIn `uc ~T0 @X0 1 e ]
 [; ;communication.h: 37: unsigned char rxPtrOut, txPtrOut, rxPtrIn, txPtrIn;
-[; ;rtc.h: 15: void rtc_setup(void);
-[; ;rtc.h: 16: unsigned rtc_set(unsigned char, unsigned char, unsigned char, unsigned char,
-[; ;rtc.h: 17: unsigned char, unsigned char);
-[; ;rtc.h: 19: static unsigned char char2bcd(unsigned char);
-[; ;rtc.h: 20: static unsigned char weekday(unsigned char, unsigned char, unsigned char);
+[; ;rtc.h: 26: typedef struct
+[; ;rtc.h: 27: {
+[; ;rtc.h: 28: unsigned char year;
+[; ;rtc.h: 29: unsigned char month;
+[; ;rtc.h: 30: unsigned char weekday;
+[; ;rtc.h: 31: unsigned char weekofyear;
+[; ;rtc.h: 32: unsigned char day;
+[; ;rtc.h: 33: unsigned char hour;
+[; ;rtc.h: 34: unsigned char minute;
+[; ;rtc.h: 35: unsigned char second;
+[; ;rtc.h: 36: }datetime;
+[; ;rtc.h: 38: typedef struct
+[; ;rtc.h: 39: {
+[; ;rtc.h: 40: unsigned char month;
+[; ;rtc.h: 41: unsigned char day;
+[; ;rtc.h: 42: unsigned char hour;
+[; ;rtc.h: 43: unsigned char minute;
+[; ;rtc.h: 44: unsigned char second;
+[; ;rtc.h: 45: unsigned char times;
+[; ;rtc.h: 46: unsigned char frequency;
+[; ;rtc.h: 47: unsigned char repeat;
+[; ;rtc.h: 48: }alarmtime;
+[; ;rtc.h: 52: void rtc_setup(void);
+[; ;rtc.h: 53: unsigned rtc_set(datetime);
+[; ;rtc.h: 54: unsigned rtc_get(datetime*);
+[; ;rtc.h: 56: unsigned alarm_set(alarmtime);
+[; ;rtc.h: 57: unsigned alarm_enable();
+[; ;rtc.h: 58: unsigned alarm_disable();
+[; ;rtc.h: 60: static unsigned char char2bcd(unsigned char);
+[; ;rtc.h: 61: static unsigned char bcd2char(unsigned char);
+[; ;rtc.h: 62: static unsigned char weekday(unsigned char, unsigned char, unsigned char);
 [; ;eeprom.h: 19: typedef enum errorCode {NONE=0,SPACEOVERRIDE=1,BATTERYLOW=2};
 [; ;eeprom.h: 22: unsigned char mem_check(void);
 [; ;eeprom.h: 23: void mem_push(void);
@@ -14406,14 +14433,14 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = . . _INTCONbits 2 1 -> -> 1 `i `uc ]
 [; ;solarLight.c: 102: while(1) loop();
 "102
-[e :U 1789 ]
+[e :U 1791 ]
 [e ( _loop ..  ]
-[e :U 1788 ]
-[e $U 1789  ]
 [e :U 1790 ]
+[e $U 1791  ]
+[e :U 1792 ]
 [; ;solarLight.c: 103: }
 "103
-[e :UE 1787 ]
+[e :UE 1789 ]
 }
 "106
 [v _setup `(v ~T0 @X0 1 ef ]
@@ -14452,7 +14479,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _rtc_setup ..  ]
 [; ;solarLight.c: 120: }
 "120
-[e :UE 1791 ]
+[e :UE 1793 ]
 }
 "126
 [v _loop `(v ~T0 @X0 1 ef ]
@@ -14467,70 +14494,70 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _adc_updateAll ..  ]
 [; ;solarLight.c: 131: switch(status.state)
 "131
-[e $U 1794  ]
+[e $U 1796  ]
 [; ;solarLight.c: 132: {
 "132
 {
 [; ;solarLight.c: 133: case 1:
 "133
-[e :U 1795 ]
+[e :U 1797 ]
 [; ;solarLight.c: 134: break;
 "134
-[e $U 1793  ]
+[e $U 1795  ]
 [; ;solarLight.c: 135: case 2:
 "135
-[e :U 1796 ]
+[e :U 1798 ]
 [; ;solarLight.c: 136: break;
 "136
-[e $U 1793  ]
+[e $U 1795  ]
 [; ;solarLight.c: 137: case 3:
 "137
-[e :U 1797 ]
+[e :U 1799 ]
 [; ;solarLight.c: 139: ;
 "140
 }
 [; ;solarLight.c: 140: }
-[e $U 1793  ]
+[e $U 1795  ]
 "131
-[e :U 1794 ]
-[e [\ . _status 2 , $ -> -> 1 `i `uc 1795
- , $ -> -> 2 `i `uc 1796
- , $ -> -> 3 `i `uc 1797
- 1793 ]
+[e :U 1796 ]
+[e [\ . _status 3 , $ -> -> 1 `i `uc 1797
+ , $ -> -> 2 `i `uc 1798
+ , $ -> -> 3 `i `uc 1799
+ 1795 ]
 "140
-[e :U 1793 ]
+[e :U 1795 ]
 [; ;solarLight.c: 141: hid_loop();
 "141
 [e ( _hid_loop ..  ]
 [; ;solarLight.c: 143: if(status.state == 1)
 "143
-[e $ ! == -> . _status 2 `i -> 1 `i 1798  ]
+[e $ ! == -> . _status 3 `i -> 1 `i 1800  ]
 [; ;solarLight.c: 144: {
 "144
 {
 "146
 }
 [; ;solarLight.c: 146: }
-[e $U 1799  ]
+[e $U 1801  ]
 "147
-[e :U 1798 ]
+[e :U 1800 ]
 [; ;solarLight.c: 147: else if(status.state == 2)
-[e $ ! == -> . _status 2 `i -> 2 `i 1800  ]
+[e $ ! == -> . _status 3 `i -> 2 `i 1802  ]
 [; ;solarLight.c: 148: {
 "148
 {
 "150
 }
-[e :U 1800 ]
+[e :U 1802 ]
 "151
-[e :U 1799 ]
+[e :U 1801 ]
 [; ;solarLight.c: 150: }
 [; ;solarLight.c: 151: }
-[e :UE 1792 ]
+[e :UE 1794 ]
 }
-[v F15681 `(v ~T0 @X0 1 tf ]
+[v F15705 `(v ~T0 @X0 1 tf ]
 "162
-[v _isr_low `ILF15681 ~T0 @X0 1 e ]
+[v _isr_low `ILF15705 ~T0 @X0 1 e ]
 "163
 {
 [; ;solarLight.c: 162: void interrupt low_priority isr_low()
@@ -14539,7 +14566,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [f ]
 [; ;solarLight.c: 164: if(TX1IE && TX1IF)
 "164
-[e $ ! && _TX1IE _TX1IF 1802  ]
+[e $ ! && _TX1IE _TX1IF 1804  ]
 [; ;solarLight.c: 165: {
 "165
 {
@@ -14548,7 +14575,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _TX1IF -> -> 0 `i `b ]
 [; ;solarLight.c: 167: if(COMSTAT.TOKEN && (txPtrOut != txPtrIn))
 "167
-[e $ ! && != -> . _COMSTAT 0 `i -> -> -> 0 `i `uc `i != -> _txPtrOut `i -> _txPtrIn `i 1803  ]
+[e $ ! && != -> . _COMSTAT 0 `i -> -> -> 0 `i `uc `i != -> _txPtrOut `i -> _txPtrIn `i 1805  ]
 [; ;solarLight.c: 168: {
 "168
 {
@@ -14557,29 +14584,29 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _TXREG1 *U + &U _txBuff * -> ++ _txPtrOut -> -> 1 `i `uc `ux -> -> # *U &U _txBuff `ui `ux ]
 "170
 }
-[e :U 1803 ]
+[e :U 1805 ]
 "172
 }
-[e :U 1802 ]
+[e :U 1804 ]
 [; ;solarLight.c: 170: }
 [; ;solarLight.c: 172: }
 [; ;solarLight.c: 173: if(RC1IE && RC1IF)
 "173
-[e $ ! && _RC1IE _RC1IF 1804  ]
+[e $ ! && _RC1IE _RC1IF 1806  ]
 [; ;solarLight.c: 174: {
 "174
 {
 "176
 }
-[e :U 1804 ]
+[e :U 1806 ]
 [; ;solarLight.c: 176: }
 [; ;solarLight.c: 177: }
 "177
-[e :UE 1801 ]
+[e :UE 1803 ]
 }
-[v F15684 `(v ~T0 @X0 1 tf ]
+[v F15708 `(v ~T0 @X0 1 tf ]
 "186
-[v _isr_high `IHF15684 ~T0 @X0 1 e ]
+[v _isr_high `IHF15708 ~T0 @X0 1 e ]
 "187
 {
 [; ;solarLight.c: 186: void interrupt high_priority isr_high()
@@ -14589,5 +14616,5 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;solarLight.c: 188: ;
 [; ;solarLight.c: 189: }
 "189
-[e :UE 1805 ]
+[e :UE 1807 ]
 }

@@ -48,7 +48,7 @@ void hid_execute(unsigned char command)  // execute a command (usb and lcd can c
     if(command < 150)
     {
         // Execute a function from the menu
-        (menue[command]).function();
+        (menue[command][0]).function(); /// \todo FIXME: how shall we get the second argument for the array?
     }
     else
     {

@@ -1,7 +1,7 @@
 Version 3.2 HI-TECH Software Intermediate Code
 "29 include\shared.h
-[s S1784 :1 `uc 1 :2 `uc 1 :2 `uc 1 :1 `uc 1 :2 `uc 1 ]
-[n S1784 . rtcInit mmode state sleepable . ]
+[s S1784 :1 `uc 1 :1 `uc 1 :2 `uc 1 :2 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S1784 . rtcInit alarmInit mmode state sleepable . ]
 "24932 C:\Program Files (x86)\Microchip\xc8\v1.33\include\pic18f67j94.h
 [s S1374 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S1374 . TRISA0 TRISA1 TRISA2 TRISA3 TRISA4 TRISA5 TRISA6 TRISA7 ]
@@ -14203,37 +14203,38 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic18.h: 147: extern __nonreentrant void _delay(unsigned long);
 [; ;pic18.h: 149: extern __nonreentrant void _delaywdt(unsigned long);
 [; ;pic18.h: 151: extern __nonreentrant void _delay3(unsigned char);
-"35 include\shared.h
+"36 include\shared.h
 [v _status `S1784 ~T0 @X0 1 e ]
 [; ;shared.h: 29: struct {
 [; ;shared.h: 30: unsigned rtcInit : 1;
-[; ;shared.h: 31: unsigned mmode : 2;
-[; ;shared.h: 32: unsigned state : 2;
-[; ;shared.h: 33: unsigned sleepable : 1;
-[; ;shared.h: 34: unsigned : 2;
-[; ;shared.h: 35: }status;
-[; ;shared.h: 38: typedef struct
-[; ;shared.h: 39: {
-[; ;shared.h: 40: unsigned char addr;
-[; ;shared.h: 41: unsigned char regl;
-[; ;shared.h: 42: unsigned char regh;
-[; ;shared.h: 43: unsigned reg16;
-[; ;shared.h: 44: unsigned char *data;
-[; ;shared.h: 45: unsigned char dataLength;
-[; ;shared.h: 46: }i2cPacket;
-[; ;shared.h: 50: void adc_setup(void);
-[; ;shared.h: 51: void adc_update(unsigned char);
-[; ;shared.h: 52: void adc_update2(unsigned char, unsigned char);
-[; ;shared.h: 53: void adc_updateAll();
-[; ;shared.h: 55: void pwm_setup(void);
-[; ;shared.h: 56: unsigned pwm_set(unsigned char, unsigned char);
-[; ;shared.h: 58: void i2c_setup(void);
-[; ;shared.h: 59: unsigned i2c_tx(i2cPacket);
-[; ;shared.h: 60: unsigned i2c_rx(i2cPacket*);
-[; ;shared.h: 61: static void i2c_start(unsigned);
-[; ;shared.h: 62: static void i2c_stop(void);
-[; ;shared.h: 63: static unsigned i2c_send(unsigned char);
-[; ;shared.h: 64: static unsigned char i2c_recv(unsigned);
+[; ;shared.h: 31: unsigned alarmInit : 1;
+[; ;shared.h: 32: unsigned mmode : 2;
+[; ;shared.h: 33: unsigned state : 2;
+[; ;shared.h: 34: unsigned sleepable : 1;
+[; ;shared.h: 35: unsigned : 1;
+[; ;shared.h: 36: }status;
+[; ;shared.h: 39: typedef struct
+[; ;shared.h: 40: {
+[; ;shared.h: 41: unsigned char addr;
+[; ;shared.h: 42: unsigned char regl;
+[; ;shared.h: 43: unsigned char regh;
+[; ;shared.h: 44: unsigned reg16;
+[; ;shared.h: 45: unsigned char *data;
+[; ;shared.h: 46: unsigned char dataLength;
+[; ;shared.h: 47: }i2cPacket;
+[; ;shared.h: 51: void adc_setup(void);
+[; ;shared.h: 52: void adc_update(unsigned char);
+[; ;shared.h: 53: void adc_update2(unsigned char, unsigned char);
+[; ;shared.h: 54: void adc_updateAll();
+[; ;shared.h: 56: void pwm_setup(void);
+[; ;shared.h: 57: unsigned pwm_set(unsigned char, unsigned char);
+[; ;shared.h: 59: void i2c_setup(void);
+[; ;shared.h: 60: unsigned i2c_tx(i2cPacket);
+[; ;shared.h: 61: unsigned i2c_rx(i2cPacket*);
+[; ;shared.h: 62: static void i2c_start(unsigned);
+[; ;shared.h: 63: static void i2c_stop(void);
+[; ;shared.h: 64: static unsigned i2c_send(unsigned char);
+[; ;shared.h: 65: static unsigned char i2c_recv(unsigned);
 "7 include\sensors.h
 [v _duskLevel `ui ~T0 @X0 1 e ]
 [i _duskLevel

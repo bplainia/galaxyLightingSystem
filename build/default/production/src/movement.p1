@@ -1,7 +1,7 @@
 Version 3.2 HI-TECH Software Intermediate Code
 "29 include\shared.h
-[s S1784 :1 `uc 1 :2 `uc 1 :2 `uc 1 :1 `uc 1 :2 `uc 1 ]
-[n S1784 . rtcInit mmode state sleepable . ]
+[s S1784 :1 `uc 1 :1 `uc 1 :2 `uc 1 :2 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S1784 . rtcInit alarmInit mmode state sleepable . ]
 "26 include\communication.h
 [s S1786 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :4 `uc 1 ]
 [n S1786 comstat_t TOKEN TXOVER RXOVER TERROR . ]
@@ -14126,37 +14126,38 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic18.h: 147: extern __nonreentrant void _delay(unsigned long);
 [; ;pic18.h: 149: extern __nonreentrant void _delaywdt(unsigned long);
 [; ;pic18.h: 151: extern __nonreentrant void _delay3(unsigned char);
-"35 include\shared.h
+"36 include\shared.h
 [v _status `S1784 ~T0 @X0 1 e ]
 [; ;shared.h: 29: struct {
 [; ;shared.h: 30: unsigned rtcInit : 1;
-[; ;shared.h: 31: unsigned mmode : 2;
-[; ;shared.h: 32: unsigned state : 2;
-[; ;shared.h: 33: unsigned sleepable : 1;
-[; ;shared.h: 34: unsigned : 2;
-[; ;shared.h: 35: }status;
-[; ;shared.h: 38: typedef struct
-[; ;shared.h: 39: {
-[; ;shared.h: 40: unsigned char addr;
-[; ;shared.h: 41: unsigned char regl;
-[; ;shared.h: 42: unsigned char regh;
-[; ;shared.h: 43: unsigned reg16;
-[; ;shared.h: 44: unsigned char *data;
-[; ;shared.h: 45: unsigned char dataLength;
-[; ;shared.h: 46: }i2cPacket;
-[; ;shared.h: 50: void adc_setup(void);
-[; ;shared.h: 51: void adc_update(unsigned char);
-[; ;shared.h: 52: void adc_update2(unsigned char, unsigned char);
-[; ;shared.h: 53: void adc_updateAll();
-[; ;shared.h: 55: void pwm_setup(void);
-[; ;shared.h: 56: unsigned pwm_set(unsigned char, unsigned char);
-[; ;shared.h: 58: void i2c_setup(void);
-[; ;shared.h: 59: unsigned i2c_tx(i2cPacket);
-[; ;shared.h: 60: unsigned i2c_rx(i2cPacket*);
-[; ;shared.h: 61: static void i2c_start(unsigned);
-[; ;shared.h: 62: static void i2c_stop(void);
-[; ;shared.h: 63: static unsigned i2c_send(unsigned char);
-[; ;shared.h: 64: static unsigned char i2c_recv(unsigned);
+[; ;shared.h: 31: unsigned alarmInit : 1;
+[; ;shared.h: 32: unsigned mmode : 2;
+[; ;shared.h: 33: unsigned state : 2;
+[; ;shared.h: 34: unsigned sleepable : 1;
+[; ;shared.h: 35: unsigned : 1;
+[; ;shared.h: 36: }status;
+[; ;shared.h: 39: typedef struct
+[; ;shared.h: 40: {
+[; ;shared.h: 41: unsigned char addr;
+[; ;shared.h: 42: unsigned char regl;
+[; ;shared.h: 43: unsigned char regh;
+[; ;shared.h: 44: unsigned reg16;
+[; ;shared.h: 45: unsigned char *data;
+[; ;shared.h: 46: unsigned char dataLength;
+[; ;shared.h: 47: }i2cPacket;
+[; ;shared.h: 51: void adc_setup(void);
+[; ;shared.h: 52: void adc_update(unsigned char);
+[; ;shared.h: 53: void adc_update2(unsigned char, unsigned char);
+[; ;shared.h: 54: void adc_updateAll();
+[; ;shared.h: 56: void pwm_setup(void);
+[; ;shared.h: 57: unsigned pwm_set(unsigned char, unsigned char);
+[; ;shared.h: 59: void i2c_setup(void);
+[; ;shared.h: 60: unsigned i2c_tx(i2cPacket);
+[; ;shared.h: 61: unsigned i2c_rx(i2cPacket*);
+[; ;shared.h: 62: static void i2c_start(unsigned);
+[; ;shared.h: 63: static void i2c_stop(void);
+[; ;shared.h: 64: static unsigned i2c_send(unsigned char);
+[; ;shared.h: 65: static unsigned char i2c_recv(unsigned);
 [; ;communication.h: 17: void comm_start(void);
 [; ;communication.h: 18: void comm_flush(void);
 [; ;communication.h: 19: unsigned comm_go(void);
@@ -14188,11 +14189,37 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _rxPtrIn `uc ~T0 @X0 1 e ]
 [v _txPtrIn `uc ~T0 @X0 1 e ]
 [; ;communication.h: 37: unsigned char rxPtrOut, txPtrOut, rxPtrIn, txPtrIn;
-[; ;rtc.h: 15: void rtc_setup(void);
-[; ;rtc.h: 16: unsigned rtc_set(unsigned char, unsigned char, unsigned char, unsigned char,
-[; ;rtc.h: 17: unsigned char, unsigned char);
-[; ;rtc.h: 19: static unsigned char char2bcd(unsigned char);
-[; ;rtc.h: 20: static unsigned char weekday(unsigned char, unsigned char, unsigned char);
+[; ;rtc.h: 26: typedef struct
+[; ;rtc.h: 27: {
+[; ;rtc.h: 28: unsigned char year;
+[; ;rtc.h: 29: unsigned char month;
+[; ;rtc.h: 30: unsigned char weekday;
+[; ;rtc.h: 31: unsigned char weekofyear;
+[; ;rtc.h: 32: unsigned char day;
+[; ;rtc.h: 33: unsigned char hour;
+[; ;rtc.h: 34: unsigned char minute;
+[; ;rtc.h: 35: unsigned char second;
+[; ;rtc.h: 36: }datetime;
+[; ;rtc.h: 38: typedef struct
+[; ;rtc.h: 39: {
+[; ;rtc.h: 40: unsigned char month;
+[; ;rtc.h: 41: unsigned char day;
+[; ;rtc.h: 42: unsigned char hour;
+[; ;rtc.h: 43: unsigned char minute;
+[; ;rtc.h: 44: unsigned char second;
+[; ;rtc.h: 45: unsigned char times;
+[; ;rtc.h: 46: unsigned char frequency;
+[; ;rtc.h: 47: unsigned char repeat;
+[; ;rtc.h: 48: }alarmtime;
+[; ;rtc.h: 52: void rtc_setup(void);
+[; ;rtc.h: 53: unsigned rtc_set(datetime);
+[; ;rtc.h: 54: unsigned rtc_get(datetime*);
+[; ;rtc.h: 56: unsigned alarm_set(alarmtime);
+[; ;rtc.h: 57: unsigned alarm_enable();
+[; ;rtc.h: 58: unsigned alarm_disable();
+[; ;rtc.h: 60: static unsigned char char2bcd(unsigned char);
+[; ;rtc.h: 61: static unsigned char bcd2char(unsigned char);
+[; ;rtc.h: 62: static unsigned char weekday(unsigned char, unsigned char, unsigned char);
 [; ;eeprom.h: 19: typedef enum errorCode {NONE=0,SPACEOVERRIDE=1,BATTERYLOW=2};
 [; ;eeprom.h: 22: unsigned char mem_check(void);
 [; ;eeprom.h: 23: void mem_push(void);
@@ -14307,7 +14334,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = . . _TRISDbits 0 7 -> -> 0 `i `uc ]
 [; ;movement.c: 21: }
 "21
-[e :UE 1787 ]
+[e :UE 1789 ]
 }
 "27
 [v _limit_test `(v ~T0 @X0 1 ef ]
@@ -14320,7 +14347,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _move -> ^ -> _move `i -> 1 `i `uc ]
 [; ;movement.c: 42: }
 "42
-[e :UE 1788 ]
+[e :UE 1790 ]
 }
 "48
 [v _daytime_move `(v ~T0 @X0 1 ef ]
@@ -14333,7 +14360,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _move -> ^ -> _move `i -> 2 `i `uc ]
 [; ;movement.c: 50: }
 "50
-[e :UE 1789 ]
+[e :UE 1791 ]
 }
 "56
 [v _dusk_moveback `(v ~T0 @X0 1 ef ]
@@ -14346,7 +14373,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _move -> ^ -> _move `i -> 4 `i `uc ]
 [; ;movement.c: 58: }
 "58
-[e :UE 1790 ]
+[e :UE 1792 ]
 }
 "66
 [v _season_adjust `(v ~T0 @X0 1 ef ]
@@ -14359,19 +14386,19 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _move -> ^ -> _move `i -> 8 `i `uc ]
 [; ;movement.c: 68: }
 "68
-[e :UE 1791 ]
+[e :UE 1793 ]
 }
 "78
 [v _maintenance_move `(v ~T0 @X0 1 ef1`uc ]
 {
 [; ;movement.c: 78: void maintenance_move(unsigned char){
 [e :U _maintenance_move ]
-[v F15690 `uc ~T0 @X0 1 r1 ]
+[v F15714 `uc ~T0 @X0 1 r1 ]
 [f ]
 [; ;movement.c: 79: move = move^0b00010000;
 "79
 [e = _move -> ^ -> _move `i -> 16 `i `uc ]
 [; ;movement.c: 106: }
 "106
-[e :UE 1792 ]
+[e :UE 1794 ]
 }
