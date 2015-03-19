@@ -18815,10 +18815,11 @@ extern __nonreentrant void _delay3(unsigned char);
 # 29 "include\shared.h"
 struct {
 unsigned rtcInit : 1;
+unsigned alarmInit : 1;
 unsigned mmode : 2;
 unsigned state : 2;
 unsigned sleepable : 1;
-unsigned : 2;
+unsigned : 1;
 }status;
 
 
@@ -18958,6 +18959,7 @@ if(i2c_send((*packet).addr & 0b11111110)) return 1;
 if((*packet).reg16) i2c_send((*packet).regh);
 if(i2c_send((*packet).regl)) return 1;
 i2c_start(1);
+i = 0;
 if(i2c_send((*packet).addr | 0b00000001)) return 1;
 do
 {
@@ -18992,7 +18994,7 @@ while(!SSP1IF) continue;
 SSP1IF = 0;
 }
 
-# 186
+# 187
 static unsigned i2c_send(unsigned char byte)
 {
 SSP1IF = 0;
@@ -19001,7 +19003,7 @@ while(!SSP1IF) continue;
 return (SSP1CON2bits.ACKDT || SSP1CON2bits.ACKSTAT);
 }
 
-# 196
+# 197
 static unsigned char i2c_recv(unsigned ack)
 {
 SSP1IF = 0;
@@ -19009,4 +19011,5 @@ SSP1CON2bits.RCEN = 1;
 while(!SSP1IF) continue;
 SSP1CON2bits.ACKEN = ack;
 SSP1CON2bits.ACKEN = 1;
+return 0;
 }

@@ -18815,10 +18815,11 @@ extern __nonreentrant void _delay3(unsigned char);
 # 29 "include\shared.h"
 struct {
 unsigned rtcInit : 1;
+unsigned alarmInit : 1;
 unsigned mmode : 2;
 unsigned state : 2;
 unsigned sleepable : 1;
-unsigned : 2;
+unsigned : 1;
 }status;
 
 
@@ -18850,12 +18851,43 @@ static void i2c_stop(void);
 static unsigned i2c_send(unsigned char);
 static unsigned char i2c_recv(unsigned);
 
-# 15 "include\rtc.h"
+# 26 "include\rtc.h"
+typedef struct
+{
+unsigned char year;
+unsigned char month;
+unsigned char weekday;
+unsigned char weekofyear;
+unsigned char day;
+unsigned char hour;
+unsigned char minute;
+unsigned char second;
+}datetime;
+
+typedef struct
+{
+unsigned char month;
+unsigned char day;
+unsigned char hour;
+unsigned char minute;
+unsigned char second;
+unsigned char times;
+unsigned char frequency;
+unsigned char repeat;
+}alarmtime;
+
+
+
 void rtc_setup(void);
-unsigned rtc_set(unsigned char, unsigned char, unsigned char, unsigned char,
-unsigned char, unsigned char);
+unsigned rtc_set(datetime);
+unsigned rtc_get(datetime*);
+
+unsigned alarm_set(alarmtime);
+unsigned alarm_enable();
+unsigned alarm_disable();
 
 static unsigned char char2bcd(unsigned char);
+static unsigned char bcd2char(unsigned char);
 static unsigned char weekday(unsigned char, unsigned char, unsigned char);
 
 # 5 "src/rtc.c"
@@ -18867,22 +18899,151 @@ status.rtcInit = 0;
 }
 
 # 19
-unsigned rtc_set(unsigned char year, unsigned char month, unsigned char day,
-unsigned char hour, unsigned char minute, unsigned char second)
+unsigned rtc_set(datetime time)
 {
 EECON2 = 0x55;
 EECON2 = 0xAA;
 RTCCON1bits.RTCWREN = 1;
 RTCCON1bits.RTCPTR = 0b11;
-RTCVALL = char2bcd(year);
-RTCVALH = char2bcd(month);
-RTCVALL = char2bcd(day);
-RTCVALH = weekday(year,month,day);
-RTCVALL = char2bcd(hour);
-RTCVALH = char2bcd(minute);
-RTCVALL = char2bcd(second);
+RTCVALL = char2bcd(time.year);
+RTCVALH = char2bcd(time.month);
+RTCVALL = char2bcd(time.day);
+RTCVALH = weekday(time.year,time.month,time.day);
+RTCVALL = char2bcd(time.hour);
+RTCVALH = char2bcd(time.minute);
+RTCVALL = char2bcd(time.second);
 RTCCON1bits.RTCWREN = 0;
 status.rtcInit = 1;
+return 0;
+}
+
+# 39
+unsigned rtc_get(datetime *time)
+{
+RTCCON1bits.RTCPTR = 0b11;
+(*time).year = bcd2char(RTCVALL);
+(*time).month = bcd2char(RTCVALH);
+(*time).day = bcd2char(RTCVALL);
+(*time).weekday = RTCVALH;
+(*time).hour = bcd2char(RTCVALL);
+(*time).minute = bcd2char(RTCVALH);
+(*time).second = bcd2char(RTCVALL);
+return 0;
+}
+
+# 61
+unsigned alarm_set(alarmtime time)
+{
+alarm_disable();
+ALRMCFGbits.ALRMPTR = 0b10;
+
+
+if(time.frequency < 0b1001)
+{
+return 1;
+}
+
+
+if(time.frequency == 0b1001)
+{
+ALRMVALH = char2bcd(time.month);
+}
+else
+{
+ALRMVALH = 0;
+}
+
+
+if(time.frequency >= 0b1000)
+{
+ALRMVALL = char2bcd(time.day);
+}
+else
+{
+ALRMVALL = 0;
+}
+
+
+if(time.frequency == 0b0111)
+{
+if(time.day > 6)
+{
+return 1;
+}
+ALRMVALH = time.day;
+}
+else
+{
+ALRMVALH = 0;
+}
+
+
+if(time.frequency >= 0b0110)
+{
+ALRMVALL = char2bcd(time.hour);
+}
+else
+{
+ALRMVALL = 0;
+}
+
+
+if(time.frequency >= 0b0101)
+{
+ALRMVALH = char2bcd(time.minute);
+}
+else if(time.frequency == 0b0100)
+{
+ALRMVALH = time.minute % 10;
+}
+else
+{
+ALRMVALH = 0;
+}
+
+
+if(time.frequency >= 0b0011)
+{
+ALRMVALL = char2bcd(time.second);
+}
+else if(time.frequency == 0b0010)
+{
+ALRMVALL = time.second % 10;
+}
+else
+{
+ALRMVALL = 0;
+}
+
+
+if(time.repeat > 2)
+{
+return 1;
+}
+if(time.repeat > 0)
+{
+ALRMRPT = time.times;
+}
+ALRMCFGbits.CHIME = time.repeat >> 1;
+ALRMCFGbits.AMASK = time.frequency;
+
+status.alarmInit = 1;
+return 0;
+}
+
+# 165
+unsigned alarm_enable()
+{
+if(!status.rtcInit || !status.alarmInit) return 1;
+ALRMCFGbits.ALRMEN = 1;
+return 0;
+}
+
+# 176
+unsigned alarm_disable()
+{
+if(!ALRMCFGbits.ALRMEN) return 1;
+ALRMCFGbits.ALRMEN = 0;
 return 0;
 }
 

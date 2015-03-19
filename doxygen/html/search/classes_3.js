@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['menuentry',['menuEntry',['../structmenu_entry.html',1,'']]]
+  ['i2cpacket',['i2cPacket',['../structi2c_packet.html',1,'']]]
 ];

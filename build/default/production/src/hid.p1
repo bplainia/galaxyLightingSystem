@@ -1,18 +1,20 @@
 Version 3.2 HI-TECH Software Intermediate Code
 "29 include\shared.h
-[s S1784 :1 `uc 1 :2 `uc 1 :2 `uc 1 :1 `uc 1 :2 `uc 1 ]
-[n S1784 . rtcInit mmode state sleepable . ]
-[v F15690 `(v ~T0 @X0 0 tf ]
+[s S1784 :1 `uc 1 :1 `uc 1 :2 `uc 1 :2 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S1784 . rtcInit alarmInit mmode state sleepable . ]
+[v F15691 `(v ~T0 @X0 0 tf ]
 "24 include\menu.h
-[s S1787 `*Cuc 1 `*F15690 1 ]
+[s S1787 `*Cuc 1 `*F15691 1 ]
 [n S1787 . text function ]
-[v F15694 `(v ~T0 @X0 0 tf ]
+[v F15695 `(v ~T0 @X0 0 tf ]
 "30
-[s S1788 `*F15694 1 ]
+[s S1788 `*F15695 1 ]
 [n S1788 . function ]
 "14 include\hid.h
 [v _lcd_menu `(v ~T0 @X0 0 ef1`uc ]
-"17
+"127 include\menu.h
+[v _menu1 `(i ~T0 @X0 0 ef ]
+"17 include\hid.h
 [v _lcd_end `(v ~T0 @X0 0 ef ]
 "25109 C:\Program Files (x86)\Microchip\xc8\v1.33\include\pic18f67j94.h
 [v _TRISD `Vuc ~T0 @X0 0 e@3989 ]
@@ -14187,37 +14189,38 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic18.h: 147: extern __nonreentrant void _delay(unsigned long);
 [; ;pic18.h: 149: extern __nonreentrant void _delaywdt(unsigned long);
 [; ;pic18.h: 151: extern __nonreentrant void _delay3(unsigned char);
-"35 include\shared.h
+"36 include\shared.h
 [v _status `S1784 ~T0 @X0 1 e ]
 [; ;shared.h: 29: struct {
 [; ;shared.h: 30: unsigned rtcInit : 1;
-[; ;shared.h: 31: unsigned mmode : 2;
-[; ;shared.h: 32: unsigned state : 2;
-[; ;shared.h: 33: unsigned sleepable : 1;
-[; ;shared.h: 34: unsigned : 2;
-[; ;shared.h: 35: }status;
-[; ;shared.h: 38: typedef struct
-[; ;shared.h: 39: {
-[; ;shared.h: 40: unsigned char addr;
-[; ;shared.h: 41: unsigned char regl;
-[; ;shared.h: 42: unsigned char regh;
-[; ;shared.h: 43: unsigned reg16;
-[; ;shared.h: 44: unsigned char *data;
-[; ;shared.h: 45: unsigned char dataLength;
-[; ;shared.h: 46: }i2cPacket;
-[; ;shared.h: 50: void adc_setup(void);
-[; ;shared.h: 51: void adc_update(unsigned char);
-[; ;shared.h: 52: void adc_update2(unsigned char, unsigned char);
-[; ;shared.h: 53: void adc_updateAll();
-[; ;shared.h: 55: void pwm_setup(void);
-[; ;shared.h: 56: unsigned pwm_set(unsigned char, unsigned char);
-[; ;shared.h: 58: void i2c_setup(void);
-[; ;shared.h: 59: unsigned i2c_tx(i2cPacket);
-[; ;shared.h: 60: unsigned i2c_rx(i2cPacket*);
-[; ;shared.h: 61: static void i2c_start(unsigned);
-[; ;shared.h: 62: static void i2c_stop(void);
-[; ;shared.h: 63: static unsigned i2c_send(unsigned char);
-[; ;shared.h: 64: static unsigned char i2c_recv(unsigned);
+[; ;shared.h: 31: unsigned alarmInit : 1;
+[; ;shared.h: 32: unsigned mmode : 2;
+[; ;shared.h: 33: unsigned state : 2;
+[; ;shared.h: 34: unsigned sleepable : 1;
+[; ;shared.h: 35: unsigned : 1;
+[; ;shared.h: 36: }status;
+[; ;shared.h: 39: typedef struct
+[; ;shared.h: 40: {
+[; ;shared.h: 41: unsigned char addr;
+[; ;shared.h: 42: unsigned char regl;
+[; ;shared.h: 43: unsigned char regh;
+[; ;shared.h: 44: unsigned reg16;
+[; ;shared.h: 45: unsigned char *data;
+[; ;shared.h: 46: unsigned char dataLength;
+[; ;shared.h: 47: }i2cPacket;
+[; ;shared.h: 51: void adc_setup(void);
+[; ;shared.h: 52: void adc_update(unsigned char);
+[; ;shared.h: 53: void adc_update2(unsigned char, unsigned char);
+[; ;shared.h: 54: void adc_updateAll();
+[; ;shared.h: 56: void pwm_setup(void);
+[; ;shared.h: 57: unsigned pwm_set(unsigned char, unsigned char);
+[; ;shared.h: 59: void i2c_setup(void);
+[; ;shared.h: 60: unsigned i2c_tx(i2cPacket);
+[; ;shared.h: 61: unsigned i2c_rx(i2cPacket*);
+[; ;shared.h: 62: static void i2c_start(unsigned);
+[; ;shared.h: 63: static void i2c_stop(void);
+[; ;shared.h: 64: static unsigned i2c_send(unsigned char);
+[; ;shared.h: 65: static unsigned char i2c_recv(unsigned);
 [; ;hid.h: 8: void hid_setup(void);
 [; ;hid.h: 9: void hid_loop(void);
 [; ;hid.h: 10: void hid_execute(unsigned char);
@@ -14294,69 +14297,68 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;menu.h: 30: {
 [; ;menu.h: 31: void (*function)(void);
 [; ;menu.h: 32: }usbEntry;
-"34 include\menu.h
-[v _menue `S1787 ~T0 @X0 -> 150 `i e ]
-[; ;menu.h: 34: menuEntry menue[150];
-"35
+[v F15700 `S1787 ~T0 @X0 -> 5 `i t ]
+"36 include\menu.h
+[v _menue `F15700 ~T0 @X0 -> 7 `i e ]
+[; ;menu.h: 36: menuEntry menue[7][5];
+"37
 [v _usbe `S1788 ~T0 @X0 -> 85 `i e ]
-[; ;menu.h: 35: usbEntry usbe[85];
-[; ;menu.h: 38: void menu1();
-[; ;menu.h: 39: void menu2();
-"40
-[v _menu1 `(v ~T0 @X0 1 ef ]
-"41
+[; ;menu.h: 37: usbEntry usbe[85];
+"120
+[v _lightMenu `(v ~T0 @X0 1 ef ]
+"121
 {
-[; ;menu.h: 40: void menu1()
-[; ;menu.h: 41: {
-[e :U _menu1 ]
+[; ;menu.h: 120: void lightMenu()
+[; ;menu.h: 121: {
+[e :U _lightMenu ]
 [f ]
-[; ;menu.h: 42: lcd_menu(2);
-"42
-[e ( _lcd_menu (1 -> -> 2 `i `uc ]
-[; ;menu.h: 43: }
-"43
+[; ;menu.h: 122: lcd_menu(1);
+"122
+[e ( _lcd_menu (1 -> -> 1 `i `uc ]
+[; ;menu.h: 123: }
+"123
 [e :UE 1789 ]
 }
-"44
+"124
 [v _menu2 `(v ~T0 @X0 1 ef ]
-"45
+"125
 {
-[; ;menu.h: 44: void menu2()
-[; ;menu.h: 45: {
+[; ;menu.h: 124: void menu2()
+[; ;menu.h: 125: {
 [e :U _menu2 ]
 [f ]
-[; ;menu.h: 47: menu1();
-"47
+[; ;menu.h: 127: menu1();
+"127
 [e ( _menu1 ..  ]
-[; ;menu.h: 48: }
-"48
+[; ;menu.h: 128: }
+"128
 [e :UE 1790 ]
 }
-"49
+"129
 [v _menu_setup `(v ~T0 @X0 1 ef ]
-"50
+"130
 {
-[; ;menu.h: 49: void menu_setup()
-[; ;menu.h: 50: {
+[; ;menu.h: 129: void menu_setup()
+[; ;menu.h: 130: {
 [e :U _menu_setup ]
 [f ]
-[; ;menu.h: 53: menue[0].text = "Exit M-Mode        ";
-"53
-[e = . *U + &U _menue * -> -> -> 0 `i `ui `ux -> -> # *U &U _menue `ui `ux 0 :s 1C ]
-[; ;menu.h: 54: menue[0].function = lcd_end;
-"54
-[e = . *U + &U _menue * -> -> -> 0 `i `ui `ux -> -> # *U &U _menue `ui `ux 1 &U _lcd_end ]
-[; ;menu.h: 55: menue[1].text = "Light Settings     ";
-"55
-[e = . *U + &U _menue * -> -> -> 1 `i `ui `ux -> -> # *U &U _menue `ui `ux 0 :s 2C ]
-[; ;menu.h: 56: menue[1].function = menu1;
-"56
-[e = . *U + &U _menue * -> -> -> 1 `i `ui `ux -> -> # *U &U _menue `ui `ux 1 &U _menu1 ]
-[; ;menu.h: 57: usbe[0].function = lcd_end;
-"57
+[; ;menu.h: 133: menue[0][0].text = "Exit M-Mode        ";
+"133
+[e = . *U + &U *U + &U _menue * -> -> -> 0 `i `ui `ux -> * -> # *U &U *U &U _menue `ui -> -> 5 `i `ui `ux * -> -> -> 0 `i `ui `ux -> -> # *U &U *U + &U _menue * -> -> -> 0 `i `ui `ux -> * -> # *U &U *U &U _menue `ui -> -> 5 `i `ui `ux `ui `ux 0 :s 1C ]
+[; ;menu.h: 134: menue[0][0].function = lcd_end;
+"134
+[e = . *U + &U *U + &U _menue * -> -> -> 0 `i `ui `ux -> * -> # *U &U *U &U _menue `ui -> -> 5 `i `ui `ux * -> -> -> 0 `i `ui `ux -> -> # *U &U *U + &U _menue * -> -> -> 0 `i `ui `ux -> * -> # *U &U *U &U _menue `ui -> -> 5 `i `ui `ux `ui `ux 1 &U _lcd_end ]
+[; ;menu.h: 135: menue[0][1].text = "Light Settings     ";
+"135
+[e = . *U + &U *U + &U _menue * -> -> -> 0 `i `ui `ux -> * -> # *U &U *U &U _menue `ui -> -> 5 `i `ui `ux * -> -> -> 1 `i `ui `ux -> -> # *U &U *U + &U _menue * -> -> -> 0 `i `ui `ux -> * -> # *U &U *U &U _menue `ui -> -> 5 `i `ui `ux `ui `ux 0 :s 2C ]
+[; ;menu.h: 136: menue[0][1].function = lightMenu;
+"136
+[e = . *U + &U *U + &U _menue * -> -> -> 0 `i `ui `ux -> * -> # *U &U *U &U _menue `ui -> -> 5 `i `ui `ux * -> -> -> 1 `i `ui `ux -> -> # *U &U *U + &U _menue * -> -> -> 0 `i `ui `ux -> * -> # *U &U *U &U _menue `ui -> -> 5 `i `ui `ux `ui `ux 1 &U _lightMenu ]
+[; ;menu.h: 137: usbe[0].function = lcd_end;
+"137
 [e = . *U + &U _usbe * -> -> -> 0 `i `ui `ux -> -> # *U &U _usbe `ui `ux 0 &U _lcd_end ]
-[; ;menu.h: 58: }
-"58
+[; ;menu.h: 138: }
+"138
 [e :UE 1791 ]
 }
 "6 src/hid.c
@@ -14448,7 +14450,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $U 1794  ]
 "34
 [e :U 1795 ]
-[e [\ . _status 1 , $ -> -> 0 `i `uc 1796
+[e [\ . _status 2 , $ -> -> 0 `i `uc 1796
  , $ -> -> 1 `i `uc 1797
  , $ -> -> 2 `i `uc 1798
  , $ -> -> 3 `i `uc 1799
@@ -14476,9 +14478,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;hid.c: 49: {
 "49
 {
-[; ;hid.c: 51: (menue[command]).function();
+[; ;hid.c: 51: (menue[command][0]).function();
 "51
-[e ( *U . *U + &U _menue * -> _command `ux -> -> # *U &U _menue `ui `ux 1 ..  ]
+[e ( *U . *U + &U *U + &U _menue * -> _command `ux -> * -> # *U &U *U &U _menue `ui -> -> 5 `i `ui `ux * -> -> -> 0 `i `ui `ux -> -> # *U &U *U + &U _menue * -> _command `ux -> * -> # *U &U *U &U _menue `ui -> -> 5 `i `ui `ux `ui `ux 1 ..  ]
 "52
 }
 [; ;hid.c: 52: }
@@ -14510,8 +14512,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [f ]
 [; ;hid.c: 62: if(status.mmode < 1) status.mmode = 1;
 "62
-[e $ ! < -> . _status 1 `i -> 1 `i 1804  ]
-[e = . _status 1 -> -> 1 `i `uc ]
+[e $ ! < -> . _status 2 `i -> 1 `i 1804  ]
+[e = . _status 2 -> -> 1 `i `uc ]
 [e $U 1805  ]
 "63
 [e :U 1804 ]
@@ -14529,7 +14531,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;hid.c: 65: void lcd_menu(unsigned char)
 [; ;hid.c: 66: {
 [e :U _lcd_menu ]
-[v F15710 `uc ~T0 @X0 1 r1 ]
+[v F15713 `uc ~T0 @X0 1 r1 ]
 [f ]
 [; ;hid.c: 68: }
 "68
@@ -14542,7 +14544,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;hid.c: 71: void lcd_usb(unsigned char)
 [; ;hid.c: 72: {
 [e :U _lcd_usb ]
-[v F15711 `uc ~T0 @X0 1 r1 ]
+[v F15714 `uc ~T0 @X0 1 r1 ]
 [f ]
 [; ;hid.c: 74: }
 "74
@@ -14558,7 +14560,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [f ]
 [; ;hid.c: 79: status.mmode = 0;
 "79
-[e = . _status 1 -> -> 0 `i `uc ]
+[e = . _status 2 -> -> 0 `i `uc ]
 [; ;hid.c: 80: }
 "80
 [e :UE 1808 ]

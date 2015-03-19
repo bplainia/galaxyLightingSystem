@@ -28,10 +28,11 @@
 /// The first status byte - Includes the two state machine states, the rtc initialization state, and whether or not the loop will sleep at the end.
 struct {
     unsigned    rtcInit   : 1;
+    unsigned    alarmInit : 1;
     unsigned    mmode     : 2; // 0=off, 1=main, 2=slave
     unsigned    state     : 2;
     unsigned    sleepable : 1;
-    unsigned              : 2;
+    unsigned              : 1;
 }status; 
 
 /// A packet that contains an address (8 or 10bit), a data array, and how long the array is.

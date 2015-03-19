@@ -18815,10 +18815,11 @@ extern __nonreentrant void _delay3(unsigned char);
 # 29 "include\shared.h"
 struct {
 unsigned rtcInit : 1;
+unsigned alarmInit : 1;
 unsigned mmode : 2;
 unsigned state : 2;
 unsigned sleepable : 1;
-unsigned : 2;
+unsigned : 1;
 }status;
 
 
@@ -18940,15 +18941,15 @@ typedef struct
 void (*function)(void);
 }usbEntry;
 
-menuEntry menue[150];
+
+
+menuEntry menue[7][5];
 usbEntry usbe[85];
 
-
-void menu1();
-void menu2();
-void menu1()
+# 120
+void lightMenu()
 {
-lcd_menu(2);
+lcd_menu(1);
 }
 void menu2()
 {
@@ -18959,10 +18960,10 @@ void menu_setup()
 {
 
 
-menue[0].text = "Exit M-Mode        ";
-menue[0].function = lcd_end;
-menue[1].text = "Light Settings     ";
-menue[1].function = menu1;
+menue[0][0].text = "Exit M-Mode        ";
+menue[0][0].function = lcd_end;
+menue[0][1].text = "Light Settings     ";
+menue[0][1].function = lightMenu;
 usbe[0].function = lcd_end;
 }
 
@@ -19012,7 +19013,7 @@ void hid_execute(unsigned char command)
 if(command < 150)
 {
 
-(menue[command]).function();
+(menue[command][0]).function();
 }
 else
 {

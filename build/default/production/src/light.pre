@@ -18815,10 +18815,11 @@ extern __nonreentrant void _delay3(unsigned char);
 # 29 "include\shared.h"
 struct {
 unsigned rtcInit : 1;
+unsigned alarmInit : 1;
 unsigned mmode : 2;
 unsigned state : 2;
 unsigned sleepable : 1;
-unsigned : 2;
+unsigned : 1;
 }status;
 
 

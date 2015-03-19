@@ -3,6 +3,7 @@ var searchData=
   ['solar_20light_20index_20page',['Solar Light Index Page',['../index.html',1,'']]],
   ['state_20machines',['State Machines',['../md__c_1__users__benjaminp__documents_pcc_current__e_l_450__patience_inc_firmware_doc_statemachine.html',1,'']]],
   ['season_5fadjust',['season_adjust',['../movement_8h.html#a8bf89395b9cf8aa5b7f45722394c59b4',1,'season_adjust(void):&#160;movement.c'],['../movement_8c.html#a8bf89395b9cf8aa5b7f45722394c59b4',1,'season_adjust(void):&#160;movement.c']]],
+  ['second',['second',['../structdatetime.html#a544c1372684ea82c01371865df228fe4',1,'datetime::second()'],['../structalarmtime.html#a544c1372684ea82c01371865df228fe4',1,'alarmtime::second()']]],
   ['sensor_5fstart',['sensor_start',['../sensors_8h.html#a15b4e13f99c0445196f2854067fd86b4',1,'sensor_start(void):&#160;sensors.c'],['../sensors_8c.html#a15b4e13f99c0445196f2854067fd86b4',1,'sensor_start(void):&#160;sensors.c']]],
   ['sensors_2ec',['sensors.c',['../sensors_8c.html',1,'']]],
   ['sensors_2eh',['sensors.h',['../sensors_8h.html',1,'']]],
