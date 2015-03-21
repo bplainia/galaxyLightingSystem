@@ -106,9 +106,8 @@ void usb_removal(void)
 {
     //TODO: must be cleared in this order according to pic18 manual pg. 526
  
-    /*UCONbits.SUSPND = 0;
-    UCONbits.USBEN = 0;
-   */  
+    UCONbits.SUSPND = 0;
+    UCONbits.USBEN = 0; 
 }
 void usb_begin(void)
 {
