@@ -109,8 +109,25 @@ void usb_removal(void)
     UCONbits.SUSPND = 0;
     UCONbits.USBEN = 0; 
 }
-void usb_begin(void)
+void usb_begin(void)        //Ben, Im Experimenting w/code researched online
 {
+   /* if (!HIDRxHandleBusy(lastReceived))
+{
+    lastReceived = HIDRxPacket(HID_EP,(BYTE*)&hid_out, HID_OUT_LEN);
+    if ((hid_out[0]==0xEF)&&(hid_out[1]==0xEF)&&(hid_out[2]==0xEF))
+        LED_ON;
+    else
+        LED_OFF;
+}
+
+//If the last transmision is complete
+if(!HIDTxHandleBusy(lastTransmission))
+{
+    lastTransmission = HIDTxPacket(HID_EP, (BYTE*)&hid_in, HID_IN_LEN);
+}
+
+return;
+*/
 
 }
 void usb_oneStatus()
