@@ -18953,42 +18953,34 @@ void usb_end(void);
 # 7 "include\sensors.h"
 unsigned int duskLevel = 2000;
 
-
-unsigned char pir = 2;
-
-# 41
-void sensor_start(void);
+# 74
+void sensor_setup(void);
 unsigned short photo_value(unsigned char);
 char temperature(void);
 unsigned short rotational_postion(unsigned char);
-void pir_enable(unsigned char);
+unsigned char pir(void);
+void limits(void);
 
-# 16 "include\solarLight.h"
-void setup(void);
-void loop(void);
-void interrupt low_priority isr_low(void);
-void interrupt high_priority isr_high(void);
-
-# 17 "include\movement.h"
+# 16 "include\movement.h"
 unsigned int leftlimit = 0;
 unsigned int rightlimit = 0;
 unsigned int uplimit = 0;
 unsigned int downlimit = 0;
 
-# 34
+# 35
 unsigned char move = 0;
 
 
 
-void movement_setup(void);
+void move_setup(void);
 void limit_test(void);
 void daytime_move(void);
 void dusk_moveback(void);
 void season_adjust(void);
-void maintenance_move(unsigned char);
+void maint_move(unsigned char);
 
 # 7 "src/movement.c"
-void movement_setup(void){
+void move_setup(void){
 
 
 TRISBbits.TRISB1 = 0;
@@ -19013,22 +19005,27 @@ move = move^0b00000001;
 
 # 48
 void daytime_move(void){
-move = move^0b00000010;
+
+
+season_adjust();
 }
 
-# 56
+# 58
 void dusk_moveback(void){
-move = move^0b00000100;
+unsigned short year;
+unsigned short east;
+unsigned short west;
 }
 
-# 66
+# 70
 void season_adjust(void){
-move = move^0b00001000;
+
+# 92
 }
 
-# 78
-void maintenance_move(unsigned char){
+# 102
+void maint_move(unsigned char mcomd){
 move = move^0b00010000;
 
-# 106
+# 130
 }

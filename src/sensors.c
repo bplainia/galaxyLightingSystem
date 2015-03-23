@@ -2,7 +2,7 @@
 
 /*! \brief setup sensors
  */
-void sensor_start(void){
+void sensor_setup(void){
 
     // Define sensor pins as inputs
     PINIO_POT_LEFTRIGHT = 1;
@@ -30,6 +30,7 @@ void sensor_start(void){
     PINAD_LIMIT_UP = 0;
     PINAD_LIMIT_EAST = 0;
     PINAD_LIMIT_WEST = 0;
+
 }
 
 /*! \brief Check the analog value of a particular photoresistor
@@ -63,12 +64,15 @@ unsigned short photo_value(unsigned char photonum){
  * --> Test value (return) used to show if function preformed as desired
  */
 char temperature(void){
-            //adc off PIN_TEMP
-    // temp = f(adc)
-    // return temp
+    char temp = 25;
+   
+    //adc off PIN_TEMP
 
-    return 25;
+    // temp = f(adc)
+
+    return temp;
 }
+
 
 /*! \brief Check the analog value of a particular potentimeter
  *
@@ -79,6 +83,7 @@ char temperature(void){
  * --> Test values (returns) used to show if function preformed as desired
  */
 unsigned short rotational_postion(unsigned char potnum){
+    unsigned short potval;
     switch (potnum)
     {
             case 1:
@@ -86,19 +91,72 @@ unsigned short rotational_postion(unsigned char potnum){
             case 2:
                 return 0; //adc off PIN_YEAR_POT
     }
-    return 0;
+    return potval;
 }
 
-/*! \brief turn the PIR sensor on or off
+/*! \brief check the PIR sensor and turn light ON or DIM depending on motion
+ *   only active during night time
  *
- * Inputs: signal to turn the pir on or off (1 = on, 0 = off)
+ * Inputs: none
  */
-void pir_enable(unsigned char pironoff){    // pironoff
-    if (pironoff == 1)
-        pir = 1;            // Test value to show functioning
-         // turn on motion sensor inturrupt pin = PIN_PIR
-    else
-        pir = 0;            // Test value to show functioning
-         //turn off motion sensor inturrupt
+unsigned char last = NO_MOVE;
+
+unsigned char pir(void){
+
+//    if (PIR_LEVEL == MOVE)
+//    {
+//        if (last == NO_MOVE)
+//        {
+//            start short_timer;
+//        }
+//        else
+//        {
+//            if (short_timer > 5sec)
+//            {
+//                led(ON);
+//                reset/start long_timer;
+//            }
+//        }
+//        last = MOVE;
+//    }
+//    else
+//    {
+//        reset/stop short_timer;
+//        if (long_timer > 10min)
+//        {
+//            led(DIM);
+//            stop long_timer
+//        }
+//        last = NO_MOVE;
+//    }
+    return last;
+}
+
+void limits(void)
+{
+    if(PIN_LIMIT_DOWN || PIN_LIMIT_UP || PIN_LIMIT_EAST || PIN_LIMIT_WEST)
+    {
+        //Stop all motors
+        if(PIN_LIMIT_DOWN)
+        {
+            ;// move up until no contact + a little
+        }
+        else if(PIN_LIMIT_UP)
+        {
+            ;// move down until no contact + a little
+        }
+        else if(PIN_LIMIT_EAST)
+        {
+            ;// move west until no contact + a little
+        }
+        else if(PIN_LIMIT_WEST)
+        {
+            ;// move east until no contact + a little
+        }
+        else
+        {
+            ;//error
+        }
+    }
 }
 

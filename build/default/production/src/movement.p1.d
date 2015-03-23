@@ -8,5 +8,4 @@ include/hid.h  \
 include/powerman.h  \
 include/sensors.h  \
 include/shared.h  \
-include/solarLight.h  \
 include/communication.h 

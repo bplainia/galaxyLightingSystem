@@ -98,6 +98,61 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S316 . . . . . . . . . . ]
 "5873
 [v _ANCON2bits `VS316 ~T0 @X0 0 e@3654 ]
+"24845
+[s S1367 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S1367 . LATG0 LATG1 LATG2 LATG3 LATG4 ]
+"24852
+[s S1368 :1 `uc 1 ]
+[n S1368 . LG0 ]
+"24855
+[s S1369 :1 `uc 1 :1 `uc 1 ]
+[n S1369 . . LG1 ]
+"24859
+[s S1370 :2 `uc 1 :1 `uc 1 ]
+[n S1370 . . LG2 ]
+"24863
+[s S1371 :3 `uc 1 :1 `uc 1 ]
+[n S1371 . . LG3 ]
+"24867
+[s S1372 :4 `uc 1 :1 `uc 1 ]
+[n S1372 . . LG4 ]
+"24844
+[u S1366 `S1367 1 `S1368 1 `S1369 1 `S1370 1 `S1371 1 `S1372 1 ]
+[n S1366 . . . . . . . ]
+"24872
+[v _LATGbits `VS1366 ~T0 @X0 0 e@3983 ]
+"24724
+[s S1357 :2 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S1357 . . LATF2 LATF3 LATF4 LATF5 LATF6 LATF7 ]
+"24733
+[s S1358 :1 `uc 1 ]
+[n S1358 . LF0 ]
+"24736
+[s S1359 :1 `uc 1 :1 `uc 1 ]
+[n S1359 . . LF1 ]
+"24740
+[s S1360 :2 `uc 1 :1 `uc 1 ]
+[n S1360 . . LF2 ]
+"24744
+[s S1361 :3 `uc 1 :1 `uc 1 ]
+[n S1361 . . LF3 ]
+"24748
+[s S1362 :4 `uc 1 :1 `uc 1 ]
+[n S1362 . . LF4 ]
+"24752
+[s S1363 :5 `uc 1 :1 `uc 1 ]
+[n S1363 . . LF5 ]
+"24756
+[s S1364 :6 `uc 1 :1 `uc 1 ]
+[n S1364 . . LF6 ]
+"24760
+[s S1365 :7 `uc 1 :1 `uc 1 ]
+[n S1365 . . LF7 ]
+"24723
+[u S1356 `S1357 1 `S1358 1 `S1359 1 `S1360 1 `S1361 1 `S1362 1 `S1363 1 `S1364 1 `S1365 1 ]
+[n S1356 . . . . . . . . . . ]
+"24765
+[v _LATFbits `VS1356 ~T0 @X0 0 e@3982 ]
 [; ;htc.h: 21: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 24: extern void __builtin_software_breakpoint(void);
 [; ;pic18f67j94.h: 47: extern volatile unsigned char UEP0 @ 0xDFF;
@@ -14241,22 +14296,17 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 2000 `i `ui
 ]
 [; ;sensors.h: 7: unsigned int duskLevel = 2000;
-"10
-[v _pir `uc ~T0 @X0 1 e ]
-[i _pir
--> -> 2 `i `uc
-]
-[; ;sensors.h: 10: unsigned char pir = 2;
-[; ;sensors.h: 41: void sensor_start(void);
-[; ;sensors.h: 42: unsigned short photo_value(unsigned char);
-[; ;sensors.h: 43: char temperature(void);
-[; ;sensors.h: 44: unsigned short rotational_postion(unsigned char);
-[; ;sensors.h: 45: void pir_enable(unsigned char);
+[; ;sensors.h: 74: void sensor_setup(void);
+[; ;sensors.h: 75: unsigned short photo_value(unsigned char);
+[; ;sensors.h: 76: char temperature(void);
+[; ;sensors.h: 77: unsigned short rotational_postion(unsigned char);
+[; ;sensors.h: 78: unsigned char pir(void);
+[; ;sensors.h: 79: void limits(void);
 "5 src/sensors.c
-[v _sensor_start `(v ~T0 @X0 1 ef ]
+[v _sensor_setup `(v ~T0 @X0 1 ef ]
 {
-[; ;sensors.c: 5: void sensor_start(void){
-[e :U _sensor_start ]
+[; ;sensors.c: 5: void sensor_setup(void){
+[e :U _sensor_setup ]
 [f ]
 [; ;sensors.c: 8: TRISAbits.TRISA2 = 1;
 "8
@@ -14327,157 +14377,242 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;sensors.c: 32: ANCON2bits.ANSEL11 = 0;
 "32
 [e = . . _ANCON2bits 0 3 -> -> 0 `i `uc ]
-[; ;sensors.c: 33: }
-"33
+[; ;sensors.c: 34: }
+"34
 [e :UE 1786 ]
 }
-"43
+"44
 [v _photo_value `(us ~T0 @X0 1 ef1`uc ]
 {
-[; ;sensors.c: 43: unsigned short photo_value(unsigned char photonum){
+[; ;sensors.c: 44: unsigned short photo_value(unsigned char photonum){
 [e :U _photo_value ]
 [v _photonum `uc ~T0 @X0 1 r1 ]
 [f ]
-[; ;sensors.c: 44: switch (photonum)
-"44
-[e $U 1789  ]
-[; ;sensors.c: 45: {
+[; ;sensors.c: 45: switch (photonum)
 "45
-{
-[; ;sensors.c: 46: case 1:
+[e $U 1789  ]
+[; ;sensors.c: 46: {
 "46
-[e :U 1790 ]
-[; ;sensors.c: 47: return 0;
+{
+[; ;sensors.c: 47: case 1:
 "47
-[e ) -> -> 0 `i `us ]
-[e $UE 1787  ]
-[; ;sensors.c: 48: case 2:
+[e :U 1790 ]
+[; ;sensors.c: 48: return 0;
 "48
-[e :U 1791 ]
-[; ;sensors.c: 49: return 0;
+[e ) -> -> 0 `i `us ]
+[e $UE 1787  ]
+[; ;sensors.c: 49: case 2:
 "49
-[e ) -> -> 0 `i `us ]
-[e $UE 1787  ]
-[; ;sensors.c: 50: case 3:
+[e :U 1791 ]
+[; ;sensors.c: 50: return 0;
 "50
-[e :U 1792 ]
-[; ;sensors.c: 51: return 0;
+[e ) -> -> 0 `i `us ]
+[e $UE 1787  ]
+[; ;sensors.c: 51: case 3:
 "51
-[e ) -> -> 0 `i `us ]
-[e $UE 1787  ]
-[; ;sensors.c: 52: case 4:
+[e :U 1792 ]
+[; ;sensors.c: 52: return 0;
 "52
-[e :U 1793 ]
-[; ;sensors.c: 53: return 0;
+[e ) -> -> 0 `i `us ]
+[e $UE 1787  ]
+[; ;sensors.c: 53: case 4:
 "53
-[e ) -> -> 0 `i `us ]
-[e $UE 1787  ]
-[; ;sensors.c: 54: default:
+[e :U 1793 ]
+[; ;sensors.c: 54: return 0;
 "54
-[e :U 1794 ]
-[; ;sensors.c: 55: return 0;
-"55
 [e ) -> -> 0 `i `us ]
 [e $UE 1787  ]
+[; ;sensors.c: 55: default:
+"55
+[e :U 1794 ]
+[; ;sensors.c: 56: return 0;
 "56
+[e ) -> -> 0 `i `us ]
+[e $UE 1787  ]
+"57
 }
-[; ;sensors.c: 56: }
+[; ;sensors.c: 57: }
 [e $U 1788  ]
-"44
+"45
 [e :U 1789 ]
 [e [\ _photonum , $ -> -> 1 `i `uc 1790
  , $ -> -> 2 `i `uc 1791
  , $ -> -> 3 `i `uc 1792
  , $ -> -> 4 `i `uc 1793
  1794 ]
-"56
-[e :U 1788 ]
-[; ;sensors.c: 57: }
 "57
+[e :U 1788 ]
+[; ;sensors.c: 58: }
+"58
 [e :UE 1787 ]
 }
-"65
+"66
 [v _temperature `(uc ~T0 @X0 1 ef ]
 {
-[; ;sensors.c: 65: char temperature(void){
+[; ;sensors.c: 66: char temperature(void){
 [e :U _temperature ]
 [f ]
-[; ;sensors.c: 70: return 25;
-"70
-[e ) -> -> 25 `i `uc ]
+"67
+[v _temp `uc ~T0 @X0 1 a ]
+[; ;sensors.c: 67: char temp = 25;
+[e = _temp -> -> 25 `i `uc ]
+[; ;sensors.c: 73: return temp;
+"73
+[e ) _temp ]
 [e $UE 1795  ]
-[; ;sensors.c: 71: }
-"71
+[; ;sensors.c: 74: }
+"74
 [e :UE 1795 ]
 }
-"81
+"85
 [v _rotational_postion `(us ~T0 @X0 1 ef1`uc ]
 {
-[; ;sensors.c: 81: unsigned short rotational_postion(unsigned char potnum){
+[; ;sensors.c: 85: unsigned short rotational_postion(unsigned char potnum){
 [e :U _rotational_postion ]
 [v _potnum `uc ~T0 @X0 1 r1 ]
 [f ]
-[; ;sensors.c: 82: switch (potnum)
-"82
-[e $U 1798  ]
-[; ;sensors.c: 83: {
-"83
-{
-[; ;sensors.c: 84: case 1:
-"84
-[e :U 1799 ]
-[; ;sensors.c: 85: return 0;
-"85
-[e ) -> -> 0 `i `us ]
-[e $UE 1796  ]
-[; ;sensors.c: 86: case 2:
 "86
-[e :U 1800 ]
-[; ;sensors.c: 87: return 0;
+[v _potval `us ~T0 @X0 1 a ]
+[; ;sensors.c: 86: unsigned short potval;
+[; ;sensors.c: 87: switch (potnum)
 "87
+[e $U 1798  ]
+[; ;sensors.c: 88: {
+"88
+{
+[; ;sensors.c: 89: case 1:
+"89
+[e :U 1799 ]
+[; ;sensors.c: 90: return 0;
+"90
 [e ) -> -> 0 `i `us ]
 [e $UE 1796  ]
-"88
+[; ;sensors.c: 91: case 2:
+"91
+[e :U 1800 ]
+[; ;sensors.c: 92: return 0;
+"92
+[e ) -> -> 0 `i `us ]
+[e $UE 1796  ]
+"93
 }
-[; ;sensors.c: 88: }
+[; ;sensors.c: 93: }
 [e $U 1797  ]
-"82
+"87
 [e :U 1798 ]
 [e [\ _potnum , $ -> -> 1 `i `uc 1799
  , $ -> -> 2 `i `uc 1800
  1797 ]
-"88
+"93
 [e :U 1797 ]
-[; ;sensors.c: 89: return 0;
-"89
-[e ) -> -> 0 `i `us ]
+[; ;sensors.c: 94: return potval;
+"94
+[e ) _potval ]
 [e $UE 1796  ]
-[; ;sensors.c: 90: }
-"90
+[; ;sensors.c: 95: }
+"95
 [e :UE 1796 ]
 }
-"96
-[v _pir_enable `(v ~T0 @X0 1 ef1`uc ]
+"102
+[v _last `uc ~T0 @X0 1 e ]
+[i _last
+-> -> 0 `i `uc
+]
+[; ;sensors.c: 102: unsigned char last = 0;
+"104
+[v _pir `(uc ~T0 @X0 1 ef ]
 {
-[; ;sensors.c: 96: void pir_enable(unsigned char pironoff){
-[e :U _pir_enable ]
-[v _pironoff `uc ~T0 @X0 1 r1 ]
+[; ;sensors.c: 104: unsigned char pir(void){
+[e :U _pir ]
 [f ]
-[; ;sensors.c: 97: if (pironoff == 1)
-"97
-[e $ ! == -> _pironoff `i -> 1 `i 1802  ]
-[; ;sensors.c: 98: pir = 1;
-"98
-[e = _pir -> -> 1 `i `uc ]
-[e $U 1803  ]
-"100
-[e :U 1802 ]
-[; ;sensors.c: 100: else
-[; ;sensors.c: 101: pir = 0;
-"101
-[e = _pir -> -> 0 `i `uc ]
-[e :U 1803 ]
-[; ;sensors.c: 103: }
-"103
+[; ;sensors.c: 132: return last;
+"132
+[e ) _last ]
+[e $UE 1801  ]
+[; ;sensors.c: 133: }
+"133
 [e :UE 1801 ]
+}
+"135
+[v _limits `(v ~T0 @X0 1 ef ]
+"136
+{
+[; ;sensors.c: 135: void limits(void)
+[; ;sensors.c: 136: {
+[e :U _limits ]
+[f ]
+[; ;sensors.c: 137: if(LATGbits.LATG4 || LATFbits.LATF2 || LATFbits.LATF6 || LATFbits.LATF7)
+"137
+[e $ ! || || || != -> . . _LATGbits 0 4 `i -> -> -> 0 `i `Vuc `i != -> . . _LATFbits 0 1 `i -> -> -> 0 `i `Vuc `i != -> . . _LATFbits 0 5 `i -> -> -> 0 `i `Vuc `i != -> . . _LATFbits 0 6 `i -> -> -> 0 `i `Vuc `i 1803  ]
+[; ;sensors.c: 138: {
+"138
+{
+[; ;sensors.c: 140: if(LATGbits.LATG4)
+"140
+[e $ ! != -> . . _LATGbits 0 4 `i -> -> -> 0 `i `Vuc `i 1804  ]
+[; ;sensors.c: 141: {
+"141
+{
+[; ;sensors.c: 142: ;
+"143
+}
+[; ;sensors.c: 143: }
+[e $U 1805  ]
+"144
+[e :U 1804 ]
+[; ;sensors.c: 144: else if(LATFbits.LATF2)
+[e $ ! != -> . . _LATFbits 0 1 `i -> -> -> 0 `i `Vuc `i 1806  ]
+[; ;sensors.c: 145: {
+"145
+{
+[; ;sensors.c: 146: ;
+"147
+}
+[; ;sensors.c: 147: }
+[e $U 1807  ]
+"148
+[e :U 1806 ]
+[; ;sensors.c: 148: else if(LATFbits.LATF6)
+[e $ ! != -> . . _LATFbits 0 5 `i -> -> -> 0 `i `Vuc `i 1808  ]
+[; ;sensors.c: 149: {
+"149
+{
+[; ;sensors.c: 150: ;
+"151
+}
+[; ;sensors.c: 151: }
+[e $U 1809  ]
+"152
+[e :U 1808 ]
+[; ;sensors.c: 152: else if(LATFbits.LATF7)
+[e $ ! != -> . . _LATFbits 0 6 `i -> -> -> 0 `i `Vuc `i 1810  ]
+[; ;sensors.c: 153: {
+"153
+{
+[; ;sensors.c: 154: ;
+"155
+}
+[; ;sensors.c: 155: }
+[e $U 1811  ]
+"156
+[e :U 1810 ]
+[; ;sensors.c: 156: else
+[; ;sensors.c: 157: {
+"157
+{
+[; ;sensors.c: 158: ;
+"159
+}
+[e :U 1811 ]
+[e :U 1809 ]
+[e :U 1807 ]
+[e :U 1805 ]
+"160
+}
+[e :U 1803 ]
+[; ;sensors.c: 159: }
+[; ;sensors.c: 160: }
+[; ;sensors.c: 161: }
+"161
+[e :UE 1802 ]
 }

@@ -18881,15 +18881,13 @@ void usb_end(void);
 # 7 "include\sensors.h"
 unsigned int duskLevel = 2000;
 
-
-unsigned char pir = 2;
-
-# 41
-void sensor_start(void);
+# 74
+void sensor_setup(void);
 unsigned short photo_value(unsigned char);
 char temperature(void);
 unsigned short rotational_postion(unsigned char);
-void pir_enable(unsigned char);
+unsigned char pir(void);
+void limits(void);
 
 # 22 "C:\Program Files (x86)\Microchip\xc8\v1.33\include\string.h"
 extern void * memcpy(void *, const void *, size_t);

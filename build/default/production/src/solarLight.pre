@@ -19021,39 +19021,39 @@ void usb_end(void);
 # 7 "include\sensors.h"
 unsigned int duskLevel = 2000;
 
-
-unsigned char pir = 2;
-
-# 41
-void sensor_start(void);
+# 74
+void sensor_setup(void);
 unsigned short photo_value(unsigned char);
 char temperature(void);
 unsigned short rotational_postion(unsigned char);
-void pir_enable(unsigned char);
+unsigned char pir(void);
+void limits(void);
 
-# 17 "include\movement.h"
+# 16 "include\movement.h"
 unsigned int leftlimit = 0;
 unsigned int rightlimit = 0;
 unsigned int uplimit = 0;
 unsigned int downlimit = 0;
 
-# 34
+# 35
 unsigned char move = 0;
 
 
 
-void movement_setup(void);
+void move_setup(void);
 void limit_test(void);
 void daytime_move(void);
 void dusk_moveback(void);
 void season_adjust(void);
-void maintenance_move(unsigned char);
+void maint_move(unsigned char);
 
-# 16 "include\solarLight.h"
+# 21 "include\solarLight.h"
 void setup(void);
 void loop(void);
 void interrupt low_priority isr_low(void);
 void interrupt high_priority isr_high(void);
+void led_setup(void);
+void led(unsigned char);
 
 # 89 "src/solarLight.c"
 void main(void)
@@ -19083,23 +19083,32 @@ i2c_setup();
 memStatus = mem_check();
 pwm_setup();
 adc_setup();
-movement_setup();
+move_setup();
 led_setup();
 hid_setup();
 rtc_setup();
+sensor_setup();
+
+limit_test();
 }
 
-# 126
+# 129
 void loop()
 {
+
+
 
 
 adc_updateAll();
 switch(status.state)
 {
 case 1:
+daytime_move();
+led(0);
 break;
 case 2:
+led(1);
+pir();
 break;
 case 3:
 
@@ -19117,7 +19126,7 @@ else if(status.state == 2)
 }
 }
 
-# 162
+# 171
 void interrupt low_priority isr_low()
 {
 if(TX1IE && TX1IF)
@@ -19135,8 +19144,31 @@ if(RC1IE && RC1IF)
 }
 }
 
-# 186
+# 195
 void interrupt high_priority isr_high()
 {
 ;
+}
+
+void led_setup(void)
+{
+TRISCbits.TRISC7 = 0;
+}
+
+void led(unsigned char state)
+{
+switch(state)
+{
+case 0:
+PORTCbits.RC7 = 1;
+break;
+case 1:
+PORTCbits.RC7 = 0;
+break;
+case 2:
+
+break;
+default:
+;
+}
 }

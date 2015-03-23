@@ -18854,18 +18854,16 @@ static unsigned char i2c_recv(unsigned);
 # 7 "include\sensors.h"
 unsigned int duskLevel = 2000;
 
-
-unsigned char pir = 2;
-
-# 41
-void sensor_start(void);
+# 74
+void sensor_setup(void);
 unsigned short photo_value(unsigned char);
 char temperature(void);
 unsigned short rotational_postion(unsigned char);
-void pir_enable(unsigned char);
+unsigned char pir(void);
+void limits(void);
 
 # 5 "src/sensors.c"
-void sensor_start(void){
+void sensor_setup(void){
 
 
 TRISAbits.TRISA2 = 1;
@@ -18893,9 +18891,10 @@ ANCON2bits.ANSEL15 = 0;
 ANCON1bits.ANSEL6 = 0;
 ANCON2bits.ANSEL10 = 0;
 ANCON2bits.ANSEL11 = 0;
+
 }
 
-# 43
+# 44
 unsigned short photo_value(unsigned char photonum){
 switch (photonum)
 {
@@ -18912,17 +18911,17 @@ return 0;
 }
 }
 
-# 65
+# 66
 char temperature(void){
+char temp = 25;
 
-
-
-
-return 25;
+# 73
+return temp;
 }
 
-# 81
+# 85
 unsigned short rotational_postion(unsigned char potnum){
+unsigned short potval;
 switch (potnum)
 {
 case 1:
@@ -18930,16 +18929,43 @@ return 0;
 case 2:
 return 0;
 }
-return 0;
+return potval;
 }
 
-# 96
-void pir_enable(unsigned char pironoff){
-if (pironoff == 1)
-pir = 1;
+# 102
+unsigned char last = 0;
 
+unsigned char pir(void){
+
+# 132
+return last;
+}
+
+void limits(void)
+{
+if(LATGbits.LATG4 || LATFbits.LATF2 || LATFbits.LATF6 || LATFbits.LATF7)
+{
+
+if(LATGbits.LATG4)
+{
+;
+}
+else if(LATFbits.LATF2)
+{
+;
+}
+else if(LATFbits.LATF6)
+{
+;
+}
+else if(LATFbits.LATF7)
+{
+;
+}
 else
-pir = 0;
-
+{
+;
+}
+}
 }
 

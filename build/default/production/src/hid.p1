@@ -2,13 +2,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 "29 include\shared.h
 [s S1784 :1 `uc 1 :1 `uc 1 :2 `uc 1 :2 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S1784 . rtcInit alarmInit mmode state sleepable . ]
-[v F15691 `(v ~T0 @X0 0 tf ]
+[v F15692 `(v ~T0 @X0 0 tf ]
 "24 include\menu.h
-[s S1787 `*Cuc 1 `*F15691 1 ]
+[s S1787 `*Cuc 1 `*F15692 1 ]
 [n S1787 . text function ]
-[v F15695 `(v ~T0 @X0 0 tf ]
+[v F15696 `(v ~T0 @X0 0 tf ]
 "30
-[s S1788 `*F15695 1 ]
+[s S1788 `*F15696 1 ]
 [n S1788 . function ]
 "14 include\hid.h
 [v _lcd_menu `(v ~T0 @X0 0 ef1`uc ]
@@ -14246,17 +14246,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 2000 `i `ui
 ]
 [; ;sensors.h: 7: unsigned int duskLevel = 2000;
-"10
-[v _pir `uc ~T0 @X0 1 e ]
-[i _pir
--> -> 2 `i `uc
-]
-[; ;sensors.h: 10: unsigned char pir = 2;
-[; ;sensors.h: 41: void sensor_start(void);
-[; ;sensors.h: 42: unsigned short photo_value(unsigned char);
-[; ;sensors.h: 43: char temperature(void);
-[; ;sensors.h: 44: unsigned short rotational_postion(unsigned char);
-[; ;sensors.h: 45: void pir_enable(unsigned char);
+[; ;sensors.h: 74: void sensor_setup(void);
+[; ;sensors.h: 75: unsigned short photo_value(unsigned char);
+[; ;sensors.h: 76: char temperature(void);
+[; ;sensors.h: 77: unsigned short rotational_postion(unsigned char);
+[; ;sensors.h: 78: unsigned char pir(void);
+[; ;sensors.h: 79: void limits(void);
 [; ;string.h: 22: extern void * memcpy(void *, const void *, size_t);
 [; ;string.h: 23: extern void * memmove(void *, const void *, size_t);
 [; ;string.h: 24: extern void * memset(void *, int, size_t);
@@ -14297,9 +14292,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;menu.h: 30: {
 [; ;menu.h: 31: void (*function)(void);
 [; ;menu.h: 32: }usbEntry;
-[v F15700 `S1787 ~T0 @X0 -> 5 `i t ]
+[v F15701 `S1787 ~T0 @X0 -> 5 `i t ]
 "36 include\menu.h
-[v _menue `F15700 ~T0 @X0 -> 7 `i e ]
+[v _menue `F15701 ~T0 @X0 -> 7 `i e ]
 [; ;menu.h: 36: menuEntry menue[7][5];
 "37
 [v _usbe `S1788 ~T0 @X0 -> 85 `i e ]
@@ -14531,7 +14526,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;hid.c: 65: void lcd_menu(unsigned char)
 [; ;hid.c: 66: {
 [e :U _lcd_menu ]
-[v F15713 `uc ~T0 @X0 1 r1 ]
+[v F15714 `uc ~T0 @X0 1 r1 ]
 [f ]
 [; ;hid.c: 68: }
 "68
@@ -14544,7 +14539,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;hid.c: 71: void lcd_usb(unsigned char)
 [; ;hid.c: 72: {
 [e :U _lcd_usb ]
-[v F15714 `uc ~T0 @X0 1 r1 ]
+[v F15715 `uc ~T0 @X0 1 r1 ]
 [f ]
 [; ;hid.c: 74: }
 "74

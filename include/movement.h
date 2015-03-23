@@ -3,14 +3,13 @@
 
 // Headers
 #include <shared.h>
-#include <xc.h>
 #include <communication.h>
 #include <eeprom.h>
 #include <hid.h>
 #include <powerman.h>
 #include <rtc.h>
 #include <sensors.h>
-#include <solarLight.h>
+
 
 // Varibles
 // Limits will show the analog values on the pots where the limits are
@@ -30,16 +29,18 @@ unsigned int downlimit = 0;
 #define PINIO_MOVE_UPDOWN_3 TRISDbits.TRISD6
 #define PINIO_MOVE_UPDOWN_4 TRISDbits.TRISD7
 
+#define ERR 8
+
 /// varibles for debug testing, will have bits toggled depending on function entered
 unsigned char move = 0;
 
 // Functions
 
-void movement_setup(void);
+void move_setup(void);
 void limit_test(void);
 void daytime_move(void);
 void dusk_moveback(void);
 void season_adjust(void);
-void maintenance_move(unsigned char);
+void maint_move(unsigned char);
 
 #endif

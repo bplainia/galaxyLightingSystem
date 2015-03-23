@@ -113,10 +113,13 @@ void setup()
     memStatus = mem_check(); // checks where it started up from, and if memory is ok
     pwm_setup();
     adc_setup();
-    movement_setup();
+    move_setup();
     led_setup();
     hid_setup();
     rtc_setup();
+    sensor_setup();
+
+    limit_test();           // Calibration for position pots
 }
 
 /*! /brief The MAIN loop that executes EVERYTHING!
@@ -125,14 +128,20 @@ void setup()
  */
 void loop()
 {
+
+
     // Put things that you need to process here. Dont' spend too much time
     // in your process. Others want to do stuff too...
     adc_updateAll(); // Update all the ADC buffers every loop
     switch(status.state)
     {
         case 1: // Daytime Mode
+            daytime_move();
+            led(OFF);
             break;
         case 2: // Nighttime mode
+            led(ON);
+            pir();
             break;
         case 3: // ERROR mode
             // light off
@@ -186,4 +195,27 @@ void interrupt low_priority isr_low()
 void interrupt high_priority isr_high()
 {
     ;
+}
+
+void led_setup(void)
+{
+    LED_PIN = 0;
+}
+
+void led(unsigned char state)
+{
+    switch(state)
+    {
+        case OFF:
+            LED_OUT = LED_OFF;
+            break;
+        case ON:
+            LED_OUT = LED_ON;
+            break;
+        case DIM:
+            //pwm_set(1 2 /*channel duty*/);
+            break;
+        default:
+            ;
+    }
 }
