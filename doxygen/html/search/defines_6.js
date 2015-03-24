@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['halfsecond',['HALFSECOND',['../rtc_8h.html#a89b5c596e6fd12575ff278f4251a2b18',1,'rtc.h']]],
-  ['hourly',['HOURLY',['../rtc_8h.html#a2eb77db3cd40e1c42aac30d3c6c3270d',1,'rtc.h']]]
+  ['led_5fio',['LED_IO',['../light_8h.html#a5d7a28fdd4d7cde00f81fb8e47d0a798',1,'light.h']]],
+  ['led_5fout',['LED_OUT',['../light_8h.html#a916128c66228f04bfe04c69a5bc5a322',1,'light.h']]]
 ];

@@ -1,5 +1,5 @@
 Version 3.2 HI-TECH Software Intermediate Code
-"29 include\shared.h
+"30 include\shared.h
 [s S1784 :1 `uc 1 :1 `uc 1 :2 `uc 1 :2 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S1784 . rtcInit alarmInit mmode state sleepable . ]
 "7729 C:\Program Files (x86)\Microchip\xc8\v1.33\include\pic18f67j94.h
@@ -68,12 +68,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _SSP1CON1 `Vuc ~T0 @X0 0 e@4038 ]
 "28970
 [v _SSP1ADD `Vuc ~T0 @X0 0 e@4040 ]
-"40 include\shared.h
+"41 include\shared.h
 [s S1785 `uc 1 `uc 1 `uc 1 `ui 1 `*uc 1 `uc 1 ]
 [n S1785 . addr regl regh reg16 data dataLength ]
-"62
+"63
 [v _i2c_start `(v ~T0 @X0 0 sf1`ui ]
-"64
+"65
 [v _i2c_send `(ui ~T0 @X0 0 sf1`uc ]
 "29131 C:\Program Files (x86)\Microchip\xc8\v1.33\include\pic18f67j94.h
 [v _SSP1BUF `Vuc ~T0 @X0 0 e@4041 ]
@@ -132,9 +132,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S1555 . . . . . . . . . . . . . . . . . ]
 "28396
 [v _SSP1CON2bits `VS1555 ~T0 @X0 0 e@4037 ]
-"63 include\shared.h
+"64 include\shared.h
 [v _i2c_stop `(v ~T0 @X0 0 sf ]
-"65
+"66
 [v _i2c_recv `(uc ~T0 @X0 0 sf1`ui ]
 [; ;htc.h: 21: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 24: extern void __builtin_software_breakpoint(void);

@@ -6,10 +6,5 @@ var searchData=
   ['adc_5fupdateall',['adc_updateAll',['../shared_8h.html#a34a212934599b1e31db42ec3d8c15b73',1,'adc_updateAll():&#160;shared.c'],['../shared_8c.html#a34a212934599b1e31db42ec3d8c15b73',1,'adc_updateAll():&#160;shared.c']]],
   ['addr',['addr',['../structi2c_packet.html#a4c34a946600e9d68b6355d23f54d291b',1,'i2cPacket']]],
   ['address',['ADDRESS',['../shared_8h.html#a280feb883e9d4a7edcc69c8bcb9f38f2',1,'shared.h']]],
-  ['alarm_5fdisable',['alarm_disable',['../rtc_8h.html#a59601aa4f1e309a8dd9dec8055e0a87e',1,'alarm_disable():&#160;rtc.c'],['../rtc_8c.html#a59601aa4f1e309a8dd9dec8055e0a87e',1,'alarm_disable():&#160;rtc.c']]],
-  ['alarm_5fenable',['alarm_enable',['../rtc_8h.html#a90ba74701d3d697f2fe95a325a4956e8',1,'alarm_enable():&#160;rtc.c'],['../rtc_8c.html#a90ba74701d3d697f2fe95a325a4956e8',1,'alarm_enable():&#160;rtc.c']]],
-  ['alarm_5fset',['alarm_set',['../rtc_8h.html#a346dc2e2c998fe2ba63490eb1ec90153',1,'alarm_set(alarmtime):&#160;rtc.c'],['../rtc_8c.html#a3064ad13742d99dced913f814a7ce5ff',1,'alarm_set(alarmtime time):&#160;rtc.c']]],
-  ['alarminit',['alarmInit',['../shared_8h.html#a67a31f8cecf6847356940c27e04812cf',1,'shared.h']]],
-  ['alarmtime',['alarmtime',['../structalarmtime.html',1,'']]],
   ['auto',['AUTO',['../light_8h.html#a0cc6f7717df9fbdc0f33efb88720a639',1,'light.h']]]
 ];

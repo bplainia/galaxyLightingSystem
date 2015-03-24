@@ -1,0 +1,1 @@
+ build/default/production/src/powerman.d  build/default/production/src/powerman.p1:  src/powerman.c include/powerman.h

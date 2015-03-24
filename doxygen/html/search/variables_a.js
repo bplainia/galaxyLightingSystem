@@ -1,7 +1,10 @@
 var searchData=
 [
-  ['second',['second',['../structdatetime.html#a544c1372684ea82c01371865df228fe4',1,'datetime::second()'],['../structalarmtime.html#a544c1372684ea82c01371865df228fe4',1,'alarmtime::second()']]],
-  ['sleepable',['sleepable',['../shared_8h.html#a5505527fe3012eba92853066bfdf1217',1,'shared.h']]],
-  ['state',['state',['../shared_8h.html#a2ae520db1099ff9c7da192764d4e4790',1,'shared.h']]],
-  ['status',['status',['../shared_8h.html#a10815683d06f94a35baf0a3181bdf6df',1,'shared.h']]]
+  ['terror',['TERROR',['../structcomstat__t.html#a6280d63145bb20f921aed12654cca74b',1,'comstat_t']]],
+  ['text',['text',['../structmenu_entry.html#a16343090e80c4472521560f30113d96c',1,'menuEntry']]],
+  ['token',['TOKEN',['../structcomstat__t.html#a286e5d66a5e535c50a8b89c9d4870370',1,'comstat_t']]],
+  ['txbuff',['txBuff',['../communication_8h.html#a3756e98322979532efd9b045579c3bfe',1,'communication.h']]],
+  ['txover',['TXOVER',['../structcomstat__t.html#a008f2e947c6ef85c19ebd817436ae178',1,'comstat_t']]],
+  ['txptrin',['txPtrIn',['../communication_8h.html#ae17d4c3096cc992bce9f4204f118cf95',1,'communication.h']]],
+  ['txptrout',['txPtrOut',['../communication_8h.html#ab5d6de3c972cebd1aa0162e41cb64b54',1,'communication.h']]]
 ];

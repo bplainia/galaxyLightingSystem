@@ -144,7 +144,6 @@ unsigned i2c_rx(i2cPacket *packet) // recieve data from address
     if(pack.reg16) i2c_send(pack.regh); // Address High Byte
     if(i2c_send(pack.regl)) return true; // Address Low Byte
     i2c_start(1); // exit write mode
-    i = 0;
     if(i2c_send(pack.addr | 0b00000001)) return true; // read mode at address
     do
     {
@@ -201,5 +200,4 @@ static unsigned char i2c_recv(unsigned ack)
     while(!SSP1IF) continue; // wait for recieving to finish
     SSP1CON2bits.ACKEN = ack; // ACK
     SSP1CON2bits.ACKEN = 1; // Send the ACK bit
-    return false;
 }

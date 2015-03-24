@@ -1,10 +1,7 @@
 var searchData=
 [
-  ['daily',['DAILY',['../rtc_8h.html#a926db88cf57ecd626ba6fa2acf0653fe',1,'rtc.h']]],
   ['data',['data',['../structi2c_packet.html#ac24cea2bfcc927fd29bc74d1086707d8',1,'i2cPacket']]],
   ['datalength',['dataLength',['../structi2c_packet.html#ab75048efd066658a4bd4e95b916f7f91',1,'i2cPacket']]],
-  ['datetime',['datetime',['../structdatetime.html',1,'']]],
-  ['day',['day',['../structdatetime.html#ab9ba6d415537c392fea1a330751865f9',1,'datetime::day()'],['../structalarmtime.html#ab9ba6d415537c392fea1a330751865f9',1,'alarmtime::day()']]],
   ['daytime_5fmove',['daytime_move',['../movement_8h.html#aa8591ba7e28cdff297c7c02f76cc9a36',1,'daytime_move(void):&#160;movement.c'],['../movement_8c.html#aa8591ba7e28cdff297c7c02f76cc9a36',1,'daytime_move(void):&#160;movement.c']]],
   ['dim',['DIM',['../light_8h.html#ac25189db92959bff3c6c2adf4c34b50a',1,'light.h']]],
   ['downlimit',['downlimit',['../movement_8h.html#abb3344ceab7734d4d4a37fdee9f13bab',1,'movement.h']]],

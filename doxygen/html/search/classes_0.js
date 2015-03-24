@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['alarmtime',['alarmtime',['../structalarmtime.html',1,'']]]
+  ['comstat_5ft',['comstat_t',['../structcomstat__t.html',1,'']]]
 ];

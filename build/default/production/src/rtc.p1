@@ -1,5 +1,5 @@
 Version 3.2 HI-TECH Software Intermediate Code
-"29 include\shared.h
+"30 include\shared.h
 [s S1784 :1 `uc 1 :1 `uc 1 :2 `uc 1 :2 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S1784 . rtcInit alarmInit mmode state sleepable . ]
 "21262 C:\Program Files (x86)\Microchip\xc8\v1.33\include\pic18f67j94.h
@@ -13,43 +13,16 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S1147 . . . ]
 "21276
 [v _RTCCON1bits `VS1147 ~T0 @X0 0 e@3935 ]
-"27 include\rtc.h
-[s S1786 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 ]
-[n S1786 . year month weekday weekofyear day hour minute second ]
-"23295 C:\Program Files (x86)\Microchip\xc8\v1.33\include\pic18f67j94.h
+"23295
 [v _EECON2 `Vuc ~T0 @X0 0 e@3966 ]
 "21078
 [v _RTCVALL `Vuc ~T0 @X0 0 e@3932 ]
-"60 include\rtc.h
+"19 include\rtc.h
 [v _char2bcd `(uc ~T0 @X0 0 sf1`uc ]
 "21097 C:\Program Files (x86)\Microchip\xc8\v1.33\include\pic18f67j94.h
 [v _RTCVALH `Vuc ~T0 @X0 0 e@3933 ]
-"62 include\rtc.h
+"20 include\rtc.h
 [v _weekday `(uc ~T0 @X0 0 sf3`uc`uc`uc ]
-"61
-[v _bcd2char `(uc ~T0 @X0 0 sf1`uc ]
-"39
-[s S1787 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 ]
-[n S1787 . month day hour minute second times frequency repeat ]
-"58
-[v _alarm_disable `(ui ~T0 @X0 0 ef ]
-"21009 C:\Program Files (x86)\Microchip\xc8\v1.33\include\pic18f67j94.h
-[s S1130 :2 `uc 1 :4 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S1130 . ALRMPTR AMASK CHIME ALRMEN ]
-"21015
-[s S1131 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S1131 . ALRMPTR0 ALRMPTR1 AMASK0 AMASK1 AMASK2 AMASK3 ]
-"21008
-[u S1129 `S1130 1 `S1131 1 ]
-[n S1129 . . . ]
-"21024
-[v _ALRMCFGbits `VS1129 ~T0 @X0 0 e@3931 ]
-"20915
-[v _ALRMVALH `Vuc ~T0 @X0 0 e@3929 ]
-"20896
-[v _ALRMVALL `Vuc ~T0 @X0 0 e@3928 ]
-"20934
-[v _ALRMRPT `Vuc ~T0 @X0 0 e@3930 ]
 [; ;htc.h: 21: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 24: extern void __builtin_software_breakpoint(void);
 [; ;pic18f67j94.h: 47: extern volatile unsigned char UEP0 @ 0xDFF;
@@ -14155,69 +14128,43 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic18.h: 147: extern __nonreentrant void _delay(unsigned long);
 [; ;pic18.h: 149: extern __nonreentrant void _delaywdt(unsigned long);
 [; ;pic18.h: 151: extern __nonreentrant void _delay3(unsigned char);
-"36 include\shared.h
+"37 include\shared.h
 [v _status `S1784 ~T0 @X0 1 e ]
-[; ;shared.h: 29: struct {
-[; ;shared.h: 30: unsigned rtcInit : 1;
-[; ;shared.h: 31: unsigned alarmInit : 1;
-[; ;shared.h: 32: unsigned mmode : 2;
-[; ;shared.h: 33: unsigned state : 2;
-[; ;shared.h: 34: unsigned sleepable : 1;
-[; ;shared.h: 35: unsigned : 1;
-[; ;shared.h: 36: }status;
-[; ;shared.h: 39: typedef struct
-[; ;shared.h: 40: {
-[; ;shared.h: 41: unsigned char addr;
-[; ;shared.h: 42: unsigned char regl;
-[; ;shared.h: 43: unsigned char regh;
-[; ;shared.h: 44: unsigned reg16;
-[; ;shared.h: 45: unsigned char *data;
-[; ;shared.h: 46: unsigned char dataLength;
-[; ;shared.h: 47: }i2cPacket;
-[; ;shared.h: 51: void adc_setup(void);
-[; ;shared.h: 52: void adc_update(unsigned char);
-[; ;shared.h: 53: void adc_update2(unsigned char, unsigned char);
-[; ;shared.h: 54: void adc_updateAll();
-[; ;shared.h: 56: void pwm_setup(void);
-[; ;shared.h: 57: unsigned pwm_set(unsigned char, unsigned char);
-[; ;shared.h: 59: void i2c_setup(void);
-[; ;shared.h: 60: unsigned i2c_tx(i2cPacket);
-[; ;shared.h: 61: unsigned i2c_rx(i2cPacket*);
-[; ;shared.h: 62: static void i2c_start(unsigned);
-[; ;shared.h: 63: static void i2c_stop(void);
-[; ;shared.h: 64: static unsigned i2c_send(unsigned char);
-[; ;shared.h: 65: static unsigned char i2c_recv(unsigned);
-[; ;rtc.h: 26: typedef struct
-[; ;rtc.h: 27: {
-[; ;rtc.h: 28: unsigned char year;
-[; ;rtc.h: 29: unsigned char month;
-[; ;rtc.h: 30: unsigned char weekday;
-[; ;rtc.h: 31: unsigned char weekofyear;
-[; ;rtc.h: 32: unsigned char day;
-[; ;rtc.h: 33: unsigned char hour;
-[; ;rtc.h: 34: unsigned char minute;
-[; ;rtc.h: 35: unsigned char second;
-[; ;rtc.h: 36: }datetime;
-[; ;rtc.h: 38: typedef struct
-[; ;rtc.h: 39: {
-[; ;rtc.h: 40: unsigned char month;
-[; ;rtc.h: 41: unsigned char day;
-[; ;rtc.h: 42: unsigned char hour;
-[; ;rtc.h: 43: unsigned char minute;
-[; ;rtc.h: 44: unsigned char second;
-[; ;rtc.h: 45: unsigned char times;
-[; ;rtc.h: 46: unsigned char frequency;
-[; ;rtc.h: 47: unsigned char repeat;
-[; ;rtc.h: 48: }alarmtime;
-[; ;rtc.h: 52: void rtc_setup(void);
-[; ;rtc.h: 53: unsigned rtc_set(datetime);
-[; ;rtc.h: 54: unsigned rtc_get(datetime*);
-[; ;rtc.h: 56: unsigned alarm_set(alarmtime);
-[; ;rtc.h: 57: unsigned alarm_enable();
-[; ;rtc.h: 58: unsigned alarm_disable();
-[; ;rtc.h: 60: static unsigned char char2bcd(unsigned char);
-[; ;rtc.h: 61: static unsigned char bcd2char(unsigned char);
-[; ;rtc.h: 62: static unsigned char weekday(unsigned char, unsigned char, unsigned char);
+[; ;shared.h: 30: struct {
+[; ;shared.h: 31: unsigned rtcInit : 1;
+[; ;shared.h: 32: unsigned alarmInit : 1;
+[; ;shared.h: 33: unsigned mmode : 2;
+[; ;shared.h: 34: unsigned state : 2;
+[; ;shared.h: 35: unsigned sleepable : 1;
+[; ;shared.h: 36: unsigned : 1;
+[; ;shared.h: 37: }status;
+[; ;shared.h: 40: typedef struct
+[; ;shared.h: 41: {
+[; ;shared.h: 42: unsigned char addr;
+[; ;shared.h: 43: unsigned char regl;
+[; ;shared.h: 44: unsigned char regh;
+[; ;shared.h: 45: unsigned reg16;
+[; ;shared.h: 46: unsigned char *data;
+[; ;shared.h: 47: unsigned char dataLength;
+[; ;shared.h: 48: }i2cPacket;
+[; ;shared.h: 52: void adc_setup(void);
+[; ;shared.h: 53: void adc_update(unsigned char);
+[; ;shared.h: 54: void adc_update2(unsigned char, unsigned char);
+[; ;shared.h: 55: void adc_updateAll();
+[; ;shared.h: 57: void pwm_setup(void);
+[; ;shared.h: 58: unsigned pwm_set(unsigned char, unsigned char);
+[; ;shared.h: 60: void i2c_setup(void);
+[; ;shared.h: 61: unsigned i2c_tx(i2cPacket);
+[; ;shared.h: 62: unsigned i2c_rx(i2cPacket*);
+[; ;shared.h: 63: static void i2c_start(unsigned);
+[; ;shared.h: 64: static void i2c_stop(void);
+[; ;shared.h: 65: static unsigned i2c_send(unsigned char);
+[; ;shared.h: 66: static unsigned char i2c_recv(unsigned);
+[; ;rtc.h: 15: void rtc_setup(void);
+[; ;rtc.h: 16: unsigned rtc_set(unsigned char, unsigned char, unsigned char, unsigned char,
+[; ;rtc.h: 17: unsigned char, unsigned char);
+[; ;rtc.h: 19: static unsigned char char2bcd(unsigned char);
+[; ;rtc.h: 20: static unsigned char weekday(unsigned char, unsigned char, unsigned char);
 "5 src/rtc.c
 [v _rtc_setup `(v ~T0 @X0 1 ef ]
 "6
@@ -14234,509 +14181,148 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = . _status 0 -> -> 0 `i `uc ]
 [; ;rtc.c: 10: }
 "10
-[e :UE 1788 ]
+[e :UE 1786 ]
 }
 "19
-[v _rtc_set `(ui ~T0 @X0 1 ef1`S1786 ]
-"20
+[v _rtc_set `(ui ~T0 @X0 1 ef6`uc`uc`uc`uc`uc`uc ]
+"21
 {
-[; ;rtc.c: 19: unsigned rtc_set(datetime time)
-[; ;rtc.c: 20: {
+[; ;rtc.c: 19: unsigned rtc_set(unsigned char year, unsigned char month, unsigned char day,
+[; ;rtc.c: 20: unsigned char hour, unsigned char minute, unsigned char second)
+[; ;rtc.c: 21: {
 [e :U _rtc_set ]
 "19
-[v _time `S1786 ~T0 @X0 1 r1 ]
-"20
-[f ]
-[; ;rtc.c: 21: EECON2 = 0x55;
-"21
-[e = _EECON2 -> -> 85 `i `uc ]
-[; ;rtc.c: 22: EECON2 = 0xAA;
-"22
-[e = _EECON2 -> -> 170 `i `uc ]
-[; ;rtc.c: 23: RTCCON1bits.RTCWREN = 1;
-"23
-[e = . . _RTCCON1bits 0 4 -> -> 1 `i `uc ]
-[; ;rtc.c: 24: RTCCON1bits.RTCPTR = 0b11;
-"24
-[e = . . _RTCCON1bits 0 0 -> -> 3 `i `uc ]
-[; ;rtc.c: 25: RTCVALL = char2bcd(time.year);
-"25
-[e = _RTCVALL ( _char2bcd (1 . _time 0 ]
-[; ;rtc.c: 26: RTCVALH = char2bcd(time.month);
-"26
-[e = _RTCVALH ( _char2bcd (1 . _time 1 ]
-[; ;rtc.c: 27: RTCVALL = char2bcd(time.day);
-"27
-[e = _RTCVALL ( _char2bcd (1 . _time 4 ]
-[; ;rtc.c: 28: RTCVALH = weekday(time.year,time.month,time.day);
-"28
-[e = _RTCVALH ( _weekday (3 , , . _time 0 . _time 1 . _time 4 ]
-[; ;rtc.c: 29: RTCVALL = char2bcd(time.hour);
-"29
-[e = _RTCVALL ( _char2bcd (1 . _time 5 ]
-[; ;rtc.c: 30: RTCVALH = char2bcd(time.minute);
-"30
-[e = _RTCVALH ( _char2bcd (1 . _time 6 ]
-[; ;rtc.c: 31: RTCVALL = char2bcd(time.second);
-"31
-[e = _RTCVALL ( _char2bcd (1 . _time 7 ]
-[; ;rtc.c: 32: RTCCON1bits.RTCWREN = 0;
-"32
-[e = . . _RTCCON1bits 0 4 -> -> 0 `i `uc ]
-[; ;rtc.c: 33: status.rtcInit = 1;
-"33
-[e = . _status 0 -> -> 1 `i `uc ]
-[; ;rtc.c: 34: return 0;
-"34
-[e ) -> -> 0 `i `ui ]
-[e $UE 1789  ]
-[; ;rtc.c: 35: }
-"35
-[e :UE 1789 ]
-}
-"39
-[v _rtc_get `(ui ~T0 @X0 1 ef1`*S1786 ]
-"40
-{
-[; ;rtc.c: 39: unsigned rtc_get(datetime *time)
-[; ;rtc.c: 40: {
-[e :U _rtc_get ]
-"39
-[v _time `*S1786 ~T0 @X0 1 r1 ]
-"40
-[f ]
-[; ;rtc.c: 41: RTCCON1bits.RTCPTR = 0b11;
-"41
-[e = . . _RTCCON1bits 0 0 -> -> 3 `i `uc ]
-[; ;rtc.c: 42: (*time).year = bcd2char(RTCVALL);
-"42
-[e = . *U _time 0 ( _bcd2char (1 _RTCVALL ]
-[; ;rtc.c: 43: (*time).month = bcd2char(RTCVALH);
-"43
-[e = . *U _time 1 ( _bcd2char (1 _RTCVALH ]
-[; ;rtc.c: 44: (*time).day = bcd2char(RTCVALL);
-"44
-[e = . *U _time 4 ( _bcd2char (1 _RTCVALL ]
-[; ;rtc.c: 45: (*time).weekday = RTCVALH;
-"45
-[e = . *U _time 2 _RTCVALH ]
-[; ;rtc.c: 46: (*time).hour = bcd2char(RTCVALL);
-"46
-[e = . *U _time 5 ( _bcd2char (1 _RTCVALL ]
-[; ;rtc.c: 47: (*time).minute = bcd2char(RTCVALH);
-"47
-[e = . *U _time 6 ( _bcd2char (1 _RTCVALH ]
-[; ;rtc.c: 48: (*time).second = bcd2char(RTCVALL);
-"48
-[e = . *U _time 7 ( _bcd2char (1 _RTCVALL ]
-[; ;rtc.c: 49: return 0;
-"49
-[e ) -> -> 0 `i `ui ]
-[e $UE 1790  ]
-[; ;rtc.c: 50: }
-"50
-[e :UE 1790 ]
-}
-"61
-[v _alarm_set `(ui ~T0 @X0 1 ef1`S1787 ]
-"62
-{
-[; ;rtc.c: 61: unsigned alarm_set(alarmtime time)
-[; ;rtc.c: 62: {
-[e :U _alarm_set ]
-"61
-[v _time `S1787 ~T0 @X0 1 r1 ]
-"62
-[f ]
-[; ;rtc.c: 63: alarm_disable();
-"63
-[e ( _alarm_disable ..  ]
-[; ;rtc.c: 64: ALRMCFGbits.ALRMPTR = 0b10;
-"64
-[e = . . _ALRMCFGbits 0 0 -> -> 2 `i `uc ]
-[; ;rtc.c: 67: if(time.frequency < 0b1001)
-"67
-[e $ ! < -> . _time 6 `i -> 9 `i 1792  ]
-[; ;rtc.c: 68: {
-"68
-{
-[; ;rtc.c: 69: return 1;
-"69
-[e ) -> -> 1 `i `ui ]
-[e $UE 1791  ]
-"70
-}
-[e :U 1792 ]
-[; ;rtc.c: 70: }
-[; ;rtc.c: 73: if(time.frequency == 0b1001)
-"73
-[e $ ! == -> . _time 6 `i -> 9 `i 1793  ]
-[; ;rtc.c: 74: {
-"74
-{
-[; ;rtc.c: 75: ALRMVALH = char2bcd(time.month);
-"75
-[e = _ALRMVALH ( _char2bcd (1 . _time 0 ]
-"76
-}
-[; ;rtc.c: 76: }
-[e $U 1794  ]
-"77
-[e :U 1793 ]
-[; ;rtc.c: 77: else
-[; ;rtc.c: 78: {
-"78
-{
-[; ;rtc.c: 79: ALRMVALH = 0;
-"79
-[e = _ALRMVALH -> -> 0 `i `uc ]
-"80
-}
-[e :U 1794 ]
-[; ;rtc.c: 80: }
-[; ;rtc.c: 83: if(time.frequency >= 0b1000)
-"83
-[e $ ! >= -> . _time 6 `i -> 8 `i 1795  ]
-[; ;rtc.c: 84: {
-"84
-{
-[; ;rtc.c: 85: ALRMVALL = char2bcd(time.day);
-"85
-[e = _ALRMVALL ( _char2bcd (1 . _time 1 ]
-"86
-}
-[; ;rtc.c: 86: }
-[e $U 1796  ]
-"87
-[e :U 1795 ]
-[; ;rtc.c: 87: else
-[; ;rtc.c: 88: {
-"88
-{
-[; ;rtc.c: 89: ALRMVALL = 0;
-"89
-[e = _ALRMVALL -> -> 0 `i `uc ]
-"90
-}
-[e :U 1796 ]
-[; ;rtc.c: 90: }
-[; ;rtc.c: 93: if(time.frequency == 0b0111)
-"93
-[e $ ! == -> . _time 6 `i -> 7 `i 1797  ]
-[; ;rtc.c: 94: {
-"94
-{
-[; ;rtc.c: 95: if(time.day > 6)
-"95
-[e $ ! > -> . _time 1 `i -> 6 `i 1798  ]
-[; ;rtc.c: 96: {
-"96
-{
-[; ;rtc.c: 97: return 1;
-"97
-[e ) -> -> 1 `i `ui ]
-[e $UE 1791  ]
-"98
-}
-[e :U 1798 ]
-[; ;rtc.c: 98: }
-[; ;rtc.c: 99: ALRMVALH = time.day;
-"99
-[e = _ALRMVALH . _time 1 ]
-"100
-}
-[; ;rtc.c: 100: }
-[e $U 1799  ]
-"101
-[e :U 1797 ]
-[; ;rtc.c: 101: else
-[; ;rtc.c: 102: {
-"102
-{
-[; ;rtc.c: 103: ALRMVALH = 0;
-"103
-[e = _ALRMVALH -> -> 0 `i `uc ]
-"104
-}
-[e :U 1799 ]
-[; ;rtc.c: 104: }
-[; ;rtc.c: 107: if(time.frequency >= 0b0110)
-"107
-[e $ ! >= -> . _time 6 `i -> 6 `i 1800  ]
-[; ;rtc.c: 108: {
-"108
-{
-[; ;rtc.c: 109: ALRMVALL = char2bcd(time.hour);
-"109
-[e = _ALRMVALL ( _char2bcd (1 . _time 2 ]
-"110
-}
-[; ;rtc.c: 110: }
-[e $U 1801  ]
-"111
-[e :U 1800 ]
-[; ;rtc.c: 111: else
-[; ;rtc.c: 112: {
-"112
-{
-[; ;rtc.c: 113: ALRMVALL = 0;
-"113
-[e = _ALRMVALL -> -> 0 `i `uc ]
-"114
-}
-[e :U 1801 ]
-[; ;rtc.c: 114: }
-[; ;rtc.c: 117: if(time.frequency >= 0b0101)
-"117
-[e $ ! >= -> . _time 6 `i -> 5 `i 1802  ]
-[; ;rtc.c: 118: {
-"118
-{
-[; ;rtc.c: 119: ALRMVALH = char2bcd(time.minute);
-"119
-[e = _ALRMVALH ( _char2bcd (1 . _time 3 ]
-"120
-}
-[; ;rtc.c: 120: }
-[e $U 1803  ]
-"121
-[e :U 1802 ]
-[; ;rtc.c: 121: else if(time.frequency == 0b0100)
-[e $ ! == -> . _time 6 `i -> 4 `i 1804  ]
-[; ;rtc.c: 122: {
-"122
-{
-[; ;rtc.c: 123: ALRMVALH = time.minute % 10;
-"123
-[e = _ALRMVALH -> % -> . _time 3 `i -> 10 `i `uc ]
-"124
-}
-[; ;rtc.c: 124: }
-[e $U 1805  ]
-"125
-[e :U 1804 ]
-[; ;rtc.c: 125: else
-[; ;rtc.c: 126: {
-"126
-{
-[; ;rtc.c: 127: ALRMVALH = 0;
-"127
-[e = _ALRMVALH -> -> 0 `i `uc ]
-"128
-}
-[e :U 1805 ]
-[e :U 1803 ]
-[; ;rtc.c: 128: }
-[; ;rtc.c: 131: if(time.frequency >= 0b0011)
-"131
-[e $ ! >= -> . _time 6 `i -> 3 `i 1806  ]
-[; ;rtc.c: 132: {
-"132
-{
-[; ;rtc.c: 133: ALRMVALL = char2bcd(time.second);
-"133
-[e = _ALRMVALL ( _char2bcd (1 . _time 4 ]
-"134
-}
-[; ;rtc.c: 134: }
-[e $U 1807  ]
-"135
-[e :U 1806 ]
-[; ;rtc.c: 135: else if(time.frequency == 0b0010)
-[e $ ! == -> . _time 6 `i -> 2 `i 1808  ]
-[; ;rtc.c: 136: {
-"136
-{
-[; ;rtc.c: 137: ALRMVALL = time.second % 10;
-"137
-[e = _ALRMVALL -> % -> . _time 4 `i -> 10 `i `uc ]
-"138
-}
-[; ;rtc.c: 138: }
-[e $U 1809  ]
-"139
-[e :U 1808 ]
-[; ;rtc.c: 139: else
-[; ;rtc.c: 140: {
-"140
-{
-[; ;rtc.c: 141: ALRMVALL = 0;
-"141
-[e = _ALRMVALL -> -> 0 `i `uc ]
-"142
-}
-[e :U 1809 ]
-[e :U 1807 ]
-[; ;rtc.c: 142: }
-[; ;rtc.c: 145: if(time.repeat > 2)
-"145
-[e $ ! > -> . _time 7 `i -> 2 `i 1810  ]
-[; ;rtc.c: 146: {
-"146
-{
-[; ;rtc.c: 147: return 1;
-"147
-[e ) -> -> 1 `i `ui ]
-[e $UE 1791  ]
-"148
-}
-[e :U 1810 ]
-[; ;rtc.c: 148: }
-[; ;rtc.c: 149: if(time.repeat > 0)
-"149
-[e $ ! > -> . _time 7 `i -> 0 `i 1811  ]
-[; ;rtc.c: 150: {
-"150
-{
-[; ;rtc.c: 151: ALRMRPT = time.times;
-"151
-[e = _ALRMRPT . _time 5 ]
-"152
-}
-[e :U 1811 ]
-[; ;rtc.c: 152: }
-[; ;rtc.c: 153: ALRMCFGbits.CHIME = time.repeat >> 1;
-"153
-[e = . . _ALRMCFGbits 0 2 -> >> -> . _time 7 `i -> 1 `i `uc ]
-[; ;rtc.c: 154: ALRMCFGbits.AMASK = time.frequency;
-"154
-[e = . . _ALRMCFGbits 0 1 . _time 6 ]
-[; ;rtc.c: 156: status.alarmInit = 1;
-"156
-[e = . _status 1 -> -> 1 `i `uc ]
-[; ;rtc.c: 157: return 0;
-"157
-[e ) -> -> 0 `i `ui ]
-[e $UE 1791  ]
-[; ;rtc.c: 158: }
-"158
-[e :UE 1791 ]
-}
-"165
-[v _alarm_enable `(ui ~T0 @X0 1 ef ]
-"166
-{
-[; ;rtc.c: 165: unsigned alarm_enable()
-[; ;rtc.c: 166: {
-[e :U _alarm_enable ]
-[f ]
-[; ;rtc.c: 167: if(!status.rtcInit || !status.alarmInit) return 1;
-"167
-[e $ ! || ! != -> . _status 0 `i -> -> -> 0 `i `uc `i ! != -> . _status 1 `i -> -> -> 0 `i `uc `i 1813  ]
-[e ) -> -> 1 `i `ui ]
-[e $UE 1812  ]
-[e :U 1813 ]
-[; ;rtc.c: 168: ALRMCFGbits.ALRMEN = 1;
-"168
-[e = . . _ALRMCFGbits 0 3 -> -> 1 `i `uc ]
-[; ;rtc.c: 169: return 0;
-"169
-[e ) -> -> 0 `i `ui ]
-[e $UE 1812  ]
-[; ;rtc.c: 170: }
-"170
-[e :UE 1812 ]
-}
-"176
-[v _alarm_disable `(ui ~T0 @X0 1 ef ]
-"177
-{
-[; ;rtc.c: 176: unsigned alarm_disable()
-[; ;rtc.c: 177: {
-[e :U _alarm_disable ]
-[f ]
-[; ;rtc.c: 178: if(!ALRMCFGbits.ALRMEN) return 1;
-"178
-[e $ ! ! != -> . . _ALRMCFGbits 0 3 `i -> -> -> 0 `i `Vuc `i 1815  ]
-[e ) -> -> 1 `i `ui ]
-[e $UE 1814  ]
-[e :U 1815 ]
-[; ;rtc.c: 179: ALRMCFGbits.ALRMEN = 0;
-"179
-[e = . . _ALRMCFGbits 0 3 -> -> 0 `i `uc ]
-[; ;rtc.c: 180: return 0;
-"180
-[e ) -> -> 0 `i `ui ]
-[e $UE 1814  ]
-[; ;rtc.c: 181: }
-"181
-[e :UE 1814 ]
-}
-"184
-[v _char2bcd `(uc ~T0 @X0 1 sf1`uc ]
-"185
-{
-[; ;rtc.c: 184: static unsigned char char2bcd(unsigned char in)
-[; ;rtc.c: 185: {
-[e :U _char2bcd ]
-"184
-[v _in `uc ~T0 @X0 1 r1 ]
-"185
-[f ]
-[; ;rtc.c: 188: return in % 10 | ((in/10)%10 << 4);
-"188
-[e ) -> | % -> _in `i -> 10 `i << % / -> _in `i -> 10 `i -> 10 `i -> 4 `i `uc ]
-[e $UE 1816  ]
-[; ;rtc.c: 190: }
-"190
-[e :UE 1816 ]
-}
-"193
-[v _bcd2char `(uc ~T0 @X0 1 sf1`uc ]
-"194
-{
-[; ;rtc.c: 193: static unsigned char bcd2char(unsigned char in)
-[; ;rtc.c: 194: {
-[e :U _bcd2char ]
-"193
-[v _in `uc ~T0 @X0 1 r1 ]
-"194
-[f ]
-[; ;rtc.c: 195: return (((in >> 4)*10) + (in & 0x0F));
-"195
-[e ) -> + * >> -> _in `i -> 4 `i -> 10 `i & -> _in `i -> 15 `i `uc ]
-[e $UE 1817  ]
-[; ;rtc.c: 196: }
-"196
-[e :UE 1817 ]
-}
-"199
-[v _weekday `(uc ~T0 @X0 1 sf3`uc`uc`uc ]
-"200
-{
-[; ;rtc.c: 199: static unsigned char weekday(unsigned char year, unsigned char month, unsigned char day)
-[; ;rtc.c: 200: {
-[e :U _weekday ]
-"199
 [v _year `uc ~T0 @X0 1 r1 ]
 [v _month `uc ~T0 @X0 1 r2 ]
 [v _day `uc ~T0 @X0 1 r3 ]
-"200
+"20
+[v _hour `uc ~T0 @X0 1 r4 ]
+[v _minute `uc ~T0 @X0 1 r5 ]
+[v _second `uc ~T0 @X0 1 r6 ]
+"21
 [f ]
-"202
+[; ;rtc.c: 22: EECON2 = 0x55;
+"22
+[e = _EECON2 -> -> 85 `i `uc ]
+[; ;rtc.c: 23: EECON2 = 0xAA;
+"23
+[e = _EECON2 -> -> 170 `i `uc ]
+[; ;rtc.c: 24: RTCCON1bits.RTCWREN = 1;
+"24
+[e = . . _RTCCON1bits 0 4 -> -> 1 `i `uc ]
+[; ;rtc.c: 25: RTCCON1bits.RTCPTR = 0b11;
+"25
+[e = . . _RTCCON1bits 0 0 -> -> 3 `i `uc ]
+[; ;rtc.c: 26: RTCVALL = char2bcd(year);
+"26
+[e = _RTCVALL ( _char2bcd (1 _year ]
+[; ;rtc.c: 27: RTCVALH = char2bcd(month);
+"27
+[e = _RTCVALH ( _char2bcd (1 _month ]
+[; ;rtc.c: 28: RTCVALL = char2bcd(day);
+"28
+[e = _RTCVALL ( _char2bcd (1 _day ]
+[; ;rtc.c: 29: RTCVALH = weekday(year,month,day);
+"29
+[e = _RTCVALH ( _weekday (3 , , _year _month _day ]
+[; ;rtc.c: 30: RTCVALL = char2bcd(hour);
+"30
+[e = _RTCVALL ( _char2bcd (1 _hour ]
+[; ;rtc.c: 31: RTCVALH = char2bcd(minute);
+"31
+[e = _RTCVALH ( _char2bcd (1 _minute ]
+[; ;rtc.c: 32: RTCVALL = char2bcd(second);
+"32
+[e = _RTCVALL ( _char2bcd (1 _second ]
+[; ;rtc.c: 33: RTCCON1bits.RTCWREN = 0;
+"33
+[e = . . _RTCCON1bits 0 4 -> -> 0 `i `uc ]
+[; ;rtc.c: 34: status.rtcInit = 1;
+"34
+[e = . _status 0 -> -> 1 `i `uc ]
+[; ;rtc.c: 35: return 0;
+"35
+[e ) -> -> 0 `i `ui ]
+[e $UE 1787  ]
+[; ;rtc.c: 36: }
+"36
+[e :UE 1787 ]
+}
+"39
+[v _char2bcd `(uc ~T0 @X0 1 sf1`uc ]
+"40
+{
+[; ;rtc.c: 39: static unsigned char char2bcd(unsigned char in)
+[; ;rtc.c: 40: {
+[e :U _char2bcd ]
+"39
+[v _in `uc ~T0 @X0 1 r1 ]
+"40
+[f ]
+[; ;rtc.c: 43: return in % 10 | ((in/10)%10 << 4);
+"43
+[e ) -> | % -> _in `i -> 10 `i << % / -> _in `i -> 10 `i -> 10 `i -> 4 `i `uc ]
+[e $UE 1788  ]
+[; ;rtc.c: 45: }
+"45
+[e :UE 1788 ]
+}
+"48
+[v _bcd2char `(uc ~T0 @X0 1 sf1`uc ]
+"49
+{
+[; ;rtc.c: 48: static unsigned char bcd2char(unsigned char in)
+[; ;rtc.c: 49: {
+[e :U _bcd2char ]
+"48
+[v _in `uc ~T0 @X0 1 r1 ]
+"49
+[f ]
+[; ;rtc.c: 50: return (((in >> 4)*10) + (in & 0x0F));
+"50
+[e ) -> + * >> -> _in `i -> 4 `i -> 10 `i & -> _in `i -> 15 `i `uc ]
+[e $UE 1789  ]
+[; ;rtc.c: 51: }
+"51
+[e :UE 1789 ]
+}
+"54
+[v _weekday `(uc ~T0 @X0 1 sf3`uc`uc`uc ]
+"55
+{
+[; ;rtc.c: 54: static unsigned char weekday(unsigned char year, unsigned char month, unsigned char day)
+[; ;rtc.c: 55: {
+[e :U _weekday ]
+"54
+[v _year `uc ~T0 @X0 1 r1 ]
+[v _month `uc ~T0 @X0 1 r2 ]
+[v _day `uc ~T0 @X0 1 r3 ]
+"55
+[f ]
+"57
 [v _mod `uc ~T0 @X0 1 a ]
 [v _diff `uc ~T0 @X0 1 a ]
 [v _div `uc ~T0 @X0 1 a ]
-[; ;rtc.c: 202: char mod, diff, div;
-[; ;rtc.c: 203: mod = (year % 12);
-"203
+[; ;rtc.c: 57: char mod, diff, div;
+[; ;rtc.c: 58: mod = (year % 12);
+"58
 [e = _mod -> % -> _year `i -> 12 `i `uc ]
-[; ;rtc.c: 204: diff = year - (mod*12);
-"204
+[; ;rtc.c: 59: diff = year - (mod*12);
+"59
 [e = _diff -> - -> _year `i * -> _mod `i -> 12 `i `uc ]
-[; ;rtc.c: 205: if(diff < 0) diff = -diff;
-"205
-[e $ ! < -> _diff `i -> 0 `i 1819  ]
+[; ;rtc.c: 60: if(diff < 0) diff = -diff;
+"60
+[e $ ! < -> _diff `i -> 0 `i 1791  ]
 [e = _diff -> -U -> _diff `i `uc ]
-[e :U 1819 ]
-[; ;rtc.c: 206: div = diff / 4;
-"206
+[e :U 1791 ]
+[; ;rtc.c: 61: div = diff / 4;
+"61
 [e = _div -> / -> _diff `i -> 4 `i `uc ]
-[; ;rtc.c: 207: return (mod+diff+div) % 7;
-"207
+[; ;rtc.c: 62: return (mod+diff+div) % 7;
+"62
 [e ) -> % + + -> _mod `i -> _diff `i -> _div `i -> 7 `i `uc ]
-[e $UE 1818  ]
-[; ;rtc.c: 208: }
-"208
-[e :UE 1818 ]
+[e $UE 1790  ]
+[; ;rtc.c: 63: }
+"63
+[e :UE 1790 ]
 }

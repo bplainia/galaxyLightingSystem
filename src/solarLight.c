@@ -127,6 +127,7 @@ void loop()
 {
     // Put things that you need to process here. Dont' spend too much time
     // in your process. Others want to do stuff too...
+    
     adc_updateAll(); // Update all the ADC buffers every loop
     switch(status.state)
     {

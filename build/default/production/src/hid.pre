@@ -18812,7 +18812,7 @@ extern __nonreentrant void _delaywdt(unsigned long);
 #pragma intrinsic(_delay3)
 extern __nonreentrant void _delay3(unsigned char);
 
-# 29 "include\shared.h"
+# 30 "include\shared.h"
 struct {
 unsigned rtcInit : 1;
 unsigned alarmInit : 1;
@@ -18851,7 +18851,10 @@ static void i2c_stop(void);
 static unsigned i2c_send(unsigned char);
 static unsigned char i2c_recv(unsigned);
 
-# 8 "include\hid.h"
+# 5 "include\hid.h"
+unsigned char masterState;
+
+
 void hid_setup(void);
 void hid_loop(void);
 void hid_execute(unsigned char);
@@ -18923,49 +18926,59 @@ extern char * strichr(const char *, int);
 extern char * strrchr(const char *, int);
 extern char * strrichr(const char *, int);
 
-# 17 "include\menu.h"
-typedef struct lcdEntry
+# 15 "include\rtc.h"
+void rtc_setup(void);
+unsigned rtc_set(unsigned char, unsigned char, unsigned char, unsigned char,
+unsigned char, unsigned char);
+
+static unsigned char char2bcd(unsigned char);
+static unsigned char weekday(unsigned char, unsigned char, unsigned char);
+
+# 21 "include\eeprom.h"
+unsigned char setting_lightMode, setting_timeout, setting_hurricane;
+
+
+typedef enum errorCode {NONE=0,SPACEOVERRIDE=1,BATTERYLOW=2};
+
+
+unsigned char mem_check(void);
+void mem_push(void);
+unsigned char mem_append_log(unsigned char);
+static unsigned mem_write(unsigned short, unsigned char[], unsigned char);
+static unsigned char* mem_read(unsigned short, unsigned char);
+
+# 18 "include\menu.h"
+typedef struct
 {
 char *line1;
 char *line2;
-};
+}lcdEntry;
+
+
 
 typedef struct
 {
 const char *text;
-void (*function)(void);
+struct
+{
+const char *text;
+void (*function)(unsigned char);
+unsigned char *data;
+}entry[7];
+char numEntries;
 }menuEntry;
 
-typedef struct
-{
-void (*function)(void);
-}usbEntry;
 
 
 
-menuEntry menue[7][5];
-usbEntry usbe[85];
+menuEntry menu[7];
+lcdEntry *initializing = {"Master Mode Init.   ","Please Wait...      "};
 
-# 120
-void lightMenu()
-{
-lcd_menu(1);
-}
-void menu2()
-{
-
-menu1();
-}
-void menu_setup()
-{
-
-
-menue[0][0].text = "Exit M-Mode        ";
-menue[0][0].function = lcd_end;
-menue[0][1].text = "Light Settings     ";
-menue[0][1].function = lightMenu;
-usbe[0].function = lcd_end;
-}
+# 125
+void menu_setup();
+void menu_up();
+void menu_entery();
+static void menu_display();
 
 # 6 "src/hid.c"
 void hid_setup(void)
@@ -18998,33 +19011,24 @@ void hid_loop(void)
 
 switch (status.mmode)
 {
-case 0:
+
+case 0b01:
 break;
-case 1:
+case 0b10:
 break;
-case 2:
-break;
-case 3:
+case 0b11:
 break;
 }
 }
 void hid_execute(unsigned char command)
 {
-if(command < 150)
-{
 
-(menue[command][0]).function();
-}
-else
-{
-(usbe[command-150]).function();
-}
 }
 
 
 void lcd_begin(void)
 {
-if(status.mmode < 1) status.mmode = 1;
+if(status.mmode == 0) status.mmode = 1;
 else return;
 }
 void lcd_menu(unsigned char)
@@ -19041,19 +19045,14 @@ void lcd_usb(unsigned char)
 
 void lcd_end(void)
 {
-status.mmode = 0;
+
+if(status.mmode == 1) status.mmode = 0;
+else return;
 }
+
 
 
 void key_isr(void)
-{
-
-}
-void key_insertion(void)
-{
-
-}
-void key_removal(void)
 {
 
 }
@@ -19070,6 +19069,7 @@ void usb_insertion(void)
 void usb_removal(void)
 {
 
+# 98
 }
 void usb_begin(void)
 {

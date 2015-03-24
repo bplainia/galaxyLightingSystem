@@ -13,28 +13,33 @@
 #include <hid.h>
 #include <sensors.h>
 #include <string.h>
-
-typedef struct lcdEntry
-{
-    char *line1;
-    char *line2;
-};
-
-typedef struct
-{
-    const char *text; // twenty characters long plus \0
-    void (*function)(void);
-}menuEntry;
+#include <eeprom.h>
 
 typedef struct 
 {
-    void (*function)(void);
-}usbEntry;
+    char *line1;
+    char *line2;
+}lcdEntry;
+
+
+
+typedef struct
+{
+    const char *text; // Main Menu Entry
+    struct
+    {
+        const char *text; // Menu entry name
+        void (*function)(unsigned char); // function to call to execute command. The char is the pole number.
+        unsigned char *data;
+    }entry[7];
+    char numEntries;
+}menuEntry;
+
 
 /// menue: The menu entries for the LCD.
 /// Note that the 0th entry is the main menu.
-menuEntry menue[7][5];
-usbEntry usbe[85];
+menuEntry menu[7];
+lcdEntry *initializing  = {"Master Mode Init.   ","Please Wait...      "};
 
 /*! \page menu The LCD Menu System
  *
@@ -117,22 +122,7 @@ usbEntry usbe[85];
  */
 
 // Functions that are for the above menu entries.
-void lightMenu()
-{
-    lcd_menu(1);
-}
-void menu2()
-{
-   // light_toggle();
-    menu1();
-}
-void menu_setup()
-{
-    
-    /// Contains each entry for the menu. This is a constant.
-    menue[0][0].text = "Exit M-Mode        ";
-    menue[0][0].function = lcd_end; // calls lcd_end();
-    menue[0][1].text = "Light Settings     ";
-    menue[0][1].function = lightMenu;  // shows menu1
-    usbe[0].function = lcd_end;
-}
+void menu_setup();
+void menu_up();
+void menu_entery();
+static void menu_display();

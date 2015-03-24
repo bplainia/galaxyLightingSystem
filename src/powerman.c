@@ -3,7 +3,6 @@
  * May not even use at all.
  */
 
-
 #include <powerman.h>                         //PIC hardware mapping
 
 

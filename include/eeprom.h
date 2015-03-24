@@ -16,6 +16,11 @@
  RUNNING : everything is ok now
  */
 
+/// \todo TODO: Have default values setup on the first run.
+//from menu [ben]: I need the following variables:
+unsigned char setting_lightMode, setting_timeout, setting_hurricane;
+
+
 typedef enum errorCode {NONE=0,SPACEOVERRIDE=1,BATTERYLOW=2};
 
 // functions

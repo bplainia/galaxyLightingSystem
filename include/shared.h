@@ -11,6 +11,7 @@
 #define VERSION1 0
 #define VERSION2 0
 #define COMPANY "Patience, Inc."
+#define FIRMWARE_VERSION "Firmware Ver:"+VERSION1+"."+VERSION2
 
 /// Address for communicaiton between poles
 #define ADDRESS 0x05

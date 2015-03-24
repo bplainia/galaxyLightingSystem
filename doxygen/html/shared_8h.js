@@ -18,7 +18,6 @@ var shared_8h =
     [ "pwm_set", "shared_8h.html#a21be142dc679d03a74eb750444353c27", null ],
     [ "pwm_setup", "shared_8h.html#a2d1c3e7be837352ae08245dc9396e7e1", null ],
     [ "__pad0__", "shared_8h.html#adf71f3d8410c1f1dbbc96680a92c49af", null ],
-    [ "alarmInit", "shared_8h.html#a67a31f8cecf6847356940c27e04812cf", null ],
     [ "mmode", "shared_8h.html#ade5c47f4639380ed520dd5d0032d8a0e", null ],
     [ "rtcInit", "shared_8h.html#a11fd95187603059b4e22f79d5826d9ca", null ],
     [ "sleepable", "shared_8h.html#a5505527fe3012eba92853066bfdf1217", null ],

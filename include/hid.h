@@ -2,7 +2,7 @@
 #define HID_H
 
 // Variables
-   //none
+unsigned char masterState;
 
 // HID (keyboard, usb, and lcd) Functions
 void hid_setup(void); // setup the HID functions
