@@ -11,9 +11,6 @@ void hid_execute(unsigned char);  // execute a command (usb and lcd can call thi
 
 // LCD functions
 void lcd_begin(void);             // Welcome and setup screen for menu system
-void lcd_menu(unsigned char);     // display a menu item
-void lcd_execute(unsigned char, unsigned char);  // execute a menu item
-void lcd_usb(unsigned char);      // display USB connected. Press ? to disconnect.
 void lcd_end(void);               // exit out of menu and return to normal
 
 // Keypad functions

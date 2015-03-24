@@ -1,17 +1,10 @@
 #include <shared.h>
 #include <hid.h>
-#include <menu.h>
+#include <lcd.h>
 
 /// Sets up the Human Interface Periphrials (keyboard, usb, and lcd) and their pins.
 void hid_setup(void)
 {
-    // setup LCD pins: memory has already been started, so no need to setup
-    TRISD &= 0b01110000;        // set the three pins to be outputs
-    RPOR32_33bits.RPO32R = 0x9; // set RP32 to CCP5 for RED PWM
-    RPOR34_35bits.RPO34R = 0x9; // set RP34 to CCP6 for GRN PWM
-    RPOR36_37bits.RPO37R = 0x8; // set RP37 to CCP7 for BLU PWM
-
-    
     // setup keypad port
     SPBRGH3         = 0x00; //! \todo  TODO: initialize baud rate to 9600
     SPBRG3          = 0x00;
@@ -21,6 +14,9 @@ void hid_setup(void)
     RCSTA3bits.CREN = 1; // Enable
     RPINR4_5bits.U3RXR   = 0x7; // set USART3 to RP28 for input of keypad
 
+    // Setup LCD
+    lcd_setup();
+    
     // setup USB
     /// \todo TODO: Josh. Put your stuff to setup USB here.
 }
@@ -52,16 +48,6 @@ void lcd_begin(void)             // Welcome and setup screen for menu system
 {
     if(status.mmode == 0) status.mmode = 1; // Entered Maintenence Mode (LCD and Communications are now on)
     else return;
-}
-void lcd_menu(unsigned char)     // execute a menu item.
-{
-
-}
-
-/// display USB connected on lcd. Press the special key to disconnect.
-void lcd_usb(unsigned char)      
-{
-
 }
 
 /// display "exiting", then turn off the led, and exit maintainence mode

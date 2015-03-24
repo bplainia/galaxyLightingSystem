@@ -121,8 +121,15 @@ lcdEntry *initializing  = {"Master Mode Init.   ","Please Wait...      "};
  * Will go to beta as soon as it is implemented in the code.
  */
 
-// Functions that are for the above menu entries.
-void menu_setup();
+// Functions that are for the menu system.
 void menu_up();
-void menu_entery();
+void menu_next();
+void menu_prev();
+void menu_enter();
 static void menu_display();
+
+// Functions that are for the LCD
+void lcd_setup();
+void lcd_usb(unsigned char);      // display USB connected. Press ? to disconnect.
+void lcd_display(lcdEntry);
+void lcd_background(unsigned char,unsigned char,unsigned char);

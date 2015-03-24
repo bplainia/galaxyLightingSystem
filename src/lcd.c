@@ -2,7 +2,7 @@
  * Contains the functions for the menu items on the LCD.
  */
 
-#include <menu.h>
+#include <lcd.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -11,8 +11,14 @@ char mainMenuPtr = 0, subMenuPtr = 0;
 
 #define NUMMENUENTRIES 6
 /// \todo TODO: Make the menues into a Constant that resides in program memory.
-void menu_setup()
+void lcd_setup()
 {
+    // setup LCD pins: memory has already been started, so no need to setup
+    TRISD &= 0b01110000;        // set the three pins to be outputs
+    RPOR32_33bits.RPO32R = 0x9; // set RP32 to CCP5 for RED PWM
+    RPOR34_35bits.RPO34R = 0x9; // set RP34 to CCP6 for GRN PWM
+    RPOR36_37bits.RPO37R = 0x8; // set RP37 to CCP7 for BLU PWM
+
     /// \todo TODO: Add functions to the menues. this is for EVERYONE to do.
     /// Contains each entry for the menu. This is a constant.
     menu[0].text          = "Exit M-Mode        ";
@@ -80,6 +86,33 @@ void menu_setup()
     menu[6].numEntries = 7;
     // If you add another main menu entry, make sure to change NUMMENUENTRIES
 }
+
+/// display USB connected on lcd. Press the special key to disconnect.
+/// 
+void lcd_usb(unsigned char enable)      
+{
+    const lcdEntry screen = {"      USB Mode      ",
+                             "       Active       "};
+    const lcdEntry blank  = {"                    ",
+                             "                    "};
+                             
+    /// Set Color to Blue
+    lcd_background(0,0,255);
+    /// Then display USB Connected
+    lcd_display(screen)
+}
+
+void lcd_display(lcdEntry data)
+{
+
+}
+
+void lcd_background(unsigned char red, unsigned char green, unsigned char blue)
+{
+
+}
+
+// ************************ Menu Functions ******************************* //
 
 /// Change the pointer to which menu item we are displaying.
 void menu_up()
