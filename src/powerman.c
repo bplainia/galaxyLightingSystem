@@ -12,8 +12,8 @@ void power_intiate()
     INTOCONbits.GIE=1;
 
 
-    TRISAbits.TRISA4 = 0;   // RA4 set as output to relay
-    TRISAbits.TRISA5 = 1;   // battery input
+    PORTAbits.RA4 = 0;   // RA4 set as output to relay
+    PORTAbits.RA5 = 1;   // battery input
     ANSELbits.AN4=1;        //analog input is AN4
     LATAbits.RA4=0;         //output initially set to zero
     HLVDCON = 0b01110100;   //enables HLVD
@@ -27,11 +27,15 @@ void interrupt ipr()        //Power switch depending on battery level
 
 void power_grid_chk()      //Check for main grid power if battery is getting low.
 {
-    if()
+    if(HLVDIE)
+
+
+                            //
 }
 
 void power_batt_chk()       //Check for battery power before switching.
 {
+    if
 
 }
 

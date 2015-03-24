@@ -4,7 +4,7 @@
 
 /*! \brief setup motors
  */
-void movement_setup(void){
+void move_setup(void){
 
     // Define motor pins as outputs
     PINIO_MOVE_LEFTRIGHT_1 = 0;
@@ -27,12 +27,12 @@ void movement_setup(void){
 void limit_test(void){       
     move = move^0b00000001;
     /*!
-     * Move down all the way (rec: downlimit)
+     * Move up all the way (rec: uplimit)
      * Move right all the way (rec: eastlimit)
      * Move left all the way (rec: westlimit)
      * Move to the lr middle (eastlimit/2 + westlimit/2) (noon)
-     * Mov up all the way (uplimit)
-     * if photo_value(1) > cloudy
+     * Mov down all the way (downlimit)
+     * if photo_value(PHOTO_LEV) > cloudy
      *      season_adjust()
      *      daytime_move()
      * else
@@ -46,7 +46,9 @@ void limit_test(void){
  * --> Test values (global var) used to show if function was entered
  */
 void daytime_move(void){ 
-    move = move^0b00000010;
+
+//    if((adc(level) > cloudy) && ((adc(east)-adc(west) < ERR))
+        season_adjust();
 }
 
 /*! \brief Move back to the east for the next day
@@ -54,7 +56,9 @@ void daytime_move(void){
  * --> Test value (global var) used to show if function was entered
  */
 void dusk_moveback(void){      
-    move = move^0b00000100;
+    unsigned short year;
+    unsigned short east;
+    unsigned short west;
 }
 
 /*! \brief Adjust the panel (if needed) based on the season
@@ -64,7 +68,27 @@ void dusk_moveback(void){
  * --> Test value (global var) used to show if function was entered
  */
 void season_adjust(void){     // move up or down for seasonal shift and at intialization
-    move = move^0b00001000;
+//    if(adc(level) < cloudy)
+//        return;
+//
+//    unsigned short year;
+//    unsigned short east;
+//    unsigned short west;
+//    unsigned short err = ERR + 1;
+//
+//    while(err > ERR)
+//    {
+//        year = adc(year);
+//        east = adc(east);
+//        west = adc(west);
+//
+//        if((east/2 + west/2) > year)
+//            move(down);
+//        else
+//            move(up);
+//        err = (east/2 + west/2) - year;
+//    }
+//    move(stop);
 }
 
 /*! \brief Move as directed by maintenance panel
@@ -75,7 +99,7 @@ void season_adjust(void){     // move up or down for seasonal shift and at intia
  *
  * --> Test values (returns) used to show if function preformed was entered
  */
-void maintenance_move(unsigned char){    
+void maint_move(unsigned char mcomd){
     move = move^0b00010000;
 
     /*! Cases
@@ -86,7 +110,7 @@ void maintenance_move(unsigned char){
      *
      * hurricane = fixed horizantal
      *
-     * fixed = move to optimal position, day flat, year 30ish
+     * fixed = move to "optimal" position, day flat, year 30ish
      *
      * fixed seasonal = only move day to day
      *
