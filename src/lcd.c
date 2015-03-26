@@ -19,6 +19,11 @@ void lcd_setup()
     RPOR34_35bits.RPO34R = 0x9; // set RP34 to CCP6 for GRN PWM
     RPOR36_37bits.RPO37R = 0x8; // set RP37 to CCP7 for BLU PWM
 
+    // Now Let's Initialize the LCD
+    i2c_lcdInit(); // a special function that had to be made.
+
+
+
     /// \todo TODO: Add functions to the menues. this is for EVERYONE to do.
     /// Contains each entry for the menu. This is a constant.
     menu[0].text          = "Exit M-Mode        ";

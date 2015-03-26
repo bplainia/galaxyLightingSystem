@@ -60,6 +60,7 @@ unsigned pwm_set(unsigned char, unsigned char); // Set pin to duty cycle
 void i2c_setup(void); // Initialize the I2C pins
 unsigned i2c_tx(i2cPacket); // send data to address
 unsigned i2c_rx(i2cPacket*); // recieve data from address
+void i2c_lcdInit(void); // setup LCD screen
 static void i2c_start(unsigned); // transmit a start bit (0 if fist, 1 if repeated)
 static void i2c_stop(void); // transmit a stop bit
 static unsigned i2c_send(unsigned char); // private function to send a byte

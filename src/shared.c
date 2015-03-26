@@ -201,3 +201,24 @@ static unsigned char i2c_recv(unsigned ack)
     SSP1CON2bits.ACKEN = ack; // ACK
     SSP1CON2bits.ACKEN = 1; // Send the ACK bit
 }
+
+void i2c_lcdInit()
+{
+    // this is from the LCD's datasheet.
+    /// \todo TODO: What should I be doing with the R/W and RS bits?
+    i2c_start(); // send start bit
+    i2c_send(0x78);
+    __delay_ms(10);
+    i2c_send(0x38);
+    __delay_ms(10);
+    i2c_send(0x39);
+    i2c_send(0x14);
+    i2c_send(0x78);
+    i2c_send(0x5E);
+    i2c_send(0x6D);
+    i2c_send(0x0C);
+    i2c_send(0x01);
+    i2c_send(0x06);
+    __delay_ms(10);
+    i2c_stop();
+}
