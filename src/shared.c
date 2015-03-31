@@ -144,7 +144,6 @@ unsigned i2c_rx(i2cPacket *packet) // recieve data from address
     if(pack.reg16) i2c_send(pack.regh); // Address High Byte
     if(i2c_send(pack.regl)) return true; // Address Low Byte
     i2c_start(1); // exit write mode
-    i = 0;
     if(i2c_send(pack.addr | 0b00000001)) return true; // read mode at address
     do
     {
@@ -201,5 +200,25 @@ static unsigned char i2c_recv(unsigned ack)
     while(!SSP1IF) continue; // wait for recieving to finish
     SSP1CON2bits.ACKEN = ack; // ACK
     SSP1CON2bits.ACKEN = 1; // Send the ACK bit
-    return false;
+}
+
+void i2c_lcdInit()
+{
+    // this is from the LCD's datasheet.
+    /// \todo TODO: What should I be doing with the R/W and RS bits?
+    i2c_start(); // send start bit
+    i2c_send(0x78);
+    __delay_ms(10);
+    i2c_send(0x38);
+    __delay_ms(10);
+    i2c_send(0x39);
+    i2c_send(0x14);
+    i2c_send(0x78);
+    i2c_send(0x5E);
+    i2c_send(0x6D);
+    i2c_send(0x0C);
+    i2c_send(0x01);
+    i2c_send(0x06);
+    __delay_ms(10);
+    i2c_stop();
 }

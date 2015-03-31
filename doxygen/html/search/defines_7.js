@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['led_5fio',['LED_IO',['../light_8h.html#a5d7a28fdd4d7cde00f81fb8e47d0a798',1,'light.h']]],
-  ['led_5fout',['LED_OUT',['../light_8h.html#a916128c66228f04bfe04c69a5bc5a322',1,'light.h']]]
+  ['off',['OFF',['../light_8h.html#a29e413f6725b2ba32d165ffaa35b01e5',1,'light.h']]],
+  ['on',['ON',['../light_8h.html#ad76d1750a6cdeebd506bfcd6752554d2',1,'light.h']]]
 ];

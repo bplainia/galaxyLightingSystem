@@ -15,7 +15,6 @@ var searchData=
   ['light',['light',['../light_8h.html#a5afba49262f211583852aff8213e8d93',1,'light.h']]],
   ['light_2ec',['light.c',['../light_8c.html',1,'']]],
   ['light_2eh',['light.h',['../light_8h.html',1,'']]],
-  ['lightmenu',['lightMenu',['../menu_8h.html#a462e91432319c4842ea11f220e1e2f77',1,'menu.h']]],
   ['limit_5ftest',['limit_test',['../movement_8h.html#a9e3d487fc2cf3a8946fc4045ece08ca5',1,'limit_test(void):&#160;movement.c'],['../movement_8c.html#a9e3d487fc2cf3a8946fc4045ece08ca5',1,'limit_test(void):&#160;movement.c']]],
   ['line1',['line1',['../structlcd_entry.html#a6ca18c08bd9a82ac11906cd9dadc25b8',1,'lcdEntry']]],
   ['line2',['line2',['../structlcd_entry.html#ae9b48aae0f50eaf6f0927ac7c174ffb4',1,'lcdEntry']]],

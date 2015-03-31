@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['datetime',['datetime',['../structdatetime.html',1,'']]]
+  ['lcdentry',['lcdEntry',['../structlcd_entry.html',1,'']]]
 ];

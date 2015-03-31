@@ -14,7 +14,7 @@
       <itemPath>include/shared.h</itemPath>
       <itemPath>include/rtc.h</itemPath>
       <itemPath>include/light.h</itemPath>
-      <itemPath>include/menu.h</itemPath>
+      <itemPath>include/lcd.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -32,8 +32,8 @@
       <itemPath>src/sensors.c</itemPath>
       <itemPath>src/rtc.c</itemPath>
       <itemPath>src/shared.c</itemPath>
-      <itemPath>src/menu.c</itemPath>
       <itemPath>src/light.c</itemPath>
+      <itemPath>src/lcd.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -55,7 +55,7 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>PICkit3PlatformTool</platformTool>
         <languageToolchain>XC8</languageToolchain>
-        <languageToolchainVersion>1.34</languageToolchainVersion>
+        <languageToolchainVersion>1.33</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <compileType>

@@ -178,15 +178,13 @@ Variables</h2></td></tr>
 <tr class="memitem:a10815683d06f94a35baf0a3181bdf6df"><td class="memItemLeft" >struct {</td></tr>
 <tr class="memitem:a11fd95187603059b4e22f79d5826d9ca"><td class="memItemLeft" >&#160;&#160;&#160;unsigned&#160;&#160;&#160;<a class="el" href="shared_8h.html#a11fd95187603059b4e22f79d5826d9ca">rtcInit</a>: 1</td></tr>
 <tr class="separator:a11fd95187603059b4e22f79d5826d9ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a67a31f8cecf6847356940c27e04812cf"><td class="memItemLeft" >&#160;&#160;&#160;unsigned&#160;&#160;&#160;<a class="el" href="shared_8h.html#a67a31f8cecf6847356940c27e04812cf">alarmInit</a>: 1</td></tr>
-<tr class="separator:a67a31f8cecf6847356940c27e04812cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ade5c47f4639380ed520dd5d0032d8a0e"><td class="memItemLeft" >&#160;&#160;&#160;unsigned&#160;&#160;&#160;<a class="el" href="shared_8h.html#ade5c47f4639380ed520dd5d0032d8a0e">mmode</a>: 2</td></tr>
 <tr class="separator:ade5c47f4639380ed520dd5d0032d8a0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2ae520db1099ff9c7da192764d4e4790"><td class="memItemLeft" >&#160;&#160;&#160;unsigned&#160;&#160;&#160;<a class="el" href="shared_8h.html#a2ae520db1099ff9c7da192764d4e4790">state</a>: 2</td></tr>
 <tr class="separator:a2ae520db1099ff9c7da192764d4e4790"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5505527fe3012eba92853066bfdf1217"><td class="memItemLeft" >&#160;&#160;&#160;unsigned&#160;&#160;&#160;<a class="el" href="shared_8h.html#a5505527fe3012eba92853066bfdf1217">sleepable</a>: 1</td></tr>
 <tr class="separator:a5505527fe3012eba92853066bfdf1217"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adf71f3d8410c1f1dbbc96680a92c49af"><td class="memItemLeft" >&#160;&#160;&#160;unsigned&#160;&#160;&#160;<a class="el" href="shared_8h.html#adf71f3d8410c1f1dbbc96680a92c49af">__pad0__</a>: 1</td></tr>
+<tr class="memitem:adf71f3d8410c1f1dbbc96680a92c49af"><td class="memItemLeft" >&#160;&#160;&#160;unsigned&#160;&#160;&#160;<a class="el" href="shared_8h.html#adf71f3d8410c1f1dbbc96680a92c49af">__pad0__</a>: 2</td></tr>
 <tr class="separator:adf71f3d8410c1f1dbbc96680a92c49af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a10815683d06f94a35baf0a3181bdf6df"><td class="memItemLeft" valign="top">}&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="shared_8h.html#a10815683d06f94a35baf0a3181bdf6df">status</a></td></tr>
 <tr class="memdesc:a10815683d06f94a35baf0a3181bdf6df"><td class="mdescLeft">&#160;</td><td class="mdescRight">The first status byte - Includes the two state machine states, the rtc initialization state, and whether or not the loop will sleep at the end.  <a href="#a10815683d06f94a35baf0a3181bdf6df">More...</a><br /></td></tr>
@@ -311,7 +309,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Setup the ADC module. </p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000014">Todo:</a></b></dt><dd>TODO: Finish setting up ADC (clock, other) </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000011">Todo:</a></b></dt><dd>TODO: Finish setting up ADC (clock, other) </dd></dl>
 
 <p>Definition at line <a class="el" href="shared_8c_source.html#l00010">10</a> of file <a class="el" href="shared_8c_source.html">shared.c</a>.</p>
 
@@ -386,7 +384,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Update all the ADC buffers that are activated in <code><a class="el" href="shared_8c.html#af5e0a217880b6f6976ff1c2b1297f7a3" title="Setup the ADC module. ">adc_setup()</a></code>. </p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000015">Todo:</a></b></dt><dd>TODO: adcUpdateAll() needs finisheds </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000012">Todo:</a></b></dt><dd>TODO: adcUpdateAll() needs finisheds </dd></dl>
 
 <p>Definition at line <a class="el" href="shared_8c_source.html#l00058">58</a> of file <a class="el" href="shared_8c_source.html">shared.c</a>.</p>
 
@@ -430,7 +428,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Set up the i2c1 module. </p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000017">Todo:</a></b></dt><dd>FIXME: Check the baud rate generator or test it. Needs to be 100kHz. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000014">Todo:</a></b></dt><dd>FIXME: Check the baud rate generator or test it. Needs to be 100kHz. </dd></dl>
 
 <p>Definition at line <a class="el" href="shared_8c_source.html#l00093">93</a> of file <a class="el" href="shared_8c_source.html">shared.c</a>.</p>
 
@@ -508,7 +506,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Setup TMR2 for use by all the CCP modules. </p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000016">Todo:</a></b></dt><dd>TODO: Setup the timer for PWM </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000013">Todo:</a></b></dt><dd>TODO: Setup the timer for PWM </dd></dl>
 
 <p>Definition at line <a class="el" href="shared_8c_source.html#l00067">67</a> of file <a class="el" href="shared_8c_source.html">shared.c</a>.</p>
 
@@ -527,21 +525,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="shared_8h_source.html#l00035">35</a> of file <a class="el" href="shared_8h_source.html">shared.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a67a31f8cecf6847356940c27e04812cf"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">unsigned alarmInit</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="shared_8h_source.html#l00031">31</a> of file <a class="el" href="shared_8h_source.html">shared.h</a>.</p>
+<p>Definition at line <a class="el" href="shared_8h_source.html#l00034">34</a> of file <a class="el" href="shared_8h_source.html">shared.h</a>.</p>
 
 </div>
 </div>
@@ -555,7 +539,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="shared_8h_source.html#l00032">32</a> of file <a class="el" href="shared_8h_source.html">shared.h</a>.</p>
+<p>Definition at line <a class="el" href="shared_8h_source.html#l00031">31</a> of file <a class="el" href="shared_8h_source.html">shared.h</a>.</p>
 
 </div>
 </div>
@@ -583,7 +567,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="shared_8h_source.html#l00034">34</a> of file <a class="el" href="shared_8h_source.html">shared.h</a>.</p>
+<p>Definition at line <a class="el" href="shared_8h_source.html#l00033">33</a> of file <a class="el" href="shared_8h_source.html">shared.h</a>.</p>
 
 </div>
 </div>
@@ -597,7 +581,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="shared_8h_source.html#l00033">33</a> of file <a class="el" href="shared_8h_source.html">shared.h</a>.</p>
+<p>Definition at line <a class="el" href="shared_8h_source.html#l00032">32</a> of file <a class="el" href="shared_8h_source.html">shared.h</a>.</p>
 
 </div>
 </div>
@@ -613,7 +597,7 @@ Variables</h2></td></tr>
 
 <p>The first status byte - Includes the two state machine states, the rtc initialization state, and whether or not the loop will sleep at the end. </p>
 
-<p>Referenced by <a class="el" href="rtc_8c_source.html#l00165">alarm_enable()</a>, <a class="el" href="rtc_8c_source.html#l00061">alarm_set()</a>, <a class="el" href="hid_8c_source.html#l00029">hid_loop()</a>, <a class="el" href="hid_8c_source.html#l00060">lcd_begin()</a>, <a class="el" href="hid_8c_source.html#l00077">lcd_end()</a>, <a class="el" href="solar_light_8c_source.html#l00126">loop()</a>, <a class="el" href="rtc_8c_source.html#l00019">rtc_set()</a>, and <a class="el" href="rtc_8c_source.html#l00005">rtc_setup()</a>.</p>
+<p>Referenced by <a class="el" href="hid_8c_source.html#l00029">hid_loop()</a>, <a class="el" href="hid_8c_source.html#l00060">lcd_begin()</a>, <a class="el" href="hid_8c_source.html#l00077">lcd_end()</a>, <a class="el" href="solar_light_8c_source.html#l00126">loop()</a>, <a class="el" href="rtc_8c_source.html#l00019">rtc_set()</a>, and <a class="el" href="rtc_8c_source.html#l00005">rtc_setup()</a>.</p>
 
 </div>
 </div>
@@ -623,7 +607,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="shared_8h.html">shared.h</a></li>
-    <li class="footer">Generated on Wed Mar 18 2015 18:14:40 for Sr. Design 2015 by
+    <li class="footer">Generated on Thu Mar 5 2015 22:25:50 for Sr. Design 2015 by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.9.1 </li>
   </ul>

@@ -4,15 +4,6 @@ var NAVTREE =
     [ "Solar Light Index Page", "index.html", [
       [ "Introduction", "index.html#intro_sect", null ]
     ] ],
-    [ "The LCD Menu System", "menu.html", [
-      [ "The Basic Structure of the system", "menu.html#structure", null ],
-      [ "How to use the LCD Menu System", "menu.html#use", [
-        [ "The Main Menu", "menu.html#mainMenu", null ],
-        [ "The Submenues", "menu.html#subMenu", null ]
-      ] ],
-      [ "Colors on the LCD", "menu.html#color", null ],
-      [ "Version:", "menu.html#version", null ]
-    ] ],
     [ "Baud Rate for UARTs", "md__c_1__users__benjaminp__documents_pcc_current__e_l_450__patience_inc_firmware_doc_baudrates.html", [
       [ "Baud Rate selection", "md__c_1__users__benjaminp__documents_pcc_current__e_l_450__patience_inc_firmware_doc_baudrates.html#selection", null ]
     ] ],
@@ -36,7 +27,7 @@ var NAVTREE =
     [ "Files", null, [
       [ "File List", "files.html", "files" ],
       [ "Globals", "globals.html", [
-        [ "All", "globals.html", "globals_dup" ],
+        [ "All", "globals.html", null ],
         [ "Functions", "globals_func.html", null ],
         [ "Variables", "globals_vars.html", null ],
         [ "Enumerations", "globals_enum.html", null ],
@@ -50,7 +41,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"sensors_8h.html#aa6f73dedae5fd741be9fca2815bdd9cc"
+"shared_8h.html#ade5c47f4639380ed520dd5d0032d8a0e"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
