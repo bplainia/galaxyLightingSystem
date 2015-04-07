@@ -58,11 +58,15 @@ void pwm_setup(void); // Initialize TMR2 (you get to setup on your own)
 unsigned pwm_set(unsigned char, unsigned char); // Set pin to duty cycle
 
 void i2c_setup(void); // Initialize the I2C pins
-unsigned i2c_tx(i2cPacket); // send data to address
-unsigned i2c_rx(i2cPacket*); // recieve data from address
+unsigned i2c_tx(unsigned char, unsigned char, unsigned char, unsigned char, unsigned char*, unsigned short); // send data to address
+unsigned i2c_rx(unsigned char, unsigned char, unsigned char, unsigned char, unsigned char*, unsigned short); // recieve data from address
 void i2c_lcdInit(void); // setup LCD screen
-static void i2c_start(unsigned); // transmit a start bit (0 if fist, 1 if repeated)
+static void i2c_start(void); // transmit a start bit
+static void i2c_restart(void); // transmit a start bit again
 static void i2c_stop(void); // transmit a stop bit
+static void i2c_ack(void); // transmit ack bit
+static void i2c_nack(void); // transmit nack bit
+static void i2c_wait(void); // Check and wait to see if a i2c function is running
 static unsigned i2c_send(unsigned char); // private function to send a byte
 static unsigned char i2c_recv(unsigned); // private function to recieve a byte
 
