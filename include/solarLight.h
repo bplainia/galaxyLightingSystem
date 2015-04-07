@@ -6,6 +6,7 @@
 #include <communication.h>
 #include <eeprom.h>
 #include <hid.h>
+#include <lcd.h>
 #include <movement.h>
 #include <powerman.h>
 #include <rtc.h>

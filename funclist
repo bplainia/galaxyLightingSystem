@@ -1,18 +1,15 @@
-_loop: CODE, 3998 0 26
-_pwm_setup: CODE, 4100 0 8
-_adc_setup: CODE, 3936 0 34
-_i2c_setup: CODE, 4072 0 10
-_hid_loop: CODE, 3970 0 28
-__stringdata: SMALLCONST, 3585 0 40
-_led_setup: CODE, 4062 0 10
-_hid_setup: CODE, 3820 0 80
-_adc_updateAll: CODE, 4082 0 10
-_main: CODE, 4024 0 20
-_isr_low: CODE, 24 0 184
-__initialization: CODE, 3728 0 86
-_rtc_setup: CODE, 4092 0 8
-_mem_check: CODE, 4108 0 4
-_isr_high: CODE, 8 0 3720
-_setup: CODE, 3900 0 36
-_movement_setup: CODE, 4044 0 18
-Total: 4322
+_i2c_setup: CODE, 67526 0 10
+_i2c_start: CODE, 67490 0 24
+__stringdata: MEDIUMCONST, 64945 0 590
+_i2c_lcdInit: CODE, 66586 0 256
+_lcd_setup: CODE, 65536 0 728
+_hid_setup: CODE, 67412 0 44
+_lcd_display: CODE, 67056 0 180
+_main: CODE, 66264 0 322
+_isr_low: CODE, 24 0 188
+__initialization: CODE, 67338 0 68
+_isr_high: CODE, 8 0 67330
+_i2c_stop: CODE, 67514 0 12
+_i2c_send: CODE, 67456 0 34
+_i2c_tx: CODE, 66842 0 214
+Total: 70000

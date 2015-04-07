@@ -8,8 +8,8 @@ PIE2bits.HLVDIE=1;
 INTOCONbits.GIE=1;
 
 
-TRISAbits.TRISA4 = 0;
-TRISAbits.TRISA5 = 1;
+PORTAbits.RA4 = 0;
+PORTAbits.RA5 = 1;
 ANSELbits.AN4=1;
 LATAbits.RA4=0;
 HLVDCON = 0b01110100;
@@ -23,11 +23,15 @@ PORTAbits.RA4 = 1;
 
 void power_grid_chk()
 {
-if()
+if(HLVDIE)
+
+
+
 }
 
 void power_batt_chk()
 {
+if
 
 }
 

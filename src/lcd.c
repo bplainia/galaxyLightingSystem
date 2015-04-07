@@ -14,14 +14,13 @@ char mainMenuPtr = 0, subMenuPtr = 0;
 void lcd_setup()
 {
     // setup LCD pins: memory has already been started, so no need to setup
-    TRISD &= 0b01110000;        // set the three pins to be outputs
-    RPOR32_33bits.RPO32R = 0x9; // set RP32 to CCP5 for RED PWM
-    RPOR34_35bits.RPO34R = 0x9; // set RP34 to CCP6 for GRN PWM
-    RPOR36_37bits.RPO37R = 0x8; // set RP37 to CCP7 for BLU PWM
+    TRISEbits.TRISE6 = 0;
+    TRISEbits.TRISE5 = 0;
 
     // Now Let's Initialize the LCD
     i2c_lcdInit(); // a special function that had to be made.
-
+    lcd_display("Initializing        "," PIC               ");
+    /// \todo TODO: Remove "Initializing PIC" from the screen once it is done.
 
 
     /// \todo TODO: Add functions to the menues. this is for EVERYONE to do.
@@ -96,31 +95,63 @@ void lcd_setup()
 /// 
 void lcd_usb(unsigned char enable)      
 {
-    const lcdEntry screen = {"      USB Mode      ",
-                             "       Active       "};
-    const lcdEntry blank  = {"                    ",
-                             "                    "};
-                             
     /// Set Color to Blue
     lcd_background(0,0,255);
     /// Then display USB Connected
-    lcd_display(screen)
+    lcd_display("      USB Mode      ", "       Active       ");
 }
 
-void lcd_display(lcdEntry data)
+unsigned char lcd_display(char line1[21], char line2[21])
 {
+/*! # Research into the ST7036
+ * found a link (https://www.newhavendisplay.com/app_notes/NHD-C0220BiZ.txt)[https://www.newhavendisplay.com/app_notes/NHD-C0220BiZ.txt]
+ */
+    char firstLine = 0x80, secondLine = 0xC0;
+    unsigned char i;
 
+    // Write to the first line
+    if(line1 != NULL)
+    {
+        i2c_tx(0x78,0,0x00,0,&firstLine,1); // DDRAM address set to 0;
+        i = 0;
+        while(i <= 20) // find the null character in the string
+        {
+            if(line1[i] == '\0') break;
+            ++i;
+        }
+        i2c_tx(0x78,0,0x40,0,line1,i);
+    }
+
+    // write to the second line
+    if(line2 != NULL)
+    {
+        i2c_tx(0x78,0,0x00,0,&secondLine,1); // DDRAM address set to 0x40 - the second line.
+        i = 0;
+        while(i <= 20) // find the null character in the string
+        {
+            if(line2[i] == '\0') break;
+            ++i;
+        }
+        i2c_tx(0x78,0,0x40,0,line2,i);
+    }
+    return false;
 }
 
+/// Change the color of the LCD backlight
 void lcd_background(unsigned char red, unsigned char green, unsigned char blue)
 {
+    //static unsigned char oldred,oldgreen,oldblue;
 
+    /// \todo FIXME: Change channels to correct numbers
+    pwm_set(4,red);
+    pwm_set(5,green);
+    pwm_set(6,blue);
 }
 
 // ************************ Menu Functions ******************************* //
 
 /// Change the pointer to which menu item we are displaying.
-void menu_up()
+void menu_up(unsigned char none)
 {
     if(subMenuPtr >= 0)
     {
@@ -130,7 +161,7 @@ void menu_up()
 }
 
 /// Change the pointer to next number or come around. Called by the down button.
-void menu_next()
+void menu_next(unsigned char none)
 {
     if(subMenuPtr < 0) // if we are in a submenu
     {
@@ -150,7 +181,7 @@ void menu_next()
 }
 
 /// Go to the previous menu entry. Called by the up button.
-void menu_prev()
+void menu_prev(unsigned char none)
 {
     if(subMenuPtr < 0) // if we are in the main menu
     {
@@ -170,7 +201,7 @@ void menu_prev()
 }
 
 /// This function is run by pressing the enter key on the keypad.
-void menu_enter()
+void menu_enter(unsigned char none)
 {
     if(subMenuPtr < 0) // we are in the main screen
     {
@@ -178,33 +209,33 @@ void menu_enter()
     }
     else // otherwise we are in a submenu and should execute the entry's function.
     {
-        menu[mainMenuPtr].entry[subMenuPtr].function();
+        menu[mainMenuPtr].entry[subMenuPtr].function(0);
     }
 }
 
 // Generates a lcdEntry and displays it. This is the main function.
 static void menu_display()
 {
-    lcdEntry myScreen;
+    char *line1, *line2;
 
     if(subMenuPtr < 0) // we are in a main menu.
     {
-        myScreen.line1 = "     Main Menu      ";
-        myScreen.line2 = menu[mainMenuPtr].text;
+        line1 = "     Main Menu      ";
+        line2 = menu[mainMenuPtr].text;
     }
     else
     {
-        myScreen.line1 = menu[mainMenuPtr].text;
+        line1 = menu[mainMenuPtr].text;
         if(menu[mainMenuPtr].entry[subMenuPtr].data != NULL)
         {
-            myScreen.line2 = sprintf(menu[mainMenuPtr].entry[subMenuPtr].text,menu[mainMenuPtr].entry[subMenuPtr].data);
+            line2 = sprintf(menu[mainMenuPtr].entry[subMenuPtr].text,menu[mainMenuPtr].entry[subMenuPtr].data);
         }
         else
         {
-            myScreen.line2 = menu[subMenuPtr].text;
+            line2 = menu[subMenuPtr].text;
         }
     }
     
     // now display the screen on the lcd
-    /// \todo TODO: Display the generated screen on the LCD. (I2C)
+    lcd_display(line1,line2);
 }

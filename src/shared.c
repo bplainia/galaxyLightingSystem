@@ -75,11 +75,20 @@ void pwm_setup()
     // PWM Period = (PR2 + 1) * 4 * (1/<Primary Oscilator>) * <TMR2 Prescale>
     // Max Resolution = log_2 (Fosc/Fpwm)
     // Duty Cycle = (CCPR4L:CCP4CON<5:4>)*Tosc*Prescale
+
+    // LCD Backlight Channels
+
+    RPOR32_33bits.RPO32R = 0x9; // set RP32 to CCP5 for RED PWM
+    RPOR34_35bits.RPO34R = 0x9; // set RP34 to CCP6 for GRN PWM
+    RPOR36_37bits.RPO37R = 0x8; // set RP37 to CCP7 for BLU PWM
 }
 
 /*! \brief Sets a specific pwm channel to a certain duty cycle in %
  *
  *  Inputs: Channel - which PWM channel to use, duty - the duty cycle in percent.
+ *  Channels 1 and 2 are the motor drivers (using the 2 ECCP modules in full bridge mode)
+ *  Channel 3 is for the light (using normal CCP PWM module)
+ *  Channel 4,5,6 are for the LCD Backlight (Using PWM modules)
  *
  *  Outputs: A single bit specifying whether or not the command succeded (1 = success)
  *
@@ -114,7 +123,20 @@ unsigned i2c_tx(unsigned char addr, unsigned char reg16, unsigned char regl, uns
         i2c_send(data[i]);
     }
     i2c_stop(); // generate stop bit
+    /// \todo TODO: Get the ack bit and return that from the address at least.
     return false;
+}
+
+/*! \brief Checks to see if there is something at a certain address. Returns the acknowledge bit (0=ack)
+ *
+ * Inputs: The address of the device on the i2c bus
+ */
+unsigned i2c_check(unsigned char addr)
+{
+    i2c_start();
+    i2c_send(addr | 1); // We will use the read mode address and then stop.
+    i2c_stop();
+    return SSP1CON2bits.ACKSTAT;
 }
 
 /*! \brief Gets Data from a slave at a specific address. Returns a char array pointer.

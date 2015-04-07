@@ -15,14 +15,6 @@
 #include <string.h>
 #include <eeprom.h>
 
-typedef struct 
-{
-    char *line1;
-    char *line2;
-}lcdEntry;
-
-
-
 typedef struct
 {
     const char *text; // Main Menu Entry
@@ -39,7 +31,20 @@ typedef struct
 /// menue: The menu entries for the LCD.
 /// Note that the 0th entry is the main menu.
 menuEntry menu[7];
-lcdEntry *initializing  = {"Master Mode Init.   ","Please Wait...      "};
+//lcdEntry initializing  = {"Master Mode Init.   ","Please Wait...      "};
+
+// Functions that are for the menu system.
+void menu_up(unsigned char);
+void menu_next(unsigned char);
+void menu_prev(unsigned char);
+void menu_enter(unsigned char);
+static void menu_display();
+
+// Functions that are for the LCD
+void lcd_setup();
+void lcd_usb(unsigned char);      // display USB connected. Press ? to disconnect.
+unsigned char lcd_display(char[21],char[21]);
+void lcd_background(unsigned char,unsigned char,unsigned char); // change the background color (PWM). Does not need return since it is internal.
 
 /*! \page menu The LCD Menu System
  *
@@ -120,16 +125,3 @@ lcdEntry *initializing  = {"Master Mode Init.   ","Please Wait...      "};
  * This is version 1alpha. This was the first idea to be put onto paper/doxygen.
  * Will go to beta as soon as it is implemented in the code.
  */
-
-// Functions that are for the menu system.
-void menu_up();
-void menu_next();
-void menu_prev();
-void menu_enter();
-static void menu_display();
-
-// Functions that are for the LCD
-void lcd_setup();
-void lcd_usb(unsigned char);      // display USB connected. Press ? to disconnect.
-void lcd_display(lcdEntry);
-void lcd_background(unsigned char,unsigned char,unsigned char);

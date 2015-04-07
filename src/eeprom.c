@@ -5,7 +5,9 @@
 /// Check the memory. Certain things are checksumed.
 unsigned char mem_check()
 {
-    return false;
+    /// \todo TODO: check the POR, BOR, and VBATT bits to see where we returned from.
+    /// For now, this function merely checks to see if the EEPROM exists
+    return i2c_check(0x50); // 0 = it is there :)
 }
 
 /// Save special bytes that are in ram to eeprom.
@@ -27,6 +29,10 @@ void mem_push()
  * 0    | Everything was OK
  * 1    | No EEPROM or not responding
  * 2    | Not enough space left in LOG space
+ *
+ * \todo TODO: Finish log appending function
+ * \todo TODO: How should we store the date and time efficiently?
+ * \todo TODO: Add checksum for error checking of eeprom data
  */
 unsigned char mem_append_log(unsigned char err)
 {
@@ -37,31 +43,26 @@ unsigned char mem_append_log(unsigned char err)
 /*! \brief Write an array of bytes (Private)
  *
  * Inputs: `addr`: The 16-bit address of the starting location
- *         `data`: A pointer to an array of bytes
+ *         `data`: A pointer to an array of bytes that contains `length` number of bytes of data
  *         `length`: Number of bytes to write to EEPROM
  *
  * Outputs: A single bit specifying Success
  */
 static unsigned mem_write(unsigned short addr, unsigned char* data, unsigned char length)
 {
-    // Create packet
-
-
-    return 0; // default return is no error
+    return i2c_tx(0x50,1,addr & 0x00FF,addr >> 8,data,length);
 }
 
 /*! \brief Write an array of bytes (Private)
  *
- * Inputs: `addr`: The 16-bit address of the starting location; `length`: Number of bytes to read from EEPROM
+ * Inputs: `addr`: The 16-bit address of the starting location
+ *         `data`: A pointer to an array of bytes that you want to put the data in
+ *         `length`: Number of bytes to write to EEPROM
  *
  * Outputs: A array of data (`length` long). Will return the null pointer if there was an error.
  */
-static unsigned char* mem_read(unsigned short addr, unsigned char length)
+static unsigned mem_read(unsigned short addr, unsigned char *data, unsigned char length)
 {
     // Create packet and byte array for the i2c function to write to
-    unsigned char* data[50];
-    i2cPacket packet; //! \todo FIXME: need to do the address of eeprom and memory correctly
-    i2c_rx(&packet);
-
-    return 0; // default return is no error
+    return i2c_rx(0x50,1,addr & 0x00FF,addr >> 8,data,length);
 }

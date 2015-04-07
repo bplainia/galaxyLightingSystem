@@ -21,6 +21,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S1379 . . ]
 "25126
 [v _TRISDbits `VS1379 ~T0 @X0 0 e@3989 ]
+"43 include\movement.h
+[v _season_adjust `(v ~T0 @X0 0 ef ]
 [; ;htc.h: 21: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 24: extern void __builtin_software_breakpoint(void);
 [; ;pic18f67j94.h: 47: extern volatile unsigned char UEP0 @ 0xDFF;
@@ -14152,12 +14154,18 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;shared.h: 57: void pwm_setup(void);
 [; ;shared.h: 58: unsigned pwm_set(unsigned char, unsigned char);
 [; ;shared.h: 60: void i2c_setup(void);
-[; ;shared.h: 61: unsigned i2c_tx(i2cPacket);
-[; ;shared.h: 62: unsigned i2c_rx(i2cPacket*);
-[; ;shared.h: 63: static void i2c_start(unsigned);
-[; ;shared.h: 64: static void i2c_stop(void);
-[; ;shared.h: 65: static unsigned i2c_send(unsigned char);
-[; ;shared.h: 66: static unsigned char i2c_recv(unsigned);
+[; ;shared.h: 61: unsigned i2c_tx(unsigned char, unsigned char, unsigned char, unsigned char, unsigned char*, unsigned short);
+[; ;shared.h: 62: unsigned i2c_rx(unsigned char, unsigned char, unsigned char, unsigned char, unsigned char*, unsigned short);
+[; ;shared.h: 63: unsigned i2c_check(unsigned char);
+[; ;shared.h: 64: void i2c_lcdInit(void);
+[; ;shared.h: 65: static void i2c_start(void);
+[; ;shared.h: 66: static void i2c_restart(void);
+[; ;shared.h: 67: static void i2c_stop(void);
+[; ;shared.h: 68: static void i2c_ack(void);
+[; ;shared.h: 69: static void i2c_nack(void);
+[; ;shared.h: 70: static void i2c_wait(void);
+[; ;shared.h: 71: static unsigned i2c_send(unsigned char);
+[; ;shared.h: 72: static unsigned char i2c_recv(unsigned);
 [; ;communication.h: 17: void comm_start(void);
 [; ;communication.h: 18: void comm_flush(void);
 [; ;communication.h: 19: unsigned comm_go(void);
@@ -14189,11 +14197,37 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _rxPtrIn `uc ~T0 @X0 1 e ]
 [v _txPtrIn `uc ~T0 @X0 1 e ]
 [; ;communication.h: 37: unsigned char rxPtrOut, txPtrOut, rxPtrIn, txPtrIn;
-[; ;rtc.h: 15: void rtc_setup(void);
-[; ;rtc.h: 16: unsigned rtc_set(unsigned char, unsigned char, unsigned char, unsigned char,
-[; ;rtc.h: 17: unsigned char, unsigned char);
-[; ;rtc.h: 19: static unsigned char char2bcd(unsigned char);
-[; ;rtc.h: 20: static unsigned char weekday(unsigned char, unsigned char, unsigned char);
+[; ;rtc.h: 26: typedef struct
+[; ;rtc.h: 27: {
+[; ;rtc.h: 28: unsigned char year;
+[; ;rtc.h: 29: unsigned char month;
+[; ;rtc.h: 30: unsigned char weekday;
+[; ;rtc.h: 31: unsigned char weekofyear;
+[; ;rtc.h: 32: unsigned char day;
+[; ;rtc.h: 33: unsigned char hour;
+[; ;rtc.h: 34: unsigned char minute;
+[; ;rtc.h: 35: unsigned char second;
+[; ;rtc.h: 36: }datetime;
+[; ;rtc.h: 38: typedef struct
+[; ;rtc.h: 39: {
+[; ;rtc.h: 40: unsigned char month;
+[; ;rtc.h: 41: unsigned char day;
+[; ;rtc.h: 42: unsigned char hour;
+[; ;rtc.h: 43: unsigned char minute;
+[; ;rtc.h: 44: unsigned char second;
+[; ;rtc.h: 45: unsigned char times;
+[; ;rtc.h: 46: unsigned char frequency;
+[; ;rtc.h: 47: unsigned char repeat;
+[; ;rtc.h: 48: }alarmtime;
+[; ;rtc.h: 52: void rtc_setup(void);
+[; ;rtc.h: 53: unsigned rtc_set(datetime);
+[; ;rtc.h: 54: unsigned rtc_get(datetime*);
+[; ;rtc.h: 56: unsigned alarm_set(alarmtime);
+[; ;rtc.h: 57: unsigned alarm_enable();
+[; ;rtc.h: 58: unsigned alarm_disable();
+[; ;rtc.h: 60: static unsigned char char2bcd(unsigned char);
+[; ;rtc.h: 61: static unsigned char bcd2char(unsigned char);
+[; ;rtc.h: 62: static unsigned char weekday(unsigned char, unsigned char, unsigned char);
 "21 include\eeprom.h
 [v _setting_lightMode `uc ~T0 @X0 1 e ]
 [v _setting_timeout `uc ~T0 @X0 1 e ]
@@ -14204,7 +14238,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;eeprom.h: 28: void mem_push(void);
 [; ;eeprom.h: 29: unsigned char mem_append_log(unsigned char);
 [; ;eeprom.h: 30: static unsigned mem_write(unsigned short, unsigned char[], unsigned char);
-[; ;eeprom.h: 31: static unsigned char* mem_read(unsigned short, unsigned char);
+[; ;eeprom.h: 31: static unsigned mem_read(unsigned short, unsigned char*, unsigned char);
 "5 include\hid.h
 [v _masterState `uc ~T0 @X0 1 e ]
 [; ;hid.h: 5: unsigned char masterState;
@@ -14212,83 +14246,71 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;hid.h: 9: void hid_loop(void);
 [; ;hid.h: 10: void hid_execute(unsigned char);
 [; ;hid.h: 13: void lcd_begin(void);
-[; ;hid.h: 14: void lcd_menu(unsigned char);
-[; ;hid.h: 15: void lcd_execute(unsigned char, unsigned char);
-[; ;hid.h: 16: void lcd_usb(unsigned char);
-[; ;hid.h: 17: void lcd_end(void);
-[; ;hid.h: 20: void key_isr(void);
-[; ;hid.h: 21: void key_insertion(void);
-[; ;hid.h: 22: void key_removal(void);
-[; ;hid.h: 25: void usb_isr(void);
-[; ;hid.h: 26: void usb_insertion(void);
-[; ;hid.h: 27: void usb_removal(void);
-[; ;hid.h: 28: void usb_begin(void);
-[; ;hid.h: 29: void usb_oneStatus();
-[; ;hid.h: 30: void usb_myStatus();
-[; ;hid.h: 31: void usb_allStatus();
-[; ;hid.h: 32: void usb_end(void);
+[; ;hid.h: 14: void lcd_end(void);
+[; ;hid.h: 17: void key_isr(void);
+[; ;hid.h: 18: void key_insertion(void);
+[; ;hid.h: 19: void key_removal(void);
+[; ;hid.h: 22: void usb_isr(void);
+[; ;hid.h: 23: void usb_insertion(void);
+[; ;hid.h: 24: void usb_removal(void);
+[; ;hid.h: 25: void usb_begin(void);
+[; ;hid.h: 26: void usb_oneStatus();
+[; ;hid.h: 27: void usb_myStatus();
+[; ;hid.h: 28: void usb_allStatus();
+[; ;hid.h: 29: void usb_end(void);
 "7 include\sensors.h
 [v _duskLevel `ui ~T0 @X0 1 e ]
 [i _duskLevel
 -> -> 2000 `i `ui
 ]
 [; ;sensors.h: 7: unsigned int duskLevel = 2000;
-"10
-[v _pir `uc ~T0 @X0 1 e ]
-[i _pir
--> -> 2 `i `uc
-]
-[; ;sensors.h: 10: unsigned char pir = 2;
-[; ;sensors.h: 41: void sensor_start(void);
-[; ;sensors.h: 42: unsigned short photo_value(unsigned char);
-[; ;sensors.h: 43: char temperature(void);
-[; ;sensors.h: 44: unsigned short rotational_postion(unsigned char);
-[; ;sensors.h: 45: void pir_enable(unsigned char);
-[; ;solarLight.h: 16: void setup(void);
-[; ;solarLight.h: 17: void loop(void);
-[; ;solarLight.h: 18: void interrupt low_priority isr_low(void);
-[; ;solarLight.h: 19: void interrupt high_priority isr_high(void);
-"17 include\movement.h
+[; ;sensors.h: 74: void sensor_setup(void);
+[; ;sensors.h: 75: unsigned short photo_value(unsigned char);
+[; ;sensors.h: 76: char temperature(void);
+[; ;sensors.h: 77: unsigned short rotational_postion(unsigned char);
+[; ;sensors.h: 78: unsigned char pir(void);
+[; ;sensors.h: 79: void limits(void);
+"16 include\movement.h
 [v _leftlimit `ui ~T0 @X0 1 e ]
 [i _leftlimit
 -> -> 0 `i `ui
 ]
-[; ;movement.h: 17: unsigned int leftlimit = 0;
-"18
+[; ;movement.h: 16: unsigned int leftlimit = 0;
+"17
 [v _rightlimit `ui ~T0 @X0 1 e ]
 [i _rightlimit
 -> -> 0 `i `ui
 ]
-[; ;movement.h: 18: unsigned int rightlimit = 0;
-"19
+[; ;movement.h: 17: unsigned int rightlimit = 0;
+"18
 [v _uplimit `ui ~T0 @X0 1 e ]
 [i _uplimit
 -> -> 0 `i `ui
 ]
-[; ;movement.h: 19: unsigned int uplimit = 0;
-"20
+[; ;movement.h: 18: unsigned int uplimit = 0;
+"19
 [v _downlimit `ui ~T0 @X0 1 e ]
 [i _downlimit
 -> -> 0 `i `ui
 ]
-[; ;movement.h: 20: unsigned int downlimit = 0;
-"34
+[; ;movement.h: 19: unsigned int downlimit = 0;
+"35
 [v _move `uc ~T0 @X0 1 e ]
 [i _move
 -> -> 0 `i `uc
 ]
-[; ;movement.h: 34: unsigned char move = 0;
-[; ;movement.h: 38: void movement_setup(void);
-[; ;movement.h: 39: void limit_test(void);
-[; ;movement.h: 40: void daytime_move(void);
-[; ;movement.h: 41: void dusk_moveback(void);
-[; ;movement.h: 42: void season_adjust(void);
-[; ;movement.h: 43: void maintenance_move(unsigned char);
+[; ;movement.h: 35: unsigned char move = 0;
+[; ;movement.h: 39: void move_setup(void);
+[; ;movement.h: 40: void limit_test(void);
+[; ;movement.h: 41: void daytime_move(void);
+[; ;movement.h: 42: void dusk_moveback(void);
+[; ;movement.h: 43: void season_adjust(void);
+[; ;movement.h: 44: void maint_move(unsigned char);
 "7 src/movement.c
-[v _movement_setup `(v ~T0 @X0 1 ef ]
+[v _move_setup `(v ~T0 @X0 1 ef ]
 {
-[; ;movement.c: 7: void movement_setup(void){
-[e :U _movement_setup ]
+[; ;movement.c: 7: void move_setup(void){
+[e :U _move_setup ]
 [f ]
 [; ;movement.c: 10: TRISBbits.TRISB1 = 0;
 "10
@@ -14316,7 +14338,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = . . _TRISDbits 0 7 -> -> 0 `i `uc ]
 [; ;movement.c: 21: }
 "21
-[e :UE 1787 ]
+[e :UE 1789 ]
 }
 "27
 [v _limit_test `(v ~T0 @X0 1 ef ]
@@ -14329,7 +14351,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _move -> ^ -> _move `i -> 1 `i `uc ]
 [; ;movement.c: 42: }
 "42
-[e :UE 1788 ]
+[e :UE 1790 ]
 }
 "48
 [v _daytime_move `(v ~T0 @X0 1 ef ]
@@ -14337,50 +14359,53 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;movement.c: 48: void daytime_move(void){
 [e :U _daytime_move ]
 [f ]
-[; ;movement.c: 49: move = move^0b00000010;
-"49
-[e = _move -> ^ -> _move `i -> 2 `i `uc ]
-[; ;movement.c: 50: }
-"50
-[e :UE 1789 ]
-}
-"56
-[v _dusk_moveback `(v ~T0 @X0 1 ef ]
-{
-[; ;movement.c: 56: void dusk_moveback(void){
-[e :U _dusk_moveback ]
-[f ]
-[; ;movement.c: 57: move = move^0b00000100;
-"57
-[e = _move -> ^ -> _move `i -> 4 `i `uc ]
-[; ;movement.c: 58: }
-"58
-[e :UE 1790 ]
-}
-"66
-[v _season_adjust `(v ~T0 @X0 1 ef ]
-{
-[; ;movement.c: 66: void season_adjust(void){
-[e :U _season_adjust ]
-[f ]
-[; ;movement.c: 67: move = move^0b00001000;
-"67
-[e = _move -> ^ -> _move `i -> 8 `i `uc ]
-[; ;movement.c: 68: }
-"68
+[; ;movement.c: 51: season_adjust();
+"51
+[e ( _season_adjust ..  ]
+[; ;movement.c: 52: }
+"52
 [e :UE 1791 ]
 }
-"78
-[v _maintenance_move `(v ~T0 @X0 1 ef1`uc ]
+"58
+[v _dusk_moveback `(v ~T0 @X0 1 ef ]
 {
-[; ;movement.c: 78: void maintenance_move(unsigned char){
-[e :U _maintenance_move ]
-[v F15695 `uc ~T0 @X0 1 r1 ]
+[; ;movement.c: 58: void dusk_moveback(void){
+[e :U _dusk_moveback ]
 [f ]
-[; ;movement.c: 79: move = move^0b00010000;
-"79
-[e = _move -> ^ -> _move `i -> 16 `i `uc ]
-[; ;movement.c: 106: }
-"106
+"59
+[v _year `us ~T0 @X0 1 a ]
+"60
+[v _east `us ~T0 @X0 1 a ]
+"61
+[v _west `us ~T0 @X0 1 a ]
+[; ;movement.c: 59: unsigned short year;
+[; ;movement.c: 60: unsigned short east;
+[; ;movement.c: 61: unsigned short west;
+[; ;movement.c: 62: }
+"62
 [e :UE 1792 ]
+}
+"70
+[v _season_adjust `(v ~T0 @X0 1 ef ]
+{
+[; ;movement.c: 70: void season_adjust(void){
+[e :U _season_adjust ]
+[f ]
+[; ;movement.c: 92: }
+"92
+[e :UE 1793 ]
+}
+"102
+[v _maint_move `(v ~T0 @X0 1 ef1`uc ]
+{
+[; ;movement.c: 102: void maint_move(unsigned char mcomd){
+[e :U _maint_move ]
+[v _mcomd `uc ~T0 @X0 1 r1 ]
+[f ]
+[; ;movement.c: 103: move = move^0b00010000;
+"103
+[e = _move -> ^ -> _move `i -> 16 `i `uc ]
+[; ;movement.c: 130: }
+"130
+[e :UE 1794 ]
 }

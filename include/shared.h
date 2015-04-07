@@ -9,9 +9,9 @@
 #define	SHARED_H
 
 #define VERSION1 0
-#define VERSION2 0
+#define VERSION2 1
 #define COMPANY "Patience, Inc."
-#define FIRMWARE_VERSION "Firmware Ver:"+VERSION1+"."+VERSION2
+#define FIRMWARE_VERSION "Firmware Ver:" #VERSION1 "." #VERSION2
 
 /// Address for communicaiton between poles
 #define ADDRESS 0x05
@@ -60,6 +60,7 @@ unsigned pwm_set(unsigned char, unsigned char); // Set pin to duty cycle
 void i2c_setup(void); // Initialize the I2C pins
 unsigned i2c_tx(unsigned char, unsigned char, unsigned char, unsigned char, unsigned char*, unsigned short); // send data to address
 unsigned i2c_rx(unsigned char, unsigned char, unsigned char, unsigned char, unsigned char*, unsigned short); // recieve data from address
+unsigned i2c_check(unsigned char); // Check and address
 void i2c_lcdInit(void); // setup LCD screen
 static void i2c_start(void); // transmit a start bit
 static void i2c_restart(void); // transmit a start bit again
