@@ -66,7 +66,7 @@ void adc_updateAll()
 /// Setup TMR2 for use by all the CCP modules
 void pwm_setup() 
 {
-    // Initialize TMR2
+    CCPTMRS0bits.C1TSEL = 0b000;    // Initialize TMR2
     //! \todo  TODO: Setup the timer for PWM
     PR2   = 0XFF;       //
     T2CON = 0b00000111; // 1:16 prescaler from instruction = 750kHz
