@@ -128,7 +128,7 @@ unsigned int adc_read(unsigned char channel)
 /// Setup TMR2 for use by all the CCP modules
 void pwm_setup() 
 {
-    // Initialize TMR2
+    CCPTMRS0bits.C1TSEL = 0b000;    // Initialize TMR2
     //! \todo  TODO: Setup the timer for PWM
     PR2   = 0XFF;       //
     T2CON = 0b00000111; // 1:16 prescaler from instruction = 750kHz
@@ -137,26 +137,29 @@ void pwm_setup()
     // PWM Period = (PR2 + 1) * 4 * (1/<Primary Oscilator>) * <TMR2 Prescale>
     // Max Resolution = log_2 (Fosc/Fpwm)
     // Duty Cycle = (CCPR4L:CCP4CON<5:4>)*Tosc*Prescale
+
+    // LCD Backlight Channels
+
+    RPOR32_33bits.RPO32R = 0x9; // set RP32 to CCP5 for RED PWM
+    RPOR34_35bits.RPO34R = 0x9; // set RP34 to CCP6 for GRN PWM
+    RPOR36_37bits.RPO37R = 0x8; // set RP37 to CCP7 for BLU PWM
 }
 
 /*! \brief Sets a specific pwm channel to a certain duty cycle in %
  *
  *  Inputs: Channel - which PWM channel to use, duty - the duty cycle in percent.
+ *  Channels 1 and 2 are the motor drivers (using the 2 ECCP modules in full bridge mode)
+ *  Channel 3 is for the light (using normal CCP PWM module)
+ *  Channel 4,5,6 are for the LCD Backlight (Using PWM modules)
  *
  *  Outputs: A single bit specifying whether or not the command succeded (1 = success)
+ *
+ * \todo TODO: finish `pwm_set`
  */
 unsigned pwm_set(unsigned char channel, unsigned char duty) // Set pin to duty cycle
 {
 
     return true;
-}
-
-/// Set up the i2c1 module
-void i2c_setup() // Initialize the I2C pins
-{
-    SSP1CON1 = 0b00101000; // Enable MSSP in master i2c mode. Auto-configs the pins.
-    SSP1ADD  = 0x4B; // for 400kHz Clock at 48MHz primary clock.
-    //! \todo  FIXME: Check the baud rate generator or test it. Needs to be 100kHz.
 }
 
 /*! \brief Takes a packet and transmits it according to its contents. Returns true if successful.
@@ -169,24 +172,33 @@ void i2c_setup() // Initialize the I2C pins
  *  It then transmits `packet.dataLength` bytes from the `packet.data` array.
  *  If at any time a byte is not acknowleged, the function will return 0 (false). 
  */
-unsigned i2c_tx(i2cPacket packet)
+unsigned i2c_tx(unsigned char addr, unsigned char reg16, unsigned char regl, unsigned char regh, unsigned char *data, unsigned short dataLength)
 {
-
-    unsigned char i;
-    i2c_start(0);
-    i2c_send(packet.addr & 0b11111110); // write mode; address
-    for(i = 0; i < packet.dataLength; ++i)
+    unsigned short i;
+    if(dataLength == 0) return true; // Do nothing if there is a zero data length.
+    i2c_start();
+    i2c_send(addr & 0b11111110); // write mode; address
+    if(reg16 > 0) i2c_send(regh); // Address High Byte
+    i2c_send(regl); // Address Low Byte
+    for(i = 0; i < dataLength; ++i)
     {
-        SSP1BUF = packet.data[i];
-        while(!SSP1IF) continue;
-        if(SSP1CON2bits.ACKDT)
-        {
-            return false; // NO-ACK = slave did not get data
-        }
-        // check ack bit and flag again
+        i2c_send(data[i]);
     }
     i2c_stop(); // generate stop bit
+    /// \todo TODO: Get the ack bit and return that from the address at least.
     return false;
+}
+
+/*! \brief Checks to see if there is something at a certain address. Returns the acknowledge bit (0=ack)
+ *
+ * Inputs: The address of the device on the i2c bus
+ */
+unsigned i2c_check(unsigned char addr)
+{
+    i2c_start();
+    i2c_send(addr | 1); // We will use the read mode address and then stop.
+    i2c_stop();
+    return SSP1CON2bits.ACKSTAT;
 }
 
 /*! \brief Gets Data from a slave at a specific address. Returns a char array pointer.
@@ -194,62 +206,83 @@ unsigned i2c_tx(i2cPacket packet)
  * Inputs: `packet`: A packet consisting of an address, a number for quantity, and an array to fill with the quantity.
  * Outputs: None formally. Modifies the `data` portion of the packet pointer that was given.
  */
-unsigned i2c_rx(i2cPacket *packet) // recieve data from address
+unsigned i2c_rx(unsigned char addr, unsigned char reg16, unsigned char regl, unsigned char regh, unsigned char *data, unsigned short dataLength) // recieve data from address
 {
-    #define pack (*packet) // macro to make coding easer since we call it a lot
     unsigned char i;
-    if(pack.dataLength == 0) return true; // Do nothing if there is a zero data length.
+    if(dataLength == 0) return true; // Do nothing if there is a zero data length.
     
     // write address
-    i2c_start(0);
-    if(i2c_send(pack.addr & 0b11111110)) return true; // write mode at address
-    if(pack.reg16) i2c_send(pack.regh); // Address High Byte
-    if(i2c_send(pack.regl)) return true; // Address Low Byte
-    i2c_start(1); // exit write mode
-    if(i2c_send(pack.addr | 0b00000001)) return true; // read mode at address
+    i2c_start();
+    i2c_send(addr & 0b11111110); // write mode at address
+    if(reg16) i2c_send(regh); // Address High Byte
+    i2c_send(regl); // Address Low Byte
+    i2c_restart(); // exit write mode
+    i2c_send(addr | 0b00000001); // read mode at address
     do
     {
-        pack.data[i] = i2c_recv(0); // Ack
+        data[i] = i2c_recv(0); // Ack
     }
-    while (++i < pack.dataLength);
-    pack.data[i] = i2c_recv(1); // NOAck
+    while (++i < dataLength);
+    data[i] = i2c_recv(1); // NOAck
     i2c_stop();
     return false;
 }
 
-//! \brief Transmit a start bit on the i2c bus
-static void i2c_start(unsigned repeat)
+/// Set up the i2c1 module
+void i2c_setup() // Initialize the I2C pins
 {
-    SSP1IF = 0;
-    if (repeat) SSP1CON2bits.RSEN = 1; // do a repeat start bit.
-    else SSP1CON2bits.SEN = 1; // do a start bit.
-    while(!SSP1IF) continue; // Wait until SSP1IF is set
-    SSP1IF = 0;
+    SSP1CON1 = 0b00101000; // Enable MSSP in master i2c mode. Auto-configs the pins.
+    SSP1ADD  = 0x9F; // for 100kHz Clock at 64MHz primary clock.
+}
 
-    // check the acknowledge bit
-    //if(SSP1CON2bits.ack bit 6);
-    // check SSP1IF again to see if it is done
+//! \brief Transmit a start bit on the i2c bus
+static void i2c_start()
+{
+        SSP1CON2bits.SEN = 1; // do a start bit.
+        while(SSP1CON2bits.SEN) continue; // Wait until SSP1IF is set
+}
+static void i2c_restart()
+{
+    SSP1CON2bits.RSEN = 1; // do a repeat start bit.
+    while(SSP1CON2bits.RSEN) continue;
 }
 
 //! \brief Transmit a stop bit on the i2c bus
 static void i2c_stop()
 {
-    SSP1IF = 0;
     SSP1CON2bits.PEN = 1;
-    while(!SSP1IF) continue;
-    SSP1IF = 0;
+    while(SSP1CON2bits.PEN) continue;
+}
+
+static void i2c_ack()
+{
+    SSP1CON2bits.ACKDT = 0;
+    SSP1CON2bits.ACKEN = 1;
+    while(SSP1CON2bits.ACKEN) continue;
+}
+
+static void i2c_nack()
+{
+    SSP1CON2bits.ACKDT = 1;
+    SSP1CON2bits.ACKEN = 1;
+    while(SSP1CON2bits.ACKEN) continue;
+}
+
+static void i2c_wait()
+{
+	while ((SSP1CON2 & 0x1F ) || ( SSP1STAT & 0x04 ) );
 }
 
 /*! \brief Transmit a specific byte onto I2C (Private function)
- * 
- * Inputs: a byte to send. 
+ *
+ * Inputs: a byte to send.
  * Outputs: the ack bit or lack therof.
  */
 static unsigned i2c_send(unsigned char byte)
 {
-    SSP1IF = 0; // make sure the flag is clear
     SSP1BUF = byte; // begin transmitting the byte
-    while(!SSP1IF) continue; // wait for transmission to finish
+    while(SSP1STATbits.BF) continue; // wait for transmission to finish
+    i2c_wait();
     return (SSP1CON2bits.ACKDT || SSP1CON2bits.ACKSTAT); // if not acknoleged or got NO-ACK
 }
 
@@ -257,30 +290,42 @@ static unsigned i2c_send(unsigned char byte)
  */
 static unsigned char i2c_recv(unsigned ack)
 {
-    SSP1IF = 0;
     SSP1CON2bits.RCEN = 1; // Enable recieve of bits.
-    while(!SSP1IF) continue; // wait for recieving to finish
-    SSP1CON2bits.ACKEN = ack; // ACK
-    SSP1CON2bits.ACKEN = 1; // Send the ACK bit
+    while(!SSP1STATbits.BF) continue; // wait for recieving to finish
+    if(ack == 1) i2c_ack();
+    else i2c_nack();
+    i2c_wait();
+    return SSP1BUF;
 }
 
 void i2c_lcdInit()
 {
     // this is from the LCD's datasheet.
-    /// \todo TODO: What should I be doing with the R/W and RS bits?
-    i2c_start(); // send start bit
-    i2c_send(0x78);
+    // What should I be doing with the R/W and RS bits?
+    // Answer: These are virtual, but they should both be 0.
+    i2c_start(); // send first and only start bit
+    if(i2c_send(0x78) || i2c_send(0x00)) // Address and is a command
+    {
+        __delay_ms(10);
+        return;
+    }
     __delay_ms(10);
-    i2c_send(0x38);
+
+    if(i2c_send(0x38)) // second byte: N, DH, IS2, IS1
+    {
+        __delay_ms(10);
+        return;
+    }
     __delay_ms(10);
-    i2c_send(0x39);
-    i2c_send(0x14);
-    i2c_send(0x78);
-    i2c_send(0x5E);
-    i2c_send(0x6D);
-    i2c_send(0x0C);
-    i2c_send(0x01);
-    i2c_send(0x06);
+
+    if(i2c_send(0x39) | i2c_send(0x14) | i2c_send(0x78) | i2c_send(0x5E) |
+            i2c_send(0x6D) |  i2c_send(0x0C) |  i2c_send(0x01) | i2c_send(0x06))
+        // function set again, bias set, contrast set, power/icon/contrast control, follower control, display of/off control.
+    {
+        __delay_ms(10);
+        return;
+    }
     __delay_ms(10);
     i2c_stop();
+    return;
 }

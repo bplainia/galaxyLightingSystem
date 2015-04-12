@@ -18844,10 +18844,16 @@ void pwm_setup(void);
 unsigned pwm_set(unsigned char, unsigned char);
 
 void i2c_setup(void);
-unsigned i2c_tx(i2cPacket);
-unsigned i2c_rx(i2cPacket*);
-static void i2c_start(unsigned);
+unsigned i2c_tx(unsigned char, unsigned char, unsigned char, unsigned char, unsigned char*, unsigned short);
+unsigned i2c_rx(unsigned char, unsigned char, unsigned char, unsigned char, unsigned char*, unsigned short);
+unsigned i2c_check(unsigned char);
+void i2c_lcdInit(void);
+static void i2c_start(void);
+static void i2c_restart(void);
 static void i2c_stop(void);
+static void i2c_ack(void);
+static void i2c_nack(void);
+static void i2c_wait(void);
 static unsigned i2c_send(unsigned char);
 static unsigned char i2c_recv(unsigned);
 

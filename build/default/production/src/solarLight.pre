@@ -18912,10 +18912,16 @@ void pwm_setup(void);
 unsigned pwm_set(unsigned char, unsigned char);
 
 void i2c_setup(void);
-unsigned i2c_tx(i2cPacket);
-unsigned i2c_rx(i2cPacket*);
-static void i2c_start(unsigned);
+unsigned i2c_tx(unsigned char, unsigned char, unsigned char, unsigned char, unsigned char*, unsigned short);
+unsigned i2c_rx(unsigned char, unsigned char, unsigned char, unsigned char, unsigned char*, unsigned short);
+unsigned i2c_check(unsigned char);
+void i2c_lcdInit(void);
+static void i2c_start(void);
+static void i2c_restart(void);
 static void i2c_stop(void);
+static void i2c_ack(void);
+static void i2c_nack(void);
+static void i2c_wait(void);
 static unsigned i2c_send(unsigned char);
 static unsigned char i2c_recv(unsigned);
 
@@ -18942,12 +18948,43 @@ unsigned char rxBuff[128];
 unsigned char txBuff[32];
 unsigned char rxPtrOut, txPtrOut, rxPtrIn, txPtrIn;
 
-# 15 "include\rtc.h"
+# 26 "include\rtc.h"
+typedef struct
+{
+unsigned char year;
+unsigned char month;
+unsigned char weekday;
+unsigned char weekofyear;
+unsigned char day;
+unsigned char hour;
+unsigned char minute;
+unsigned char second;
+}datetime;
+
+typedef struct
+{
+unsigned char month;
+unsigned char day;
+unsigned char hour;
+unsigned char minute;
+unsigned char second;
+unsigned char times;
+unsigned char frequency;
+unsigned char repeat;
+}alarmtime;
+
+
+
 void rtc_setup(void);
-unsigned rtc_set(unsigned char, unsigned char, unsigned char, unsigned char,
-unsigned char, unsigned char);
+unsigned rtc_set(datetime);
+unsigned rtc_get(datetime*);
+
+unsigned alarm_set(alarmtime);
+unsigned alarm_enable();
+unsigned alarm_disable();
 
 static unsigned char char2bcd(unsigned char);
+static unsigned char bcd2char(unsigned char);
 static unsigned char weekday(unsigned char, unsigned char, unsigned char);
 
 # 21 "include\eeprom.h"
@@ -18961,7 +18998,7 @@ unsigned char mem_check(void);
 void mem_push(void);
 unsigned char mem_append_log(unsigned char);
 static unsigned mem_write(unsigned short, unsigned char[], unsigned char);
-static unsigned char* mem_read(unsigned short, unsigned char);
+static unsigned mem_read(unsigned short, unsigned char*, unsigned char);
 
 # 5 "include\hid.h"
 unsigned char masterState;
@@ -18973,9 +19010,6 @@ void hid_execute(unsigned char);
 
 
 void lcd_begin(void);
-void lcd_menu(unsigned char);
-void lcd_execute(unsigned char, unsigned char);
-void lcd_usb(unsigned char);
 void lcd_end(void);
 
 
@@ -18996,41 +19030,105 @@ void usb_end(void);
 # 7 "include\sensors.h"
 unsigned int duskLevel = 2000;
 
-
-unsigned char pir = 2;
-
-# 41
-void sensor_start(void);
+# 74
+void sensor_setup(void);
 unsigned short photo_value(unsigned char);
 char temperature(void);
 unsigned short rotational_postion(unsigned char);
-void pir_enable(unsigned char);
+unsigned char pir(void);
+void limits(void);
 
-# 17 "include\movement.h"
+# 22 "C:\Program Files (x86)\Microchip\xc8\v1.33\include\string.h"
+extern void * memcpy(void *, const void *, size_t);
+extern void * memmove(void *, const void *, size_t);
+extern void * memset(void *, int, size_t);
+
+# 42
+extern char * strcat(char *, const char *);
+extern char * strcpy(char *, const char *);
+extern char * strncat(char *, const char *, size_t);
+extern char * strncpy(char *, const char *, size_t);
+extern char * strdup(const char *);
+extern char * strtok(char *, const char *);
+
+
+extern int memcmp(const void *, const void *, size_t);
+extern int strcmp(const char *, const char *);
+extern int stricmp(const char *, const char *);
+extern int strncmp(const char *, const char *, size_t);
+extern int strnicmp(const char *, const char *, size_t);
+extern void * memchr(const void *, int, size_t);
+extern size_t strcspn(const char *, const char *);
+extern char * strpbrk(const char *, const char *);
+extern size_t strspn(const char *, const char *);
+extern char * strstr(const char *, const char *);
+extern char * stristr(const char *, const char *);
+extern char * strerror(int);
+extern size_t strlen(const char *);
+extern char * strchr(const char *, int);
+extern char * strichr(const char *, int);
+extern char * strrchr(const char *, int);
+extern char * strrichr(const char *, int);
+
+# 18 "include\lcd.h"
+typedef struct
+{
+const char *text;
+struct
+{
+const char *text;
+void (*function)(unsigned char);
+unsigned char *data;
+}entry[7];
+char numEntries;
+}menuEntry;
+
+
+
+
+menuEntry menu[7];
+
+
+
+void menu_up(unsigned char);
+void menu_next(unsigned char);
+void menu_prev(unsigned char);
+void menu_enter(unsigned char);
+static void menu_display();
+
+
+void lcd_setup();
+void lcd_usb(unsigned char);
+unsigned char lcd_display(char[21],char[21]);
+void lcd_background(unsigned char,unsigned char,unsigned char);
+
+# 16 "include\movement.h"
 unsigned int leftlimit = 0;
 unsigned int rightlimit = 0;
 unsigned int uplimit = 0;
 unsigned int downlimit = 0;
 
-# 34
+# 35
 unsigned char move = 0;
 
 
 
-void movement_setup(void);
+void move_setup(void);
 void limit_test(void);
 void daytime_move(void);
 void dusk_moveback(void);
 void season_adjust(void);
-void maintenance_move(unsigned char);
+void maint_move(unsigned char);
 
-# 16 "include\solarLight.h"
+# 22 "include\solarLight.h"
 void setup(void);
 void loop(void);
 void interrupt low_priority isr_low(void);
 void interrupt high_priority isr_high(void);
+void led_setup(void);
+void led(unsigned char);
 
-# 89 "src/solarLight.c"
+# 90 "src/solarLight.c"
 void main(void)
 {
 
@@ -19056,17 +19154,26 @@ unsigned char memStatus;
 i2c_setup();
 
 memStatus = mem_check();
-pwm_setup();
-adc_setup();
-movement_setup();
-led_setup();
-hid_setup();
+if(memStatus & 0b00000001)
+{
 rtc_setup();
 }
+hid_setup();
+pwm_setup();
+adc_setup();
+move_setup();
+led_setup();
+sensor_setup();
+if(memStatus & 0b00001111)
+{
+limit_test();
+}
+}
 
-# 126
+# 135
 void loop()
 {
+
 
 
 
@@ -19074,8 +19181,12 @@ adc_updateAll();
 switch(status.state)
 {
 case 1:
+daytime_move();
+led(0);
 break;
 case 2:
+led(1);
+pir();
 break;
 case 3:
 
@@ -19096,7 +19207,7 @@ else if(status.state == 2)
 
 }
 
-# 166
+# 180
 void interrupt low_priority isr_low()
 {
 if(TX1IE && TX1IF)
@@ -19114,8 +19225,31 @@ if(RC1IE && RC1IF)
 }
 }
 
-# 190
+# 204
 void interrupt high_priority isr_high()
 {
 ;
+}
+
+void led_setup(void)
+{
+TRISCbits.TRISC7 = 0;
+}
+
+void led(unsigned char state)
+{
+switch(state)
+{
+case 0:
+PORTCbits.RC7 = 1;
+break;
+case 1:
+PORTCbits.RC7 = 0;
+break;
+case 2:
+
+break;
+default:
+;
+}
 }
