@@ -1,5 +1,5 @@
 
-# 1 "src/solarLight.c"
+# 1 "src/light.c"
 
 # 21 "C:\Program Files (x86)\Microchip\xc8\v1.33\include\htc.h"
 extern const char __xc8_OPTIM_SPEED;
@@ -18812,74 +18812,6 @@ extern __nonreentrant void _delaywdt(unsigned long);
 #pragma intrinsic(_delay3)
 extern __nonreentrant void _delay3(unsigned char);
 
-
-# 19 "src/solarLight.c"
-#pragma config STVREN = OFF
-#pragma config XINST = OFF
-
-
-#pragma config BOREN = ON
-#pragma config BORV = 0
-#pragma config CP0 = OFF
-
-
-#pragma config FOSC = PRIPLL
-#pragma config SOSCSEL = LOW
-#pragma config CLKOEN = OFF
-#pragma config IESO = ON
-
-
-#pragma config PLLDIV = DIV4
-
-
-#pragma config POSCMD = HS
-#pragma config FSCM = CSECME
-
-
-
-
-#pragma config WPFP = WPFP255
-
-
-#pragma config WPDIS = WPDIS
-#pragma config WPEND = WPENDMEM
-#pragma config WPCFG = WPCFGDIS
-
-
-#pragma config T5GSEL = T5G
-#pragma config CINASEL = DEFAULT
-
-
-#pragma config IOL1WAY = OFF
-#pragma config LS48MHZ = SYSX2
-#pragma config MSSPMSK2 = MSK7
-#pragma config MSSPMSK1 = MSK7
-
-
-#pragma config WDTWIN = PS25_0
-#pragma config WDTCLK = SOSC
-#pragma config WDTPS = 32768
-
-
-#pragma config WDTEN = OFF
-#pragma config WINDIS = WDTSTD
-#pragma config WPSA = 128
-
-
-#pragma config RETEN = ON
-#pragma config VBTBOR = ON
-#pragma config DSBOREN = ON
-#pragma config DSBITEN = ON
-
-
-
-
-#pragma config DSWDTPS = DSWDTPS1A
-
-
-#pragma config DSWDTEN = ON
-#pragma config DSWDTOSC = SOSC
-
 # 30 "include\shared.h"
 struct {
 unsigned rtcInit : 1;
@@ -18925,331 +18857,50 @@ static void i2c_wait(void);
 static unsigned i2c_send(unsigned char);
 static unsigned char i2c_recv(unsigned);
 
-# 17 "include\communication.h"
-void comm_start(void);
-void comm_flush(void);
-unsigned comm_go(void);
-unsigned comm_tx(unsigned char);
-unsigned char comm_rx(void);
-unsigned short comm_rx_word(void);
-
-
-char comm_overflow;
-struct comstat_t
-{
-unsigned TOKEN : 1;
-unsigned TXOVER : 1;
-unsigned RXOVER : 1;
-unsigned TERROR : 1;
-unsigned : 4;
-}COMSTAT;
-
-unsigned char rxBuff[128];
-unsigned char txBuff[32];
-unsigned char rxPtrOut, txPtrOut, rxPtrIn, txPtrIn;
-
-# 26 "include\rtc.h"
-typedef struct
-{
-unsigned char year;
-unsigned char month;
-unsigned char weekday;
-unsigned char weekofyear;
-unsigned char day;
-unsigned char hour;
-unsigned char minute;
-unsigned char second;
-}datetime;
-
-typedef struct
-{
-unsigned char month;
-unsigned char day;
-unsigned char hour;
-unsigned char minute;
-unsigned char second;
-unsigned char times;
-unsigned char frequency;
-unsigned char repeat;
-}alarmtime;
+# 19 "include\light.h"
+unsigned char light = 0;
 
 
 
-void rtc_setup(void);
-unsigned rtc_set(datetime);
-unsigned rtc_get(datetime*);
-
-unsigned alarm_set(alarmtime);
-unsigned alarm_enable();
-unsigned alarm_disable();
-
-static unsigned char char2bcd(unsigned char);
-static unsigned char bcd2char(unsigned char);
-static unsigned char weekday(unsigned char, unsigned char, unsigned char);
-
-# 21 "include\eeprom.h"
-unsigned char setting_lightMode, setting_timeout, setting_hurricane;
-
-
-typedef enum errorCode {NONE=0,SPACEOVERRIDE=1,BATTERYLOW=2};
-
-
-unsigned char mem_check(void);
-void mem_push(void);
-unsigned char mem_append_log(unsigned char);
-static unsigned mem_write(unsigned short, unsigned char[], unsigned char);
-static unsigned mem_read(unsigned short, unsigned char*, unsigned char);
-
-# 5 "include\hid.h"
-unsigned char masterState;
-
-
-void hid_setup(void);
-void hid_loop(void);
-void hid_execute(unsigned char);
-
-
-void lcd_begin(void);
-void lcd_end(void);
-
-
-void key_isr(void);
-void key_insertion(void);
-void key_removal(void);
-
-
-void usb_isr(void);
-void usb_insertion(void);
-void usb_removal(void);
-void usb_begin(void);
-void usb_oneStatus();
-void usb_myStatus();
-void usb_allStatus();
-void usb_end(void);
-
-# 7 "include\sensors.h"
-unsigned int duskLevel = 2000;
-
-# 74
-void sensor_setup(void);
-unsigned short photo_value(unsigned char);
-char temperature(void);
-unsigned short rotational_postion(unsigned char);
-unsigned char pir(void);
-void limits(void);
-
-# 22 "C:\Program Files (x86)\Microchip\xc8\v1.33\include\string.h"
-extern void * memcpy(void *, const void *, size_t);
-extern void * memmove(void *, const void *, size_t);
-extern void * memset(void *, int, size_t);
-
-# 42
-extern char * strcat(char *, const char *);
-extern char * strcpy(char *, const char *);
-extern char * strncat(char *, const char *, size_t);
-extern char * strncpy(char *, const char *, size_t);
-extern char * strdup(const char *);
-extern char * strtok(char *, const char *);
-
-
-extern int memcmp(const void *, const void *, size_t);
-extern int strcmp(const char *, const char *);
-extern int stricmp(const char *, const char *);
-extern int strncmp(const char *, const char *, size_t);
-extern int strnicmp(const char *, const char *, size_t);
-extern void * memchr(const void *, int, size_t);
-extern size_t strcspn(const char *, const char *);
-extern char * strpbrk(const char *, const char *);
-extern size_t strspn(const char *, const char *);
-extern char * strstr(const char *, const char *);
-extern char * stristr(const char *, const char *);
-extern char * strerror(int);
-extern size_t strlen(const char *);
-extern char * strchr(const char *, int);
-extern char * strichr(const char *, int);
-extern char * strrchr(const char *, int);
-extern char * strrichr(const char *, int);
-
-# 18 "include\lcd.h"
-typedef struct
-{
-const char *text;
-struct
-{
-const char *text;
-void (*function)(unsigned char);
-unsigned char *data;
-}entry[7];
-char numEntries;
-}menuEntry;
-
-
-
-
-menuEntry menu[7];
-
-
-
-void menu_up(unsigned char);
-void menu_next(unsigned char);
-void menu_prev(unsigned char);
-void menu_enter(unsigned char);
-static void menu_display();
-
-
-void lcd_setup();
-void lcd_usb(unsigned char);
-unsigned char lcd_display(char[21],char[21]);
-void lcd_background(unsigned char,unsigned char,unsigned char);
-
-# 16 "include\movement.h"
-unsigned int leftlimit = 0;
-unsigned int rightlimit = 0;
-unsigned int uplimit = 0;
-unsigned int downlimit = 0;
-
-# 35
-unsigned char move = 0;
-
-
-
-void move_setup(void);
-void limit_test(void);
-void daytime_move(void);
-void dusk_moveback(void);
-void season_adjust(void);
-void maint_move(unsigned char);
-
-# 22 "include\solarLight.h"
-void setup(void);
-void loop(void);
-void interrupt low_priority isr_low(void);
-void interrupt high_priority isr_high(void);
 void led_setup(void);
-void led(unsigned char);
+void led_auto(void);
+void led_maintenance(unsigned char);
 
-# 90 "src/solarLight.c"
-void main(void)
-{
+# 7 "src/light.c"
+void led_setup(void){
 
 
-
-INTCONbits.GIEH = 1;
-INTCONbits.GIEL = 1;
-INTCONbits.PEIE = 1;
-
-setup();
-
-INTCONbits.GIEH = 1;
-INTCONbits.GIEL = 1;
-while(1) loop();
+TRISCbits.TRISC7 = 0;
+light = light ^ 0b00000001;
 }
 
+# 20
+void led_auto(void){
+light = light ^ 0b00000010;
 
-void setup()
-{
-
-unsigned char memStatus;
-
-i2c_setup();
-
-memStatus = mem_check();
-if(memStatus & 0b00000001)
-{
-rtc_setup();
-}
-hid_setup();
-pwm_setup();
-adc_setup();
-move_setup();
-led_setup();
-sensor_setup();
-if(memStatus & 0b00001111)
-{
-limit_test();
-}
+# 30
 }
 
-# 135
-void loop()
+# 38
+void led_maintenance(unsigned char lightState)
 {
-
-
-
-
-adc_updateAll();
-switch(status.state)
+switch (lightState)
 {
 case 1:
-daytime_move();
-led(0);
+led_auto();
 break;
 case 2:
-led(1);
-pir();
+PORTCbits.RC7 = 0;
 break;
 case 3:
 
-;
-}
-hid_loop();
-
-if(status.state == 1)
-{
-
-}
-else if(status.state == 2)
-{
-
-}
-
-
-
-}
-
-# 180
-void interrupt low_priority isr_low()
-{
-if(TX1IE && TX1IF)
-{
-TX1IF = 0;
-if(COMSTAT.TOKEN && (txPtrOut != txPtrIn))
-{
-TXREG1 = txBuff[txPtrOut++];
-}
-
-}
-if(RC1IE && RC1IF)
-{
-
-}
-}
-
-# 204
-void interrupt high_priority isr_high()
-{
-;
-}
-
-void led_setup(void)
-{
-TRISCbits.TRISC7 = 0;
-}
-
-void led(unsigned char state)
-{
-switch(state)
-{
-case 0:
+light = light ^ 0b00000100;
+break;
+case 4:
 PORTCbits.RC7 = 1;
 break;
-case 1:
-PORTCbits.RC7 = 0;
-break;
-case 2:
-
-break;
 default:
-;
+led_auto();
 }
+
 }

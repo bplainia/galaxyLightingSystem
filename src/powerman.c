@@ -4,7 +4,7 @@
  */
 
 #include <powerman.h>                         //PIC hardware mapping
-
+#include <xc.h>
 
 void power_intiate()
 {
@@ -15,7 +15,7 @@ void power_intiate()
     PORTAbits.RA4 = 0;   // RA4 set as output to relay
     PORTAbits.RA5 = 1;   // battery input
     ANSELAbits.AN4=1;        //analog input is AN4
-    LATAbits.RA4=0;         //output initially set to zero
+    LATAbits.LATA4=0;         //output initially set to zero
 
     //setup HLVD
     HLVDCONbits.HLVDEN=1;   //enable HLVD

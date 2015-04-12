@@ -86,6 +86,7 @@
 #include <solarLight.h>
 
 /// Run setup and main loops.
+
 void main(void)
 {
     // A very super-simple main function by Ben. Makes this coding similar
@@ -111,15 +112,20 @@ void setup()
     i2c_setup();  // Initialize I2C
     //! \todo  TODO: Check to see if the chip started after a POR, BOR, or is from VBATT
     memStatus = mem_check(); // checks where it started up from, and if memory is ok
+    if(memStatus & 0b00000001) // if we did not return from VBATT
+    {
+        rtc_setup();
+    }
+    hid_setup();
     pwm_setup();
     adc_setup();
     move_setup();
     led_setup();
-    hid_setup();
-    rtc_setup();
     sensor_setup();
-
-    limit_test();           // Calibration for position pots
+    if(memStatus & 0b00001111) // if we returned from ?, don't waste time doing the limit test.
+    {
+        limit_test();           // Calibration for position pots
+    }
 }
 
 /*! /brief The MAIN loop that executes EVERYTHING!
@@ -132,7 +138,6 @@ void loop()
 
     // Put things that you need to process here. Dont' spend too much time
     // in your process. Others want to do stuff too...
-    
     adc_updateAll(); // Update all the ADC buffers every loop
     switch(status.state)
     {

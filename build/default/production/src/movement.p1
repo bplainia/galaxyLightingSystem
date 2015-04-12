@@ -5,97 +5,24 @@ Version 3.2 HI-TECH Software Intermediate Code
 "26 include\communication.h
 [s S1786 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :4 `uc 1 ]
 [n S1786 comstat_t TOKEN TXOVER RXOVER TERROR . ]
-[v F15792 `(v ~T0 @X0 0 tf1`uc ]
-"22 include\lcd.h
-[s S1790 `*Cuc 1 `*F15792 1 `*uc 1 ]
-[n S1790 . text function data ]
-"19
-[s S1789 `*Cuc 1 `S1790 -> 7 `i `uc 1 ]
-[n S1789 . text entry numEntries ]
-[p mainexit ]
-"30418 C:\Program Files (x86)\Microchip\xc8\v1.33\include\pic18f67j94.h
-[s S1706 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S1706 . IOCIF INT0IF TMR0IF IOCIE INT0IE TMR0IE PEIE_GIEL GIE_GIEH ]
-"30428
-[s S1707 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S1707 . . INT0F T0IF . INT0E T0IE PEIE GIE ]
-"30438
-[s S1708 :6 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S1708 . . GIEL GIEH ]
-"30417
-[u S1705 `S1706 1 `S1707 1 `S1708 1 ]
-[n S1705 . . . . ]
-"30444
-[v _INTCONbits `VS1705 ~T0 @X0 0 e@4082 ]
-"22 include\solarLight.h
-[v _setup `(v ~T0 @X0 0 ef ]
-"23
-[v _loop `(v ~T0 @X0 0 ef ]
-"60 include\shared.h
-[v _i2c_setup `(v ~T0 @X0 0 ef ]
-"27 include\eeprom.h
-[v _mem_check `(uc ~T0 @X0 0 ef ]
-"52 include\rtc.h
-[v _rtc_setup `(v ~T0 @X0 0 ef ]
-"8 include\hid.h
-[v _hid_setup `(v ~T0 @X0 0 ef ]
-"57 include\shared.h
-[v _pwm_setup `(v ~T0 @X0 0 ef ]
-"52
-[v _adc_setup `(v ~T0 @X0 0 ef ]
-"39 include\movement.h
-[v _move_setup `(v ~T0 @X0 0 ef ]
-"26 include\solarLight.h
-[v _led_setup `(v ~T0 @X0 0 ef ]
-"74 include\sensors.h
-[v _sensor_setup `(v ~T0 @X0 0 ef ]
-"40 include\movement.h
-[v _limit_test `(v ~T0 @X0 0 ef ]
-"55 include\shared.h
-[v _adc_updateAll `(v ~T0 @X0 0 ef ]
-"41 include\movement.h
-[v _daytime_move `(v ~T0 @X0 0 ef ]
-"27 include\solarLight.h
-[v _led `(v ~T0 @X0 0 ef1`uc ]
-"78 include\sensors.h
-[v _pir `(uc ~T0 @X0 0 ef ]
-"9 include\hid.h
-[v _hid_loop `(v ~T0 @X0 0 ef ]
-"35899 C:\Program Files (x86)\Microchip\xc8\v1.33\include\pic18f67j94.h
-[v _TX1IE `Vb ~T0 @X0 0 e@31980 ]
-"35901
-[v _TX1IF `Vb ~T0 @X0 0 e@31988 ]
-"26975
-[v _TXREG1 `Vuc ~T0 @X0 0 e@4013 ]
-"33401
-[v _RC1IE `Vb ~T0 @X0 0 e@31981 ]
-"33403
-[v _RC1IF `Vb ~T0 @X0 0 e@31989 ]
-"25054
-[s S1378 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S1378 . TRISC0 TRISC1 TRISC2 TRISC3 TRISC4 TRISC5 TRISC6 TRISC7 ]
-"25053
-[u S1377 `S1378 1 ]
-[n S1377 . . ]
-"25065
-[v _TRISCbits `VS1377 ~T0 @X0 0 e@3988 ]
-"23521
-[s S1267 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S1267 . RC0 RC1 RC2 RC3 RC4 RC5 RC6 RC7 ]
-"23531
-[s S1268 :1 `uc 1 :1 `uc 1 ]
-[n S1268 . . CCP2 ]
-"23535
-[s S1269 :2 `uc 1 :1 `uc 1 ]
-[n S1269 . . PA1 ]
-"23539
-[s S1270 :1 `uc 1 :1 `uc 1 ]
-[n S1270 . . PA2 ]
-"23520
-[u S1266 `S1267 1 `S1268 1 `S1269 1 `S1270 1 ]
-[n S1266 . . . . . ]
-"23544
-[v _PORTCbits `VS1266 ~T0 @X0 0 e@3970 ]
+"24993 C:\Program Files (x86)\Microchip\xc8\v1.33\include\pic18f67j94.h
+[s S1376 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S1376 . TRISB0 TRISB1 TRISB2 TRISB3 TRISB4 TRISB5 TRISB6 TRISB7 ]
+"24992
+[u S1375 `S1376 1 ]
+[n S1375 . . ]
+"25004
+[v _TRISBbits `VS1375 ~T0 @X0 0 e@3987 ]
+"25115
+[s S1380 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S1380 . TRISD0 TRISD1 TRISD2 TRISD3 TRISD4 TRISD5 TRISD6 TRISD7 ]
+"25114
+[u S1379 `S1380 1 ]
+[n S1379 . . ]
+"25126
+[v _TRISDbits `VS1379 ~T0 @X0 0 e@3989 ]
+"43 include\movement.h
+[v _season_adjust `(v ~T0 @X0 0 ef ]
 [; ;htc.h: 21: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 24: extern void __builtin_software_breakpoint(void);
 [; ;pic18f67j94.h: 47: extern volatile unsigned char UEP0 @ 0xDFF;
@@ -14201,76 +14128,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic18.h: 147: extern __nonreentrant void _delay(unsigned long);
 [; ;pic18.h: 149: extern __nonreentrant void _delaywdt(unsigned long);
 [; ;pic18.h: 151: extern __nonreentrant void _delay3(unsigned char);
-"19 src/solarLight.c
-[p x STVREN=OFF ]
-"20
-[p x XINST=OFF ]
-"23
-[p x BOREN=ON ]
-"24
-[p x BORV=0 ]
-"25
-[p x CP0=OFF ]
-"28
-[p x FOSC=PRIPLL ]
-"29
-[p x SOSCSEL=LOW ]
-"30
-[p x CLKOEN=OFF ]
-"31
-[p x IESO=ON ]
-"34
-[p x PLLDIV=DIV4 ]
-"37
-[p x POSCMD=HS ]
-"38
-[p x FSCM=CSECME ]
-"43
-[p x WPFP=WPFP255 ]
-"46
-[p x WPDIS=WPDIS ]
-"47
-[p x WPEND=WPENDMEM ]
-"48
-[p x WPCFG=WPCFGDIS ]
-"51
-[p x T5GSEL=T5G ]
-"52
-[p x CINASEL=DEFAULT ]
-"55
-[p x IOL1WAY=OFF ]
-"56
-[p x LS48MHZ=SYSX2 ]
-"57
-[p x MSSPMSK2=MSK7 ]
-"58
-[p x MSSPMSK1=MSK7 ]
-"61
-[p x WDTWIN=PS25_0 ]
-"62
-[p x WDTCLK=SOSC ]
-"63
-[p x WDTPS=32768 ]
-"66
-[p x WDTEN=OFF ]
-"67
-[p x WINDIS=WDTSTD ]
-"68
-[p x WPSA=128 ]
-"71
-[p x RETEN=ON ]
-"72
-[p x VBTBOR=ON ]
-"73
-[p x DSBOREN=ON ]
-"74
-[p x DSBITEN=ON ]
-"79
-[p x DSWDTPS=DSWDTPS1A ]
-"82
-[p x DSWDTEN=ON ]
-"83
-[p x DSWDTOSC=SOSC ]
 "37 include\shared.h
 [v _status `S1784 ~T0 @X0 1 e ]
 [; ;shared.h: 30: struct {
@@ -14413,55 +14270,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;sensors.h: 77: unsigned short rotational_postion(unsigned char);
 [; ;sensors.h: 78: unsigned char pir(void);
 [; ;sensors.h: 79: void limits(void);
-[; ;string.h: 22: extern void * memcpy(void *, const void *, size_t);
-[; ;string.h: 23: extern void * memmove(void *, const void *, size_t);
-[; ;string.h: 24: extern void * memset(void *, int, size_t);
-[; ;string.h: 42: extern char * strcat(char *, const char *);
-[; ;string.h: 43: extern char * strcpy(char *, const char *);
-[; ;string.h: 44: extern char * strncat(char *, const char *, size_t);
-[; ;string.h: 45: extern char * strncpy(char *, const char *, size_t);
-[; ;string.h: 46: extern char * strdup(const char *);
-[; ;string.h: 47: extern char * strtok(char *, const char *);
-[; ;string.h: 50: extern int memcmp(const void *, const void *, size_t);
-[; ;string.h: 51: extern int strcmp(const char *, const char *);
-[; ;string.h: 52: extern int stricmp(const char *, const char *);
-[; ;string.h: 53: extern int strncmp(const char *, const char *, size_t);
-[; ;string.h: 54: extern int strnicmp(const char *, const char *, size_t);
-[; ;string.h: 55: extern void * memchr(const void *, int, size_t);
-[; ;string.h: 56: extern size_t strcspn(const char *, const char *);
-[; ;string.h: 57: extern char * strpbrk(const char *, const char *);
-[; ;string.h: 58: extern size_t strspn(const char *, const char *);
-[; ;string.h: 59: extern char * strstr(const char *, const char *);
-[; ;string.h: 60: extern char * stristr(const char *, const char *);
-[; ;string.h: 61: extern char * strerror(int);
-[; ;string.h: 62: extern size_t strlen(const char *);
-[; ;string.h: 63: extern char * strchr(const char *, int);
-[; ;string.h: 64: extern char * strichr(const char *, int);
-[; ;string.h: 65: extern char * strrchr(const char *, int);
-[; ;string.h: 66: extern char * strrichr(const char *, int);
-[; ;lcd.h: 18: typedef struct
-[; ;lcd.h: 19: {
-[; ;lcd.h: 20: const char *text;
-[; ;lcd.h: 21: struct
-[; ;lcd.h: 22: {
-[; ;lcd.h: 23: const char *text;
-[; ;lcd.h: 24: void (*function)(unsigned char);
-[; ;lcd.h: 25: unsigned char *data;
-[; ;lcd.h: 26: }entry[7];
-[; ;lcd.h: 27: char numEntries;
-[; ;lcd.h: 28: }menuEntry;
-"33 include\lcd.h
-[v _menu `S1789 ~T0 @X0 -> 7 `i e ]
-[; ;lcd.h: 33: menuEntry menu[7];
-[; ;lcd.h: 37: void menu_up(unsigned char);
-[; ;lcd.h: 38: void menu_next(unsigned char);
-[; ;lcd.h: 39: void menu_prev(unsigned char);
-[; ;lcd.h: 40: void menu_enter(unsigned char);
-[; ;lcd.h: 41: static void menu_display();
-[; ;lcd.h: 44: void lcd_setup();
-[; ;lcd.h: 45: void lcd_usb(unsigned char);
-[; ;lcd.h: 46: unsigned char lcd_display(char[21],char[21]);
-[; ;lcd.h: 47: void lcd_background(unsigned char,unsigned char,unsigned char);
 "16 include\movement.h
 [v _leftlimit `ui ~T0 @X0 1 e ]
 [i _leftlimit
@@ -14498,336 +14306,106 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;movement.h: 42: void dusk_moveback(void);
 [; ;movement.h: 43: void season_adjust(void);
 [; ;movement.h: 44: void maint_move(unsigned char);
-[; ;solarLight.h: 22: void setup(void);
-[; ;solarLight.h: 23: void loop(void);
-[; ;solarLight.h: 24: void interrupt low_priority isr_low(void);
-[; ;solarLight.h: 25: void interrupt high_priority isr_high(void);
-[; ;solarLight.h: 26: void led_setup(void);
-[; ;solarLight.h: 27: void led(unsigned char);
-"90 src/solarLight.c
-[v _main `(v ~T0 @X0 1 ef ]
-"91
+"7 src/movement.c
+[v _move_setup `(v ~T0 @X0 1 ef ]
 {
-[; ;solarLight.c: 90: void main(void)
-[; ;solarLight.c: 91: {
-[e :U _main ]
+[; ;movement.c: 7: void move_setup(void){
+[e :U _move_setup ]
 [f ]
-[; ;solarLight.c: 95: INTCONbits.GIEH = 1;
-"95
-[e = . . _INTCONbits 2 2 -> -> 1 `i `uc ]
-[; ;solarLight.c: 96: INTCONbits.GIEL = 1;
-"96
-[e = . . _INTCONbits 2 1 -> -> 1 `i `uc ]
-[; ;solarLight.c: 97: INTCONbits.PEIE = 1;
-"97
-[e = . . _INTCONbits 1 6 -> -> 1 `i `uc ]
-[; ;solarLight.c: 99: setup();
-"99
-[e ( _setup ..  ]
-[; ;solarLight.c: 101: INTCONbits.GIEH = 1;
-"101
-[e = . . _INTCONbits 2 2 -> -> 1 `i `uc ]
-[; ;solarLight.c: 102: INTCONbits.GIEL = 1;
-"102
-[e = . . _INTCONbits 2 1 -> -> 1 `i `uc ]
-[; ;solarLight.c: 103: while(1) loop();
-"103
-[e :U 1793 ]
-[e ( _loop ..  ]
-[e :U 1792 ]
-[e $U 1793  ]
-[e :U 1794 ]
-[; ;solarLight.c: 104: }
-"104
+[; ;movement.c: 10: TRISBbits.TRISB1 = 0;
+"10
+[e = . . _TRISBbits 0 1 -> -> 0 `i `uc ]
+[; ;movement.c: 11: TRISBbits.TRISB2 = 0;
+"11
+[e = . . _TRISBbits 0 2 -> -> 0 `i `uc ]
+[; ;movement.c: 12: TRISBbits.TRISB3 = 0;
+"12
+[e = . . _TRISBbits 0 3 -> -> 0 `i `uc ]
+[; ;movement.c: 13: TRISBbits.TRISB4 = 0;
+"13
+[e = . . _TRISBbits 0 4 -> -> 0 `i `uc ]
+[; ;movement.c: 14: TRISDbits.TRISD4 = 0;
+"14
+[e = . . _TRISDbits 0 4 -> -> 0 `i `uc ]
+[; ;movement.c: 15: TRISDbits.TRISD5 = 0;
+"15
+[e = . . _TRISDbits 0 5 -> -> 0 `i `uc ]
+[; ;movement.c: 16: TRISDbits.TRISD6 = 0;
+"16
+[e = . . _TRISDbits 0 6 -> -> 0 `i `uc ]
+[; ;movement.c: 17: TRISDbits.TRISD7 = 0;
+"17
+[e = . . _TRISDbits 0 7 -> -> 0 `i `uc ]
+[; ;movement.c: 21: }
+"21
+[e :UE 1789 ]
+}
+"27
+[v _limit_test `(v ~T0 @X0 1 ef ]
+{
+[; ;movement.c: 27: void limit_test(void){
+[e :U _limit_test ]
+[f ]
+[; ;movement.c: 28: move = move^0b00000001;
+"28
+[e = _move -> ^ -> _move `i -> 1 `i `uc ]
+[; ;movement.c: 42: }
+"42
+[e :UE 1790 ]
+}
+"48
+[v _daytime_move `(v ~T0 @X0 1 ef ]
+{
+[; ;movement.c: 48: void daytime_move(void){
+[e :U _daytime_move ]
+[f ]
+[; ;movement.c: 51: season_adjust();
+"51
+[e ( _season_adjust ..  ]
+[; ;movement.c: 52: }
+"52
 [e :UE 1791 ]
 }
-"107
-[v _setup `(v ~T0 @X0 1 ef ]
-"108
+"58
+[v _dusk_moveback `(v ~T0 @X0 1 ef ]
 {
-[; ;solarLight.c: 107: void setup()
-[; ;solarLight.c: 108: {
-[e :U _setup ]
+[; ;movement.c: 58: void dusk_moveback(void){
+[e :U _dusk_moveback ]
 [f ]
-"110
-[v _memStatus `uc ~T0 @X0 1 a ]
-[; ;solarLight.c: 110: unsigned char memStatus;
-[; ;solarLight.c: 112: i2c_setup();
-"112
-[e ( _i2c_setup ..  ]
-[; ;solarLight.c: 114: memStatus = mem_check();
-"114
-[e = _memStatus ( _mem_check ..  ]
-[; ;solarLight.c: 115: if(memStatus & 0b00000001)
-"115
-[e $ ! != & -> _memStatus `i -> 1 `i -> 0 `i 1796  ]
-[; ;solarLight.c: 116: {
-"116
-{
-[; ;solarLight.c: 117: rtc_setup();
-"117
-[e ( _rtc_setup ..  ]
-"118
+"59
+[v _year `us ~T0 @X0 1 a ]
+"60
+[v _east `us ~T0 @X0 1 a ]
+"61
+[v _west `us ~T0 @X0 1 a ]
+[; ;movement.c: 59: unsigned short year;
+[; ;movement.c: 60: unsigned short east;
+[; ;movement.c: 61: unsigned short west;
+[; ;movement.c: 62: }
+"62
+[e :UE 1792 ]
 }
-[e :U 1796 ]
-[; ;solarLight.c: 118: }
-[; ;solarLight.c: 119: hid_setup();
-"119
-[e ( _hid_setup ..  ]
-[; ;solarLight.c: 120: pwm_setup();
-"120
-[e ( _pwm_setup ..  ]
-[; ;solarLight.c: 121: adc_setup();
-"121
-[e ( _adc_setup ..  ]
-[; ;solarLight.c: 122: move_setup();
-"122
-[e ( _move_setup ..  ]
-[; ;solarLight.c: 123: led_setup();
-"123
-[e ( _led_setup ..  ]
-[; ;solarLight.c: 124: sensor_setup();
-"124
-[e ( _sensor_setup ..  ]
-[; ;solarLight.c: 125: if(memStatus & 0b00001111)
-"125
-[e $ ! != & -> _memStatus `i -> 15 `i -> 0 `i 1797  ]
-[; ;solarLight.c: 126: {
-"126
+"70
+[v _season_adjust `(v ~T0 @X0 1 ef ]
 {
-[; ;solarLight.c: 127: limit_test();
-"127
-[e ( _limit_test ..  ]
-"128
-}
-[e :U 1797 ]
-[; ;solarLight.c: 128: }
-[; ;solarLight.c: 129: }
-"129
-[e :UE 1795 ]
-}
-"135
-[v _loop `(v ~T0 @X0 1 ef ]
-"136
-{
-[; ;solarLight.c: 135: void loop()
-[; ;solarLight.c: 136: {
-[e :U _loop ]
+[; ;movement.c: 70: void season_adjust(void){
+[e :U _season_adjust ]
 [f ]
-[; ;solarLight.c: 141: adc_updateAll();
-"141
-[e ( _adc_updateAll ..  ]
-[; ;solarLight.c: 142: switch(status.state)
-"142
-[e $U 1800  ]
-[; ;solarLight.c: 143: {
-"143
-{
-[; ;solarLight.c: 144: case 1:
-"144
-[e :U 1801 ]
-[; ;solarLight.c: 145: daytime_move();
-"145
-[e ( _daytime_move ..  ]
-[; ;solarLight.c: 146: led(0);
-"146
-[e ( _led (1 -> -> 0 `i `uc ]
-[; ;solarLight.c: 147: break;
-"147
-[e $U 1799  ]
-[; ;solarLight.c: 148: case 2:
-"148
-[e :U 1802 ]
-[; ;solarLight.c: 149: led(1);
-"149
-[e ( _led (1 -> -> 1 `i `uc ]
-[; ;solarLight.c: 150: pir();
-"150
-[e ( _pir ..  ]
-[; ;solarLight.c: 151: break;
-"151
-[e $U 1799  ]
-[; ;solarLight.c: 152: case 3:
-"152
-[e :U 1803 ]
-[; ;solarLight.c: 154: ;
-"155
+[; ;movement.c: 92: }
+"92
+[e :UE 1793 ]
 }
-[; ;solarLight.c: 155: }
-[e $U 1799  ]
-"142
-[e :U 1800 ]
-[e [\ . _status 3 , $ -> -> 1 `i `uc 1801
- , $ -> -> 2 `i `uc 1802
- , $ -> -> 3 `i `uc 1803
- 1799 ]
-"155
-[e :U 1799 ]
-[; ;solarLight.c: 156: hid_loop();
-"156
-[e ( _hid_loop ..  ]
-[; ;solarLight.c: 158: if(status.state == 1)
-"158
-[e $ ! == -> . _status 3 `i -> 1 `i 1804  ]
-[; ;solarLight.c: 159: {
-"159
+"102
+[v _maint_move `(v ~T0 @X0 1 ef1`uc ]
 {
-"161
-}
-[; ;solarLight.c: 161: }
-[e $U 1805  ]
-"162
-[e :U 1804 ]
-[; ;solarLight.c: 162: else if(status.state == 2)
-[e $ ! == -> . _status 3 `i -> 2 `i 1806  ]
-[; ;solarLight.c: 163: {
-"163
-{
-"165
-}
-[e :U 1806 ]
-"169
-[e :U 1805 ]
-[; ;solarLight.c: 165: }
-[; ;solarLight.c: 169: }
-[e :UE 1798 ]
-}
-[v F15841 `(v ~T0 @X0 1 tf ]
-"180
-[v _isr_low `ILF15841 ~T0 @X0 1 e ]
-"181
-{
-[; ;solarLight.c: 180: void interrupt low_priority isr_low()
-[; ;solarLight.c: 181: {
-[e :U _isr_low ]
+[; ;movement.c: 102: void maint_move(unsigned char mcomd){
+[e :U _maint_move ]
+[v _mcomd `uc ~T0 @X0 1 r1 ]
 [f ]
-[; ;solarLight.c: 182: if(TX1IE && TX1IF)
-"182
-[e $ ! && _TX1IE _TX1IF 1808  ]
-[; ;solarLight.c: 183: {
-"183
-{
-[; ;solarLight.c: 184: TX1IF = 0;
-"184
-[e = _TX1IF -> -> 0 `i `b ]
-[; ;solarLight.c: 185: if(COMSTAT.TOKEN && (txPtrOut != txPtrIn))
-"185
-[e $ ! && != -> . _COMSTAT 0 `i -> -> -> 0 `i `uc `i != -> _txPtrOut `i -> _txPtrIn `i 1809  ]
-[; ;solarLight.c: 186: {
-"186
-{
-[; ;solarLight.c: 187: TXREG1 = txBuff[txPtrOut++];
-"187
-[e = _TXREG1 *U + &U _txBuff * -> ++ _txPtrOut -> -> 1 `i `uc `ux -> -> # *U &U _txBuff `ui `ux ]
-"188
-}
-[e :U 1809 ]
-"190
-}
-[e :U 1808 ]
-[; ;solarLight.c: 188: }
-[; ;solarLight.c: 190: }
-[; ;solarLight.c: 191: if(RC1IE && RC1IF)
-"191
-[e $ ! && _RC1IE _RC1IF 1810  ]
-[; ;solarLight.c: 192: {
-"192
-{
-"194
-}
-[e :U 1810 ]
-[; ;solarLight.c: 194: }
-[; ;solarLight.c: 195: }
-"195
-[e :UE 1807 ]
-}
-[v F15844 `(v ~T0 @X0 1 tf ]
-"204
-[v _isr_high `IHF15844 ~T0 @X0 1 e ]
-"205
-{
-[; ;solarLight.c: 204: void interrupt high_priority isr_high()
-[; ;solarLight.c: 205: {
-[e :U _isr_high ]
-[f ]
-[; ;solarLight.c: 206: ;
-[; ;solarLight.c: 207: }
-"207
-[e :UE 1811 ]
-}
-"209
-[v _led_setup `(v ~T0 @X0 1 ef ]
-"210
-{
-[; ;solarLight.c: 209: void led_setup(void)
-[; ;solarLight.c: 210: {
-[e :U _led_setup ]
-[f ]
-[; ;solarLight.c: 211: TRISCbits.TRISC7 = 0;
-"211
-[e = . . _TRISCbits 0 7 -> -> 0 `i `uc ]
-[; ;solarLight.c: 212: }
-"212
-[e :UE 1812 ]
-}
-"214
-[v _led `(v ~T0 @X0 1 ef1`uc ]
-"215
-{
-[; ;solarLight.c: 214: void led(unsigned char state)
-[; ;solarLight.c: 215: {
-[e :U _led ]
-"214
-[v _state `uc ~T0 @X0 1 r1 ]
-"215
-[f ]
-[; ;solarLight.c: 216: switch(state)
-"216
-[e $U 1815  ]
-[; ;solarLight.c: 217: {
-"217
-{
-[; ;solarLight.c: 218: case 0:
-"218
-[e :U 1816 ]
-[; ;solarLight.c: 219: PORTCbits.RC7 = 1;
-"219
-[e = . . _PORTCbits 0 7 -> -> 1 `i `uc ]
-[; ;solarLight.c: 220: break;
-"220
-[e $U 1814  ]
-[; ;solarLight.c: 221: case 1:
-"221
-[e :U 1817 ]
-[; ;solarLight.c: 222: PORTCbits.RC7 = 0;
-"222
-[e = . . _PORTCbits 0 7 -> -> 0 `i `uc ]
-[; ;solarLight.c: 223: break;
-"223
-[e $U 1814  ]
-[; ;solarLight.c: 224: case 2:
-"224
-[e :U 1818 ]
-[; ;solarLight.c: 226: break;
-"226
-[e $U 1814  ]
-[; ;solarLight.c: 227: default:
-"227
-[e :U 1819 ]
-[; ;solarLight.c: 228: ;
-"229
-}
-[; ;solarLight.c: 229: }
-[e $U 1814  ]
-"216
-[e :U 1815 ]
-[e [\ _state , $ -> -> 0 `i `uc 1816
- , $ -> -> 1 `i `uc 1817
- , $ -> -> 2 `i `uc 1818
- 1819 ]
-"229
-[e :U 1814 ]
-[; ;solarLight.c: 230: }
-"230
-[e :UE 1813 ]
+[; ;movement.c: 103: move = move^0b00010000;
+"103
+[e = _move -> ^ -> _move `i -> 16 `i `uc ]
+[; ;movement.c: 130: }
+"130
+[e :UE 1794 ]
 }
