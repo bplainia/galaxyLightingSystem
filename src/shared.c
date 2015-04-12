@@ -63,6 +63,68 @@ void adc_updateAll()
 
 }
 
+/// Read adc value out of the ADC buffer for the passed channel
+unsigned int adc_read(unsigned char channel)
+{
+    unsigned int adcVal;
+    int *adcPtr;
+
+    switch(channel)
+    {
+        case 0:
+            adcPtr = (int *)&ADCBUF0L;
+            break;
+        case 1:
+            adcPtr = (int *)&ADCBUF1L;
+            break;
+        case 2:
+            adcPtr = (int *)&ADCBUF2L;
+            break;
+        case 3:
+            adcPtr = (int *)&ADCBUF3L;
+            break;
+        case 4:
+            adcPtr = (int *)&ADCBUF4L;
+            break;
+        case 5:
+            adcPtr = (int *)&ADCBUF5L;
+            break;
+        case 6:
+            adcPtr = (int *)&ADCBUF6L;
+            break;
+        case 7:
+            adcPtr = (int *)&ADCBUF7L;
+            break;
+        case 8:
+            adcPtr = (int *)&ADCBUF8L;
+            break;
+        case 9:
+            adcPtr = (int *)&ADCBUF9L;
+            break;
+        case 10:
+            adcPtr = (int *)&ADCBUF10L;
+            break;
+        case 11:
+            adcPtr = (int *)&ADCBUF11L;
+            break;
+        case 12:
+            adcPtr = (int *)&ADCBUF12L;
+            break;
+        case 13:
+            adcPtr = (int *)&ADCBUF13L;
+            break;
+        case 14:
+            adcPtr = (int *)&ADCBUF14L;
+            break;
+        case 15:
+            adcPtr = (int *)&ADCBUF15L;
+            break;
+    }
+
+    adcVal = *adcPtr;
+    return(adcVal);
+}
+
 /// Setup TMR2 for use by all the CCP modules
 void pwm_setup() 
 {

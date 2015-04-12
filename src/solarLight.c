@@ -12,7 +12,7 @@
 
 #include <xc.h>
 
-// #pragma config statements should precede project file includes.
+// #pragma config statem3ents should precede project file includes.
 // Use project enums instead of #define for ON and OFF.
 
 // CONFIG1L
@@ -141,13 +141,16 @@ void loop()
             led(OFF);
             break;
         case 2: // Nighttime mode
-            led(ON);
             pir();
             break;
         case 3: // ERROR mode
             // light off
             ;
     }
+    // Dusk event
+    //      led(DIM);
+    //      dusk_moveback();
+
     hid_loop(); // Maintainence Mode State Machine.
 
     if(status.state == 1) // If daytime
@@ -203,7 +206,7 @@ void interrupt high_priority isr_high()
 
 void led_setup(void)
 {
-    LED_PIN = 0;
+    LED_PIN = OUTPUT;
 }
 
 void led(unsigned char state)
@@ -211,13 +214,13 @@ void led(unsigned char state)
     switch(state)
     {
         case OFF:
-            LED_OUT = LED_OFF;
+            pwm_set(LED_CHAN LED_DUTY_OFF);
             break;
         case ON:
-            LED_OUT = LED_ON;
+            pwm_set(LED_CHAN LED_DUTY_ON);
             break;
         case DIM:
-            //pwm_set(1 2 /*channel duty*/);
+            pwm_set(LED_CHAN LED_DUTY_DIM);
             break;
         default:
             ;

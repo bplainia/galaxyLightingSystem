@@ -7,14 +7,14 @@
 void move_setup(void){
 
     // Define motor pins as outputs
-    PINIO_MOVE_LEFTRIGHT_1 = 0;
-    PINIO_MOVE_LEFTRIGHT_2 = 0;
-    PINIO_MOVE_LEFTRIGHT_3 = 0;
-    PINIO_MOVE_LEFTRIGHT_4 = 0;
-    PINIO_MOVE_UPDOWN_1 = 0;
-    PINIO_MOVE_UPDOWN_2 = 0;
-    PINIO_MOVE_UPDOWN_3 = 0;
-    PINIO_MOVE_UPDOWN_4 = 0;
+    PINIO_MOVE_LEFTRIGHT_1 = OUTPUT;
+    PINIO_MOVE_LEFTRIGHT_2 = OUTPUT;
+    PINIO_MOVE_LEFTRIGHT_3 = OUTPUT;
+    PINIO_MOVE_LEFTRIGHT_4 = OUTPUT;
+    PINIO_MOVE_UPDOWN_1 = OUTPUT;
+    PINIO_MOVE_UPDOWN_2 = OUTPUT;
+    PINIO_MOVE_UPDOWN_3 = OUTPUT;
+    PINIO_MOVE_UPDOWN_4 = OUTPUT;
 
     //! \todo  TODO -> Setup PWM for motors
 
@@ -42,12 +42,11 @@ void limit_test(void){
 }
 
 /*! \brief Move the panel to point at the sun, either from sensors or memory
- *
- * --> Test values (global var) used to show if function was entered
  */
 void daytime_move(void){ 
 
 //    if((adc(level) > cloudy) && ((adc(east)-adc(west) < ERR))
+
         season_adjust();
 }
 
@@ -61,6 +60,47 @@ void dusk_moveback(void){
     unsigned short west;
 }
 
+
+void motor_move(char direction){
+    switch(direction)
+    {
+        case UP:
+            PIN_MOVE_UP_1 = 1;
+            PIN_MOVE_UP_2 = 1;
+            PIN_MOVE_DOWN_1 = 0;
+            PIN_MOVE_DOWN_2 = 0;
+        break;
+        case DOWN:
+            PIN_MOVE_UP_1 = 0;
+            PIN_MOVE_UP_2 = 0;
+            PIN_MOVE_DOWN_1 = 1;
+            PIN_MOVE_DOWN_2 = 1;
+        break;
+        case EAST:
+            PIN_MOVE_EAST_1 = 1;
+            PIN_MOVE_EAST_2 = 1;
+            PIN_MOVE_WEST_1 = 0;
+            PIN_MOVE_WEST_2 = 0;
+        break;
+        case WEST:
+            PIN_MOVE_EAST_1 = 0;
+            PIN_MOVE_EAST_2 = 0;
+            PIN_MOVE_WEST_1 = 1;
+            PIN_MOVE_WEST_2 = 1;
+        break;
+        case STOP:
+            PIN_MOVE_UP_1 = 0;
+            PIN_MOVE_UP_2 = 0;
+            PIN_MOVE_DOWN_1 = 0;
+            PIN_MOVE_DOWN_2 = 0;
+            PIN_MOVE_EAST_1 = 0;
+            PIN_MOVE_EAST_2 = 0;
+            PIN_MOVE_WEST_1 = 0;
+            PIN_MOVE_WEST_2 = 0;
+        break;
+    }
+}
+
 /*! \brief Adjust the panel (if needed) based on the season
  *
  * Outputs: commands to the motors
@@ -68,27 +108,28 @@ void dusk_moveback(void){
  * --> Test value (global var) used to show if function was entered
  */
 void season_adjust(void){     // move up or down for seasonal shift and at intialization
-//    if(adc(level) < cloudy)
-//        return;
-//
-//    unsigned short year;
-//    unsigned short east;
-//    unsigned short west;
-//    unsigned short err = ERR + 1;
-//
-//    while(err > ERR)
-//    {
-//        year = adc(year);
-//        east = adc(east);
-//        west = adc(west);
-//
-//        if((east/2 + west/2) > year)
-//            move(down);
-//        else
-//            move(up);
-//        err = (east/2 + west/2) - year;
-//    }
-//    move(stop);
+
+    unsigned int yearLev;
+    unsigned int eastLev;
+    unsigned int westLev;
+    unsigned int err = ERR + 1;
+
+    if(adc_read(CHAN_PHOTO_LEV) < CLOUDY){
+        return;}
+
+    while(err > ERR)
+    {
+        yearLev = adc_read(CHAN_PHOTO_YEAR);
+        eastLev = adc_read(CHAN_PHOTO_EAST);
+        westLev = adc_read(CHAN_PHOTO_WEST);
+
+        if((eastLev/2 + westLev/2) > yearLev)
+            motor_move(DOWN);
+        else
+            motor_move(UP);
+        err = (eastLev/2 + westLev/2) - yearLev;
+    }
+    motor_move(STOP);
 }
 
 /*! \brief Move as directed by maintenance panel
@@ -128,3 +169,4 @@ void maint_move(unsigned char mcomd){
      *
      */
 }
+

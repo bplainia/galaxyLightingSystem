@@ -51,6 +51,7 @@ typedef struct
 
 void adc_setup(void); // setup the adc module
 void adc_update(unsigned char); // Update a pin
+unsigned int adc_reg_read(unsigned char); // Read the given adc value out of the adc buffer
 void adc_update2(unsigned char, unsigned char); // Update 2 pins consecutively
 void adc_updateAll(); // Update all the ADC buffers that were selected in setup
 

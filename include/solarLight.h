@@ -14,6 +14,10 @@
 #define LED_PIN   TRISCbits.TRISC7
 #define LED_OUT   PORTCbits.RC7
 
+#define LED_CHAN 7
+#define LED_DUTY_OFF 100
+#define LED_DUTY_DIM 14
+#define LED_DUTY_ON 0
 
 
 // Functions

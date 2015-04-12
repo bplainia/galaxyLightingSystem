@@ -1,36 +1,37 @@
 #include <sensors.h>
 
+#include "rtc.h"
+
 /*! \brief setup sensors
  */
 void sensor_setup(void){
 
     // Define sensor pins as inputs
-    PINIO_POT_LEFTRIGHT = 1;
-    PINIO_POT_UPDOWN = 1;
-    PINIO_LIGHTLEVEL = 1;
-    PINIO_YEARLEVEL = 1;
-    PINIO_DAYLEVEL1 = 1;
-    PINIO_DAYLEVEL2 = 1;
-    PINIO_TEMP = 1;
-    PINIO_PIR = 1;
-    PINIO_LIMIT_DOWN = 1;
-    PINIO_LIMIT_UP = 1;
-    PINIO_LIMIT_EAST = 1;
-    PINIO_LIMIT_WEST = 1;
+    PINIO_POT_LEFTRIGHT = INPUT;
+    PINIO_POT_UPDOWN = INPUT;
+    PINIO_LIGHTLEVEL = INPUT;
+    PINIO_YEARLEVEL = INPUT;
+    PINIO_DAYLEVEL1 = INPUT;
+    PINIO_DAYLEVEL2 = INPUT;
+    PINIO_TEMP = INPUT;
+    PINIO_PIR = INPUT;
+    PINIO_LIMIT_DOWN = INPUT;
+    PINIO_LIMIT_UP = INPUT;
+    PINIO_LIMIT_EAST = INPUT;
+    PINIO_LIMIT_WEST = INPUT;
 
-    // Define inputs as digital (0) or analog (1)
-    PINAD_POT_LEFTRIGHT = 1;
-    PINAD_POT_UPDOWN = 1;
-    PINAD_LIGHTLEVEL = 1;
-    PINAD_YEARLEVEL = 1;
-    PINAD_DAYLEVEL1 = 1;
-    PINAD_DAYLEVEL2 = 1;
-    PINAD_TEMP = 1;
-    PINAD_LIMIT_DOWN = 0;
-    PINAD_LIMIT_UP = 0;
-    PINAD_LIMIT_EAST = 0;
-    PINAD_LIMIT_WEST = 0;
-
+    // Define inputs as digital or analog
+    PINAD_POT_LEFTRIGHT = ANALOG;
+    PINAD_POT_UPDOWN = ANALOG;
+    PINAD_LIGHTLEVEL = ANALOG;
+    PINAD_YEARLEVEL = ANALOG;
+    PINAD_DAYLEVEL1 = ANALOG;
+    PINAD_DAYLEVEL2 = ANALOG;
+    PINAD_TEMP = ANALOG;
+    PINAD_LIMIT_DOWN = DIGITAL;
+    PINAD_LIMIT_UP = DIGITAL;
+    PINAD_LIMIT_EAST = DIGITAL;
+    PINAD_LIMIT_WEST = DIGITAL;
 }
 
 /*! \brief Check the analog value of a particular photoresistor
@@ -41,20 +42,46 @@ void sensor_setup(void){
  *
  * --> Test values (returns) used to show if function preformed as desired
  */
-unsigned short photo_value(unsigned char photonum){
+unsigned int photo_value(unsigned char photonum, unsigned update)
+{
+    unsigned int photoVal = 0;
+
+    if(update)
+    {
+        switch (photonum)
+        {
+            case PHOTO_LEV:
+                adc_update(CHAN_PHOTO_LEV);
+                break;
+            case PHOTO_YEAR:
+                adc_update(CHAN_PHOTO_YEAR);
+                break;
+            case PHOTO_EAST:
+                adc_update(CHAN_PHOTO_EAST);
+                break;
+            case PHOTO_WEST:
+                adc_update(CHAN_PHOTO_WEST);
+                break;
+        }
+    }
+
     switch (photonum)
     {
-        case 1:
-            return 0; //adc off PIN_LIGHTLEVEL
-        case 2:
-            return 0; //adc off PIN_DAYLEVEL1
-        case 3:
-            return 0; //adc off PIN_DAYLEVEL2
-        case 4:
-            return 0; //adc off PIN_YEARLEVEL
-        default:
-            return 0;
+        case PHOTO_LEV:
+            photoVal = adc_read(CHAN_PHOTO_LEV);
+            break;
+        case PHOTO_YEAR:
+            photoVal = adc_read(CHAN_PHOTO_YEAR);
+            break;
+        case PHOTO_EAST:
+            photoVal = adc_read(CHAN_PHOTO_EAST);
+            break;
+        case PHOTO_WEST:
+            photoVal = adc_read(CHAN_PHOTO_WEST);
+            break;
     }
+
+    return(photoVal);
 }
 
 /*! \brief Check the temperature inside the enclosure
@@ -63,12 +90,13 @@ unsigned short photo_value(unsigned char photonum){
  *
  * --> Test value (return) used to show if function preformed as desired
  */
-char temperature(void){
-    char temp = 25;
+unsigned char temperature(void){
+    unsigned char temp = 25;
+    unsigned int rawTemp;
    
-    //adc off PIN_TEMP
+    rawTemp = adc_read(CHAN_TEMP);
 
-    // temp = f(adc)
+    // temp = c(adc)
 
     return temp;
 }
@@ -82,76 +110,113 @@ char temperature(void){
  *
  * --> Test values (returns) used to show if function preformed as desired
  */
-unsigned short rotational_postion(unsigned char potnum){
-    unsigned short potval;
+unsigned int rotational_postion(unsigned potnum, unsigned update){
+    unsigned int potVal = 0;
+    
+    if(update)
+    {
+        switch (potnum)
+        {
+             case POT_DAY:
+                adc_update(CHAN_POT_DAY);
+             case POT_YEAR:
+                adc_update(CHAN_POT_YEAR);
+        }
+    }
     switch (potnum)
     {
-            case 1:
-                return 0; //adc off PIN_DAY_POT
-            case 2:
-                return 0; //adc off PIN_YEAR_POT
+         case POT_DAY:
+            potVal = adc_read(CHAN_POT_DAY);
+         case POT_YEAR:
+            potVal = adc_read(CHAN_POT_YEAR);
     }
-    return potval;
+
+    return potVal;
 }
 
 /*! \brief check the PIR sensor and turn light ON or DIM depending on motion
- *   only active during night time
+ *   Only active during night time state
  *
  * Inputs: none
+ *
+ * Outputs: Bit value showing if movement is detected or not
  */
-unsigned char last = NO_MOVE;
+unsigned pir(void){
 
-unsigned char pir(void){
+    static unsigned last = NO_MOVE;
+    static unsigned led_on = OFF;
+    static unsigned char ten_min_min = 60;
+    static unsigned char ten_min_sec = 60;
+    static unsigned char five_sec = 60;
+    datetime currenttime;
 
-//    if (PIR_LEVEL == MOVE)
-//    {
-//        if (last == NO_MOVE)
-//        {
-//            start short_timer;
-//        }
-//        else
-//        {
-//            if (short_timer > 5sec)
-//            {
-//                led(ON);
-//                reset/start long_timer;
-//            }
-//        }
-//        last = MOVE;
-//    }
-//    else
-//    {
-//        reset/stop short_timer;
-//        if (long_timer > 10min)
-//        {
-//            led(DIM);
-//            stop long_timer
-//        }
-//        last = NO_MOVE;
-//    }
+    rtc_get(&currenttime);
+        
+    if (PIN_PIR == MOVE)
+    {
+        if (last == NO_MOVE)
+        {
+            five_sec = currenttime.second;
+            if (five_sec < 5)
+            {
+                five_sec = five_sec + 60;
+            }
+            five_sec = five_sec - 5;
+        }
+        else if(currenttime.second <= five_sec)
+        {
+            led(ON);
+            led_on = ON;
+        }
+        last = MOVE;
+    }
+    else if(led_on = ON)
+    {
+
+        if (last == MOVE)
+        { 
+            ten_min_min = currenttime.minute;
+            ten_min_sec = currenttime.second;
+            if(ten_min_min < 10)
+            {
+                ten_min_min = ten_min_min + 60;
+            }
+            ten_min_min = ten_min_min - 10;
+        }
+        else if((currenttime.minute <= ten_min_min) && (currenttime.second <= ten_min_sec))
+        {
+            led(DIM);
+            led_on = OFF;
+        }
+        last = NO_MOVE;
+    }
     return last;
 }
 
-void limits(void)
+unsigned char limits(void)
 {
     if(PIN_LIMIT_DOWN || PIN_LIMIT_UP || PIN_LIMIT_EAST || PIN_LIMIT_WEST)
     {
-        //Stop all motors
+        motor_move(STOP);
         if(PIN_LIMIT_DOWN)
         {
             ;// move up until no contact + a little
+            return(LIMIT_DOWN);
         }
         else if(PIN_LIMIT_UP)
         {
             ;// move down until no contact + a little
+            return(LIMIT_UP);
         }
         else if(PIN_LIMIT_EAST)
         {
             ;// move west until no contact + a little
+            return(LIMIT_EAST);
         }
         else if(PIN_LIMIT_WEST)
         {
             ;// move east until no contact + a little
+            return(LIMIT_WEST);
         }
         else
         {

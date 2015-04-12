@@ -2,11 +2,8 @@
 #define SENSORS_H
 
 #include <shared.h>
+#include <rtc.h>
 
-// Varibles
-unsigned int duskLevel = 2000;      //
-
-/// for testing purposes, will change when pir() is entered to show action taken
 
 // Defines
 #define PINIO_POT_LEFTRIGHT TRISAbits.TRISA2
@@ -21,6 +18,11 @@ unsigned int duskLevel = 2000;      //
 #define PINIO_LIMIT_UP      TRISFbits.TRISF2
 #define PINIO_LIMIT_EAST    TRISFbits.TRISF6
 #define PINIO_LIMIT_WEST    TRISFbits.TRISF7
+
+#define OUTPUT 0
+#define INPUT 1
+#define DIGITAL 0
+#define ANALOG 1
 
 #define PINAD_POT_LEFTRIGHT ANCON1bits.ANSEL2
 #define PINAD_POT_UPDOWN    ANCON1bits.ANSEL3
@@ -41,14 +43,16 @@ unsigned int duskLevel = 2000;      //
 #define PIN_LIMIT_EAST      LATFbits.LATF6
 #define PIN_LIMIT_WEST      LATFbits.LATF7
 
-#define CHAN_POT_DAY    2   0b00010
-#define CHAN_POT_YEAR   3   0b00011
-#define CHAN_PHOTO_LEV  7   0b00111
-#define CHAN_PHOTO_YEAR 12  0b01100
-#define CHAN_PHOTO_EAST 13  0b01101
-#define CHAN_PHOTO_WEST 14  0b01110
-#define CHAN_TEMP       0   0b00000
+#define CHAN_POT_DAY    2   // 0b00010
+#define CHAN_POT_YEAR   3   // 0b00011
+#define CHAN_PHOTO_LEV  7   // 0b00111
+#define CHAN_PHOTO_YEAR 12  // 0b01100
+#define CHAN_PHOTO_EAST 13  // 0b01101
+#define CHAN_PHOTO_WEST 14  // 0b01110
+#define CHAN_TEMP       0   // 0b00000
 
+#define POT_DAY 0
+#define POT_YEAR 1
 
 #define NO_MOVE 0
 #define MOVE 1
@@ -56,26 +60,21 @@ unsigned int duskLevel = 2000;      //
 #define OFF 0
 #define ON 1
 #define DIM 2
-#define LED_ON 0
-#define LED_OFF 1
 
-#define PHOTO_LEV 1
-#define PHOTO_YEAR 2
-#define PHOTO_EAST 3
-#define PHOTO_WEST 4
+enum {PHOTO_LEV, PHOTO_YEAR, PHOTO_EAST, PHOTO_WEST};
+enum {LIMIT_DOWN, LIMIT_UP, LIMIT_EAST, LIMIT_WEST};
 
-#define LIMIT_DOWN 1
-#define LIMIT_UP   2
-#define LIMIT_EAST 3
-#define LIMIT_WEST 4
+//#define ALARM_FLAG PIR3bits.RTCCIF
+
+
 
 // Functions
 
 void sensor_setup(void);
-unsigned short photo_value(unsigned char);
-char temperature(void);
-unsigned short rotational_postion(unsigned char);
-unsigned char pir(void);
-void limits(void);
+unsigned int photo_value(unsigned char, unsigned);
+unsigned char temperature(void);
+unsigned int angle(unsigned, unsigned);
+unsigned pir(void);
+unsigned char limits(void);
 
 #endif
