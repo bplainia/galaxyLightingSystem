@@ -61,6 +61,9 @@
 #define ON 1
 #define DIM 2
 
+#define CLOUDY 1400
+#define DUSK 100
+
 enum {PHOTO_LEV, PHOTO_YEAR, PHOTO_EAST, PHOTO_WEST};
 enum {LIMIT_DOWN, LIMIT_UP, LIMIT_EAST, LIMIT_WEST};
 

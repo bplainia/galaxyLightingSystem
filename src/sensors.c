@@ -200,27 +200,27 @@ unsigned char limits(void)
         motor_move(STOP);
         if(PIN_LIMIT_DOWN)
         {
-            ;// move up until no contact + a little
+            motor_move(UP);// move up until no contact + a little
             return(LIMIT_DOWN);
         }
         else if(PIN_LIMIT_UP)
         {
-            ;// move down until no contact + a little
+            motor_move(DOWN);// move down until no contact + a little
             return(LIMIT_UP);
         }
         else if(PIN_LIMIT_EAST)
         {
-            ;// move west until no contact + a little
+            motor_move(WEST);// move west until no contact + a little
             return(LIMIT_EAST);
         }
         else if(PIN_LIMIT_WEST)
         {
-            ;// move east until no contact + a little
+            motor_move(EAST);// move east until no contact + a little
             return(LIMIT_WEST);
         }
         else
         {
-            ;//error
+            motor_move(STOP);//error
         }
     }
 }

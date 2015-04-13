@@ -36,7 +36,7 @@ unsigned int downlimit = 0;
 
 #define ERR 8
 
-#define CLOUDY 1400
+
 
 typedef enum {UP, DOWN, EAST, WEST, STOP};
 
@@ -48,9 +48,12 @@ unsigned char move = 0;
 void move_setup(void);
 void limit_test(void);
 void daytime_move(void);
-void dusk_moveback(void);
+void dusk_moveback(unsigned int);
 void season_adjust(void);
 void maint_move(unsigned char);
 void motor_move(char);
+void day_pos_move(unsigned int);
+void year_pos_move(unsigned int);
+unsigned int abs(unsigned int);
 
 #endif

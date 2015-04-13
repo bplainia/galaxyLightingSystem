@@ -153,8 +153,13 @@ void loop()
             ;
     }
     // Dusk event
+    //  if(photo_value(1, PHOTO_LEV) < DUSK) // && time = after 6ish
+    //  {
+    //      
+    //      dusk_moveback(limit_pot_east);
     //      led(DIM);
-    //      dusk_moveback();
+    //      status.state = 2;
+    //  }
 
     hid_loop(); // Maintainence Mode State Machine.
 

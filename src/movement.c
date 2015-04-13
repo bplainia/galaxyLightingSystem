@@ -25,20 +25,77 @@ void move_setup(void){
  * --> Test value (global var) used to show if function was entered
  */
 void limit_test(void){       
-    move = move^0b00000001;
-    /*!
-     * Move up all the way (rec: uplimit)
-     * Move right all the way (rec: eastlimit)
-     * Move left all the way (rec: westlimit)
-     * Move to the lr middle (eastlimit/2 + westlimit/2) (noon)
-     * Mov down all the way (downlimit)
-     * if photo_value(PHOTO_LEV) > cloudy
-     *      season_adjust()
-     *      daytime_move()
-     * else
-     *      move to updown middle (uplimit/2 + downlimit/2)
-     *      move to lr time_estimate
-     */
+    static unsigned int limit_pot_up = 0;
+    static unsigned int limit_pot_down = 0;
+    static unsigned int limit_pot_east = 0;
+    static unsigned int limit_pot_west = 0;
+    static unsigned int pot_noon = 0;
+    unsigned int potTimeEst;
+    datetime currenttime;
+
+        // Find UP limit
+    while(limits() != LIMIT_UP)
+    {
+        motor_move(UP);
+    }
+    limit_pot_up = rotational_postion(POT_YEAR, 1);
+
+        // Find EAST limit
+    while(limits() != LIMIT_EAST)
+    {
+        motor_move(EAST);
+    }
+    limit_pot_east = rotational_postion(POT_DAY, 1);
+
+        // Find WEST limit
+    while(limits() != LIMIT_WEST)
+    {
+        motor_move(WEST);
+    }
+    limit_pot_west = rotational_postion(POT_DAY, 1);
+
+    pot_noon = (limit_pot_west + limit_pot_east)/2;
+
+        // Move to middle (noon)
+    day_pos_move(POT_DAY, pot_noon);
+
+
+    // Find DOWN limit
+    while(limits() != LIMIT_DOWN)
+    {
+        motor_move(DOWN);
+    }
+    limit_pot_down = rotational_postion(POT_YEAR, 1);
+
+
+        // move halfway up (Auto Optimal Position)
+    year_pos_move((limit_pot_up + limit_pot_down)/2);
+
+
+        // figure out if it is day or night
+    rtc_get(&currenttime);
+    if (currenttime.hour < 6 || currenttime.hour > 18)
+    {
+        dusk_moveback(limit_pot_east);
+        return;
+    }
+
+    if(photo_value(PHOTO_LEV, 1) < CLOUDY) // if not able to track sun, estimate position based on time of day
+    {
+        potTimeEst = pot_noon + (((unsigned int)currenttime.hour - 12) * abs(limit_pot_east - limit_pot_west)/6);
+        if(potTimeEst < limit_pot_east || potTimeEst > limit_pot_west)      // check if value is within limits
+        {
+           dusk_moveback(limit_pot_east);
+        }
+        else
+        {
+            day_pos_move(potTimeEst);
+        }
+    }
+    else            // auto mode
+    {
+        daytime_move();
+    }
 }
 
 /*! \brief Move the panel to point at the sun, either from sensors or memory
@@ -54,10 +111,9 @@ void daytime_move(void){
  *
  * --> Test value (global var) used to show if function was entered
  */
-void dusk_moveback(void){      
-    unsigned short year;
-    unsigned short east;
-    unsigned short west;
+void dusk_moveback(unsigned int eastLimit)
+{      
+    day_pos_move(eastLimit);
 }
 
 
@@ -114,14 +170,16 @@ void season_adjust(void){     // move up or down for seasonal shift and at intia
     unsigned int westLev;
     unsigned int err = ERR + 1;
 
-    if(adc_read(CHAN_PHOTO_LEV) < CLOUDY){
-        return;}
+    if( photo_value(PHOTO_LEV, 0) < CLOUDY)
+    {
+        return;
+    }
 
     while(err > ERR)
     {
-        yearLev = adc_read(CHAN_PHOTO_YEAR);
-        eastLev = adc_read(CHAN_PHOTO_EAST);
-        westLev = adc_read(CHAN_PHOTO_WEST);
+        yearLev = photo_value(PHOTO_YEAR, 1);
+        eastLev = photo_value(PHOTO_EAST, 1);
+        westLev = photo_value(PHOTO_WEST, 1);
 
         if((eastLev/2 + westLev/2) > yearLev)
             motor_move(DOWN);
@@ -137,11 +195,8 @@ void season_adjust(void){     // move up or down for seasonal shift and at intia
  * Inputs: desired operation of the panel (1-8)
  *
  * Outputs: commands to the motors
- *
- * --> Test values (returns) used to show if function preformed was entered
  */
 void maint_move(unsigned char mcomd){
-    move = move^0b00010000;
 
     /*! Cases
      *
@@ -168,5 +223,46 @@ void maint_move(unsigned char mcomd){
      * limits = invoke limit_test()
      *
      */
+}
+
+void day_pos_move(unsigned int desPos)
+{
+    while(abs(rotational_postion(POT_DAY, 1) - desPos) < ERR)
+    {
+        if (rotational_postion(POT_DAY, 0) < desPos)
+        {
+            motor_move(WEST);
+        }
+        else
+        {
+            motor_move(EAST);
+        }
+    }
+    motor_move(STOP);
+}
+
+void year_pos_move(unsigned int desPos)
+{
+    while(abs(rotational_postion(POT_YEAR, 1) - desPos) < ERR)
+    {
+        if (rotational_postion(POT_YEAR, 0) < desPos)
+        {
+            motor_move(UP);
+        }
+        else
+        {
+            motor_move(DOWN);
+        }
+    }
+    motor_move(STOP);
+}
+
+unsigned int abs(unsigned int num)
+{
+    if(num < 0)
+    {
+        num = num * -1;
+    }
+    return(num);
 }
 
