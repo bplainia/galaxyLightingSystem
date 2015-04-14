@@ -5,14 +5,6 @@
 #include <shared.h>
 #include <sensors.h>
 
-
-// Varibles
-// Limits will show the analog values on the pots where the limits are
-unsigned int leftlimit = 0;
-unsigned int rightlimit = 0;
-unsigned int uplimit = 0;
-unsigned int downlimit = 0;
-
 // Defines
 
 #define PINIO_MOVE_LEFTRIGHT_1 TRISBbits.TRISB1
@@ -38,7 +30,12 @@ unsigned int downlimit = 0;
 
 
 
-typedef enum {UP, DOWN, EAST, WEST, STOP};
+#define UP 1
+#define DOWN 2
+#define EAST 3
+#define WEST 4
+#define STOP 0
+#define NOON 0
 
 /// varibles for debug testing, will have bits toggled depending on function entered
 unsigned char move = 0;

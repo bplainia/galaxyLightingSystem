@@ -220,8 +220,9 @@ unsigned char limits(void)
         }
         else
         {
-            motor_move(STOP);//error
+            ;//error
         }
     }
+    return(0);
 }
 
