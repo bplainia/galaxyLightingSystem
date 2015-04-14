@@ -2,7 +2,7 @@
 
 
 /* Global variable matrix for analog limits on potentiometers
- * This READ ONLY for all funtions. DO NOT WRITE TO THIS MATRIX
+ * This is READ ONLY for all funtions. DO NOT WRITE TO THIS MATRIX
  * The ONLY function that may modify these values is limit_test()
  */
 static unsigned int limitPot[5] = 0;
@@ -35,21 +35,21 @@ void limit_test(void){
     {
         motor_move(UP);
     }
-    limitPot[UP] = rotational_postion(POT_YEAR, 1);
+    limitPot[UP] = ang_pos(POT_YEAR, 1);
 
         // Find EAST limit
     while(limits() != LIMIT_EAST)
     {
         motor_move(EAST);
     }
-    limitPot[EAST] = rotational_postion(POT_DAY, 1);
+    limitPot[EAST] = ang_pos(POT_DAY, 1);
 
         // Find WEST limit
     while(limits() != LIMIT_WEST)
     {
         motor_move(WEST);
     }
-    limitPot[WEST] = rotational_postion(POT_DAY, 1);
+    limitPot[WEST] = ang_pos(POT_DAY, 1);
 
     limitPot[NOON] = (limitPot[WEST] + limitPot[EAST])/2;
 
@@ -62,7 +62,7 @@ void limit_test(void){
     {
         motor_move(DOWN);
     }
-    limitPot[DOWN] = rotational_postion(POT_YEAR, 1);
+    limitPot[DOWN] = ang_pos(POT_YEAR, 1);
 
 
         // move halfway up (Auto Optimal Position)
@@ -101,16 +101,94 @@ void limit_test(void){
  */
 void daytime_move(void){ 
     static unsigned char last_adjust = 0;
+    static unsigned char last_record = 0;
+    static unsigned char last_move = 0;
+    unsigned int potAvg = 0;
+    unsigned int potTimeEst;
+    static unsigned int track[3][24][12] = 0;          // day, hour, minute
     datetime currenttime;
 
     rtc_get(&currenttime);
 
-    if((currenttime.day != last_adjust) && (photo_value(PHOTO_LEV, 0) > CLOUDY) && ((rotational_postion(POT_DAY, 1) - limitPot(NOON)) < ERR))
+    if(photo_value(PHOTO_LEV, 0) > CLOUDY)      // if bright, move from sensors
     {
-        season_adjust();
-        last_adjust = currenttime.day;
+        if(abs(photo_value(PHOTO_EAST, 1) - photo_value(PHOTO_WEST, 1)) > ERR)
+        {
+            if(photo_value(PHOTO_EAST, 0) < photo_value(PHOTO_WEST, 0))
+            {
+                motor_move(WEST);
+            }
+            else
+            {
+                motor_move(EAST);
+            }
+        }
+        else
+        {
+            motor_move(STOP);
+        }
+        // check if time to do seasonal adjust
+        // if between 1200-1259, not already done today, and close to middle
+        if((currenttime.hour == 12) && (currenttime.day != last_adjust))
+        {
+            motor_move(STOP);       // to make sure panel is not moving on two axis at once
+            season_adjust();
+            last_adjust = currenttime.day;
+        }
 
+        // Record position every five minutes for a cloudy day
+        if((currenttime.minute%5 == 0) && (currenttime.minute != last_record))
+        {               // move previous values to ealier
+            track[2][currenttime.hour][currenttime.minute/5]  = track[1][currenttime.hour][currenttime.minute/5];
+            track[1][currenttime.hour][currenttime.minute/5]  = track[0][currenttime.hour][currenttime.minute/5];
+
+                        // record current position
+            track[0][currenttime.hour][currenttime.minute/5] = ang_pos(POT_DAY, 1);
+
+            last_record = currenttime.minute;
+        }
     }
+    else                // move from memory
+    {
+        if((currenttime.minute%5 == 0) && (currenttime.minute != last_move))
+        {
+            if(track[0][currenttime.hour][currenttime.minute/5] == 0)       // if no data to draw from, estimate from time of day
+            {
+                if(currenttime.minute == 0)
+                    {
+                    potTimeEst = limitPot[NOON] + (((unsigned int)currenttime.hour - 12) * abs(limitPot[EAST] - limitPot[WEST])/6);
+                    if(potTimeEst < limitPot[EAST] || potTimeEst > limitPot[WEST])      // check if value is within range of motion
+                    {
+                       dusk_moveback(limitPot[EAST]);
+                    }
+                    else
+                    {
+                        day_pos_move(potTimeEst);
+                    }
+                }
+            }
+            else
+            {           // average data (if it exists)
+
+                if(track[1][currenttime.hour][currenttime.minute/5] == 0)
+                {
+                    potAvg = track[0][currenttime.hour][currenttime.minute/5];
+                }
+                else if(track[2][currenttime.hour][currenttime.minute/5] == 0)
+                {
+                    potAvg = (track[0][currenttime.hour][currenttime.minute/5] + track[1][currenttime.hour][currenttime.minute/5])/2;
+                }
+                else
+                {
+                    potAvg = (track[0][currenttime.hour][currenttime.minute/5] + track[1][currenttime.hour][currenttime.minute/5] + track[2][currenttime.hour][currenttime.minute/5])/3;
+                }
+                
+                day_pos_move(potAvg);
+            }
+            last_move = currenttime.minute;
+        }
+    }
+
 }
 
 /*! \brief Move back to the east for the next day
@@ -245,9 +323,9 @@ void maint_move(unsigned char mcomd){
 
 void day_pos_move(unsigned int desPos)
 {
-    while(abs(rotational_postion(POT_DAY, 1) - desPos) < ERR)
+    while(abs(ang_pos(POT_DAY, 1) - desPos) < ERR)
     {
-        if (rotational_postion(POT_DAY, 0) < desPos)
+        if (ang_pos(POT_DAY, 0) < desPos)
         {
             motor_move(WEST);
         }
@@ -261,9 +339,9 @@ void day_pos_move(unsigned int desPos)
 
 void year_pos_move(unsigned int desPos)
 {
-    while(abs(rotational_postion(POT_YEAR, 1) - desPos) < ERR)
+    while(abs(ang_pos(POT_YEAR, 1) - desPos) < ERR)
     {
-        if (rotational_postion(POT_YEAR, 0) < desPos)
+        if (ang_pos(POT_YEAR, 0) < desPos)
         {
             motor_move(UP);
         }

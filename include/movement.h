@@ -29,14 +29,6 @@
 #define ERR 8
 
 
-
-#define UP 1
-#define DOWN 2
-#define EAST 3
-#define WEST 4
-#define STOP 0
-#define NOON 0
-
 /// varibles for debug testing, will have bits toggled depending on function entered
 unsigned char move = 0;
 

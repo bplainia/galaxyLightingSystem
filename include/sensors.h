@@ -57,12 +57,22 @@
 #define NO_MOVE 0
 #define MOVE 1
 
+// LED states
 #define OFF 0
 #define ON 1
 #define DIM 2
 
+// light levels
 #define CLOUDY 1400
 #define DUSK 100
+
+// motor and other directions
+#define UP 1
+#define DOWN 2
+#define EAST 3
+#define WEST 4
+#define STOP 0
+#define NOON 0
 
 enum {PHOTO_LEV, PHOTO_YEAR, PHOTO_EAST, PHOTO_WEST};
 enum {LIMIT_DOWN, LIMIT_UP, LIMIT_EAST, LIMIT_WEST};

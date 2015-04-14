@@ -110,7 +110,7 @@ unsigned char temperature(void){
  *
  * --> Test values (returns) used to show if function preformed as desired
  */
-unsigned int rotational_postion(unsigned potnum, unsigned update){
+unsigned int ang_pos(unsigned potnum, unsigned update){
     unsigned int potVal = 0;
     
     if(update)
