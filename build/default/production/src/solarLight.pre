@@ -18890,6 +18890,8 @@ unsigned sleepable : 1;
 unsigned : 1;
 }status;
 
+unsigned char myAddr;
+
 
 typedef struct
 {
@@ -18905,6 +18907,7 @@ unsigned char dataLength;
 
 void adc_setup(void);
 void adc_update(unsigned char);
+unsigned int adc_reg_read(unsigned char);
 void adc_update2(unsigned char, unsigned char);
 void adc_updateAll();
 
@@ -18925,11 +18928,11 @@ static void i2c_wait(void);
 static unsigned i2c_send(unsigned char);
 static unsigned char i2c_recv(unsigned);
 
-# 17 "include\communication.h"
+# 18 "include\communication.h"
 void comm_start(void);
 void comm_flush(void);
 unsigned comm_go(void);
-unsigned comm_tx(unsigned char);
+unsigned comm_tx(unsigned char,unsigned);
 unsigned char comm_rx(void);
 unsigned short comm_rx_word(void);
 
@@ -18937,16 +18940,18 @@ unsigned short comm_rx_word(void);
 char comm_overflow;
 struct comstat_t
 {
-unsigned TOKEN : 1;
-unsigned TXOVER : 1;
 unsigned RXOVER : 1;
 unsigned TERROR : 1;
-unsigned : 4;
+unsigned STATE : 3;
+unsigned : 3;
 }COMSTAT;
 
-unsigned char rxBuff[128];
-unsigned char txBuff[32];
-unsigned char rxPtrOut, txPtrOut, rxPtrIn, txPtrIn;
+struct {
+unsigned char byte;
+unsigned isAddress;
+}rxBuff[128];
+
+unsigned char rxPtrOut, rxPtrIn, masterAddr;
 
 # 26 "include\rtc.h"
 typedef struct
@@ -19027,16 +19032,17 @@ void usb_myStatus();
 void usb_allStatus();
 void usb_end(void);
 
-# 7 "include\sensors.h"
-unsigned int duskLevel = 2000;
+# 77 "include\sensors.h"
+enum {PHOTO_LEV, PHOTO_YEAR, PHOTO_EAST, PHOTO_WEST};
+enum {LIMIT_DOWN, LIMIT_UP, LIMIT_EAST, LIMIT_WEST};
 
-# 74
+# 86
 void sensor_setup(void);
-unsigned short photo_value(unsigned char);
-char temperature(void);
-unsigned short rotational_postion(unsigned char);
-unsigned char pir(void);
-void limits(void);
+unsigned int photo_value(unsigned char, unsigned);
+unsigned char temperature(void);
+unsigned int angle(unsigned, unsigned);
+unsigned pir(void);
+unsigned char limits(void);
 
 # 22 "C:\Program Files (x86)\Microchip\xc8\v1.33\include\string.h"
 extern void * memcpy(void *, const void *, size_t);
@@ -19070,7 +19076,7 @@ extern char * strichr(const char *, int);
 extern char * strrchr(const char *, int);
 extern char * strrichr(const char *, int);
 
-# 18 "include\lcd.h"
+# 20 "include\lcd.h"
 typedef struct
 {
 const char *text;
@@ -19102,13 +19108,7 @@ void lcd_usb(unsigned char);
 unsigned char lcd_display(char[21],char[21]);
 void lcd_background(unsigned char,unsigned char,unsigned char);
 
-# 16 "include\movement.h"
-unsigned int leftlimit = 0;
-unsigned int rightlimit = 0;
-unsigned int uplimit = 0;
-unsigned int downlimit = 0;
-
-# 35
+# 33 "include\movement.h"
 unsigned char move = 0;
 
 
@@ -19116,140 +19116,10 @@ unsigned char move = 0;
 void move_setup(void);
 void limit_test(void);
 void daytime_move(void);
-void dusk_moveback(void);
+void dusk_moveback(unsigned int);
 void season_adjust(void);
 void maint_move(unsigned char);
-
-# 22 "include\solarLight.h"
-void setup(void);
-void loop(void);
-void interrupt low_priority isr_low(void);
-void interrupt high_priority isr_high(void);
-void led_setup(void);
-void led(unsigned char);
-
-# 90 "src/solarLight.c"
-void main(void)
-{
-
-
-
-INTCONbits.GIEH = 1;
-INTCONbits.GIEL = 1;
-INTCONbits.PEIE = 1;
-
-setup();
-
-INTCONbits.GIEH = 1;
-INTCONbits.GIEL = 1;
-while(1) loop();
-}
-
-
-void setup()
-{
-
-unsigned char memStatus;
-
-i2c_setup();
-
-memStatus = mem_check();
-if(memStatus & 0b00000001)
-{
-rtc_setup();
-}
-hid_setup();
-pwm_setup();
-adc_setup();
-move_setup();
-led_setup();
-sensor_setup();
-if(memStatus & 0b00001111)
-{
-limit_test();
-}
-}
-
-# 135
-void loop()
-{
-
-
-
-
-adc_updateAll();
-switch(status.state)
-{
-case 1:
-daytime_move();
-led(0);
-break;
-case 2:
-led(1);
-pir();
-break;
-case 3:
-
-;
-}
-hid_loop();
-
-if(status.state == 1)
-{
-
-}
-else if(status.state == 2)
-{
-
-}
-
-
-
-}
-
-# 180
-void interrupt low_priority isr_low()
-{
-if(TX1IE && TX1IF)
-{
-TX1IF = 0;
-if(COMSTAT.TOKEN && (txPtrOut != txPtrIn))
-{
-TXREG1 = txBuff[txPtrOut++];
-}
-
-}
-if(RC1IE && RC1IF)
-{
-
-}
-}
-
-# 204
-void interrupt high_priority isr_high()
-{
-;
-}
-
-void led_setup(void)
-{
-TRISCbits.TRISC7 = 0;
-}
-
-void led(unsigned char state)
-{
-switch(state)
-{
-case 0:
-PORTCbits.RC7 = 1;
-break;
-case 1:
-PORTCbits.RC7 = 0;
-break;
-case 2:
-
-break;
-default:
-;
-}
-}
+void motor_move(char);
+void day_pos_move(unsigned int);
+void year_pos_move(unsigned int);
+unsigned int abs(unsigned int);
