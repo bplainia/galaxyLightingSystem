@@ -4,7 +4,6 @@
  */
 
 #include <powerman.h>                         //PIC hardware mapping
-#include <xc.h>
 
 void power_intiate()
 {
@@ -13,12 +12,13 @@ void power_intiate()
 
 
     PORTAbits.RA4 = 0;   // RA4 set as output to relay
-    PORTAbits.RA5 = 1;   // battery input
-    ANSELAbits.AN4=1;        //analog input is AN4
+    PORTAbits.RA5 = 0;   // battery input
+    //ANSELAbits.AN4=1;        //analog input is AN4
     LATAbits.LATA4=0;         //output initially set to zero
 
+
     //setup HLVD
-    HLVDCONbits.HLVDEN=1;   //enable HLVD
+    HLVDCONbits.HLVDEN=1;       //enable HLVD
     HLVDCONbits.VDIRMAG=0;  //Low-level voltage detect
     HLVDCONbits.IRVST=1;    //Internal reference voltage stable flag bit
     HLVDCONbits.HLVDL=1111;    //external analog input is used
@@ -34,9 +34,8 @@ void interrupt ipr()        //Power switch depending on battery level
 void power_grid_chk()      //Check for main grid power if battery is getting low.
 {
     if(HLVDIE)
+            //needs to enter sleep mode? Ben?
 
-
-                            //
 }
 
 void power_batt_chk()       //Check for battery power before switching.
