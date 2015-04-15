@@ -7,8 +7,9 @@
 #define TXBUFFSIZE 32
 
 // Pins
-#define TXPIN   TRISDbits.TRISD0
+#define TXPIN   TRISDbits.TRISD2
 #define RXTXPIN TRISDbits.TRISD1
+#define RXPIN   TRISDbits.TRISD3
 #define RXTXDIR LATDbits.LATD1
 
 
@@ -17,7 +18,7 @@
 void comm_start(void); // Initialize Communication
 void comm_flush(void); // Flush the buffers
 unsigned comm_go(void); // Begin transmission of the buffer
-unsigned comm_tx(unsigned char); // Transmit a byte (add to TX FIFO) returns boolean
+unsigned comm_tx(unsigned char,unsigned); // Transmit a byte (add to TX FIFO) returns boolean
 unsigned char comm_rx(void); // Get a byte from the RX FIFO
 unsigned short comm_rx_word(void); // get a word from the RX FIFO
 
@@ -25,14 +26,16 @@ unsigned short comm_rx_word(void); // get a word from the RX FIFO
 char comm_overflow;
 struct comstat_t
 {
-    unsigned  TOKEN    : 1; // the token (TOKEN BUS! :)
-    unsigned  TXOVER   : 1; // tx buffer overflow error
     unsigned  RXOVER   : 1; // rx buffer overflow error
     unsigned  TERROR   : 1; // no its not a terror, its a token error
-    unsigned           : 4; // leftovers
+    unsigned  STATE    : 3; // State of machine (00 = waiting, 01 = master, 10 = slave listening, 11=slave talking.
+    unsigned           : 3; // leftovers
 }COMSTAT;
 
-unsigned char rxBuff[RXBUFFSIZE];
-unsigned char txBuff[TXBUFFSIZE];
-unsigned char rxPtrOut, txPtrOut, rxPtrIn, txPtrIn;
+struct {
+    unsigned char byte;
+    unsigned isAddress;
+}rxBuff[RXBUFFSIZE];
+
+unsigned char rxPtrOut, rxPtrIn, masterAddr;
 #endif

@@ -174,7 +174,7 @@ unsigned pwm_set(unsigned char channel, unsigned char duty) // Set pin to duty c
  */
 unsigned i2c_tx(unsigned char addr, unsigned char reg16, unsigned char regl, unsigned char regh, unsigned char *data, unsigned short dataLength)
 {
-    unsigned short i;
+    unsigned short i = 0;
     if(dataLength == 0) return true; // Do nothing if there is a zero data length.
     i2c_start();
     i2c_send(addr & 0b11111110); // write mode; address
@@ -208,7 +208,7 @@ unsigned i2c_check(unsigned char addr)
  */
 unsigned i2c_rx(unsigned char addr, unsigned char reg16, unsigned char regl, unsigned char regh, unsigned char *data, unsigned short dataLength) // recieve data from address
 {
-    unsigned char i;
+    unsigned char i = 0;
     if(dataLength == 0) return true; // Do nothing if there is a zero data length.
     
     // write address

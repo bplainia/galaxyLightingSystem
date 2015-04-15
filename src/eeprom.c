@@ -5,9 +5,13 @@
 /// Check the memory. Certain things are checksumed.
 unsigned char mem_check()
 {
+    unsigned char memStatus = 0;
     /// \todo TODO: check the POR, BOR, and VBATT bits to see where we returned from.
     /// For now, this function merely checks to see if the EEPROM exists
-    return i2c_check(0x50); // 0 = it is there :)
+    /// \todo TODO: set myAddr, the address of the pole, which is saved in EEPROM
+    if(i2c_check(0x50)) memStatus |= 0b00001000; // EEPROM Does not exist
+    mem_read(0x0000,&myAddr,1);
+    return memStatus; // this should always be something other than zero since it will always no have returned from zero
 }
 
 /// Save special bytes that are in ram to eeprom.

@@ -92,14 +92,13 @@ void main(void)
     // A very super-simple main function by Ben. Makes this coding similar
     // to programming an arduino. Ain't that nice? So don't put anything
     // else here now. This is a finished function.
-    INTCONbits.GIEH = 1; // enable interrupts
-    INTCONbits.GIEL = 1;
-    INTCONbits.PEIE = 1; // enable priority interrupts
+    INTCONbits.GIE = 0; // disable all interrupts
+    INTCONbits.PEIE = 1; // enable periphrial interrupts (disabled by GIE currently)
+    RCONbits.IPEN = 0; // No priority interrupts
     
     setup();             // setup everything
 
-    INTCONbits.GIEH = 1; // enable interrupts
-    INTCONbits.GIEL = 1;
+    INTCONbits.GIE = 1; // enable all interrupts
     while(1) loop();     // execute loop forever
 }
 
@@ -107,7 +106,7 @@ void main(void)
 void setup()
 {
     // Variables
-    unsigned char memStatus;
+    static unsigned char memStatus;
 
     i2c_setup();  // Initialize I2C
     //! \todo  TODO: Check to see if the chip started after a POR, BOR, or is from VBATT
@@ -178,27 +177,71 @@ void loop()
 /*! \brief Low Priority Interrupt Service Routine
  * 
  * Items that are dealt with in this ISR:
- *  - UART 1 TX/RX Interrupts
+ *  - UART 1 RX Interrupt
  *
  * NOTE from manual: Interrupt flag bits are set when an interrupt condition occurs regardless
  * of the state of its corresponding enable bit or the Global Interrupt Enable bit. User
  * software should ensure the appropriate interrupt flag bits are clear prior to enabling
  * an interrupt. This feature allows for software polling.
  */
-void interrupt low_priority isr_low()
+void interrupt isr()
 {
-    if(TX1IE && TX1IF) // Comm Transmit Ready and able too
-    {
-        TX1IF = 0; // Reset TX1 Flag
-        if(COMSTAT.TOKEN && (txPtrOut != txPtrIn))
-        {
-            TXREG1 = txBuff[txPtrOut++];
-        }
-        //! \todo  TODO: determine where the token and the transmit control will be.
-    }
+    volatile unsigned char temp, temp2;
     if(RC1IE && RC1IF)
     {
-        // If in slave mode, check the address.
+        RC1IF = 0; // reset the flag
+        temp2 = RCSTA1bits.RX9D;
+        temp = RCREG1;
+        
+        // If we recieve master active, comm state machine goes to slave mode
+        if(COMSTAT.STATE == 0b000) // there is no master and I am not the master
+        {
+            if(temp == 254) COMSTAT.STATE = 0b10;
+            RCSTA1bits.ADDEN = 1; // keep on address mode
+        }
+        else if(COMSTAT.STATE == 0b001) // Slave is idle
+        {
+            if(temp == 253) // master now inactive. Bye Maintainence Man.
+            {
+                    COMSTAT.STATE = 0b000; // inactive bus
+            }
+            else if(temp == myAddr)
+            {
+                COMSTAT.STATE = 0b010; // now listening since it is my address
+            }
+            else if(temp == 250)
+            {
+                COMSTAT.STATE = 0b111;
+            }
+        }
+        else if(COMSTAT.STATE == 0b010 || COMSTAT.STATE == 0b111) // Slave is listening state
+        {
+            if(temp2 == 0)
+            {
+                rxBuff[rxPtrIn++] = temp;
+                if(rxPtrIn >= RXBUFFSIZE) rxPtrIn = 0;
+                if(rxPtrIn == rxPtrOut) COMSTAT.RXOVER = 1; // overflow
+            }
+            else if(temp2 == 1) // My turn to execute!
+            {
+                if(temp == 252)
+                {
+                    COMSTAT.STATE = 0b011; // slave talking now
+                }
+                else
+                {
+                    COMSTAT.TERROR = 1;
+                    comm_flush(); // clear the command buffer
+                    COMSTAT.STATE  = 0b001; // back to just listening
+                }
+            }
+        }
+    } // end of uart1 recieve
+
+    else if(RC3IE && RC3IF) // uart3 recieve (keypad entry)
+    {
+        //myChar = RCREG3; // p
+        RC3IF = 0; // reset the flag
     }
 }
 
@@ -209,10 +252,10 @@ void interrupt low_priority isr_low()
  *
  * Make sure to enable priority interrupts before using this routine.
  */
-void interrupt high_priority isr_high()
-{
-    ;
-}
+//void interrupt high_priority isr_high()
+//{
+//    ;
+//}
 
 void led_setup(void)
 {
