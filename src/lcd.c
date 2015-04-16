@@ -9,7 +9,7 @@
 // Local Variable
 char mainMenuPtr = 0, subMenuPtr = 0;
 
-#define NUMMENUENTRIES 6
+#define NUMMENUENTRIES 7
 /// \todo TODO: Make the menues into a Constant that resides in program memory.
 void lcd_setup()
 {
@@ -54,12 +54,15 @@ void lcd_setup()
     menu[2].entry[4].function = menu_up;
     menu[2].numEntries = 5;
 
-    // Status
-    menu[3].text = "Status              ";
-    menu[3].entry[0].text = "Go to Main Menu    ";
+    // Comm Status
+    menu[3].entry[0].text = "Comm Status              ";
+    menu[3].entry[1].text = "Master/Slave Mode       ";       // 0=master, 1=slave
+    menu[3].entry[2].text = "Comm to Master         ";
+    menu[3].entry[3].text = "Pole ID#:              ";
+    menu[3].entry[3].data = &myAddr;       //my addr (find this)
+    menu[3].entry[4].text = "Go to Main Menu    ";
     menu[3].entry[0].function = menu_up;
-    menu[3].entry[1].text = "Maintenance ";
-    menu[3].numEntries = 2;
+    menu[3].numEntries = 1;
 
     // Clock Options
     menu[4].text          = "Clock Options       ";
@@ -69,7 +72,7 @@ void lcd_setup()
     menu[4].entry[2].function = menu_up;
     menu[4].numEntries = 3;
 
-    // Misc. Options
+    // Misc. Options (Includes Power Control)
     menu[5].text = "Misc. Options       ";
     menu[5].entry[0].text = "Toggle AC/Battery   ";
     menu[5].entry[1].text = "Restart             ";
@@ -89,6 +92,19 @@ void lcd_setup()
     menu[6].entry[6].text = "Go to Main Menu    ";
     menu[6].entry[6].function = menu_up;
     menu[6].numEntries = 7;
+
+    //Maintenance needed
+    menu[7].text = "No Resp: IAN    ";      //no response. "immediate attention needed"
+    menu[7].entry[0].text = "Battery offline   ";       //
+    menu[7].entry[1].text = "Bulb dead       ";
+    menu[7].entry[2].text = "Tracking motors off       ";
+    menu[7].entry[3].text = "Sensors off range        ";
+    menu[7].entry[4].text = "Comm Offline       ";
+    menu[7].entry[5].text = "Go to Main Menu    ";
+    menu[7].entry[6].function = menu_up;
+    menu[7].numEntries = ?;         //TODO: Do not understand!! what goes in questionmark?
+
+    
     // If you add another main menu entry, make sure to change NUMMENUENTRIES
 }
 
