@@ -117,20 +117,18 @@ $(document).ready(function(){initNavTree('structcomstat__t.html','');});
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:a286e5d66a5e535c50a8b89c9d4870370"><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcomstat__t.html#a286e5d66a5e535c50a8b89c9d4870370">TOKEN</a>: 1</td></tr>
-<tr class="separator:a286e5d66a5e535c50a8b89c9d4870370"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a008f2e947c6ef85c19ebd817436ae178"><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcomstat__t.html#a008f2e947c6ef85c19ebd817436ae178">TXOVER</a>: 1</td></tr>
-<tr class="separator:a008f2e947c6ef85c19ebd817436ae178"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaeb85551df9d078c5e89a1e210072572"><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcomstat__t.html#aaeb85551df9d078c5e89a1e210072572">RXOVER</a>: 1</td></tr>
 <tr class="separator:aaeb85551df9d078c5e89a1e210072572"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6280d63145bb20f921aed12654cca74b"><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcomstat__t.html#a6280d63145bb20f921aed12654cca74b">TERROR</a>: 1</td></tr>
 <tr class="separator:a6280d63145bb20f921aed12654cca74b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adf71f3d8410c1f1dbbc96680a92c49af"><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcomstat__t.html#adf71f3d8410c1f1dbbc96680a92c49af">__pad0__</a>: 4</td></tr>
+<tr class="memitem:a8aafe92055950ffcaa733c081f0fd076"><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcomstat__t.html#a8aafe92055950ffcaa733c081f0fd076">STATE</a>: 3</td></tr>
+<tr class="separator:a8aafe92055950ffcaa733c081f0fd076"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf71f3d8410c1f1dbbc96680a92c49af"><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcomstat__t.html#adf71f3d8410c1f1dbbc96680a92c49af">__pad0__</a>: 3</td></tr>
 <tr class="separator:adf71f3d8410c1f1dbbc96680a92c49af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p>Definition at line <a class="el" href="communication_8h_source.html#l00026">26</a> of file <a class="el" href="communication_8h_source.html">communication.h</a>.</p>
+<p>Definition at line <a class="el" href="communication_8h_source.html#l00027">27</a> of file <a class="el" href="communication_8h_source.html">communication.h</a>.</p>
 </div><h2 class="groupheader">Field Documentation</h2>
 <a class="anchor" id="adf71f3d8410c1f1dbbc96680a92c49af"></a>
 <div class="memitem">
@@ -156,7 +154,25 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="communication_8h_source.html#l00030">30</a> of file <a class="el" href="communication_8h_source.html">communication.h</a>.</p>
+<p>Definition at line <a class="el" href="communication_8h_source.html#l00029">29</a> of file <a class="el" href="communication_8h_source.html">communication.h</a>.</p>
+
+<p>Referenced by <a class="el" href="solar_light_8c_source.html#l00188">isr()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a8aafe92055950ffcaa733c081f0fd076"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned STATE</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="communication_8h_source.html#l00031">31</a> of file <a class="el" href="communication_8h_source.html">communication.h</a>.</p>
+
+<p>Referenced by <a class="el" href="communication_8c_source.html#l00128">comm_loop()</a>, <a class="el" href="communication_8c_source.html#l00018">comm_start()</a>, <a class="el" href="hid_8c_source.html#l00027">hid_loop()</a>, <a class="el" href="solar_light_8c_source.html#l00188">isr()</a>, and <a class="el" href="hid_8c_source.html#l00053">lcd_begin()</a>.</p>
 
 </div>
 </div>
@@ -170,44 +186,14 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="communication_8h_source.html#l00031">31</a> of file <a class="el" href="communication_8h_source.html">communication.h</a>.</p>
+<p>Definition at line <a class="el" href="communication_8h_source.html#l00030">30</a> of file <a class="el" href="communication_8h_source.html">communication.h</a>.</p>
 
-</div>
-</div>
-<a class="anchor" id="a286e5d66a5e535c50a8b89c9d4870370"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">unsigned TOKEN</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="communication_8h_source.html#l00028">28</a> of file <a class="el" href="communication_8h_source.html">communication.h</a>.</p>
-
-<p>Referenced by <a class="el" href="communication_8c_source.html#l00085">comm_go()</a>, and <a class="el" href="solar_light_8c_source.html#l00162">isr_low()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a008f2e947c6ef85c19ebd817436ae178"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">unsigned TXOVER</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="communication_8h_source.html#l00029">29</a> of file <a class="el" href="communication_8h_source.html">communication.h</a>.</p>
-
-<p>Referenced by <a class="el" href="communication_8c_source.html#l00065">comm_tx()</a>.</p>
+<p>Referenced by <a class="el" href="communication_8c_source.html#l00128">comm_loop()</a>, and <a class="el" href="solar_light_8c_source.html#l00188">isr()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>C:/Users/Benjaminp/Documents/pcc/current/EL 450/PatienceInc/firmware/include/<a class="el" href="communication_8h_source.html">communication.h</a></li>
+<li>C:/Users/Benjaminp/Documents/GitHub/firmware/include/<a class="el" href="communication_8h_source.html">communication.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -215,7 +201,7 @@ Data Fields</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structcomstat__t.html">comstat_t</a></li>
-    <li class="footer">Generated on Thu Mar 5 2015 22:25:50 for Sr. Design 2015 by
+    <li class="footer">Generated on Wed Apr 15 2015 22:43:23 for Sr. Design 2015 by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.9.1 </li>
   </ul>

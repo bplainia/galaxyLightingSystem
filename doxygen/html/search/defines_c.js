@@ -1,8 +1,11 @@
 var searchData=
 [
-  ['tenminutes',['TENMINUTES',['../rtc_8h.html#a476b58fd8471b67543a69fe918407af1',1,'rtc.h']]],
-  ['tensecond',['TENSECOND',['../rtc_8h.html#a3a578056e9096a0683153d47093d3520',1,'rtc.h']]],
-  ['true',['true',['../shared_8h.html#a41f9c5fb8b08eb5dc3edce4dcb37fee7',1,'shared.h']]],
-  ['txbuffsize',['TXBUFFSIZE',['../communication_8h.html#afa6659b1a6ac30d274c24ebbf8578fe8',1,'communication.h']]],
-  ['txpin',['TXPIN',['../communication_8h.html#ad7371134b74d77a9646ab529bda75f1f',1,'communication.h']]]
+  ['network_5fconnection',['NETWORK_CONNECTION',['../usb__device__cdc_8h.html#a9e48b736a3dbd35ebbe8507b29dec86a',1,'usb_device_cdc.h']]],
+  ['no_5fmove',['NO_MOVE',['../sensors_8h.html#a3bdc3d77ca3e6d7c92b502c91ce81096',1,'sensors.h']]],
+  ['no_5fprotocol',['NO_PROTOCOL',['../usb__device__cdc_8h.html#aa5e6e8476d28aa6869786f87751144d0',1,'usb_device_cdc.h']]],
+  ['noon',['NOON',['../sensors_8h.html#a7689186f6d126c0ed274d0ee4c0b4a8e',1,'sensors.h']]],
+  ['num_5fstop_5fbits_5f1',['NUM_STOP_BITS_1',['../usb__device__cdc_8h.html#a79a188d5a873c17df34cac752c3ba8c0',1,'usb_device_cdc.h']]],
+  ['num_5fstop_5fbits_5f1_5f5',['NUM_STOP_BITS_1_5',['../usb__device__cdc_8h.html#a1b888bf0b3672eece7b0a3d18395d43d',1,'usb_device_cdc.h']]],
+  ['num_5fstop_5fbits_5f2',['NUM_STOP_BITS_2',['../usb__device__cdc_8h.html#a7a2400913450ec0f3457cb2d6f9c817d',1,'usb_device_cdc.h']]],
+  ['nummenuentries',['NUMMENUENTRIES',['../lcd_8c.html#a82a25d7cc1371c9057f7d0193ea8ca03',1,'lcd.c']]]
 ];

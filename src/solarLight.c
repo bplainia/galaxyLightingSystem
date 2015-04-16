@@ -107,6 +107,7 @@ void setup()
 {
     // Variables
     static unsigned char memStatus;
+    cancel = 0; // reset cancel
 
     i2c_setup();  // Initialize I2C
     //! \todo  TODO: Check to see if the chip started after a POR, BOR, or is from VBATT
@@ -196,22 +197,36 @@ void interrupt isr()
         // If we recieve master active, comm state machine goes to slave mode
         if(COMSTAT.STATE == 0b000) // there is no master and I am not the master
         {
-            if(temp == 254) COMSTAT.STATE = 0b10;
-            RCSTA1bits.ADDEN = 1; // keep on address mode
+            if(temp2 == 1 && temp == 254) // if was master active address...
+            {
+                if(masterAddr!=250) // check to see if master address is set.
+                {
+                    COMSTAT.TERROR = 1; // token error if it was already
+                }
+            }
+            else 
+            {
+                COMSTAT.STATE = 0b001;
+                RCSTA1bits.ADDEN = 1; // back to address mode
+            }
         }
         else if(COMSTAT.STATE == 0b001) // Slave is idle
         {
             if(temp == 253) // master now inactive. Bye Maintainence Man.
             {
                     COMSTAT.STATE = 0b000; // inactive bus
+                    masterAddr = 250; // reset to global address
+                    RCSTA1bits.ADDEN = 1;
             }
             else if(temp == myAddr)
             {
                 COMSTAT.STATE = 0b010; // now listening since it is my address
+                // no address mode for this since we are waiting for data.
             }
             else if(temp == 250)
             {
                 COMSTAT.STATE = 0b111;
+                // global address. waiting for data...
             }
         }
         else if(COMSTAT.STATE == 0b010 || COMSTAT.STATE == 0b111) // Slave is listening state
@@ -224,7 +239,7 @@ void interrupt isr()
             }
             else if(temp2 == 1) // My turn to execute!
             {
-                if(temp == 252)
+                if(temp == 252) // if slave active byte
                 {
                     COMSTAT.STATE = 0b011; // slave talking now
                 }
@@ -240,8 +255,76 @@ void interrupt isr()
 
     else if(RC3IE && RC3IF) // uart3 recieve (keypad entry)
     {
-        //myChar = RCREG3; // p
+        temp = RCREG3; // get the byte just sent from the ede1144
         RC3IF = 0; // reset the flag
+        temp = 10;
+        switch(temp)
+        {
+            // number keys
+            case 'C':
+                keypadNum = 1;
+                keypadComm |= 0x40;
+                break;
+            case 'D':
+                keypadNum = 2;
+                keypadComm |= 0x40;
+                break;
+            case 'E':
+                keypadNum = 3;
+                keypadComm |= 0x40;
+                break;
+            case '8':
+                keypadNum = 4;
+                keypadComm |= 0x40;
+                break;
+            case '9':
+                keypadNum = 5;
+                keypadComm |= 0x40;
+                break;
+            case 'A':
+                keypadNum = 6;
+                keypadComm |= 0x40;
+                break;
+            case '4':
+                keypadNum = 7;
+                keypadComm |= 0x40;
+                break;
+            case '5':
+                keypadNum = 8;
+                keypadComm |= 0x40;
+                break;
+            case '6':
+                keypadNum = 9;
+                keypadComm |= 0x40;
+                break;
+            case '1':
+                keypadNum = 0;
+                keypadComm |= 0x40;
+                break;
+            // end of the numbers
+
+            case '0': // clear key (Cancel)
+                keypadComm = 0x01;
+                break;
+            case '2': // help key
+                keypadComm |= 0x02;
+                break;
+            case '3': // enter key
+                keypadComm |= 0x04;
+                temp = 10;
+                break;
+            case '7': // 2nd key
+                keypadComm |= 0x08;
+                break;
+            case 'B': // down key
+                keypadComm |= 0x10;
+                break;
+            case 'F': //up key
+                keypadComm |= 0x20;
+                break;
+            default:
+                keypadComm |= 0x80;
+        }
     }
 }
 

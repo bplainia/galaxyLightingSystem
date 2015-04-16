@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['i2cpacket',['i2cPacket',['../structi2c_packet.html',1,'']]]
+  ['alarmtime',['alarmtime',['../structalarmtime.html',1,'']]]
 ];

@@ -8,5 +8,8 @@ var eeprom_8h =
     ] ],
     [ "mem_append_log", "eeprom_8h.html#a83798e03c72010aa1a2570892ccee100", null ],
     [ "mem_check", "eeprom_8h.html#aa789d6d450a00d09493308ff6c22179e", null ],
-    [ "mem_push", "eeprom_8h.html#ae8573a0726c83c11ebe850334ce1dc9a", null ]
+    [ "mem_push", "eeprom_8h.html#ae8573a0726c83c11ebe850334ce1dc9a", null ],
+    [ "setting_hurricane", "eeprom_8h.html#a627875c07b4d0852d5d7b0dd9dfb2ed7", null ],
+    [ "setting_lightMode", "eeprom_8h.html#a5a1dd063be4d29e92a4e440f1aed2cca", null ],
+    [ "setting_timeout", "eeprom_8h.html#a899cedf27600419f365efa78752addcb", null ]
 ];

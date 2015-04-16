@@ -113,32 +113,85 @@ $(document).ready(function(){initNavTree('structmenu_entry.html','');});
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="menu_8h_source.html">menu.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="lcd_8h_source.html">lcd.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
 <tr class="memitem:a16343090e80c4472521560f30113d96c"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structmenu_entry.html#a16343090e80c4472521560f30113d96c">text</a></td></tr>
 <tr class="separator:a16343090e80c4472521560f30113d96c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a199895e01c2b017e3820f92cfc1cd64b"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structmenu_entry.html#a199895e01c2b017e3820f92cfc1cd64b">function</a> )(void)</td></tr>
-<tr class="separator:a199895e01c2b017e3820f92cfc1cd64b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a667191e828fda449c250afc7edd8fce0"><td class="memItemLeft" >struct {</td></tr>
+<tr class="memitem:a16343090e80c4472521560f30113d96c"><td class="memItemLeft" >&#160;&#160;&#160;const char *&#160;&#160;&#160;<a class="el" href="structmenu_entry.html#a16343090e80c4472521560f30113d96c">text</a></td></tr>
+<tr class="separator:a16343090e80c4472521560f30113d96c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13b626315b1c54c5169284ad75843750"><td class="memItemLeft" >&#160;&#160;&#160;void(*&#160;&#160;&#160;<a class="el" href="structmenu_entry.html#a13b626315b1c54c5169284ad75843750">function</a> )(unsigned char)</td></tr>
+<tr class="separator:a13b626315b1c54c5169284ad75843750"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac24cea2bfcc927fd29bc74d1086707d8"><td class="memItemLeft" >&#160;&#160;&#160;unsigned char *&#160;&#160;&#160;<a class="el" href="structmenu_entry.html#ac24cea2bfcc927fd29bc74d1086707d8">data</a></td></tr>
+<tr class="separator:ac24cea2bfcc927fd29bc74d1086707d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a667191e828fda449c250afc7edd8fce0"><td class="memItemLeft" valign="top">}&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structmenu_entry.html#a667191e828fda449c250afc7edd8fce0">entry</a> [7]</td></tr>
+<tr class="separator:a667191e828fda449c250afc7edd8fce0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a199b1f1cd6ee0a7c856062771a67ac8b"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structmenu_entry.html#a199b1f1cd6ee0a7c856062771a67ac8b">numEntries</a></td></tr>
+<tr class="separator:a199b1f1cd6ee0a7c856062771a67ac8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p>Definition at line <a class="el" href="menu_8h_source.html#l00023">23</a> of file <a class="el" href="menu_8h_source.html">menu.h</a>.</p>
+<p>Definition at line <a class="el" href="lcd_8h_source.html#l00020">20</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
 </div><h2 class="groupheader">Field Documentation</h2>
-<a class="anchor" id="a199895e01c2b017e3820f92cfc1cd64b"></a>
+<a class="anchor" id="ac24cea2bfcc927fd29bc74d1086707d8"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void(* function) (void)</td>
+          <td class="memname">unsigned char* data</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="menu_8h_source.html#l00026">26</a> of file <a class="el" href="menu_8h_source.html">menu.h</a>.</p>
+<p>Definition at line <a class="el" href="lcd_8h_source.html#l00027">27</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
 
-<p>Referenced by <a class="el" href="menu_8h_source.html#l00049">menu_setup()</a>.</p>
+</div>
+</div>
+<a class="anchor" id="a667191e828fda449c250afc7edd8fce0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct { ... }  entry[7]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Referenced by <a class="el" href="lcd_8c_source.html#l00205">menu_enter()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a13b626315b1c54c5169284ad75843750"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void(* function) (unsigned char)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="lcd_8h_source.html#l00026">26</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
+
+<p>Referenced by <a class="el" href="lcd_8c_source.html#l00205">menu_enter()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a199b1f1cd6ee0a7c856062771a67ac8b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char numEntries</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="lcd_8h_source.html#l00029">29</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
+
+<p>Referenced by <a class="el" href="lcd_8c_source.html#l00185">menu_prev()</a>.</p>
 
 </div>
 </div>
@@ -152,14 +205,12 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="menu_8h_source.html#l00025">25</a> of file <a class="el" href="menu_8h_source.html">menu.h</a>.</p>
-
-<p>Referenced by <a class="el" href="menu_8h_source.html#l00049">menu_setup()</a>.</p>
+<p>Definition at line <a class="el" href="lcd_8h_source.html#l00022">22</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>C:/Users/Benjaminp/Documents/pcc/current/EL 450/PatienceInc/firmware/include/<a class="el" href="menu_8h_source.html">menu.h</a></li>
+<li>C:/Users/Benjaminp/Documents/GitHub/firmware/include/<a class="el" href="lcd_8h_source.html">lcd.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -167,7 +218,7 @@ Data Fields</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structmenu_entry.html">menuEntry</a></li>
-    <li class="footer">Generated on Thu Mar 5 2015 22:25:50 for Sr. Design 2015 by
+    <li class="footer">Generated on Wed Apr 15 2015 22:43:23 for Sr. Design 2015 by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.9.1 </li>
   </ul>

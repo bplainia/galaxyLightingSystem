@@ -37,6 +37,7 @@ struct {
 }status;
 
 unsigned char myAddr; // Address of the pole (Configurable)
+unsigned char keypadComm,keypadNum;
 
 /// A packet that contains an address (8 or 10bit), a data array, and how long the array is.
 typedef struct 
@@ -73,6 +74,8 @@ static void i2c_nack(void); // transmit nack bit
 static void i2c_wait(void); // Check and wait to see if a i2c function is running
 static unsigned i2c_send(unsigned char); // private function to send a byte
 static unsigned char i2c_recv(unsigned); // private function to recieve a byte
+
+void delay(unsigned char);
 
 #endif	/* SHARED_H */
 

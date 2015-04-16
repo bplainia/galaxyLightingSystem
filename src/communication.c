@@ -10,6 +10,9 @@
 // 
 #include <shared.h>
 #include <communication.h>
+#include <eeprom.h>
+
+#include "usb/usb_hal_pic18.h"
 
 /// Setup the pins and modules for communication outside the pole.
 void comm_start()
@@ -40,7 +43,7 @@ void comm_start()
     TXSTA1bits.TX9 = 1; // Enable 9-bit mode
 
     //Setup UART Module 1 Recieving
-    RCSTA1 = 0b11111000; // Enable 9 bit reciever. Put into address mode first.
+    RCSTA1 = 0b11011000; // Enable 9 bit reciever. Put into address mode first.
     /// Use the last 3 bits of RCSTA1 for errors and 9th bit.
     /// Address that is received will be in RCREG1
 
@@ -67,10 +70,19 @@ void comm_flush()
  */
 unsigned comm_tx(unsigned char data, unsigned isAddress)
 {
+    /*! # Addresses
+     *  - 255 - Reserved since all high bits
+     *  - 254 = Master is now active - Followed by the master's address
+     *  - 253 = Master is inactive
+     *  - 252 = Slave's turn to send
+     *  - 251 = Slave's turn is over
+     *  - 250 = GLOBAL ADDRESS
+     *  - 0-249 = pole's addresses. Assigned in maintainence mode or via dip switches.
+     */
     TXSTAbits.TX9D = isAddress;
     TXREG1 = data;
     while(!TXSTAbits.TRMT) continue;
-
+    return 0;
 }
 
 /// Get a byte off the stack. Returns that byte.
@@ -90,40 +102,55 @@ unsigned short comm_rx_word()
     return (comm_rx() << 8) + comm_rx();
 }
 
-void comm_send_addr(unsigned char addr)
-{
-    /*! # Addresses
-     *  - 255 - Reserved since all high bits
-     *  - 254 = Master is now active - Followed by the master's address
-     *  - 253 = Master is inactive
-     *  - 252 = Slave's turn to send
-     *  - 251 = Slave's turn is over
-     *  - 250 = GLOBAL ADDRESS
-     *  - 0-249 = pole's addresses. Assigned in maintainence mode or via dip switches.
-     */
-    TXSTA1bits.TX9D = 1; // Sending an address
-    comm_tx(addr, 0);
-    TXSTA1bits.TX9D = 0; // Done sending address.
-    if(addr == 254) // if it is a master active address, we need to send the address of the master too.
-    {
-        comm_tx(myAddr, 0);
-    }
-}
+// TODO: comm_send_addr subject for removal upon approval:
+//void comm_send_addr(unsigned char addr)
+//{
+//
+//    TXSTA1bits.TX9D = 1; // Sending an address
+//    comm_tx(addr, 0);
+//    TXSTA1bits.TX9D = 0; // Done sending address.
+//    if(addr == 254) // if it is a master active address, we need to send the address of the master too.
+//    {
+//        comm_tx(myAddr, 0);
+//    }
+//}
 
 unsigned char comm_get_status(unsigned char addr)
 {
-    comm_send_addr(addr);
-    TXSTA1bits.TX9D = 0; // redundancy to make sure we are not sending an address
+    unsigned char byte;
+    comm_tx(addr,1);        // send address of the specific pole
     comm_tx(0b00000101, 0);
+    byte = comm_rx();
+    
 }
 
 /// this is called by the main loop.exe
 void comm_loop()
 {
-    switch(COMSTAT.STATE)
+//    switch(COMSTAT.STATE)
+//    {
+//        case 0b011: // we need to talk to confirm things
+//            /// \todo TODO: Take care of commands that we recieved
+//            if
+//    }
+    unsigned char command,parity;
+
+    if(COMSTAT.STATE == 0b011 && rxPtrOut != rxPtrIn) // slave response mode
     {
-        case 0b011: // we need to talk to confirm things
-            /// \todo TODO: Take care of commands that we recieved
-            if
+        command = rxBuff[rxPtrOut++];
+        parity = command & 1;
+        command = command & 0b01111110; // remove parity and reserved bit
+        if(rxPtrOut >= RXBUFFSIZE) rxPtrOut = 0;
+        if(command % 2) // check for parity
+        {
+            comm_tx()
+        }
+
+    }
+    
+    
+    if(COMSTAT.TERROR)
+    {
+        mem_log_error(ERR_TOKEN);
     }
 }

@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.9.1"/>
-<title>Sr. Design 2015: C:/Users/Benjaminp/Documents/pcc/current/EL 450/PatienceInc/firmware/include/eeprom.h File Reference</title>
+<title>Sr. Design 2015: C:/Users/Benjaminp/Documents/GitHub/firmware/include/eeprom.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -108,7 +108,8 @@ $(document).ready(function(){initNavTree('eeprom_8h.html','');});
   <div class="summary">
 <a href="#define-members">Macros</a> &#124;
 <a href="#enum-members">Enumerations</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">eeprom.h File Reference</div>  </div>
 </div><!--header-->
@@ -142,6 +143,15 @@ Functions</h2></td></tr>
 <tr class="memitem:a83798e03c72010aa1a2570892ccee100"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eeprom_8h.html#a83798e03c72010aa1a2570892ccee100">mem_append_log</a> (unsigned char)</td></tr>
 <tr class="memdesc:a83798e03c72010aa1a2570892ccee100"><td class="mdescLeft">&#160;</td><td class="mdescRight">saves an event to the log space.  <a href="#a83798e03c72010aa1a2570892ccee100">More...</a><br /></td></tr>
 <tr class="separator:a83798e03c72010aa1a2570892ccee100"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a5a1dd063be4d29e92a4e440f1aed2cca"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eeprom_8h.html#a5a1dd063be4d29e92a4e440f1aed2cca">setting_lightMode</a></td></tr>
+<tr class="separator:a5a1dd063be4d29e92a4e440f1aed2cca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a899cedf27600419f365efa78752addcb"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eeprom_8h.html#a899cedf27600419f365efa78752addcb">setting_timeout</a></td></tr>
+<tr class="separator:a899cedf27600419f365efa78752addcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a627875c07b4d0852d5d7b0dd9dfb2ed7"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eeprom_8h.html#a627875c07b4d0852d5d7b0dd9dfb2ed7">setting_hurricane</a></td></tr>
+<tr class="separator:a627875c07b4d0852d5d7b0dd9dfb2ed7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a class="anchor" id="aa7bace3b92f69cd5b64ae8b8cbf76019"></a>
@@ -177,7 +187,7 @@ Functions</h2></td></tr>
 </td></tr>
 </table>
 
-<p>Definition at line <a class="el" href="eeprom_8h_source.html#l00019">19</a> of file <a class="el" href="eeprom_8h_source.html">eeprom.h</a>.</p>
+<p>Definition at line <a class="el" href="eeprom_8h_source.html#l00024">24</a> of file <a class="el" href="eeprom_8h_source.html">eeprom.h</a>.</p>
 
 </div>
 </div>
@@ -210,8 +220,12 @@ Functions</h2></td></tr>
 <tr>
 <td>2 </td><td>Not enough space left in LOG space </td></tr>
 </table>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000009">Todo:</a></b></dt><dd><p class="startdd">TODO: Finish log appending function </p>
+<p>TODO: How should we store the date and time efficiently? </p>
+<p class="enddd">TODO: Add checksum for error checking of eeprom data </p>
+</dd></dl>
 
-<p>Definition at line <a class="el" href="eeprom_8c_source.html#l00031">31</a> of file <a class="el" href="eeprom_8c_source.html">eeprom.c</a>.</p>
+<p>Definition at line <a class="el" href="eeprom_8c_source.html#l00041">41</a> of file <a class="el" href="eeprom_8c_source.html">eeprom.c</a>.</p>
 
 </div>
 </div>
@@ -230,6 +244,8 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Check the memory. Certain things are checksumed. </p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000007">Todo:</a></b></dt><dd>TODO: check the POR, BOR, and VBATT bits to see where we returned from. For now, this function merely checks to see if the EEPROM exists </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000008">Todo:</a></b></dt><dd>TODO: set myAddr, the address of the pole, which is saved in EEPROM </dd></dl>
 
 <p>Definition at line <a class="el" href="eeprom_8c_source.html#l00006">6</a> of file <a class="el" href="eeprom_8c_source.html">eeprom.c</a>.</p>
 
@@ -253,7 +269,51 @@ Functions</h2></td></tr>
 
 <p>Save special bytes that are in ram to eeprom. </p>
 
-<p>Definition at line <a class="el" href="eeprom_8c_source.html#l00012">12</a> of file <a class="el" href="eeprom_8c_source.html">eeprom.c</a>.</p>
+<p>Definition at line <a class="el" href="eeprom_8c_source.html#l00018">18</a> of file <a class="el" href="eeprom_8c_source.html">eeprom.c</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a class="anchor" id="a627875c07b4d0852d5d7b0dd9dfb2ed7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned char setting_hurricane</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="eeprom_8h_source.html#l00021">21</a> of file <a class="el" href="eeprom_8h_source.html">eeprom.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a5a1dd063be4d29e92a4e440f1aed2cca"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned char setting_lightMode</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd>TODO: Have default values setup on the first run. </dd></dl>
+
+<p>Definition at line <a class="el" href="eeprom_8h_source.html#l00021">21</a> of file <a class="el" href="eeprom_8h_source.html">eeprom.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a899cedf27600419f365efa78752addcb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned char setting_timeout</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="eeprom_8h_source.html#l00021">21</a> of file <a class="el" href="eeprom_8h_source.html">eeprom.h</a>.</p>
 
 </div>
 </div>
@@ -263,7 +323,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="eeprom_8h.html">eeprom.h</a></li>
-    <li class="footer">Generated on Thu Mar 5 2015 22:25:50 for Sr. Design 2015 by
+    <li class="footer">Generated on Wed Apr 15 2015 22:43:23 for Sr. Design 2015 by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.9.1 </li>
   </ul>

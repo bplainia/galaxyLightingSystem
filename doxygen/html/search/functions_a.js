@@ -1,6 +1,8 @@
 var searchData=
 [
-  ['season_5fadjust',['season_adjust',['../movement_8h.html#a8bf89395b9cf8aa5b7f45722394c59b4',1,'season_adjust(void):&#160;movement.c'],['../movement_8c.html#a8bf89395b9cf8aa5b7f45722394c59b4',1,'season_adjust(void):&#160;movement.c']]],
-  ['sensor_5fstart',['sensor_start',['../sensors_8h.html#a15b4e13f99c0445196f2854067fd86b4',1,'sensor_start(void):&#160;sensors.c'],['../sensors_8c.html#a15b4e13f99c0445196f2854067fd86b4',1,'sensor_start(void):&#160;sensors.c']]],
-  ['setup',['setup',['../solar_light_8h.html#a7dfd9b79bc5a37d7df40207afbc5431f',1,'setup(void):&#160;solarLight.c'],['../solar_light_8c.html#a4fc01d736fe50cf5b977f755b675f11d',1,'setup():&#160;solarLight.c']]]
+  ['otgcore_5fcontrolusbresistors',['OTGCORE_ControlUsbResistors',['../usb__hal_8h.html#a59efb335c1386869414fc93537d1771a',1,'usb_hal.h']]],
+  ['otgcore_5fgetstalledendpoints',['OTGCORE_GetStalledEndpoints',['../usb__hal_8h.html#ac7c0cdf2e428816041de63438ec72552',1,'usb_hal.h']]],
+  ['otgcore_5fsetdeviceaddr',['OTGCORE_SetDeviceAddr',['../usb__hal_8h.html#aad67a6a9b524bacbd3f5e69467312766',1,'usb_hal.h']]],
+  ['otgcore_5fstallpipe',['OTGCORE_StallPipe',['../usb__hal_8h.html#ae0df36486278cd9c4eb6be3846534e41',1,'usb_hal.h']]],
+  ['otgcore_5funstallpipe',['OTGCORE_UnstallPipe',['../usb__hal_8h.html#a63be60b91a29e888b382d61d141ed930',1,'usb_hal.h']]]
 ];

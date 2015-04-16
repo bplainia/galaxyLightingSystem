@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.9.1"/>
-<title>Sr. Design 2015: C:/Users/Benjaminp/Documents/pcc/current/EL 450/PatienceInc/firmware/src/eeprom.c File Reference</title>
+<title>Sr. Design 2015: C:/Users/Benjaminp/Documents/GitHub/firmware/src/eeprom.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -158,8 +158,12 @@ Functions</h2></td></tr>
 <tr>
 <td>2 </td><td>Not enough space left in LOG space </td></tr>
 </table>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000009">Todo:</a></b></dt><dd><p class="startdd">TODO: Finish log appending function </p>
+<p>TODO: How should we store the date and time efficiently? </p>
+<p class="enddd">TODO: Add checksum for error checking of eeprom data </p>
+</dd></dl>
 
-<p>Definition at line <a class="el" href="eeprom_8c_source.html#l00031">31</a> of file <a class="el" href="eeprom_8c_source.html">eeprom.c</a>.</p>
+<p>Definition at line <a class="el" href="eeprom_8c_source.html#l00041">41</a> of file <a class="el" href="eeprom_8c_source.html">eeprom.c</a>.</p>
 
 </div>
 </div>
@@ -178,6 +182,8 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Check the memory. Certain things are checksumed. </p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000007">Todo:</a></b></dt><dd>TODO: check the POR, BOR, and VBATT bits to see where we returned from. For now, this function merely checks to see if the EEPROM exists </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000008">Todo:</a></b></dt><dd>TODO: set myAddr, the address of the pole, which is saved in EEPROM </dd></dl>
 
 <p>Definition at line <a class="el" href="eeprom_8c_source.html#l00006">6</a> of file <a class="el" href="eeprom_8c_source.html">eeprom.c</a>.</p>
 
@@ -201,7 +207,7 @@ Functions</h2></td></tr>
 
 <p>Save special bytes that are in ram to eeprom. </p>
 
-<p>Definition at line <a class="el" href="eeprom_8c_source.html#l00012">12</a> of file <a class="el" href="eeprom_8c_source.html">eeprom.c</a>.</p>
+<p>Definition at line <a class="el" href="eeprom_8c_source.html#l00018">18</a> of file <a class="el" href="eeprom_8c_source.html">eeprom.c</a>.</p>
 
 </div>
 </div>
@@ -211,7 +217,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="eeprom_8c.html">eeprom.c</a></li>
-    <li class="footer">Generated on Thu Mar 5 2015 22:25:50 for Sr. Design 2015 by
+    <li class="footer">Generated on Wed Apr 15 2015 22:43:23 for Sr. Design 2015 by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.9.1 </li>
   </ul>

@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.9.1"/>
-<title>Sr. Design 2015: C:/Users/Benjaminp/Documents/pcc/current/EL 450/PatienceInc/firmware/src/sensors.c File Reference</title>
+<title>Sr. Design 2015: C:/Users/Benjaminp/Documents/GitHub/firmware/src/sensors.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -112,82 +112,51 @@ $(document).ready(function(){initNavTree('sensors_8c.html','');});
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;<a class="el" href="sensors_8h_source.html">sensors.h</a>&gt;</code><br />
+<code>#include &quot;<a class="el" href="rtc_8h_source.html">rtc.h</a>&quot;</code><br />
 </div>
 <p><a href="sensors_8c_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a15b4e13f99c0445196f2854067fd86b4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sensors_8c.html#a15b4e13f99c0445196f2854067fd86b4">sensor_start</a> (void)</td></tr>
-<tr class="memdesc:a15b4e13f99c0445196f2854067fd86b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">setup sensors  <a href="#a15b4e13f99c0445196f2854067fd86b4">More...</a><br /></td></tr>
-<tr class="separator:a15b4e13f99c0445196f2854067fd86b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adb45f08adf195a817867bf2dde28d9cb"><td class="memItemLeft" align="right" valign="top">unsigned short&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sensors_8c.html#adb45f08adf195a817867bf2dde28d9cb">photo_value</a> (unsigned char photonum)</td></tr>
-<tr class="memdesc:adb45f08adf195a817867bf2dde28d9cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check the analog value of a particular photoresistor.  <a href="#adb45f08adf195a817867bf2dde28d9cb">More...</a><br /></td></tr>
-<tr class="separator:adb45f08adf195a817867bf2dde28d9cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aedd2f48fdfb46392bb48cd9f356cd862"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sensors_8c.html#aedd2f48fdfb46392bb48cd9f356cd862">temperature</a> (void)</td></tr>
-<tr class="memdesc:aedd2f48fdfb46392bb48cd9f356cd862"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check the temperature inside the enclosure.  <a href="#aedd2f48fdfb46392bb48cd9f356cd862">More...</a><br /></td></tr>
-<tr class="separator:aedd2f48fdfb46392bb48cd9f356cd862"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4de9c1c99cf313da71af8202740cce5e"><td class="memItemLeft" align="right" valign="top">unsigned short&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sensors_8c.html#a4de9c1c99cf313da71af8202740cce5e">rotational_postion</a> (unsigned char potnum)</td></tr>
-<tr class="memdesc:a4de9c1c99cf313da71af8202740cce5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check the analog value of a particular potentimeter.  <a href="#a4de9c1c99cf313da71af8202740cce5e">More...</a><br /></td></tr>
-<tr class="separator:a4de9c1c99cf313da71af8202740cce5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac4a8b81ab5897a295d549433df3f6904"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sensors_8c.html#ac4a8b81ab5897a295d549433df3f6904">pir_enable</a> (unsigned char pironoff)</td></tr>
-<tr class="memdesc:ac4a8b81ab5897a295d549433df3f6904"><td class="mdescLeft">&#160;</td><td class="mdescRight">turn the PIR sensor on or off  <a href="#ac4a8b81ab5897a295d549433df3f6904">More...</a><br /></td></tr>
-<tr class="separator:ac4a8b81ab5897a295d549433df3f6904"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4703fb2180cef6e9c87637e5c837c88"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sensors_8c.html#ac4703fb2180cef6e9c87637e5c837c88">sensor_setup</a> (void)</td></tr>
+<tr class="memdesc:ac4703fb2180cef6e9c87637e5c837c88"><td class="mdescLeft">&#160;</td><td class="mdescRight">setup sensors  <a href="#ac4703fb2180cef6e9c87637e5c837c88">More...</a><br /></td></tr>
+<tr class="separator:ac4703fb2180cef6e9c87637e5c837c88"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b12eece76cb69dfe0c05a8326b9ddb3"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sensors_8c.html#a0b12eece76cb69dfe0c05a8326b9ddb3">photo_value</a> (unsigned char photonum, unsigned update)</td></tr>
+<tr class="memdesc:a0b12eece76cb69dfe0c05a8326b9ddb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check the analog value of a particular photoresistor.  <a href="#a0b12eece76cb69dfe0c05a8326b9ddb3">More...</a><br /></td></tr>
+<tr class="separator:a0b12eece76cb69dfe0c05a8326b9ddb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c0cbef72f446f593e0858802ba65be1"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sensors_8c.html#a3c0cbef72f446f593e0858802ba65be1">temperature</a> (void)</td></tr>
+<tr class="memdesc:a3c0cbef72f446f593e0858802ba65be1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check the temperature inside the enclosure.  <a href="#a3c0cbef72f446f593e0858802ba65be1">More...</a><br /></td></tr>
+<tr class="separator:a3c0cbef72f446f593e0858802ba65be1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af788188af788caba5ed5982f4969cc78"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sensors_8c.html#af788188af788caba5ed5982f4969cc78">ang_pos</a> (unsigned potnum, unsigned update)</td></tr>
+<tr class="memdesc:af788188af788caba5ed5982f4969cc78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check the analog value of a particular potentimeter.  <a href="#af788188af788caba5ed5982f4969cc78">More...</a><br /></td></tr>
+<tr class="separator:af788188af788caba5ed5982f4969cc78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5fb36b51c6fbc1bc005b4524dc19cd63"><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sensors_8c.html#a5fb36b51c6fbc1bc005b4524dc19cd63">pir</a> (void)</td></tr>
+<tr class="memdesc:a5fb36b51c6fbc1bc005b4524dc19cd63"><td class="mdescLeft">&#160;</td><td class="mdescRight">check the PIR sensor and turn light ON or DIM depending on motion Only active during night time state  <a href="#a5fb36b51c6fbc1bc005b4524dc19cd63">More...</a><br /></td></tr>
+<tr class="separator:a5fb36b51c6fbc1bc005b4524dc19cd63"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a370b5078f06ed7b9b7862dd4785b7c28"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sensors_8c.html#a370b5078f06ed7b9b7862dd4785b7c28">limits</a> (void)</td></tr>
+<tr class="separator:a370b5078f06ed7b9b7862dd4785b7c28"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="adb45f08adf195a817867bf2dde28d9cb"></a>
+<a class="anchor" id="af788188af788caba5ed5982f4969cc78"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">unsigned short photo_value </td>
+          <td class="memname">unsigned int ang_pos </td>
           <td>(</td>
-          <td class="paramtype">unsigned char&#160;</td>
-          <td class="paramname"><em>photonum</em></td><td>)</td>
-          <td></td>
+          <td class="paramtype">unsigned&#160;</td>
+          <td class="paramname"><em>potnum</em>, </td>
         </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Check the analog value of a particular photoresistor. </p>
-<p>Inputs: designator of photoresistor to be checked (1, 2, 3, or 4)</p>
-<p>Outputs: analog value off that photoresistor in binary</p>
-<p>&ndash;&gt; Test values (returns) used to show if function preformed as desired </p>
-
-<p>Definition at line <a class="el" href="sensors_8c_source.html#l00043">43</a> of file <a class="el" href="sensors_8c_source.html">sensors.c</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ac4a8b81ab5897a295d549433df3f6904"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
         <tr>
-          <td class="memname">void pir_enable </td>
-          <td>(</td>
-          <td class="paramtype">unsigned char&#160;</td>
-          <td class="paramname"><em>pironoff</em></td><td>)</td>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">unsigned&#160;</td>
+          <td class="paramname"><em>update</em>&#160;</td>
         </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>turn the PIR sensor on or off </p>
-<p>Inputs: signal to turn the pir on or off (1 = on, 0 = off) </p>
-
-<p>Definition at line <a class="el" href="sensors_8c_source.html#l00096">96</a> of file <a class="el" href="sensors_8c_source.html">sensors.c</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a4de9c1c99cf313da71af8202740cce5e"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
         <tr>
-          <td class="memname">unsigned short rotational_postion </td>
-          <td>(</td>
-          <td class="paramtype">unsigned char&#160;</td>
-          <td class="paramname"><em>potnum</em></td><td>)</td>
           <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -197,16 +166,97 @@ Functions</h2></td></tr>
 <p>Outputs: analog value off that potentimeter in binary</p>
 <p>&ndash;&gt; Test values (returns) used to show if function preformed as desired </p>
 
-<p>Definition at line <a class="el" href="sensors_8c_source.html#l00081">81</a> of file <a class="el" href="sensors_8c_source.html">sensors.c</a>.</p>
+<p>Definition at line <a class="el" href="sensors_8c_source.html#l00113">113</a> of file <a class="el" href="sensors_8c_source.html">sensors.c</a>.</p>
+
+<p>Referenced by <a class="el" href="movement_8c_source.html#l00324">day_pos_move()</a>, <a class="el" href="movement_8c_source.html#l00102">daytime_move()</a>, <a class="el" href="movement_8c_source.html#l00029">limit_test()</a>, and <a class="el" href="movement_8c_source.html#l00340">year_pos_move()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a15b4e13f99c0445196f2854067fd86b4"></a>
+<a class="anchor" id="a370b5078f06ed7b9b7862dd4785b7c28"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void sensor_start </td>
+          <td class="memname">unsigned char limits </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="sensors_8c_source.html#l00196">196</a> of file <a class="el" href="sensors_8c_source.html">sensors.c</a>.</p>
+
+<p>Referenced by <a class="el" href="movement_8c_source.html#l00029">limit_test()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a0b12eece76cb69dfe0c05a8326b9ddb3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int photo_value </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>photonum</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned&#160;</td>
+          <td class="paramname"><em>update</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Check the analog value of a particular photoresistor. </p>
+<p>Inputs: designator of photoresistor to be checked (1, 2, 3, or 4)</p>
+<p>Outputs: analog value off that photoresistor in binary</p>
+<p>&ndash;&gt; Test values (returns) used to show if function preformed as desired </p>
+
+<p>Definition at line <a class="el" href="sensors_8c_source.html#l00045">45</a> of file <a class="el" href="sensors_8c_source.html">sensors.c</a>.</p>
+
+<p>Referenced by <a class="el" href="movement_8c_source.html#l00102">daytime_move()</a>, <a class="el" href="movement_8c_source.html#l00029">limit_test()</a>, and <a class="el" href="movement_8c_source.html#l00248">season_adjust()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a5fb36b51c6fbc1bc005b4524dc19cd63"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned pir </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>check the PIR sensor and turn light ON or DIM depending on motion Only active during night time state </p>
+<p>Inputs: none</p>
+<p>Outputs: Bit value showing if movement is detected or not </p>
+
+<p>Definition at line <a class="el" href="sensors_8c_source.html#l00144">144</a> of file <a class="el" href="sensors_8c_source.html">sensors.c</a>.</p>
+
+<p>Referenced by <a class="el" href="solar_light_8c_source.html#l00135">loop()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac4703fb2180cef6e9c87637e5c837c88"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void sensor_setup </td>
           <td>(</td>
           <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
@@ -217,16 +267,18 @@ Functions</h2></td></tr>
 
 <p>setup sensors </p>
 
-<p>Definition at line <a class="el" href="sensors_8c_source.html#l00005">5</a> of file <a class="el" href="sensors_8c_source.html">sensors.c</a>.</p>
+<p>Definition at line <a class="el" href="sensors_8c_source.html#l00007">7</a> of file <a class="el" href="sensors_8c_source.html">sensors.c</a>.</p>
+
+<p>Referenced by <a class="el" href="solar_light_8c_source.html#l00106">setup()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="aedd2f48fdfb46392bb48cd9f356cd862"></a>
+<a class="anchor" id="a3c0cbef72f446f593e0858802ba65be1"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char temperature </td>
+          <td class="memname">unsigned char temperature </td>
           <td>(</td>
           <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
@@ -239,7 +291,7 @@ Functions</h2></td></tr>
 <p>Outputs: Temperature at the sensor in degF</p>
 <p>&ndash;&gt; Test value (return) used to show if function preformed as desired </p>
 
-<p>Definition at line <a class="el" href="sensors_8c_source.html#l00065">65</a> of file <a class="el" href="sensors_8c_source.html">sensors.c</a>.</p>
+<p>Definition at line <a class="el" href="sensors_8c_source.html#l00093">93</a> of file <a class="el" href="sensors_8c_source.html">sensors.c</a>.</p>
 
 </div>
 </div>
@@ -249,7 +301,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="sensors_8c.html">sensors.c</a></li>
-    <li class="footer">Generated on Thu Mar 5 2015 22:25:50 for Sr. Design 2015 by
+    <li class="footer">Generated on Wed Apr 15 2015 22:43:23 for Sr. Design 2015 by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.9.1 </li>
   </ul>

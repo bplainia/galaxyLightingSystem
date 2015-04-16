@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['menuentry',['menuEntry',['../structmenu_entry.html',1,'']]]
+  ['comstat_5ft',['comstat_t',['../structcomstat__t.html',1,'']]]
 ];

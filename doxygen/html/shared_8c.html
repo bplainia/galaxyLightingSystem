@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.9.1"/>
-<title>Sr. Design 2015: C:/Users/Benjaminp/Documents/pcc/current/EL 450/PatienceInc/firmware/src/shared.c File Reference</title>
+<title>Sr. Design 2015: C:/Users/Benjaminp/Documents/GitHub/firmware/src/shared.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -106,7 +106,6 @@ $(document).ready(function(){initNavTree('shared_8c.html','');});
 
 <div class="header">
   <div class="summary">
-<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">shared.c File Reference</div>  </div>
@@ -116,11 +115,6 @@ $(document).ready(function(){initNavTree('shared_8c.html','');});
 </div>
 <p><a href="shared_8c_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
-Macros</h2></td></tr>
-<tr class="memitem:a392b9ec21bcfb8ec129a18c2d0b74cf0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="shared_8c.html#a392b9ec21bcfb8ec129a18c2d0b74cf0">pack</a>&#160;&#160;&#160;(*packet)</td></tr>
-<tr class="separator:a392b9ec21bcfb8ec129a18c2d0b74cf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:af5e0a217880b6f6976ff1c2b1297f7a3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="shared_8c.html#af5e0a217880b6f6976ff1c2b1297f7a3">adc_setup</a> ()</td></tr>
@@ -135,42 +129,57 @@ Functions</h2></td></tr>
 <tr class="memitem:a34a212934599b1e31db42ec3d8c15b73"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="shared_8c.html#a34a212934599b1e31db42ec3d8c15b73">adc_updateAll</a> ()</td></tr>
 <tr class="memdesc:a34a212934599b1e31db42ec3d8c15b73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update all the ADC buffers that are activated in <code><a class="el" href="shared_8c.html#af5e0a217880b6f6976ff1c2b1297f7a3" title="Setup the ADC module. ">adc_setup()</a></code>.  <a href="#a34a212934599b1e31db42ec3d8c15b73">More...</a><br /></td></tr>
 <tr class="separator:a34a212934599b1e31db42ec3d8c15b73"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a906da80df61e40eb0f2fe0243ad72e66"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="shared_8c.html#a906da80df61e40eb0f2fe0243ad72e66">adc_read</a> (unsigned char channel)</td></tr>
+<tr class="memdesc:a906da80df61e40eb0f2fe0243ad72e66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read adc value out of the ADC buffer for the passed channel.  <a href="#a906da80df61e40eb0f2fe0243ad72e66">More...</a><br /></td></tr>
+<tr class="separator:a906da80df61e40eb0f2fe0243ad72e66"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6b11f55ddc2f9d1125c97a47e4a799f6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="shared_8c.html#a6b11f55ddc2f9d1125c97a47e4a799f6">pwm_setup</a> ()</td></tr>
 <tr class="memdesc:a6b11f55ddc2f9d1125c97a47e4a799f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup TMR2 for use by all the CCP modules.  <a href="#a6b11f55ddc2f9d1125c97a47e4a799f6">More...</a><br /></td></tr>
 <tr class="separator:a6b11f55ddc2f9d1125c97a47e4a799f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a501f54f5e2a92a3bc2d8e7c625371aae"><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="shared_8c.html#a501f54f5e2a92a3bc2d8e7c625371aae">pwm_set</a> (unsigned char channel, unsigned char duty)</td></tr>
 <tr class="memdesc:a501f54f5e2a92a3bc2d8e7c625371aae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a specific pwm channel to a certain duty cycle in %.  <a href="#a501f54f5e2a92a3bc2d8e7c625371aae">More...</a><br /></td></tr>
 <tr class="separator:a501f54f5e2a92a3bc2d8e7c625371aae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27d0b2daf941559afb7dd6e46bf0167e"><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="shared_8c.html#a27d0b2daf941559afb7dd6e46bf0167e">i2c_tx</a> (unsigned char addr, unsigned char reg16, unsigned char regl, unsigned char regh, unsigned char *data, unsigned short dataLength)</td></tr>
+<tr class="memdesc:a27d0b2daf941559afb7dd6e46bf0167e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Takes a packet and transmits it according to its contents. Returns true if successful.  <a href="#a27d0b2daf941559afb7dd6e46bf0167e">More...</a><br /></td></tr>
+<tr class="separator:a27d0b2daf941559afb7dd6e46bf0167e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37c0b95630cd7d12e843ac4c714096ac"><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="shared_8c.html#a37c0b95630cd7d12e843ac4c714096ac">i2c_check</a> (unsigned char addr)</td></tr>
+<tr class="memdesc:a37c0b95630cd7d12e843ac4c714096ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks to see if there is something at a certain address. Returns the acknowledge bit (0=ack)  <a href="#a37c0b95630cd7d12e843ac4c714096ac">More...</a><br /></td></tr>
+<tr class="separator:a37c0b95630cd7d12e843ac4c714096ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abba02944b1444e1f4deef0fa557804cc"><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="shared_8c.html#abba02944b1444e1f4deef0fa557804cc">i2c_rx</a> (unsigned char addr, unsigned char reg16, unsigned char regl, unsigned char regh, unsigned char *data, unsigned short dataLength)</td></tr>
+<tr class="memdesc:abba02944b1444e1f4deef0fa557804cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets Data from a slave at a specific address. Returns a char array pointer.  <a href="#abba02944b1444e1f4deef0fa557804cc">More...</a><br /></td></tr>
+<tr class="separator:abba02944b1444e1f4deef0fa557804cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4f4aa63c7d4429490f91bfd80164f309"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="shared_8c.html#a4f4aa63c7d4429490f91bfd80164f309">i2c_setup</a> ()</td></tr>
 <tr class="memdesc:a4f4aa63c7d4429490f91bfd80164f309"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set up the i2c1 module.  <a href="#a4f4aa63c7d4429490f91bfd80164f309">More...</a><br /></td></tr>
 <tr class="separator:a4f4aa63c7d4429490f91bfd80164f309"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aadbd2024d0be81197a7f1080ffdc724f"><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="shared_8c.html#aadbd2024d0be81197a7f1080ffdc724f">i2c_tx</a> (<a class="el" href="structi2c_packet.html">i2cPacket</a> packet)</td></tr>
-<tr class="memdesc:aadbd2024d0be81197a7f1080ffdc724f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Takes a packet and transmits it according to its contents. Returns true if successful.  <a href="#aadbd2024d0be81197a7f1080ffdc724f">More...</a><br /></td></tr>
-<tr class="separator:aadbd2024d0be81197a7f1080ffdc724f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a707dc2bf563f2e4836b5b4bbe8c8d97d"><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="shared_8c.html#a707dc2bf563f2e4836b5b4bbe8c8d97d">i2c_rx</a> (<a class="el" href="structi2c_packet.html">i2cPacket</a> *packet)</td></tr>
-<tr class="memdesc:a707dc2bf563f2e4836b5b4bbe8c8d97d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets Data from a slave at a specific address. Returns a char array pointer.  <a href="#a707dc2bf563f2e4836b5b4bbe8c8d97d">More...</a><br /></td></tr>
-<tr class="separator:a707dc2bf563f2e4836b5b4bbe8c8d97d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d8fe4c44a1c3be9eca5dee67236d4f8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="shared_8c.html#a8d8fe4c44a1c3be9eca5dee67236d4f8">i2c_lcdInit</a> ()</td></tr>
+<tr class="separator:a8d8fe4c44a1c3be9eca5dee67236d4f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This file containes the functions that are used in more than one file. This includes the ADC, I2C, and PWM. Author: Benjamin Plain </p>
 
 <p>Definition in file <a class="el" href="shared_8c_source.html">shared.c</a>.</p>
-</div><h2 class="groupheader">Macro Definition Documentation</h2>
-<a class="anchor" id="a392b9ec21bcfb8ec129a18c2d0b74cf0"></a>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="a906da80df61e40eb0f2fe0243ad72e66"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define pack&#160;&#160;&#160;(*packet)</td>
+          <td class="memname">unsigned int adc_read </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>channel</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Referenced by <a class="el" href="shared_8c_source.html#l00135">i2c_rx()</a>.</p>
+<p>Read adc value out of the ADC buffer for the passed channel. </p>
+
+<p>Definition at line <a class="el" href="shared_8c_source.html#l00067">67</a> of file <a class="el" href="shared_8c_source.html">shared.c</a>.</p>
+
+<p>Referenced by <a class="el" href="sensors_8c_source.html#l00113">ang_pos()</a>, <a class="el" href="sensors_8c_source.html#l00045">photo_value()</a>, and <a class="el" href="sensors_8c_source.html#l00093">temperature()</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="af5e0a217880b6f6976ff1c2b1297f7a3"></a>
 <div class="memitem">
 <div class="memproto">
@@ -186,7 +195,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Setup the ADC module. </p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000011">Todo:</a></b></dt><dd>TODO: Finish setting up ADC (clock, other) </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000021">Todo:</a></b></dt><dd>TODO: Finish setting up ADC (clock, other) </dd></dl>
 
 <p>Definition at line <a class="el" href="shared_8c_source.html#l00010">10</a> of file <a class="el" href="shared_8c_source.html">shared.c</a>.</p>
 
@@ -212,6 +221,8 @@ Functions</h2></td></tr>
 <p>Input: A single number specifying which channel to update from 0 to 15. Outputs: A single bit specifying success. (1=success) </p>
 
 <p>Definition at line <a class="el" href="shared_8c_source.html#l00028">28</a> of file <a class="el" href="shared_8c_source.html">shared.c</a>.</p>
+
+<p>Referenced by <a class="el" href="sensors_8c_source.html#l00113">ang_pos()</a>, and <a class="el" href="sensors_8c_source.html#l00045">photo_value()</a>.</p>
 
 </div>
 </div>
@@ -261,24 +272,99 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Update all the ADC buffers that are activated in <code><a class="el" href="shared_8c.html#af5e0a217880b6f6976ff1c2b1297f7a3" title="Setup the ADC module. ">adc_setup()</a></code>. </p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000012">Todo:</a></b></dt><dd>TODO: adcUpdateAll() needs finisheds </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000022">Todo:</a></b></dt><dd>TODO: adcUpdateAll() needs finisheds </dd></dl>
 
 <p>Definition at line <a class="el" href="shared_8c_source.html#l00058">58</a> of file <a class="el" href="shared_8c_source.html">shared.c</a>.</p>
 
-<p>Referenced by <a class="el" href="solar_light_8c_source.html#l00126">loop()</a>.</p>
+<p>Referenced by <a class="el" href="solar_light_8c_source.html#l00135">loop()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a707dc2bf563f2e4836b5b4bbe8c8d97d"></a>
+<a class="anchor" id="a37c0b95630cd7d12e843ac4c714096ac"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned i2c_check </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>addr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Checks to see if there is something at a certain address. Returns the acknowledge bit (0=ack) </p>
+<p>Inputs: The address of the device on the i2c bus </p>
+
+<p>Definition at line <a class="el" href="shared_8c_source.html#l00196">196</a> of file <a class="el" href="shared_8c_source.html">shared.c</a>.</p>
+
+<p>Referenced by <a class="el" href="eeprom_8c_source.html#l00006">mem_check()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a8d8fe4c44a1c3be9eca5dee67236d4f8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void i2c_lcdInit </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="shared_8c_source.html#l00301">301</a> of file <a class="el" href="shared_8c_source.html">shared.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="abba02944b1444e1f4deef0fa557804cc"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">unsigned i2c_rx </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structi2c_packet.html">i2cPacket</a> *&#160;</td>
-          <td class="paramname"><em>packet</em></td><td>)</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>addr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>reg16</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>regl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>regh</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned short&#160;</td>
+          <td class="paramname"><em>dataLength</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -286,7 +372,7 @@ Functions</h2></td></tr>
 <p>Gets Data from a slave at a specific address. Returns a char array pointer. </p>
 <p>Inputs: <code>packet</code>: A packet consisting of an address, a number for quantity, and an array to fill with the quantity. Outputs: None formally. Modifies the <code>data</code> portion of the packet pointer that was given. </p>
 
-<p>Definition at line <a class="el" href="shared_8c_source.html#l00135">135</a> of file <a class="el" href="shared_8c_source.html">shared.c</a>.</p>
+<p>Definition at line <a class="el" href="shared_8c_source.html#l00209">209</a> of file <a class="el" href="shared_8c_source.html">shared.c</a>.</p>
 
 </div>
 </div>
@@ -305,24 +391,57 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Set up the i2c1 module. </p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000014">Todo:</a></b></dt><dd>FIXME: Check the baud rate generator or test it. Needs to be 100kHz. </dd></dl>
 
-<p>Definition at line <a class="el" href="shared_8c_source.html#l00093">93</a> of file <a class="el" href="shared_8c_source.html">shared.c</a>.</p>
+<p>Definition at line <a class="el" href="shared_8c_source.html#l00232">232</a> of file <a class="el" href="shared_8c_source.html">shared.c</a>.</p>
 
 <p>Referenced by <a class="el" href="solar_light_8c_source.html#l00106">setup()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="aadbd2024d0be81197a7f1080ffdc724f"></a>
+<a class="anchor" id="a27d0b2daf941559afb7dd6e46bf0167e"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">unsigned i2c_tx </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structi2c_packet.html">i2cPacket</a>&#160;</td>
-          <td class="paramname"><em>packet</em></td><td>)</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>addr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>reg16</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>regl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>regh</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned short&#160;</td>
+          <td class="paramname"><em>dataLength</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -331,8 +450,11 @@ Functions</h2></td></tr>
 <p>Inputs: a i2c transmission packet (consists of address and array of data)</p>
 <p>Outputs: a single bit specifying failure or success</p>
 <p>Description: This function takes the packet and transmits the <code>packet.addr</code> byte first. It then transmits <code>packet.dataLength</code> bytes from the <code>packet.data</code> array. If at any time a byte is not acknowleged, the function will return 0 (false). </p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000025">Todo:</a></b></dt><dd>TODO: Get the ack bit and return that from the address at least. </dd></dl>
 
-<p>Definition at line <a class="el" href="shared_8c_source.html#l00110">110</a> of file <a class="el" href="shared_8c_source.html">shared.c</a>.</p>
+<p>Definition at line <a class="el" href="shared_8c_source.html#l00175">175</a> of file <a class="el" href="shared_8c_source.html">shared.c</a>.</p>
+
+<p>Referenced by <a class="el" href="lcd_8c_source.html#l00105">lcd_display()</a>.</p>
 
 </div>
 </div>
@@ -361,10 +483,13 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Sets a specific pwm channel to a certain duty cycle in %. </p>
-<p>Inputs: Channel - which PWM channel to use, duty - the duty cycle in percent.</p>
-<p>Outputs: A single bit specifying whether or not the command succeded (1 = success) </p>
+<p>Inputs: Channel - which PWM channel to use, duty - the duty cycle in percent. Channels 1 and 2 are the motor drivers (using the 2 ECCP modules in full bridge mode) Channel 3 is for the light (using normal CCP PWM module) Channel 4,5,6 are for the LCD Backlight (Using PWM modules)</p>
+<p>Outputs: A single bit specifying whether or not the command succeded (1 = success)</p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000024">Todo:</a></b></dt><dd>TODO: finish <code>pwm_set</code> </dd></dl>
 
-<p>Definition at line <a class="el" href="shared_8c_source.html#l00086">86</a> of file <a class="el" href="shared_8c_source.html">shared.c</a>.</p>
+<p>Definition at line <a class="el" href="shared_8c_source.html#l00159">159</a> of file <a class="el" href="shared_8c_source.html">shared.c</a>.</p>
+
+<p>Referenced by <a class="el" href="lcd_8c_source.html#l00142">lcd_background()</a>, and <a class="el" href="solar_light_8c_source.html#l00348">led()</a>.</p>
 
 </div>
 </div>
@@ -383,9 +508,9 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Setup TMR2 for use by all the CCP modules. </p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000013">Todo:</a></b></dt><dd>TODO: Setup the timer for PWM </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000023">Todo:</a></b></dt><dd>TODO: Setup the timer for PWM </dd></dl>
 
-<p>Definition at line <a class="el" href="shared_8c_source.html#l00067">67</a> of file <a class="el" href="shared_8c_source.html">shared.c</a>.</p>
+<p>Definition at line <a class="el" href="shared_8c_source.html#l00129">129</a> of file <a class="el" href="shared_8c_source.html">shared.c</a>.</p>
 
 <p>Referenced by <a class="el" href="solar_light_8c_source.html#l00106">setup()</a>.</p>
 
@@ -397,7 +522,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="shared_8c.html">shared.c</a></li>
-    <li class="footer">Generated on Thu Mar 5 2015 22:25:50 for Sr. Design 2015 by
+    <li class="footer">Generated on Wed Apr 15 2015 22:43:23 for Sr. Design 2015 by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.9.1 </li>
   </ul>
