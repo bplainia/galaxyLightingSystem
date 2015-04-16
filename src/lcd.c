@@ -58,7 +58,8 @@ void lcd_setup()
     menu[3].text = "Status              ";
     menu[3].entry[0].text = "Go to Main Menu    ";
     menu[3].entry[0].function = menu_up;
-    menu[3].numEntries = 1;
+    menu[3].entry[1].text = "Maintenance ";
+    menu[3].numEntries = 2;
 
     // Clock Options
     menu[4].text          = "Clock Options       ";

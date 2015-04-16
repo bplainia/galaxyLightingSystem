@@ -45,7 +45,6 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-
 SOURCEFILES_QUOTED_IF_SPACED=src/solarLight.c src/communication.c src/eeprom.c src/hid.c src/movement.c src/powerman.c src/sensors.c src/rtc.c src/shared.c src/light.c src/lcd.c
 
 # Object Files Quoted if spaced
