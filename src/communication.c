@@ -93,6 +93,8 @@ unsigned char comm_rx()
     if(rxPtrOut >= RXBUFFSIZE) rxPtrOut = 0;
     //! \todo  TODO: Add buffer overflow detection (low priority for this system)
     return myReturn;
+
+    // for better, dynamic FIFO, see p628 in the C book for how to use a queue
 }
 
 /// Get two bytes off the stack. Returns a short.

@@ -1,8 +1,17 @@
 #ifndef HID_H
 #define HID_H
 
+
+#define CANCEL 10
+#define UPKEY 11
+#define DOWNKEY 12
+#define HELPKEY 13
+#define SECONDKEY 14
+#define ENTERKEY 15
+#define NOKEY 0xFF
+
 // Variables
-unsigned char masterState;
+
 
 // HID (keyboard, usb, and lcd) Functions
 void hid_setup(void); // setup the HID functions
@@ -14,9 +23,10 @@ void lcd_begin(void);             // Welcome and setup screen for menu system
 void lcd_end(void);               // exit out of menu and return to normal
 
 // Keypad functions
-void key_isr(void); // handle an interrupt due to a byte coming in.
-void key_insertion(void);
-void key_removal(void);
+unsigned keypad_push(unsigned char);
+unsigned char keypad_pull(void);
+unsigned char keypad_size(void);
+unsigned keypad_flush(void);
 
 // USB functions
 void usb_isr(void);

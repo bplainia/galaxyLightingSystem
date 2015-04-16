@@ -255,76 +255,8 @@ void interrupt isr()
 
     else if(RC3IE && RC3IF) // uart3 recieve (keypad entry)
     {
-        temp = RCREG3; // get the byte just sent from the ede1144
+        keypad_push(RCREG3);
         RC3IF = 0; // reset the flag
-        temp = 10;
-        switch(temp)
-        {
-            // number keys
-            case 'C':
-                keypadNum = 1;
-                keypadComm |= 0x40;
-                break;
-            case 'D':
-                keypadNum = 2;
-                keypadComm |= 0x40;
-                break;
-            case 'E':
-                keypadNum = 3;
-                keypadComm |= 0x40;
-                break;
-            case '8':
-                keypadNum = 4;
-                keypadComm |= 0x40;
-                break;
-            case '9':
-                keypadNum = 5;
-                keypadComm |= 0x40;
-                break;
-            case 'A':
-                keypadNum = 6;
-                keypadComm |= 0x40;
-                break;
-            case '4':
-                keypadNum = 7;
-                keypadComm |= 0x40;
-                break;
-            case '5':
-                keypadNum = 8;
-                keypadComm |= 0x40;
-                break;
-            case '6':
-                keypadNum = 9;
-                keypadComm |= 0x40;
-                break;
-            case '1':
-                keypadNum = 0;
-                keypadComm |= 0x40;
-                break;
-            // end of the numbers
-
-            case '0': // clear key (Cancel)
-                keypadComm = 0x01;
-                break;
-            case '2': // help key
-                keypadComm |= 0x02;
-                break;
-            case '3': // enter key
-                keypadComm |= 0x04;
-                temp = 10;
-                break;
-            case '7': // 2nd key
-                keypadComm |= 0x08;
-                break;
-            case 'B': // down key
-                keypadComm |= 0x10;
-                break;
-            case 'F': //up key
-                keypadComm |= 0x20;
-                break;
-            default:
-                keypadComm |= 0x80;
-        }
     }
 }
 

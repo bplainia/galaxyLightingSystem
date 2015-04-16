@@ -11,7 +11,7 @@
 #include <powerman.h>
 #include <rtc.h>
 #include <sensors.h>
-#include <usb/usb_device_cdc.h>
+//#include <usb/usb_device_cdc.h>
 
 #define LED_PIN   TRISCbits.TRISC7
 #define LED_OUT   PORTCbits.RC7

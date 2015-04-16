@@ -37,7 +37,6 @@ struct {
 }status;
 
 unsigned char myAddr; // Address of the pole (Configurable)
-unsigned char keypadComm,keypadNum;
 
 /// A packet that contains an address (8 or 10bit), a data array, and how long the array is.
 typedef struct 
@@ -49,6 +48,14 @@ typedef struct
     unsigned char *data;  // The pointer to the data
     unsigned char dataLength; // the length of the data
 }i2cPacket;
+
+/// A structure with a byte and a pointer to the next pointer
+/// This is for dynamic FIFO
+struct fifo
+{
+    unsigned char byte;
+    struct fifo* nextAddr;
+};
 
 // Standard Functions
 
