@@ -32,7 +32,7 @@ typedef struct
 
 /// menue: The menu entries for the LCD.
 /// Note that the 0th entry is the main menu.
-menuEntry menu[7];
+menuEntry menu[8];
 //lcdEntry initializing  = {"Master Mode Init.   ","Please Wait...      "};
 
 // Functions that are for the menu system.

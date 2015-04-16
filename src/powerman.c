@@ -4,6 +4,7 @@
  */
 
 #include <powerman.h>                         //PIC hardware mapping
+#include <eeprom.h>                           //eeprom memory
 
 void power_intiate()
 {
@@ -12,36 +13,45 @@ void power_intiate()
 
 
     PORTAbits.RA4 = 0;   // RA4 set as output to relay
-    PORTAbits.RA5 = 0;   // battery input
-    //ANSELAbits.AN4=1;        //analog input is AN4
+    TRISAbits.TRISA5 = 0;   // battery input
+    //ANCON1bits.ANSEL4=1;        //analog input is AN4
     LATAbits.LATA4=0;         //output initially set to zero
 
 
     //setup HLVD
-    HLVDCONbits.HLVDEN=1;       //enable HLVD
-    HLVDCONbits.VDIRMAG=0;  //Low-level voltage detect
-    HLVDCONbits.IRVST=1;    //Internal reference voltage stable flag bit
-    HLVDCONbits.HLVDL=1111;    //external analog input is used
+//    HLVDCONbits.HLVDEN=1;       //enable HLVD
+//    HLVDCONbits.VDIRMAG=0;  //Low-level voltage detect
+//    HLVDCONbits.IRVST=1;    //Internal reference voltage stable flag bit
+//    HLVDCONbits.HLVDL=1111;    //external analog input is used
 
 }
 
-void interrupt ipr()        //Power switch depending on battery level
+void power_loop()        //Power switch depending on battery level
 {
-    if(HLVDIE && HLVDIF)
-        PORTAbits.RA4 = 1;            //This will change the relay to grid power.
+    float battvolt;
+    int battin;
+    unsigned short rawvoltage;
+    rawvoltage = (ADCBUF4H << 8) | ADCBUF4L;
+    battvolt = rawvoltage*3.3/4096;       //input variable
+
+
+    if(battvolt<10.5f)                  //turns battery off if voltage too low
+    {
+        LATAbits.LATA4 = 0;            //This will change the relay to grid power.
+
+    }
+
+
+    if(battvolt>11.5f)                    //turns battery on if voltage too high
+    {
+        LATAbits.LATA4 = 1;            //This will change the relay to grid power.
+    }
+
+    if((battin=1) & (battvolt>11.5))
+    {
+        mem_append_log(ERR_BATTLOW)
+
+    }
+
 }
 
-void power_grid_chk()      //Check for main grid power if battery is getting low.
-{
-    if(HLVDIE)
-            //needs to enter sleep mode? Ben?
-
-}
-
-void power_batt_chk()       //Check for battery power before switching.
-{
-    
-
-}
-
-    //TODO: Any other power interupts??

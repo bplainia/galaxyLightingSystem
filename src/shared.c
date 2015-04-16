@@ -11,6 +11,9 @@ void adc_setup()
 {
     // AN4 = Battery, AN2,3 = Pots, 8,19,18,17 = Photocells, AN0 = Temp
     ADCSS0L = 0b00011101; //temp, pots, batt
+    ANCON1 = 0b00011101;    //battery in
+    ANCON2 = 0b00000001;
+    ANCON3 = 0b00001110;    
     ADCSS0H = 0b00000001; // photo pin 8
     ADCSS1L = 0b00001110; // rest of photos
     ADCSS0H = 0; // no adc's on this one

@@ -102,7 +102,7 @@ void lcd_setup()
     menu[7].entry[4].text = "Comm Offline       ";
     menu[7].entry[5].text = "Go to Main Menu    ";
     menu[7].entry[6].function = menu_up;
-    menu[7].numEntries = ?;         //TODO: Do not understand!! what goes in questionmark?
+    menu[7].numEntries = 7;         //TODO: Do not understand!! what goes in questionmark?
 
     
     // If you add another main menu entry, make sure to change NUMMENUENTRIES
