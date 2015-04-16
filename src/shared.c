@@ -158,7 +158,11 @@ void pwm_setup()
  */
 unsigned pwm_set(unsigned char channel, unsigned char duty) // Set pin to duty cycle
 {
-
+    switch(channel)
+    {
+        case 4:
+            ;
+    }
     return true;
 }
 
@@ -328,4 +332,15 @@ void i2c_lcdInit()
     __delay_ms(10);
     i2c_stop();
     return;
+}
+
+/// delay(#times): delay # of times.
+void delay(unsigned char times)
+{
+    unsigned short i;
+    while(times-- > 0)
+    {
+        i = 0xFF00;
+        while(i-- > 0) continue;
+    }
 }

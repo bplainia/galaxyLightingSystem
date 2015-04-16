@@ -34,8 +34,10 @@ void interrupt ipr()        //Power switch depending on battery level
 void power_grid_chk()      //Check for main grid power if battery is getting low.
 {
     if(HLVDIE)
+    {
+        ;
+    }
             //needs to enter sleep mode? Ben?
-
 }
 
 void power_batt_chk()       //Check for battery power before switching.
