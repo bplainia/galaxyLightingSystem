@@ -40,7 +40,6 @@ void mem_push()
  */
 unsigned char mem_append_log(unsigned char err)
 {
-
     return 0; // default return is no error
 }
 

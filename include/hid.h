@@ -19,7 +19,7 @@ void hid_loop(void);  // simple call to what to do in the loop
 void hid_execute(unsigned char);  // execute a command (usb and lcd can call this)
 
 // LCD functions
-void lcd_begin(void);             // Welcome and setup screen for menu system
+unsigned lcd_begin(void);             // Welcome and setup screen for menu system
 void lcd_end(void);               // exit out of menu and return to normal
 
 // Keypad functions

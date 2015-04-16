@@ -107,7 +107,6 @@ void setup()
 {
     // Variables
     static unsigned char memStatus;
-    cancel = 0; // reset cancel
 
     i2c_setup();  // Initialize I2C
     //! \todo  TODO: Check to see if the chip started after a POR, BOR, or is from VBATT
@@ -282,13 +281,13 @@ void led(unsigned char state)
     switch(state)
     {
         case OFF:
-            pwm_set(LED_CHAN LED_DUTY_OFF);
+            pwm_set(LED_CHAN, LED_DUTY_OFF);
             break;
         case ON:
-            pwm_set(LED_CHAN LED_DUTY_ON);
+            pwm_set(LED_CHAN, LED_DUTY_ON);
             break;
         case DIM:
-            pwm_set(LED_CHAN LED_DUTY_DIM);
+            pwm_set(LED_CHAN, LED_DUTY_DIM);
             break;
         default:
             ;

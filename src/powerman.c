@@ -38,7 +38,6 @@ void power_loop()        //Power switch depending on battery level
     if(battvolt<10.5f)                  //turns battery off if voltage too low
     {
         LATAbits.LATA4 = 0;            //This will change the relay to grid power.
-
     }
 
 

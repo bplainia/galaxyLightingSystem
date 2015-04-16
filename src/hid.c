@@ -19,7 +19,7 @@ void hid_setup(void)
     RC3IE           = 0; // Make sure the keypad is not causing interrupts right now.
     RCSTA3bits.CREN = 1; // Enable
     RPINR4_5bits.U3RXR   = 0x7; // set USART3 to RP28 for input of keypad
-    keypadIn = keypadOut = (fifo*)NULL; // initialize the keypad pointers
+    keypadIn = keypadOut = (struct fifo *) NULL; // initialize the keypad pointers
 
     // Setup LCD
     lcd_setup();
@@ -50,19 +50,19 @@ void hid_loop(void) // execute hid functions; is called from the main loop
                 temp = keypad_pull();
                 if(temp == ENTERKEY) // enter was pressed - execute menu entry
                 {
-                    menu_enter();
+                    menu_enter(0);
                 }
                 else if(temp == UPKEY)
                 {
-                    menu_next();
+                    menu_next(0);
                 }
                 else if(temp == DOWNKEY)
                 {
-                    menu_prev();
+                    menu_prev(0);
                 }
                 else if(temp == CANCEL || temp == SECONDKEY)
                 {
-                    menu_up();
+                    menu_up(0);
                 }
             }
             //else if(COMSTAT.STATE == 0b101 && COMSTAT.STATE == 0b110)

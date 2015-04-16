@@ -32,10 +32,11 @@ struct comstat_t
     unsigned           : 3; // leftovers
 }COMSTAT;
 
-struct {
-    unsigned char byte;
-    unsigned isAddress;
-}rxBuff[RXBUFFSIZE];
+//struct {
+//    unsigned char byte;
+//    unsigned isAddress;
+//}rxBuff[RXBUFFSIZE];
+unsigned char rxBuff[RXBUFFSIZE];
 
 unsigned char rxPtrOut, rxPtrIn, masterAddr;
 #endif
