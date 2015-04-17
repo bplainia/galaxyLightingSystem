@@ -3,6 +3,7 @@
 
 #include <shared.h>
 
+unsigned battin;
 void power_intiate();
 void power_grid_chk();      //Check for main grid power if battery is getting low.
 

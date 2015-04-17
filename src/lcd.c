@@ -75,6 +75,7 @@ void lcd_setup()
     // Misc. Options (Includes Power Control)
     menu[5].text = "Misc. Options       ";
     menu[5].entry[0].text = "Toggle AC/Battery   ";
+    menu[5].entry[1].function = power_switch;           //allows user to switch power via interface
     menu[5].entry[1].text = "Restart             ";
     menu[5].entry[2].text = "Go to Main Menu    ";
     menu[5].entry[2].function = menu_up;
@@ -93,8 +94,8 @@ void lcd_setup()
     menu[6].entry[6].function = menu_up;
     menu[6].numEntries = 7;
 
-    //Maintenance needed
-    menu[7].text = "No Resp: IAN    ";      //no response. "immediate attention needed"
+    //Maintenance needed, these are read only
+    menu[7].text = "Error Alerts      ";      //no response. "immediate attention needed"
     menu[7].entry[0].text = "Battery offline   ";       //
     menu[7].entry[1].text = "Bulb dead       ";
     menu[7].entry[2].text = "Tracking motors off       ";

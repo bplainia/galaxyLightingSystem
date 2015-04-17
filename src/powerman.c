@@ -6,10 +6,10 @@
 #include <powerman.h>                         //PIC hardware mapping
 #include <eeprom.h>                           //eeprom memory
 
-void power_intiate()
+void power_setup()
 {
-    PIE2bits.HLVDIE=1;      //  initiated in order to enable HLVD interupts
-    INTCONbits.GIE=1;
+//    PIE2bits.HLVDIE=1;      //  initiated in order to enable HLVD interupts
+//    INTCONbits.GIE=1;
 
 
     PORTAbits.RA4 = 0;   // RA4 set as output to relay
@@ -26,31 +26,39 @@ void power_intiate()
 
 }
 
+void power_switch(unsigned char none)
+{
+    battin = !battin;
+}
+
 void power_loop()        //Power switch depending on battery level
 {
     float battvolt;
-    int battin;
     unsigned short rawvoltage;
     rawvoltage = (ADCBUF4H << 8) | ADCBUF4L;
     battvolt = rawvoltage*3.3/4096;       //input variable
 
 
-    if(battvolt<10.5f)                  //turns battery off if voltage too low
+    if((battvolt<10.5f) | (battin==1))    //turns battery off if voltage too low
     {
         LATAbits.LATA4 = 0;            //This will change the relay to grid power.
     }
 
 
-    if(battvolt>11.5f)                    //turns battery on if voltage too high
+    if((battvolt>11.5f) | (battin==0))      //turns battery on if voltage too high
     {
-        LATAbits.LATA4 = 1;            //This will change the relay to grid power.
+        LATAbits.LATA4 = 1;            //This will the grid power off.
     }
 
-    if((battin=1) & (battvolt>11.5))
+    if(((battvolt>11.5))
     {
-        mem_append_log(ERR_BATTLOW)
-
+        mem_append_log(ERR_BATTLOW);
     }
+
+//    if(battin=1)
+//    {
+//        mem_append_log(MAINT_BATT_CHK)
+//    }
 
 }
 
