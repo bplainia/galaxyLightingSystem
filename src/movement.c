@@ -54,7 +54,7 @@ void limit_test(void){
     limitPot[NOON] = (limitPot[WEST] + limitPot[EAST])/2;
 
         // Move to middle (noon)
-    day_pos_move(POT_DAY, limitPot[NOON]);
+    day_pos_move(limitPot[NOON]);
 
 
     // Find DOWN limit
@@ -82,7 +82,7 @@ void limit_test(void){
         potTimeEst = limitPot[NOON] + (((unsigned int)currenttime.hour - 12) * abs(limitPot[EAST] - limitPot[WEST])/6);
         if(potTimeEst < limitPot[EAST] || potTimeEst > limitPot[WEST])      // check if value is within range of motion
         {
-           dusk_moveback(limitPot[EAST]);
+           dusk_moveback();
         }
         else
         {
@@ -193,9 +193,9 @@ void daytime_move(void){
 
 /*! \brief Move back to the east for the next day
  */
-void dusk_moveback(unsigned int eastLimit)
+void dusk_moveback()
 {      
-    day_pos_move(eastLimit);
+    day_pos_move(limitPot[EAST]);
 }
 
 
@@ -207,20 +207,36 @@ void motor_move(char direction){
             PIN_MOVE_UP_2 = 1;
             PIN_MOVE_DOWN_1 = 0;
             PIN_MOVE_DOWN_2 = 0;
+            PIN_MOVE_EAST_1 = 0;
+            PIN_MOVE_EAST_2 = 0;
+            PIN_MOVE_WEST_1 = 0;
+            PIN_MOVE_WEST_2 = 0;
         break;
         case DOWN:
             PIN_MOVE_UP_1 = 0;
             PIN_MOVE_UP_2 = 0;
             PIN_MOVE_DOWN_1 = 1;
             PIN_MOVE_DOWN_2 = 1;
+            PIN_MOVE_EAST_1 = 0;
+            PIN_MOVE_EAST_2 = 0;
+            PIN_MOVE_WEST_1 = 0;
+            PIN_MOVE_WEST_2 = 0;
         break;
         case EAST:
+            PIN_MOVE_UP_1 = 0;
+            PIN_MOVE_UP_2 = 0;
+            PIN_MOVE_DOWN_1 = 0;
+            PIN_MOVE_DOWN_2 = 0;
             PIN_MOVE_EAST_1 = 1;
             PIN_MOVE_EAST_2 = 1;
             PIN_MOVE_WEST_1 = 0;
             PIN_MOVE_WEST_2 = 0;
         break;
         case WEST:
+            PIN_MOVE_UP_1 = 0;
+            PIN_MOVE_UP_2 = 0;
+            PIN_MOVE_DOWN_1 = 0;
+            PIN_MOVE_DOWN_2 = 0;
             PIN_MOVE_EAST_1 = 0;
             PIN_MOVE_EAST_2 = 0;
             PIN_MOVE_WEST_1 = 1;
