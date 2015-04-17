@@ -108,6 +108,7 @@ void setup()
     // Variables
     static unsigned char memStatus;
 
+    power_setup();
     i2c_setup();  // Initialize I2C
     //! \todo  TODO: Check to see if the chip started after a POR, BOR, or is from VBATT
     memStatus = mem_check(); // checks where it started up from, and if memory is ok

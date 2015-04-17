@@ -30,10 +30,9 @@ typedef struct
 }menuEntry;
 
 
-/// menue: The menu entries for the LCD.
+/// menu: The menu entries for the LCD.
 /// Note that the 0th entry is the main menu.
 menuEntry menu[8];
-//lcdEntry initializing  = {"Master Mode Init.   ","Please Wait...      "};
 
 // Functions that are for the menu system.
 void menu_up(unsigned char);
@@ -44,7 +43,7 @@ static void menu_display();
 
 // Functions that are for the LCD
 void lcd_setup();
-void lcd_usb(unsigned char);      // display USB connected. Press ? to disconnect.
+void lcd_usb(unsigned char);
 unsigned char lcd_display(char[21],char[21]);
 void lcd_background(unsigned char,unsigned char,unsigned char); // change the background color (PWM). Does not need return since it is internal.
 
