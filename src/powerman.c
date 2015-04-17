@@ -31,6 +31,7 @@ void power_switch(unsigned char none)
     battin = !battin;
 }
 
+
 void power_loop()        //Power switch depending on battery level
 {
     float battvolt;
