@@ -169,7 +169,7 @@ void pwm_setup()
  *
  * \todo TODO: finish `pwm_set`
  */
-unsigned pwm_set(unsigned char channel, unsigned char duty) // Set pin to duty cycle
+unsigned pwm_set(unsigned char channel, unsigned char duty, unsigned char value) // Set pin to duty cycle
 {
     int temp, x, duty;
     channel = x;
@@ -179,7 +179,7 @@ unsigned pwm_set(unsigned char channel, unsigned char duty) // Set pin to duty c
 
     PR2 = 0xFF;
 
-    value = CCPRxL;
+    value = CCPR1L;
 
     if(x == 1 || x == 2)
     {
