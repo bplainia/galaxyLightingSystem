@@ -346,8 +346,16 @@ void i2c_lcdInit()
     return;
 }
 
-/// delay(#): delay #/8 seconds
-void delay(unsigned char times)
+/*! \brief delay(#): delay #/8 seconds
+ *
+ * To use the delay and timeout functions, take the time you want to wait in seconds
+ * and divide it by 8. This is the number you put in (up to 65535 => 2.27 hours).
+ * The delay function is simple to use, but blocks the code from running. The
+ * timeout functions do not block. To use timeout functionality, use `timeoutInit()`
+ * first, then call `timeoutCheck` like the delay. It will return false when the
+ * timeout has been reached.
+ */
+void delay(unsigned short times)
 {
     delayTime = 0;
     TMR1H = 0xEF;
