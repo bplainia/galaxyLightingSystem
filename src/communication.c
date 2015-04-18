@@ -12,7 +12,7 @@
 #include <communication.h>
 #include <eeprom.h>
 
-#include "usb/usb_hal_pic18.h"
+//#include "usb/usb_hal_pic18.h"
 
 /// Setup the pins and modules for communication outside the pole.
 void comm_start()

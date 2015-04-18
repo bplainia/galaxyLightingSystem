@@ -86,6 +86,8 @@ static unsigned i2c_send(unsigned char); // private function to send a byte
 static unsigned char i2c_recv(unsigned); // private function to recieve a byte
 
 void delay(unsigned char);
+void timeoutInit(void);
+unsigned timeoutCheck(unsigned short);
 
 #endif	/* SHARED_H */
 

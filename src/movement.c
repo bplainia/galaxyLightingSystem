@@ -378,3 +378,5 @@ unsigned int abs(unsigned int num)
     return(num);
 }
 
+// FIXME: Luke, BEWARE USING INTS. Please try to remove them. They waste cpu. - Ben
+// Please see lcd.c and eeprom.h for details on command stuff.
