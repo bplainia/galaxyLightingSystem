@@ -66,67 +66,71 @@ void adc_updateAll()
 
 }
 
-/// Read adc value out of the ADC buffer for the passed channel
-unsigned int adc_read(unsigned char channel)
-{
-    unsigned int adcVal;
-    int *adcPtr;
-
-    switch(channel)
-    {
-        case 0:
-            adcPtr = (int *)&ADCBUF0L;
-            break;
-        case 1:
-            adcPtr = (int *)&ADCBUF1L;
-            break;
-        case 2:
-            adcPtr = (int *)&ADCBUF2L;
-            break;
-        case 3:
-            adcPtr = (int *)&ADCBUF3L;
-            break;
-        case 4:
-            adcPtr = (int *)&ADCBUF4L;
-            break;
-        case 5:
-            adcPtr = (int *)&ADCBUF5L;
-            break;
-        case 6:
-            adcPtr = (int *)&ADCBUF6L;
-            break;
-        case 7:
-            adcPtr = (int *)&ADCBUF7L;
-            break;
-        case 8:
-            adcPtr = (int *)&ADCBUF8L;
-            break;
-        case 9:
-            adcPtr = (int *)&ADCBUF9L;
-            break;
-        case 10:
-            adcPtr = (int *)&ADCBUF10L;
-            break;
-        case 11:
-            adcPtr = (int *)&ADCBUF11L;
-            break;
-        case 12:
-            adcPtr = (int *)&ADCBUF12L;
-            break;
-        case 13:
-            adcPtr = (int *)&ADCBUF13L;
-            break;
-        case 14:
-            adcPtr = (int *)&ADCBUF14L;
-            break;
-        case 15:
-            adcPtr = (int *)&ADCBUF15L;
-            break;
-    }
-
-    adcVal = *adcPtr;
-    return(adcVal);
-}
+// /// Read adc value out of the ADC buffer for the passed channel
+//unsigned int adc_read(unsigned char channel)
+//{
+//    unsigned int adcVal;
+//    int *adcPtr;
+//
+//    switch(channel)
+//    {
+//        case 0:
+//            adcPtr = (int *)&ADCBUF0L;
+//            break;
+//        case 1:
+//            adcPtr = (int *)&ADCBUF1L;
+//            break;
+//        case 2:
+//            adcPtr = (int *)&ADCBUF2L;
+//            break;
+//        case 3:
+//            adcPtr = (int *)&ADCBUF3L;
+//            break;
+//        case 4:
+//            adcPtr = (int *)&ADCBUF4L;
+//            break;
+//        case 5:
+//            adcPtr = (int *)&ADCBUF5L;
+//            break;
+//        case 6:
+//            adcPtr = (int *)&ADCBUF6L;
+//            break;
+//        case 7:
+//            adcPtr = (int *)&ADCBUF7L;
+//            break;
+//        case 8:
+//            adcPtr = (int *)&ADCBUF8L;
+//            break;
+//        case 9:
+//            adcPtr = (int *)&ADCBUF9L;
+//            break;
+//        case 10:
+//            adcPtr = (int *)&ADCBUF10L;
+//            break;
+//        case 11:
+//            adcPtr = (int *)&ADCBUF11L;
+//            break;
+//        case 12:
+//            adcPtr = (int *)&ADCBUF12L;
+//            break;
+//        case 13:
+//            adcPtr = (int *)&ADCBUF13L;
+//            break;
+//        case 14:
+//            adcPtr = (int *)&ADCBUF14L;
+//            break;
+//        case 15:
+//            adcPtr = (int *)&ADCBUF15L;
+//            break;
+//    }
+//
+//    adcVal = *adcPtr;
+//    return(adcVal);
+//}
+// Three reasons this won't work: 
+//   1. they are not integers,
+//   2. you are supposed to get it straight from the buffer and does not include the channels we need
+//   3. It doesn't have comments. :P
 
 /// Setup TMR2 for use by all the CCP modules
 void pwm_setup() 
@@ -146,6 +150,11 @@ void pwm_setup()
     RPOR32_33bits.RPO32R = 0x9; // set RP32 to CCP5 for RED PWM
     RPOR34_35bits.RPO34R = 0x9; // set RP34 to CCP6 for GRN PWM
     RPOR36_37bits.RPO37R = 0x8; // set RP37 to CCP7 for BLU PWM
+
+    TMR1H = 0xEF;
+    TMR1L = 0xFF;       // set to increment `time` every 1/8th of a second
+    TMR1IE = 1;         // enable interrupt for timer 1
+    T1CON = 0b10001011; // Use SOSC, no prescaler Sync it, 16-bit r/w mode, enable.
 }
 
 /*! \brief Sets a specific pwm channel to a certain duty cycle in %
@@ -337,13 +346,34 @@ void i2c_lcdInit()
     return;
 }
 
-/// delay(#times): delay # of times.
-void delay(unsigned char times)
+/*! \brief delay(#): delay #/8 seconds
+ *
+ * To use the delay and timeout functions, take the time you want to wait in seconds
+ * and divide it by 8. This is the number you put in (up to 65535 => 2.27 hours).
+ * The delay function is simple to use, but blocks the code from running. The
+ * timeout functions do not block. To use timeout functionality, use `timeoutInit()`
+ * first, then call `timeoutCheck` like the delay. It will return false when the
+ * timeout has been reached.
+ */
+void delay(unsigned short times)
 {
-    unsigned short i;
-    while(times-- > 0)
-    {
-        i = 0xFF00;
-        while(i-- > 0) continue;
-    }
+    delayTime = 0;
+    TMR1H = 0xEF;
+    TMR1L = 0xFF;       // set to increment `time` every 1/8th of a second
+    while(delayTime<times) continue;
+}
+
+/// Reset the timer variable and the timer counter so we can do a timeout.
+void timeoutInit()
+{
+    // set the timer variable to zero and restart the timer
+    time  = 0;
+    TMR1H = 0xEF;
+    TMR1L = 0xFF; // set to increment `time` every 1/8th of a second
+}
+
+/// Check if we have waited a certain ammount of time
+unsigned timeoutCheck(unsigned short timeCheck)
+{
+    return time > timeCheck;
 }

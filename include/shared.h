@@ -37,6 +37,7 @@ struct {
 }status;
 
 unsigned char myAddr; // Address of the pole (Configurable)
+volatile unsigned short time,delayTime; // Timeout varialbe
 
 /// A packet that contains an address (8 or 10bit), a data array, and how long the array is.
 typedef struct 
@@ -61,7 +62,7 @@ struct fifo
 
 void adc_setup(void); // setup the adc module
 void adc_update(unsigned char); // Update a pin
-unsigned int adc_reg_read(unsigned char); // Read the given adc value out of the adc buffer
+//unsigned int adc_read(unsigned char); // Read the given adc value out of the adc buffer
 void adc_update2(unsigned char, unsigned char); // Update 2 pins consecutively
 void adc_updateAll(); // Update all the ADC buffers that were selected in setup
 

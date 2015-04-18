@@ -94,7 +94,7 @@ void main(void)
     // else here now. This is a finished function.
     INTCONbits.GIE = 0; // disable all interrupts
     INTCONbits.PEIE = 1; // enable periphrial interrupts (disabled by GIE currently)
-    RCONbits.IPEN = 0; // No priority interrupts
+    RCONbits.IPEN = 1; // Priority interrupts
     
     setup();             // setup everything
 
@@ -108,6 +108,7 @@ void setup()
     // Variables
     static unsigned char memStatus;
 
+    power_setup();
     i2c_setup();  // Initialize I2C
     //! \todo  TODO: Check to see if the chip started after a POR, BOR, or is from VBATT
     memStatus = mem_check(); // checks where it started up from, and if memory is ok
@@ -123,7 +124,7 @@ void setup()
     sensor_setup();
     if(memStatus & 0b00001111) // if we returned from ?, don't waste time doing the limit test.
     {
-        limit_test();           // Calibration for position pots
+      //  limit_test();           // Calibration for position pots
     }
 }
 
@@ -137,20 +138,20 @@ void loop()
 
     // Put things that you need to process here. Dont' spend too much time
     // in your process. Others want to do stuff too...
-    adc_updateAll(); // Update all the ADC buffers every loop
-    switch(status.state)
-    {
-        case 1: // Daytime Mode
-            daytime_move();
-            led(OFF);
-            break;
-        case 2: // Nighttime mode
-            pir();
-            break;
-        case 3: // ERROR mode
-            // light off
-            ;
-    }
+//                adc_updateAll(); // Update all the ADC buffers every loop
+//                switch(status.state)
+//                {
+//                    case 1: // Daytime Mode
+//                        daytime_move();
+//                        led(OFF);
+//                        break;
+//                    case 2: // Nighttime mode
+//                        pir();
+//                        break;
+//                    case 3: // ERROR mode
+//                        // light off
+//                        ;
+//                }
     // Dusk event
     //  if(photo_value(1, PHOTO_LEV) < DUSK) // && time = after 6ish
     //  {
@@ -184,7 +185,7 @@ void loop()
  * software should ensure the appropriate interrupt flag bits are clear prior to enabling
  * an interrupt. This feature allows for software polling.
  */
-void interrupt isr()
+void low_priority interrupt isr()
 {
     volatile unsigned char temp, temp2;
     if(RC1IE && RC1IF)
@@ -266,10 +267,17 @@ void interrupt isr()
  *
  * Make sure to enable priority interrupts before using this routine.
  */
-//void interrupt high_priority isr_high()
-//{
-//    ;
-//}
+void interrupt high_priority isr_high()
+{
+    if(TMR1IE && TMR1IF) // This is the delay counter
+    {
+        TMR1IF = 0;
+        TMR1H  = 0xEF;
+        TMR1L  = 0xFF;       // set to increment `time` every 1/8th of a second
+        ++time;
+        ++delayTime;
+    }
+}
 
 void led_setup(void)
 {
