@@ -17,13 +17,15 @@
 #include <string.h>
 #include <eeprom.h>
 
+typedef void (*menuFunct)(unsigned char); // menu functions. the char is for the pole ID.
+
 typedef struct
 {
     const char *text; // Main Menu Entry
     struct
     {
         const char *text; // Menu entry name
-        void (*function)(unsigned char); // function to call to execute command. The char is the pole number.
+        menuFunct function; // function to call to execute command. The char is the pole number.
         unsigned char *data;
     }entry[7];
     char numEntries;
@@ -33,6 +35,7 @@ typedef struct
 /// menu: The menu entries for the LCD.
 /// Note that the 0th entry is the main menu.
 menuEntry menu[8];
+static menuFunct curFunct; // if a function is selected
 
 // Functions that are for the menu system.
 void menu_up(unsigned char);
@@ -44,8 +47,18 @@ static void menu_display();
 // Functions that are for the LCD
 void lcd_setup();
 void lcd_usb(unsigned char);
-unsigned char lcd_display(char[21],char[21]);
+unsigned char lcd_display(const unsigned char*,const unsigned char*);
 void lcd_background(unsigned char,unsigned char,unsigned char); // change the background color (PWM). Does not need return since it is internal.
+
+void menu_setLightMode(unsigned char);
+void menu_setHurricaneMode(unsigned char);
+void menu_setPanelMode(unsigned char);
+void menu_setACBatt(unsigned char);
+void menu_seeTime(unsigned char);
+void menu_setTime(unsigned char);
+void menu_setXaxis(unsigned char);
+void menu_setYaxis(unsigned char);
+void menu_seeStatus(unsigned char);
 
 /*! \page menu The LCD Menu System
  *

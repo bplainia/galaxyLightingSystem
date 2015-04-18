@@ -20,7 +20,7 @@ void hid_execute(unsigned char);  // execute a command (usb and lcd can call thi
 
 // LCD functions
 unsigned lcd_begin(void);             // Welcome and setup screen for menu system
-void lcd_end(void);               // exit out of menu and return to normal
+void lcd_end(unsigned char);               // exit out of menu and return to normal
 
 // Keypad functions
 unsigned keypad_push(unsigned char);

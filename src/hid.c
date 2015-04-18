@@ -122,7 +122,7 @@ unsigned lcd_begin(void)             // Welcome and setup screen for menu system
 }
 
 /// display "exiting", then turn off the led, and exit maintainence mode
-void lcd_end(void)               // exit out of menu and return to normal
+void lcd_end(unsigned char NA)               // exit out of menu and return to normal
 {
 
     if(status.mmode == 1) 
