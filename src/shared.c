@@ -150,6 +150,11 @@ void pwm_setup()
     RPOR32_33bits.RPO32R = 0x9; // set RP32 to CCP5 for RED PWM
     RPOR34_35bits.RPO34R = 0x9; // set RP34 to CCP6 for GRN PWM
     RPOR36_37bits.RPO37R = 0x8; // set RP37 to CCP7 for BLU PWM
+
+    TMR1H = 0xEF;
+    TMR1L = 0xFF;       // set to increment `time` every 1/8th of a second
+    TMR1IE = 1;         // enable interrupt for timer 1
+    T1CON = 0b10001011; // Use SOSC, no prescaler Sync it, 16-bit r/w mode, enable.
 }
 
 /*! \brief Sets a specific pwm channel to a certain duty cycle in %
@@ -341,27 +346,22 @@ void i2c_lcdInit()
     return;
 }
 
-/// delay(#times): delay # of times.
-/// \todo TODO: Each loop needs to last 0.1s. Should use a timer with SOSC
+/// delay(#): delay #/8 seconds
 void delay(unsigned char times)
 {
-    unsigned short i;
-    while(times-- > 0)
-    {
-        i = 0xFF00;
-        while(i-- > 0) continue;
-    }
+    delayTime = 0;
+    TMR1H = 0xEF;
+    TMR1L = 0xFF;       // set to increment `time` every 1/8th of a second
+    while(delayTime<times) continue;
 }
 
 /// Reset the timer variable and the timer counter so we can do a timeout.
-/// IMPORTANT NOTE: DO NOT USE THE `delay(#)` FUNCTION AT THE SAME TIME AS THIS!
-/// \todo TODO: Timeout timer
 void timeoutInit()
 {
     // set the timer variable to zero and restart the timer
-    time = 0;
-    TMR0L = 0;
-    TMR0H = 0;
+    time  = 0;
+    TMR1H = 0xEF;
+    TMR1L = 0xFF; // set to increment `time` every 1/8th of a second
 }
 
 /// Check if we have waited a certain ammount of time

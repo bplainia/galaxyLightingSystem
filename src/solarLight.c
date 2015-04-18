@@ -94,7 +94,7 @@ void main(void)
     // else here now. This is a finished function.
     INTCONbits.GIE = 0; // disable all interrupts
     INTCONbits.PEIE = 1; // enable periphrial interrupts (disabled by GIE currently)
-    RCONbits.IPEN = 0; // No priority interrupts
+    RCONbits.IPEN = 1; // Priority interrupts
     
     setup();             // setup everything
 
@@ -185,7 +185,7 @@ void loop()
  * software should ensure the appropriate interrupt flag bits are clear prior to enabling
  * an interrupt. This feature allows for software polling.
  */
-void interrupt isr()
+void low_priority interrupt isr()
 {
     volatile unsigned char temp, temp2;
     if(RC1IE && RC1IF)
@@ -267,10 +267,17 @@ void interrupt isr()
  *
  * Make sure to enable priority interrupts before using this routine.
  */
-//void interrupt high_priority isr_high()
-//{
-//    ;
-//}
+void interrupt high_priority isr_high()
+{
+    if(TMR1IE && TMR1IF) // This is the delay counter
+    {
+        TMR1IF = 0;
+        TMR1H  = 0xEF;
+        TMR1L  = 0xFF;       // set to increment `time` every 1/8th of a second
+        ++time;
+        ++delayTime;
+    }
+}
 
 void led_setup(void)
 {
