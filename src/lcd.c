@@ -144,6 +144,7 @@ void lcd_setup()
     //Maintenance needed, these are read only
     menu[7].text = "Error Alerts      ";      //no response. "immediate attention needed"
         menu[7].entry[0].text = "Battery offline   ";       //
+        menu[7].entry[0].data = batt_live;
 
         menu[7].entry[1].text = "Bulb dead       ";
         menu[7].entry[1].function = bulb_detect;

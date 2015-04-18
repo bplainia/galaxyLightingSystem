@@ -7,6 +7,21 @@
 // CONSTANTS
 #define EEPROMADDR 0xA0
 
+//added by DJ's program
+#define OK 0
+#define NOEEPROM 1
+#define NOSPACE 2
+#define ERR_BATTLOW 3
+#define ACDCPOWER 4
+#define BULBLIFE 5
+#define DAYTIMETRUE 6
+#define ERR_MOTOR 7
+#define ERR_PHOTO1 8
+#define ERR_PHOTO2 9
+#define ERR_PHOTO3 10
+#define ERR_PHOTO4 11
+#define ERR_MOTION 12
+
 // Enumerations
 /* power-up status in order: 
  FIRSTRUN: first time initialization
