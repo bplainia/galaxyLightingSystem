@@ -1,13 +1,12 @@
 var searchData=
 [
-  ['lcd_5fbegin',['lcd_begin',['../hid_8h.html#a438f617a14d9f21cbb2bd06d8c7c9ecf',1,'lcd_begin(void):&#160;hid.c'],['../hid_8c.html#a438f617a14d9f21cbb2bd06d8c7c9ecf',1,'lcd_begin(void):&#160;hid.c']]],
-  ['lcd_5fend',['lcd_end',['../hid_8h.html#a666482694abca54ecd49341cb21859e2',1,'lcd_end(void):&#160;hid.c'],['../hid_8c.html#a666482694abca54ecd49341cb21859e2',1,'lcd_end(void):&#160;hid.c']]],
-  ['lcd_5fexecute',['lcd_execute',['../hid_8h.html#a0431a8630ef511318148f35739c630fa',1,'hid.h']]],
-  ['lcd_5fmenu',['lcd_menu',['../hid_8h.html#a1001e29b61b78e45ebce8276372e6312',1,'lcd_menu(unsigned char):&#160;hid.c'],['../hid_8c.html#a1001e29b61b78e45ebce8276372e6312',1,'lcd_menu(unsigned char):&#160;hid.c']]],
-  ['lcd_5fusb',['lcd_usb',['../hid_8h.html#ae525221879a89187005664747d197386',1,'lcd_usb(unsigned char):&#160;hid.c'],['../hid_8c.html#ae525221879a89187005664747d197386',1,'lcd_usb(unsigned char):&#160;hid.c']]],
-  ['led_5fauto',['led_auto',['../light_8h.html#a8597319bcbaed4f163f51c40b4fcd414',1,'led_auto(void):&#160;light.c'],['../light_8c.html#a8597319bcbaed4f163f51c40b4fcd414',1,'led_auto(void):&#160;light.c']]],
-  ['led_5fmaintenance',['led_maintenance',['../light_8h.html#a0c118b1a36dafc7fca65a90d7935d629',1,'led_maintenance(unsigned char):&#160;light.c'],['../light_8c.html#a0bf4480a904cbe89381d0ef8a83924ab',1,'led_maintenance(unsigned char lightState):&#160;light.c']]],
-  ['led_5fsetup',['led_setup',['../light_8h.html#a45a4dce2a793aa9be79132acc6527869',1,'led_setup(void):&#160;light.c'],['../light_8c.html#a45a4dce2a793aa9be79132acc6527869',1,'led_setup(void):&#160;light.c']]],
-  ['limit_5ftest',['limit_test',['../movement_8h.html#a9e3d487fc2cf3a8946fc4045ece08ca5',1,'limit_test(void):&#160;movement.c'],['../movement_8c.html#a9e3d487fc2cf3a8946fc4045ece08ca5',1,'limit_test(void):&#160;movement.c']]],
-  ['loop',['loop',['../solar_light_8h.html#a0b33edabd7f1c4e4a0bf32c67269be2f',1,'loop(void):&#160;solarLight.c'],['../solar_light_8c.html#afe461d27b9c48d5921c00d521181f12f',1,'loop():&#160;solarLight.c']]]
+  ['i2c_5fcheck',['i2c_check',['../shared_8h.html#a0e97d114aa8238faa423a43d766af530',1,'i2c_check(unsigned char):&#160;shared.c'],['../shared_8c.html#a37c0b95630cd7d12e843ac4c714096ac',1,'i2c_check(unsigned char addr):&#160;shared.c']]],
+  ['i2c_5flcdinit',['i2c_lcdInit',['../shared_8h.html#abf244f82e04b444b879899a09a63bcd5',1,'i2c_lcdInit(void):&#160;shared.c'],['../shared_8c.html#a8d8fe4c44a1c3be9eca5dee67236d4f8',1,'i2c_lcdInit():&#160;shared.c']]],
+  ['i2c_5frx',['i2c_rx',['../shared_8h.html#afbd6833770b779777b50b1775213fbdb',1,'i2c_rx(unsigned char, unsigned char, unsigned char, unsigned char, unsigned char *, unsigned short):&#160;shared.c'],['../shared_8c.html#abba02944b1444e1f4deef0fa557804cc',1,'i2c_rx(unsigned char addr, unsigned char reg16, unsigned char regl, unsigned char regh, unsigned char *data, unsigned short dataLength):&#160;shared.c']]],
+  ['i2c_5fsetup',['i2c_setup',['../shared_8h.html#a6cf2b6b416b8fe80e2c25b106b96ba43',1,'i2c_setup(void):&#160;shared.c'],['../shared_8c.html#a4f4aa63c7d4429490f91bfd80164f309',1,'i2c_setup():&#160;shared.c']]],
+  ['i2c_5ftx',['i2c_tx',['../shared_8h.html#aa69811c45b886f04ea675879408d9a5f',1,'i2c_tx(unsigned char, unsigned char, unsigned char, unsigned char, unsigned char *, unsigned short):&#160;shared.c'],['../shared_8c.html#a27d0b2daf941559afb7dd6e46bf0167e',1,'i2c_tx(unsigned char addr, unsigned char reg16, unsigned char regl, unsigned char regh, unsigned char *data, unsigned short dataLength):&#160;shared.c']]],
+  ['ipr',['ipr',['../powerman_8c.html#a05b907ccf068ecf3baa67aaf04690e91',1,'powerman.c']]],
+  ['isr',['isr',['../solar_light_8c.html#a1954f15a47facbba53695a3aa4d3e84b',1,'solarLight.c']]],
+  ['isr_5fhigh',['isr_high',['../solar_light_8h.html#aad40a8e91930ee48a204578460cb5641',1,'solarLight.h']]],
+  ['isr_5flow',['isr_low',['../solar_light_8h.html#a1af6aa9cd9e38e34e05d6fc47306a184',1,'solarLight.h']]]
 ];

@@ -57,3 +57,9 @@ void led_maintenance(unsigned char lightState)
     }
 
 }
+
+//for the maintenance error alerts
+void bulb_status(unsigned char none)
+{
+    //make a variable... then put it in header file. 
+}

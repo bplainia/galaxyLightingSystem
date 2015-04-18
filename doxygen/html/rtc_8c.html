@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.9.1"/>
-<title>Sr. Design 2015: C:/Users/Benjaminp/Documents/pcc/current/EL 450/PatienceInc/firmware/src/rtc.c File Reference</title>
+<title>Sr. Design 2015: C:/Users/Benjaminp/Documents/GitHub/firmware/src/rtc.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -121,61 +121,126 @@ Functions</h2></td></tr>
 <tr class="memitem:a9e961a2e8e8309e4fd490ac35f68a293"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rtc_8c.html#a9e961a2e8e8309e4fd490ac35f68a293">rtc_setup</a> ()</td></tr>
 <tr class="memdesc:a9e961a2e8e8309e4fd490ac35f68a293"><td class="mdescLeft">&#160;</td><td class="mdescRight">Real-time Clock/Calendar Module setup.  <a href="#a9e961a2e8e8309e4fd490ac35f68a293">More...</a><br /></td></tr>
 <tr class="separator:a9e961a2e8e8309e4fd490ac35f68a293"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4bfdeddb5688e60286998294b6f85445"><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rtc_8c.html#a4bfdeddb5688e60286998294b6f85445">rtc_set</a> (unsigned char year, unsigned char month, unsigned char day, unsigned char hour, unsigned char minute, unsigned char second)</td></tr>
-<tr class="memdesc:a4bfdeddb5688e60286998294b6f85445"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the time on the RTCC.  <a href="#a4bfdeddb5688e60286998294b6f85445">More...</a><br /></td></tr>
-<tr class="separator:a4bfdeddb5688e60286998294b6f85445"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a476351b7fe2d99467f8e9b972cd47434"><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rtc_8c.html#a476351b7fe2d99467f8e9b972cd47434">rtc_set</a> (<a class="el" href="structdatetime.html">datetime</a> time)</td></tr>
+<tr class="memdesc:a476351b7fe2d99467f8e9b972cd47434"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the time on the RTCC.  <a href="#a476351b7fe2d99467f8e9b972cd47434">More...</a><br /></td></tr>
+<tr class="separator:a476351b7fe2d99467f8e9b972cd47434"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa82c881639ceb58638e763227ddab068"><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rtc_8c.html#aa82c881639ceb58638e763227ddab068">rtc_get</a> (<a class="el" href="structdatetime.html">datetime</a> *time)</td></tr>
+<tr class="memdesc:aa82c881639ceb58638e763227ddab068"><td class="mdescLeft">&#160;</td><td class="mdescRight">gives the current time as a <code>datetime</code> structure.  <a href="#aa82c881639ceb58638e763227ddab068">More...</a><br /></td></tr>
+<tr class="separator:aa82c881639ceb58638e763227ddab068"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3064ad13742d99dced913f814a7ce5ff"><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rtc_8c.html#a3064ad13742d99dced913f814a7ce5ff">alarm_set</a> (<a class="el" href="structalarmtime.html">alarmtime</a> time)</td></tr>
+<tr class="memdesc:a3064ad13742d99dced913f814a7ce5ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the alarm date/time.  <a href="#a3064ad13742d99dced913f814a7ce5ff">More...</a><br /></td></tr>
+<tr class="separator:a3064ad13742d99dced913f814a7ce5ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90ba74701d3d697f2fe95a325a4956e8"><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rtc_8c.html#a90ba74701d3d697f2fe95a325a4956e8">alarm_enable</a> ()</td></tr>
+<tr class="memdesc:a90ba74701d3d697f2fe95a325a4956e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables the alarm. Make sure to setup the alarm first!  <a href="#a90ba74701d3d697f2fe95a325a4956e8">More...</a><br /></td></tr>
+<tr class="separator:a90ba74701d3d697f2fe95a325a4956e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59601aa4f1e309a8dd9dec8055e0a87e"><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rtc_8c.html#a59601aa4f1e309a8dd9dec8055e0a87e">alarm_disable</a> ()</td></tr>
+<tr class="memdesc:a59601aa4f1e309a8dd9dec8055e0a87e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable the alarm.  <a href="#a59601aa4f1e309a8dd9dec8055e0a87e">More...</a><br /></td></tr>
+<tr class="separator:a59601aa4f1e309a8dd9dec8055e0a87e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="a4bfdeddb5688e60286998294b6f85445"></a>
+<a class="anchor" id="a59601aa4f1e309a8dd9dec8055e0a87e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned alarm_disable </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Disable the alarm. </p>
+<p>Output: Returns false if the alarm was set before. If it was not, returns true. </p>
+
+<p>Definition at line <a class="el" href="rtc_8c_source.html#l00176">176</a> of file <a class="el" href="rtc_8c_source.html">rtc.c</a>.</p>
+
+<p>Referenced by <a class="el" href="rtc_8c_source.html#l00061">alarm_set()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a90ba74701d3d697f2fe95a325a4956e8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned alarm_enable </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enables the alarm. Make sure to setup the alarm first! </p>
+<p>Output: A bit specifying whether the alarm was enabled correcty. If the RTCC is off, the RTCC is not setup, or the alarm has not been setup, it will return true. </p>
+
+<p>Definition at line <a class="el" href="rtc_8c_source.html#l00165">165</a> of file <a class="el" href="rtc_8c_source.html">rtc.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a3064ad13742d99dced913f814a7ce5ff"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned alarm_set </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structalarmtime.html">alarmtime</a>&#160;</td>
+          <td class="paramname"><em>time</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the alarm date/time. </p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000019">Todo:</a></b></dt><dd>TODO: Documentation for the alarm needs done. sign LNB. </dd></dl>
+<p>Input: an <code>alarmtime</code> structure containing the time, date, repetitions (if applicable) and frequency Output: A single bit specifying success (false). If something is invalid, the function will return true.</p>
+<p>Please see section 17 in the datasheet, particularly figure 17-5, for more detail. </p>
+
+<p>Definition at line <a class="el" href="rtc_8c_source.html#l00061">61</a> of file <a class="el" href="rtc_8c_source.html">rtc.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aa82c881639ceb58638e763227ddab068"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned rtc_get </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structdatetime.html">datetime</a> *&#160;</td>
+          <td class="paramname"><em>time</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>gives the current time as a <code>datetime</code> structure. </p>
+
+<p>Definition at line <a class="el" href="rtc_8c_source.html#l00039">39</a> of file <a class="el" href="rtc_8c_source.html">rtc.c</a>.</p>
+
+<p>Referenced by <a class="el" href="movement_8c_source.html#l00102">daytime_move()</a>, <a class="el" href="movement_8c_source.html#l00029">limit_test()</a>, and <a class="el" href="sensors_8c_source.html#l00144">pir()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a476351b7fe2d99467f8e9b972cd47434"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">unsigned rtc_set </td>
           <td>(</td>
-          <td class="paramtype">unsigned char&#160;</td>
-          <td class="paramname"><em>year</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype"><a class="el" href="structdatetime.html">datetime</a>&#160;</td>
+          <td class="paramname"><em>time</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">unsigned char&#160;</td>
-          <td class="paramname"><em>month</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned char&#160;</td>
-          <td class="paramname"><em>day</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned char&#160;</td>
-          <td class="paramname"><em>hour</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned char&#160;</td>
-          <td class="paramname"><em>minute</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned char&#160;</td>
-          <td class="paramname"><em>second</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Set the time on the RTCC. </p>
-<p>Inputs: a bunch of bytes specifying the year, month,day, hour, minutes, and seconds. Outputs: A single bit. Probably will never return failure. Detailed Description: Note: Will convert the numbers to BCD endcoding before returning them </p>
+<p>Inputs: a <code>datetime</code> structure containing the year, month, day, hour, minute, and second. Outputs: A single bit. Probably will never return failure. Detailed Description: Note: Will convert the numbers to BCD endcoding before returning them </p>
 
 <p>Definition at line <a class="el" href="rtc_8c_source.html#l00019">19</a> of file <a class="el" href="rtc_8c_source.html">rtc.c</a>.</p>
 
@@ -196,7 +261,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Real-time Clock/Calendar Module setup. </p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000009">Todo:</a></b></dt><dd>TODO: Check to see if the rtcc is setup already </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000018">Todo:</a></b></dt><dd>TODO: Check to see if the rtcc is setup already </dd></dl>
 
 <p>Definition at line <a class="el" href="rtc_8c_source.html#l00005">5</a> of file <a class="el" href="rtc_8c_source.html">rtc.c</a>.</p>
 
@@ -210,7 +275,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="rtc_8c.html">rtc.c</a></li>
-    <li class="footer">Generated on Thu Mar 5 2015 22:25:50 for Sr. Design 2015 by
+    <li class="footer">Generated on Wed Apr 15 2015 22:43:23 for Sr. Design 2015 by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.9.1 </li>
   </ul>

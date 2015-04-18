@@ -1,11 +1,6 @@
 var searchData=
 [
-  ['usb_5fallstatus',['usb_allStatus',['../hid_8h.html#ab26a4ce64c0b47da8c58fc24f1f1653f',1,'usb_allStatus():&#160;hid.c'],['../hid_8c.html#ab26a4ce64c0b47da8c58fc24f1f1653f',1,'usb_allStatus():&#160;hid.c']]],
-  ['usb_5fbegin',['usb_begin',['../hid_8h.html#a82e62e9a42197f93a21fe7e26b60ff8a',1,'usb_begin(void):&#160;hid.c'],['../hid_8c.html#a82e62e9a42197f93a21fe7e26b60ff8a',1,'usb_begin(void):&#160;hid.c']]],
-  ['usb_5fend',['usb_end',['../hid_8h.html#aecd52c6957ef22df00468190b442a640',1,'usb_end(void):&#160;hid.c'],['../hid_8c.html#aecd52c6957ef22df00468190b442a640',1,'usb_end(void):&#160;hid.c']]],
-  ['usb_5finsertion',['usb_insertion',['../hid_8h.html#a029c5235c430f6625bcd58d4a081c2fa',1,'usb_insertion(void):&#160;hid.c'],['../hid_8c.html#a029c5235c430f6625bcd58d4a081c2fa',1,'usb_insertion(void):&#160;hid.c']]],
-  ['usb_5fisr',['usb_isr',['../hid_8h.html#a9dd0caa7d41601fb1547f79cdb8c4726',1,'usb_isr(void):&#160;hid.c'],['../hid_8c.html#a9dd0caa7d41601fb1547f79cdb8c4726',1,'usb_isr(void):&#160;hid.c']]],
-  ['usb_5fmystatus',['usb_myStatus',['../hid_8h.html#a08245c1b8fa8ab614af4afc687e83ad7',1,'usb_myStatus():&#160;hid.c'],['../hid_8c.html#a08245c1b8fa8ab614af4afc687e83ad7',1,'usb_myStatus():&#160;hid.c']]],
-  ['usb_5fonestatus',['usb_oneStatus',['../hid_8h.html#af2e28fc5e977463f0118e3f959175d1d',1,'usb_oneStatus():&#160;hid.c'],['../hid_8c.html#af2e28fc5e977463f0118e3f959175d1d',1,'usb_oneStatus():&#160;hid.c']]],
-  ['usb_5fremoval',['usb_removal',['../hid_8h.html#ade5ee0d0d942cf40705c058ad24f23a6',1,'usb_removal(void):&#160;hid.c'],['../hid_8c.html#ade5ee0d0d942cf40705c058ad24f23a6',1,'usb_removal(void):&#160;hid.c']]]
+  ['rtc_5fget',['rtc_get',['../rtc_8h.html#acee4efb6bf46425cbfc10232487aa3eb',1,'rtc_get(datetime *):&#160;rtc.c'],['../rtc_8c.html#aa82c881639ceb58638e763227ddab068',1,'rtc_get(datetime *time):&#160;rtc.c']]],
+  ['rtc_5fset',['rtc_set',['../rtc_8h.html#a58ce2d182f76e7f14fd40c21d9465a0c',1,'rtc_set(datetime):&#160;rtc.c'],['../rtc_8c.html#a476351b7fe2d99467f8e9b972cd47434',1,'rtc_set(datetime time):&#160;rtc.c']]],
+  ['rtc_5fsetup',['rtc_setup',['../rtc_8h.html#ae83559199d1a128c09c800d2622d5628',1,'rtc_setup(void):&#160;rtc.c'],['../rtc_8c.html#a9e961a2e8e8309e4fd490ac35f68a293',1,'rtc_setup():&#160;rtc.c']]]
 ];

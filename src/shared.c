@@ -11,6 +11,9 @@ void adc_setup()
 {
     // AN4 = Battery, AN2,3 = Pots, 8,19,18,17 = Photocells, AN0 = Temp
     ADCSS0L = 0b00011101; //temp, pots, batt
+    ANCON1 = 0b00011101;    //battery in
+    ANCON2 = 0b00000001;
+    ANCON3 = 0b00001110;    
     ADCSS0H = 0b00000001; // photo pin 8
     ADCSS1L = 0b00001110; // rest of photos
     ADCSS0H = 0; // no adc's on this one
@@ -63,67 +66,71 @@ void adc_updateAll()
 
 }
 
-/// Read adc value out of the ADC buffer for the passed channel
-unsigned int adc_read(unsigned char channel)
-{
-    unsigned int adcVal;
-    int *adcPtr;
-
-    switch(channel)
-    {
-        case 0:
-            adcPtr = (int *)&ADCBUF0L;
-            break;
-        case 1:
-            adcPtr = (int *)&ADCBUF1L;
-            break;
-        case 2:
-            adcPtr = (int *)&ADCBUF2L;
-            break;
-        case 3:
-            adcPtr = (int *)&ADCBUF3L;
-            break;
-        case 4:
-            adcPtr = (int *)&ADCBUF4L;
-            break;
-        case 5:
-            adcPtr = (int *)&ADCBUF5L;
-            break;
-        case 6:
-            adcPtr = (int *)&ADCBUF6L;
-            break;
-        case 7:
-            adcPtr = (int *)&ADCBUF7L;
-            break;
-        case 8:
-            adcPtr = (int *)&ADCBUF8L;
-            break;
-        case 9:
-            adcPtr = (int *)&ADCBUF9L;
-            break;
-        case 10:
-            adcPtr = (int *)&ADCBUF10L;
-            break;
-        case 11:
-            adcPtr = (int *)&ADCBUF11L;
-            break;
-        case 12:
-            adcPtr = (int *)&ADCBUF12L;
-            break;
-        case 13:
-            adcPtr = (int *)&ADCBUF13L;
-            break;
-        case 14:
-            adcPtr = (int *)&ADCBUF14L;
-            break;
-        case 15:
-            adcPtr = (int *)&ADCBUF15L;
-            break;
-    }
-
-    adcVal = *adcPtr;
-    return(adcVal);
-}
+// /// Read adc value out of the ADC buffer for the passed channel
+//unsigned int adc_read(unsigned char channel)
+//{
+//    unsigned int adcVal;
+//    int *adcPtr;
+//
+//    switch(channel)
+//    {
+//        case 0:
+//            adcPtr = (int *)&ADCBUF0L;
+//            break;
+//        case 1:
+//            adcPtr = (int *)&ADCBUF1L;
+//            break;
+//        case 2:
+//            adcPtr = (int *)&ADCBUF2L;
+//            break;
+//        case 3:
+//            adcPtr = (int *)&ADCBUF3L;
+//            break;
+//        case 4:
+//            adcPtr = (int *)&ADCBUF4L;
+//            break;
+//        case 5:
+//            adcPtr = (int *)&ADCBUF5L;
+//            break;
+//        case 6:
+//            adcPtr = (int *)&ADCBUF6L;
+//            break;
+//        case 7:
+//            adcPtr = (int *)&ADCBUF7L;
+//            break;
+//        case 8:
+//            adcPtr = (int *)&ADCBUF8L;
+//            break;
+//        case 9:
+//            adcPtr = (int *)&ADCBUF9L;
+//            break;
+//        case 10:
+//            adcPtr = (int *)&ADCBUF10L;
+//            break;
+//        case 11:
+//            adcPtr = (int *)&ADCBUF11L;
+//            break;
+//        case 12:
+//            adcPtr = (int *)&ADCBUF12L;
+//            break;
+//        case 13:
+//            adcPtr = (int *)&ADCBUF13L;
+//            break;
+//        case 14:
+//            adcPtr = (int *)&ADCBUF14L;
+//            break;
+//        case 15:
+//            adcPtr = (int *)&ADCBUF15L;
+//            break;
+//    }
+//
+//    adcVal = *adcPtr;
+//    return(adcVal);
+//}
+// Three reasons this won't work: 
+//   1. they are not integers,
+//   2. you are supposed to get it straight from the buffer and does not include the channels we need
+//   3. It doesn't have comments. :P
 
 /// Setup TMR2 for use by all the CCP modules
 void pwm_setup() 
@@ -158,7 +165,11 @@ void pwm_setup()
  */
 unsigned pwm_set(unsigned char channel, unsigned char duty) // Set pin to duty cycle
 {
-
+    switch(channel)
+    {
+        case 4:
+            ;
+    }
     return true;
 }
 
@@ -174,7 +185,7 @@ unsigned pwm_set(unsigned char channel, unsigned char duty) // Set pin to duty c
  */
 unsigned i2c_tx(unsigned char addr, unsigned char reg16, unsigned char regl, unsigned char regh, unsigned char *data, unsigned short dataLength)
 {
-    unsigned short i;
+    unsigned short i = 0;
     if(dataLength == 0) return true; // Do nothing if there is a zero data length.
     i2c_start();
     i2c_send(addr & 0b11111110); // write mode; address
@@ -208,7 +219,7 @@ unsigned i2c_check(unsigned char addr)
  */
 unsigned i2c_rx(unsigned char addr, unsigned char reg16, unsigned char regl, unsigned char regh, unsigned char *data, unsigned short dataLength) // recieve data from address
 {
-    unsigned char i;
+    unsigned char i = 0;
     if(dataLength == 0) return true; // Do nothing if there is a zero data length.
     
     // write address
@@ -328,4 +339,33 @@ void i2c_lcdInit()
     __delay_ms(10);
     i2c_stop();
     return;
+}
+
+/// delay(#times): delay # of times.
+/// \todo TODO: Each loop needs to last 0.1s. Should use a timer with SOSC
+void delay(unsigned char times)
+{
+    unsigned short i;
+    while(times-- > 0)
+    {
+        i = 0xFF00;
+        while(i-- > 0) continue;
+    }
+}
+
+/// Reset the timer variable and the timer counter so we can do a timeout.
+/// IMPORTANT NOTE: DO NOT USE THE `delay(#)` FUNCTION AT THE SAME TIME AS THIS!
+/// \todo TODO: Timeout timer
+void timeoutInit()
+{
+    // set the timer variable to zero and restart the timer
+    time = 0;
+    TMR0L = 0;
+    TMR0H = 0;
+}
+
+/// Check if we have waited a certain ammount of time
+unsigned timeoutCheck(unsigned short timeCheck)
+{
+    return time > timeCheck;
 }

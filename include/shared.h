@@ -34,7 +34,10 @@ struct {
     unsigned    state     : 2;
     unsigned    sleepable : 1;
     unsigned              : 1;
-}status; 
+}status;
+
+unsigned char myAddr; // Address of the pole (Configurable)
+volatile unsigned short time; // Timeout varialbe
 
 /// A packet that contains an address (8 or 10bit), a data array, and how long the array is.
 typedef struct 
@@ -47,11 +50,19 @@ typedef struct
     unsigned char dataLength; // the length of the data
 }i2cPacket;
 
+/// A structure with a byte and a pointer to the next pointer
+/// This is for dynamic FIFO
+struct fifo
+{
+    unsigned char byte;
+    struct fifo* nextAddr;
+};
+
 // Standard Functions
 
 void adc_setup(void); // setup the adc module
 void adc_update(unsigned char); // Update a pin
-unsigned int adc_reg_read(unsigned char); // Read the given adc value out of the adc buffer
+//unsigned int adc_read(unsigned char); // Read the given adc value out of the adc buffer
 void adc_update2(unsigned char, unsigned char); // Update 2 pins consecutively
 void adc_updateAll(); // Update all the ADC buffers that were selected in setup
 
@@ -71,6 +82,8 @@ static void i2c_nack(void); // transmit nack bit
 static void i2c_wait(void); // Check and wait to see if a i2c function is running
 static unsigned i2c_send(unsigned char); // private function to send a byte
 static unsigned char i2c_recv(unsigned); // private function to recieve a byte
+
+void delay(unsigned char);
 
 #endif	/* SHARED_H */
 

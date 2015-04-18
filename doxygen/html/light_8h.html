@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.9.1"/>
-<title>Sr. Design 2015: C:/Users/Benjaminp/Documents/pcc/current/EL 450/PatienceInc/firmware/include/light.h File Reference</title>
+<title>Sr. Design 2015: C:/Users/Benjaminp/Documents/GitHub/firmware/include/light.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -179,7 +179,7 @@ Variables</h2></td></tr>
 
 <p>Definition at line <a class="el" href="light_8h_source.html#l00014">14</a> of file <a class="el" href="light_8h_source.html">light.h</a>.</p>
 
-<p>Referenced by <a class="el" href="light_8c_source.html#l00038">led_maintenance()</a>.</p>
+<p>Referenced by <a class="el" href="solar_light_8c_source.html#l00348">led()</a>, <a class="el" href="light_8c_source.html#l00038">led_maintenance()</a>, and <a class="el" href="sensors_8c_source.html#l00144">pir()</a>.</p>
 
 </div>
 </div>
@@ -227,7 +227,7 @@ Variables</h2></td></tr>
 
 <p>Definition at line <a class="el" href="light_8h_source.html#l00015">15</a> of file <a class="el" href="light_8h_source.html">light.h</a>.</p>
 
-<p>Referenced by <a class="el" href="light_8c_source.html#l00038">led_maintenance()</a>.</p>
+<p>Referenced by <a class="el" href="solar_light_8c_source.html#l00348">led()</a>, <a class="el" href="light_8c_source.html#l00038">led_maintenance()</a>, <a class="el" href="solar_light_8c_source.html#l00135">loop()</a>, and <a class="el" href="sensors_8c_source.html#l00144">pir()</a>.</p>
 
 </div>
 </div>
@@ -243,7 +243,7 @@ Variables</h2></td></tr>
 
 <p>Definition at line <a class="el" href="light_8h_source.html#l00013">13</a> of file <a class="el" href="light_8h_source.html">light.h</a>.</p>
 
-<p>Referenced by <a class="el" href="light_8c_source.html#l00038">led_maintenance()</a>.</p>
+<p>Referenced by <a class="el" href="solar_light_8c_source.html#l00348">led()</a>, <a class="el" href="light_8c_source.html#l00038">led_maintenance()</a>, and <a class="el" href="sensors_8c_source.html#l00144">pir()</a>.</p>
 
 </div>
 </div>
@@ -309,11 +309,14 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>setup for light </p>
-<p>&ndash;&gt; Test value (global var) used to show if function was entered </p>
+<p>&ndash;&gt; Test value (global var) used to show if function was entered</p>
+<p>setup for light</p>
+<p>Items that are dealt with in this ISR:</p><ul>
+<li>none yet</li>
+</ul>
+<p>Make sure to enable priority interrupts before using this routine. </p>
 
 <p>Definition at line <a class="el" href="light_8c_source.html#l00007">7</a> of file <a class="el" href="light_8c_source.html">light.c</a>.</p>
-
-<p>Referenced by <a class="el" href="solar_light_8c_source.html#l00106">setup()</a>.</p>
 
 </div>
 </div>
@@ -342,7 +345,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="light_8h.html">light.h</a></li>
-    <li class="footer">Generated on Thu Mar 5 2015 22:25:50 for Sr. Design 2015 by
+    <li class="footer">Generated on Wed Apr 15 2015 22:43:23 for Sr. Design 2015 by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.9.1 </li>
   </ul>

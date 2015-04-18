@@ -9,7 +9,7 @@
 // Local Variable
 char mainMenuPtr = 0, subMenuPtr = 0;
 
-#define NUMMENUENTRIES 6
+#define NUMMENUENTRIES 7
 /// \todo TODO: Make the menues into a Constant that resides in program memory.
 void lcd_setup()
 {
@@ -20,43 +20,65 @@ void lcd_setup()
     // Now Let's Initialize the LCD
     i2c_lcdInit(); // a special function that had to be made.
     lcd_display("Initializing        "," PIC               ");
+    delay(3);
     /// \todo TODO: Remove "Initializing PIC" from the screen once it is done.
 
 
     /// \todo TODO: Add functions to the menues. this is for EVERYONE to do.
     /// Contains each entry for the menu. This is a constant.
     menu[0].text          = "Exit M-Mode        ";
-    menu[0].entry[0].text = "Cancel             ";
-    menu[0].entry[0].function = menu_up;
-    menu[0].entry[1].text = "Confirm Exit       ";
-    menu[0].entry[1].function = lcd_end;
+        menu[0].entry[0].text = "Cancel             ";
+        menu[0].entry[0].function = menu_up;
+        menu[0].entry[0].data = NULL;
+        
+        menu[0].entry[1].text = "Confirm Exit       ";
+        menu[0].entry[1].function = lcd_end;
+        menu[0].entry[1].data = NULL;
     menu[0].numEntries = 2;
 
     // Light Settings
     menu[1].text          = "Light Settings     ";
-    menu[1].entry[0].text = "Set Light Mode: %1d  "; /// \todo FIXME: Can I use sprintf `%d`?
-    menu[1].entry[0].data = &setting_lightMode;
-    menu[1].entry[1].text = "Set Dim Timeout: %2d";
-    menu[1].entry[1].data = &setting_timeout;
-    menu[1].entry[2].text = "Set Dim Level: %2d%% ";
-    menu[1].entry[3].text = "Go to Main Menu    ";
-    menu[1].entry[3].function = menu_up;
+        menu[1].entry[0].text = "Set Light Mode: %1d  "; /// \todo FIXME: Can I use sprintf `%d`?
+        menu[1].entry[0].data = &setting_lightMode;
+        menu[1].entry[0].function = menu_setLightMode;
+        
+        menu[1].entry[1].text = "Set Dim Timeout: %2d";
+        menu[1].entry[1].data = &setting_timeout;
+        
+        menu[1].entry[2].text = "Set Dim Level: %2d%% ";
+        menu[1].entry[2].data = &setting_lightDim;
+        
+        menu[1].entry[3].text = "Go to Main Menu    ";
+        menu[1].entry[3].function = menu_up;
+        menu[1].entry[3].data = NULL;
     menu[1].numEntries = 4;
 
     // Solar Settings
     menu[2].text = "Solar Settings      ";
-    menu[2].entry[0].text = "Move X-Axis         ";
-    menu[2].entry[1].text = "Move Y-Axis         ";
-    menu[2].entry[2].text = "Lock Movement       ";
-    menu[2].entry[3].text = "Hurricane Mode: %1d   ";
-    menu[2].entry[3].data = &setting_hurricane;
-    menu[2].entry[4].text = "Go to Main Menu    ";
-    menu[2].entry[4].function = menu_up;
+        menu[2].entry[0].text = "Move X-Axis         ";
+        menu[2].entry[0].data = NULL;
+        
+        menu[2].entry[1].text = "Move Y-Axis         ";
+        menu[2].entry[1].data = NULL;
+        
+        menu[2].entry[2].text = "Lock Movement       ";
+        menu[2].entry[2].data = NULL;
+        
+        menu[2].entry[3].text = "Hurricane Mode: %1d   ";
+        menu[2].entry[3].data = &setting_hurricane;
+        
+        menu[2].entry[4].text = "Go to Main Menu    ";
+        menu[2].entry[4].function = menu_up;
+        menu[2].entry[4].data = NULL;
     menu[2].numEntries = 5;
 
-    // Status
-    menu[3].text = "Status              ";
-    menu[3].entry[0].text = "Go to Main Menu    ";
+    // Comm Status
+    menu[3].entry[0].text = "Comm Status              ";
+    menu[3].entry[1].text = "Master/Slave Mode       ";       // 0=master, 1=slave
+    menu[3].entry[2].text = "Comm to Master         ";
+    menu[3].entry[3].text = "Pole ID#:              ";
+    menu[3].entry[3].data = &myAddr;       //my addr (find this)
+    menu[3].entry[4].text = "Go to Main Menu    ";
     menu[3].entry[0].function = menu_up;
     menu[3].numEntries = 1;
 
@@ -68,9 +90,10 @@ void lcd_setup()
     menu[4].entry[2].function = menu_up;
     menu[4].numEntries = 3;
 
-    // Misc. Options
+    // Misc. Options (Includes Power Control)
     menu[5].text = "Misc. Options       ";
     menu[5].entry[0].text = "Toggle AC/Battery   ";
+    menu[5].entry[1].function = power_switch;           //allows user to switch power via interface
     menu[5].entry[1].text = "Restart             ";
     menu[5].entry[2].text = "Go to Main Menu    ";
     menu[5].entry[2].function = menu_up;
@@ -78,16 +101,48 @@ void lcd_setup()
 
     // About
     menu[6].text = "About               ";
-    menu[6].entry[0].text = FIRMWARE_VERSION;
-    menu[6].entry[0].function = menu_up;
-    menu[6].entry[1].function = menu_up;
-    menu[6].entry[2].function = menu_up;
-    menu[6].entry[3].function = menu_up;
-    menu[6].entry[4].function = menu_up;
-    menu[6].entry[5].function = menu_up;
-    menu[6].entry[6].text = "Go to Main Menu    ";
-    menu[6].entry[6].function = menu_up;
+        menu[6].entry[5].text = FIRMWARE_VERSION;
+        menu[6].entry[5].function = menu_up;
+        menu[6].entry[5].data = NULL;
+        
+        menu[6].entry[1].text = "CEO: DJ S."
+        menu[6].entry[1].function = menu_up;
+        menu[6].entry[1].data = NULL;
+        
+        menu[6].entry[2].text = "CFO: Ben Plain"
+        menu[6].entry[2].function = menu_up;
+        menu[6].entry[2].data = NULL;
+        
+        menu[6].entry[3].text = "CEvE: Josh Smith"
+        menu[6].entry[3].function = menu_up;
+        menu[6].entry[3].data = NULL;
+        
+        menu[6].entry[4].text = "CME: J Luke Williams"
+        menu[6].entry[4].function = menu_up;
+        menu[6].entry[4].data = NULL;
+        
+        menu[6].entry[0].function = "Patience, INC"
+        menu[6].entry[0].function = menu_up;
+        menu[6].entry[0].data = NULL;
+        
+        menu[6].entry[6].text = "Go to Main Menu    ";
+        menu[6].entry[6].function = menu_up;
+        menu[6].entry[6].data = NULL;
     menu[6].numEntries = 7;
+
+    //Maintenance needed, these are read only
+    menu[7].text = "Error Alerts      ";      //no response. "immediate attention needed"
+    menu[7].entry[0].text = "Battery offline   ";       //
+    menu[7].entry[1].text = "Bulb dead       ";
+    menu[7].entry[1].function = bulb_detect;
+    menu[7].entry[2].text = "Tracking motors off       ";
+    menu[7].entry[3].text = "Sensors off range        ";
+    menu[7].entry[4].text = "Comm Offline       ";
+    menu[7].entry[5].text = "Go to Main Menu    ";
+    menu[7].entry[6].function = menu_up;
+    menu[7].numEntries = 7;         //TODO: Do not understand!! what goes in questionmark?
+
+    
     // If you add another main menu entry, make sure to change NUMMENUENTRIES
 }
 
@@ -238,4 +293,92 @@ static void menu_display()
     
     // now display the screen on the lcd
     lcd_display(line1,line2);
+}
+
+// Functions for the menu entries that need further user input
+void menu_setLightMode(unsigned char none)
+{
+    unsigned char setting, key;
+    setting = setting_lightMode;
+    while(1)
+    {
+        switch(setting)
+        {
+            case 0:
+                lcd_display("Change Light Mode","Off");
+                break;
+            case 1:
+                lcd_display("Change Light Mode","Dim");
+                break;
+            case 2:
+                lcd_display("Change Light Mode","High");
+                break;
+            case 3:
+                lcd_display("Change Light Mode","Auto");
+                break;
+            case 4:
+                lcd_display("Change Light Mode","Cancel");
+        }
+        while((key = keypad_pull()) == NOKEY) continue;
+        if(key == UPKEY) 
+        {
+            if(setting == 4) setting = 0;
+            else ++setting;
+        }
+        else if(key == DOWNKEY)
+        {
+            if(setting == 0) setting = 4;
+            else --setting;
+        }
+        else if(key == CANCEL)
+        {
+            lcd_display("Canceled Changing","Light Mode");
+            delay(10);
+            break;
+        }
+        else if(key == ENTERKEY)
+        {
+            if(setting == 4) break; // exit out of the loop without doing anything
+            else
+            {
+                setting_lightMode = setting;
+            }
+        }
+    }
+}
+
+// Functions for the menu entries that need further user input
+void menu_setHurricaneMode(unsigned char none)
+{
+    unsigned char setting, key;
+    setting = setting_hurricane;
+    while(1)
+    {
+        if(setting==0)
+        {
+                lcd_display("Change Light Mode","Off");
+        }
+        else
+        {
+                lcd_display("Change Light Mode","On");
+        }
+        while((key = keypad_pull()) == NOKEY) continue;
+        if(key == UPKEY | key == DOWNKEY) 
+        {
+            setting  = !setting;
+        }
+        else if(key == CANCEL)
+        {
+            lcd_display("Canceled Changing","Hurricane Mode");
+            delay(10);
+            break;
+        }
+        else if(key == ENTERKEY)
+        {
+            if(setting > 0) 
+                setting_hurricane = 1;
+            else
+                setting_hurricane = 0;
+        }
+    }
 }

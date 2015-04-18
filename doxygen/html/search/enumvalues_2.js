@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['spaceoverride',['SPACEOVERRIDE',['../eeprom_8h.html#ab19a8e0fe3ea0ea5c7259400cb389056aa049f67ec48d1687c523d7f8426e3c24',1,'eeprom.h']]]
+  ['configured_5fstate',['CONFIGURED_STATE',['../usb__device_8h.html#afaf1ea0da8b5dbe4070f8246148a1797af120a64ec022d6f3eecc0e201e4e5d39',1,'usb_device.h']]]
 ];
