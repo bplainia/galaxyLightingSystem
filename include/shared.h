@@ -37,7 +37,7 @@ struct {
 }status;
 
 unsigned char myAddr; // Address of the pole (Configurable)
-volatile unsigned short time; // Timeout varialbe
+volatile unsigned short time,delayTime; // Timeout varialbe
 
 /// A packet that contains an address (8 or 10bit), a data array, and how long the array is.
 typedef struct 
