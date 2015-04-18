@@ -51,8 +51,8 @@ CONSEQUENTIAL DAMAGES, FOR ANY REASON WHATSOEVER.
 
 #include <string.h>
 
-#include "system.h"
-#include "system_config.h"
+//#include "system.h"
+//#include "system_config.h"
 
 #ifdef __cplusplus  // Provide C++ Compatability
     extern "C" {
@@ -590,7 +590,7 @@ typedef union _POINTER
 
 //Definitions for the BDT
 #ifndef USB_PING_PONG_MODE
-    #error "No ping pong mode defined."
+//    #error "No ping pong mode defined."
 #endif
 
 /*****************************************************************************/

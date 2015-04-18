@@ -26,9 +26,20 @@ void power_setup()
 
 }
 
+
+//The following are designed to send error alerts to the error page for maintenance.
 void power_switch(unsigned char none)
 {
     battin = !battin;
+}
+void batt_live(unsigned char none)
+{
+    unsigned char batt_status;
+    
+    if(...)
+    {
+
+    }
 }
 
 

@@ -23,5 +23,6 @@ unsigned char light = 0;
 void led_setup(void);
 void led_auto(void);
 void led_maintenance(unsigned char);
+void bulb_status(unsigned char);
 
 #endif
