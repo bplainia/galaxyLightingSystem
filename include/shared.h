@@ -69,6 +69,8 @@ void adc_updateAll(); // Update all the ADC buffers that were selected in setup
 void pwm_setup(void); // Initialize TMR2 (you get to setup on your own)
 unsigned pwm_set(unsigned char, unsigned char); // Set pin to duty cycle
 
+void binary_conversion(int);        //DJ, what does this do?
+
 void i2c_setup(void); // Initialize the I2C pins
 unsigned i2c_tx(unsigned char, unsigned char, unsigned char, unsigned char, unsigned char*, unsigned short); // send data to address
 unsigned i2c_rx(unsigned char, unsigned char, unsigned char, unsigned char, unsigned char*, unsigned short); // recieve data from address

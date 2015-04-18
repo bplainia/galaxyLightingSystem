@@ -6,6 +6,7 @@
 
 #include <shared.h>
 
+
 /// Setup the ADC module
 void adc_setup()
 {
@@ -170,11 +171,40 @@ void pwm_setup()
  */
 unsigned pwm_set(unsigned char channel, unsigned char duty) // Set pin to duty cycle
 {
-    switch(channel)
+    int temp, x, duty;
+    channel = x;
+    temp = duty;
+    value = (temp * 255)/100;
+    binary_conversion(value);
+
+    PR2 = 0xFF;
+
+    value = CCPRxL;
+
+    if(x == 1 || x == 2)
     {
-        case 4:
-            ;
+        CCPxCON = 0b00111100;
+        T2CONbits.T2OUTPS = 0b0011;         //1:4 postscalar
+        T2CONbits.T2CKPS = 0b11;            //1:16 prescaler
+        T2CONbits.TMR2ON = 1;
     }
+
+    if(x == 3)
+    {
+        CCPxCON = 0b00111100;
+        T2CONbits.T2OUTPS = 0b0011;         //1:4 postscalar
+        T2CONbits.T2CKPS = 0b11;            //1:16 prescaler
+        T2CONbits.TMR2ON = 1;
+    }
+
+    if(x == 4 || x == 5 || x == 6)
+    {
+        CCPxCON = 0b00111100;
+        T2CONbits.T2OUTPS = 0b0011;         //1:4 postscalar
+        T2CONbits.T2CKPS = 0b11;            //1:16 prescaler
+        T2CONbits.TMR2ON = 1;
+    }
+
     return true;
 }
 
@@ -376,4 +406,17 @@ void timeoutInit()
 unsigned timeoutCheck(unsigned short timeCheck)
 {
     return time > timeCheck;
+}
+
+void binary_conversion(int n)
+{
+    int tem, z=1, bin=0;
+    while (n != 0)
+    {
+        tem = n%2;
+        n/=2;
+        bin+=tem*z;
+        i*10;
+    }
+    return bin;
 }
