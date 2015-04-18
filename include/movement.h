@@ -37,7 +37,7 @@ unsigned char move = 0;
 void move_setup(void);
 void limit_test(void);
 void daytime_move(void);
-void dusk_moveback(unsigned int);
+void dusk_moveback(void);
 void season_adjust(void);
 void maint_move(unsigned char);
 void motor_move(char);

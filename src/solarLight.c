@@ -279,25 +279,3 @@ void interrupt high_priority isr_high()
     }
 }
 
-void led_setup(void)
-{
-    LED_PIN = OUTPUT;
-}
-
-void led(unsigned char state)
-{
-    switch(state)
-    {
-        case OFF:
-            pwm_set(LED_CHAN, LED_DUTY_OFF);
-            break;
-        case ON:
-            pwm_set(LED_CHAN, LED_DUTY_ON);
-            break;
-        case DIM:
-            pwm_set(LED_CHAN, LED_DUTY_DIM);
-            break;
-        default:
-            ;
-    }
-}

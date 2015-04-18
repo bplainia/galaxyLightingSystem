@@ -143,16 +143,16 @@ void comm_loop()
         parity = command & 1;
         command = command & 0b01111110; // remove parity and reserved bit
         if(rxPtrOut >= RXBUFFSIZE) rxPtrOut = 0;
-        if(command % 2) // check for parity
-        {
-            comm_tx()
-        }
+//        if(command % 2) // check for parity
+//        {
+//            comm_tx()
+//        }
 
     }
     
     
     if(COMSTAT.TERROR)
     {
-        mem_log_error(ERR_TOKEN);
+//        mem_log_error(ERR_TOKEN);
     }
 }

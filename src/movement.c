@@ -73,13 +73,14 @@ void limit_test(void){
     rtc_get(&currenttime);
     if (currenttime.hour < 6 || currenttime.hour > 18)
     {
-        dusk_moveback(limitPot[EAST]);
+        dusk_moveback();
         return;
     }
 
     if(photo_value(PHOTO_LEV, 1) < CLOUDY) // if not able to track sun, estimate position based on time of day
     {
         potTimeEst = limitPot[NOON] + (((unsigned int)currenttime.hour - 12) * abs(limitPot[EAST] - limitPot[WEST])/6);
+
         if(potTimeEst < limitPot[EAST] || potTimeEst > limitPot[WEST])      // check if value is within range of motion
         {
            dusk_moveback();
@@ -93,8 +94,6 @@ void limit_test(void){
     {
         daytime_move();
     }
-
-    return(limitPot);
 }
 
 /*! \brief Move the panel to point at the sun, either from sensors or memory
@@ -159,7 +158,7 @@ void daytime_move(void){
                     potTimeEst = limitPot[NOON] + (((unsigned int)currenttime.hour - 12) * abs(limitPot[EAST] - limitPot[WEST])/6);
                     if(potTimeEst < limitPot[EAST] || potTimeEst > limitPot[WEST])      // check if value is within range of motion
                     {
-                       dusk_moveback(limitPot[EAST]);
+                       dusk_moveback();
                     }
                     else
                     {
@@ -168,9 +167,8 @@ void daytime_move(void){
                 }
             }
             else
-            {           // average data (if it exists)
-
-                if(track[1][currenttime.hour][currenttime.minute/5] == 0)
+            {           // average data 
+                if(track[1][currenttime.hour][currenttime.minute/5] == 0)  // check if data exists
                 {
                     potAvg = track[0][currenttime.hour][currenttime.minute/5];
                 }
@@ -182,23 +180,22 @@ void daytime_move(void){
                 {
                     potAvg = (track[0][currenttime.hour][currenttime.minute/5] + track[1][currenttime.hour][currenttime.minute/5] + track[2][currenttime.hour][currenttime.minute/5])/3;
                 }
-                
                 day_pos_move(potAvg);
             }
             last_move = currenttime.minute;
         }
     }
-
 }
 
 /*! \brief Move back to the east for the next day
  */
-void dusk_moveback()
+void dusk_moveback(void)
 {      
     day_pos_move(limitPot[EAST]);
 }
 
-
+/*! \brief Command the motors to move in the direction specified
+ */
 void motor_move(char direction){
     switch(direction)
     {
