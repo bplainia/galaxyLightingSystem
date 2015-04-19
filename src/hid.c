@@ -33,6 +33,8 @@ void hid_setup(void)
 void hid_loop(void) // execute hid functions; is called from the main loop
 {
     unsigned char temp;
+    static bit newScreen; // if 1, update the LCD
+    static menuFunct *lastFunct = NULL;
     // check pins and flags for changes for the mmode state machine
 
     // execute the state machine
@@ -46,29 +48,45 @@ void hid_loop(void) // execute hid functions; is called from the main loop
             else if((COMSTAT.STATE > 0b100)||(COMSTAT.STATE == 0b111))
             break;
         case 0b01: // LCD Mode
-            if(COMSTAT.STATE == 0b100)
+            if(COMSTAT.STATE == 0b100 && curFunct == NULL)
             {
                 temp = keypad_pull();
                 if(temp == ENTERKEY) // enter was pressed - execute menu entry
                 {
                     menu_enter(0);
+                    newScreen = 1;
                 }
                 else if(temp == UPKEY)
                 {
                     menu_next(0);
+                    newScreen = 1;
                 }
                 else if(temp == DOWNKEY)
                 {
                     menu_prev(0);
+                    newScreen = 1;
                 }
                 else if(temp == CANCEL || temp == SECONDKEY)
                 {
                     menu_up(0);
+                    newScreen = 1;
                 }
             }
             //else if(COMSTAT.STATE == 0b101 && COMSTAT.STATE == 0b110)
             // cannot do anything while it is in these two states
-            
+            // we are transmitting and recieving data.
+
+            if(curFunct != lastFunct && curFunct == NULL) // we just came back from a menu function so we need to update.
+            {
+                lastFunct = NULL;
+                newScreen = 1;
+            }
+
+            if(newScreen)
+            {
+                menu_display();
+                newScreen = 0;
+            }
             break;
         case 0b10: // USB Mode
             // TODO: USB UNIMPLEMENTED
@@ -116,6 +134,10 @@ unsigned lcd_begin(void)             // Welcome and setup screen for menu system
                 return true;
             }
         }
+        // reset our pointers for the menu display
+        curFunct = NULL;
+        subMenuPtr = 0;
+        mainMenuPtr = 0;
         return false;
     }
 
@@ -124,7 +146,7 @@ unsigned lcd_begin(void)             // Welcome and setup screen for menu system
 /// display "exiting", then turn off the led, and exit maintainence mode
 void lcd_end(unsigned char NA)               // exit out of menu and return to normal
 {
-
+    curFunct = NULL;
     if(status.mmode == 1) 
     {
         status.mmode = 0; // Entered Maintenence Mode (LCD and Communications are now on)
@@ -194,7 +216,7 @@ unsigned keypad_push(char keypress)
     }
 
     // now that the keypress has been translated, we will make a spot for it.
-    if(command != NOKEY)
+    if(command != NOKEY && keypadNum < 50) // limited to 50 keypresses
     {
         newAddr = (struct fifo *) malloc(sizeof(struct fifo));
         if(newAddr == (struct fifo *) NULL)

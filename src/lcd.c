@@ -39,7 +39,7 @@ void lcd_setup()
 
     // Light Settings
     menu[1].text          = "Light Settings";
-        menu[1].entry[0].text = "Set Light Mode"; /// \todo FIXME: Can I use sprintf `%d`?
+        menu[1].entry[0].text = "Set Light Mode (Auto)";
         menu[1].entry[0].data = NULL;
         menu[1].entry[0].function = menu_setLightMode;
         
@@ -55,6 +55,7 @@ void lcd_setup()
     menu[1].numEntries = 4;
 
     // Solar Settings
+    // TODO: Need to set these according to the settings
     menu[2].text = "Solar Settings";
         menu[2].entry[0].text = "Move X-Axis (auto)";
         menu[2].entry[0].function = menu_setXaxis;
@@ -81,19 +82,20 @@ void lcd_setup()
     menu[3].entry[0].text = "Comm Status";
     menu[3].entry[1].text = "Master/Slave Mode";       // 0=master, 1=slave
     menu[3].entry[2].text = "Comm to Master ";
-    menu[3].entry[3].text = "Pole ID#:";
+    menu[3].entry[3].text = "Pole ID#:%3d";
     menu[3].entry[3].data = &myAddr;       //my addr (find this)
-    menu[3].entry[4].text = "Go to Main Menu    ";
+    menu[3].entry[4].text = "Go to Main Menu";
     menu[3].entry[0].function = menu_up;
     menu[3].numEntries = 1;
 
     // Clock Options
     menu[4].text          = "Clock Options";
         menu[4].entry[0].text = "Show Time";
-        menu[4].entry[0].function = seeTime();
+        menu[4].entry[0].function = menu_seeTime();
         menu[4].entry[0].data = NULL;
 
         menu[4].entry[1].text = "Set Time";
+        menu[4].entry[1].function = menu_setTime();
 
         menu[4].entry[2].text = "Go to Main Menu";
         menu[4].entry[2].function = menu_up;
@@ -102,13 +104,12 @@ void lcd_setup()
     // Misc. Options (Includes Power Control)
     menu[5].text = "Misc. Options";
         menu[5].entry[0].text = "Toggle AC/Battery";
+        menu[5].entry[0].function = menu_ACBatt;           //allows user to switch power via interface
+        menu[5].entry[0].data = NULL;
 
-        menu[5].entry[1].function = power_switch;           //allows user to switch power via interface
-        menu[5].entry[1].text = "Restart";
-
-        menu[5].entry[2].text = "Go to Main Menu";
-        menu[5].entry[2].function = menu_up;
-    menu[5].numEntries = 3;
+        menu[5].entry[1].text = "Go to Main Menu";
+        menu[5].entry[1].function = menu_up;
+    menu[5].numEntries = 2;
 
     // About
     menu[6].text = "About               ";
@@ -181,9 +182,10 @@ unsigned char lcd_display(char line1[21], char line2[21])
 /*! # Research into the ST7036
  * found a link (https://www.newhavendisplay.com/app_notes/NHD-C0220BiZ.txt)[https://www.newhavendisplay.com/app_notes/NHD-C0220BiZ.txt]
  */
-    char firstLine = 0x80, secondLine = 0xC0;
+    char firstLine = 0x80, secondLine = 0xC0, clear = 0x01;
     unsigned char i;
 
+    i2c_tx(0x78,0,0,0,&clear,1);
     // Write to the first line
     if(line1 != NULL)
     {
@@ -228,6 +230,7 @@ void lcd_background(unsigned char red, unsigned char green, unsigned char blue)
 /// Change the pointer to which menu item we are displaying.
 void menu_up(unsigned char none)
 {
+    curFunct = NULL;
     if(subMenuPtr >= 0)
     {
         subMenuPtr = -1;
@@ -238,6 +241,7 @@ void menu_up(unsigned char none)
 /// Change the pointer to next number or come around. Called by the down button.
 void menu_next(unsigned char none)
 {
+    curFunct = NULL;
     if(subMenuPtr < 0) // if we are in a submenu
     {
         if(++mainMenuPtr > NUMMENUENTRIES)
@@ -258,6 +262,7 @@ void menu_next(unsigned char none)
 /// Go to the previous menu entry. Called by the up button.
 void menu_prev(unsigned char none)
 {
+    curFunct = NULL; // only run once
     if(subMenuPtr < 0) // if we are in the main menu
     {
         if(--mainMenuPtr < 0)
@@ -276,8 +281,9 @@ void menu_prev(unsigned char none)
 }
 
 /// This function is run by pressing the enter key on the keypad.
-void menu_enter(unsigned char none)
+void menu_enter()
 {
+    curFunct = NULL; // only run once
     if(subMenuPtr < 0) // we are in the main screen
     {
         /// \todo TODO: Get the pole ID if the main menu items are not 0, 4, or 6.
@@ -289,7 +295,8 @@ void menu_enter(unsigned char none)
     }
     else // otherwise we are in a submenu and should execute the entry's function.
     {
-        menu[mainMenuPtr].entry[subMenuPtr].function(0);
+        curFunct = menu[mainMenuPtr].entry[subMenuPtr].function;
+        curFunct(selectedPole);
     }
 }
 
@@ -320,6 +327,95 @@ static void menu_display()
     lcd_display(line1,line2);
 }
 
+menu_getSelection() // BLOCKING
+{
+    unsigned char number; // keypad number entry
+    const unsigned char numberStr;
+    unsigned char key;
+    unsigned char second=0;
+    lcd_display("Please enter pole #:","(Enter for Local)");
+    while(1) // loop for errors
+    {
+        while(1) // loop for first digit or local
+        {
+            key=keypad_pull();
+            if(key < 10)
+            {
+                number = key;
+                sprintf(numberStr,"Pole: %1d",number);
+                lcd_display("Please enter pole #:",numberStr);
+            }
+            else if(key == ENTERKEY)
+            {
+                if(second==0)
+                {
+                    selectedPole = 255;
+                }
+                else
+                {
+                    selectedPole = 250;
+                }
+                return;
+            }
+            else if(key == SECONDKEY)
+            {
+                if(second==0)
+                {
+                    second = 1;
+                    lcd_display("Please enter pole #:","(Enter for Global)");
+                }
+                else
+                {
+                    second = 0;
+                    lcd_display("Please enter pole #:","(Enter for Local)");
+                }
+            }
+        }
+        while(1) // loop for second digit
+        {
+            key=keypad_pull();
+            if(key < 10)
+            {
+                number = key + (number*10);
+                sprintf(numberStr,"Pole: %1d",number);
+                lcd_display("Please enter pole #:",numberStr);
+            }
+            else if(key == ENTERKEY)
+            {
+                selectedPole = number;
+                return;
+            }
+        }
+        while(1) // loop for third digit
+        {
+            key=keypad_pull();
+            if(key < 10)
+            {
+                number = key + (number*10);
+                sprintf(numberStr,"Pole: %1d",number);
+                if(number > 249)
+                {
+                    lcd_display("Please enter valid","pole below 250!");
+                    delay(8);
+                    lcd_display("Please enter pole #:","(Enter for Local)");
+                    second = 0;
+                    number = 0;
+                }
+                else
+                {
+                    selectedPole = number;
+                    return;
+                }
+            }
+            else if(key == ENTERKEY)
+            {
+                selectedPole = number;
+                return;
+            }
+        }
+    }
+}
+
 //*****************************************************************************/
 // Functions for the menu entries that need further user input
 /// Set the light mode (full,dim,auto,off)
@@ -328,7 +424,7 @@ void menu_setLightMode(unsigned char id)
     static unsigned char setting;
     static unsigned swtch = 0;
     unsigned char key;
-    if(swtch==0)
+    if(swtch==0) // swtch is the variable that keeps this from importing the current setting every time.
     {
         setting = (setting_bits1 | 0b00001100) >> 2;
         swtch = 1;
@@ -358,6 +454,20 @@ void menu_setLightMode(unsigned char id)
         {
             setting_bits1 &= 0b11110011; // reset the bits
             setting_bits1 |= setting << 2; // then write the bits.
+            switch(setting)
+            {
+                case 0:
+                    menu[1].entry[0].text = "Light Mode (OFF)";
+                    break;
+                case 1:
+                    menu[1].entry[0].text = "Light Mode (Dim)";
+                    break;
+                case 2:
+                    menu[1].entry[0].text = "Light Mode (Full)";
+                    break;
+                case 3:
+                    menu[1].entry[0].text = "Light Mode (Auto)";
+            }
         }
         curFunct = NULL;
         swtch = 0;
@@ -432,7 +542,7 @@ void menu_setHurricaneMode(unsigned char id)
 
 ///  Lock the solar panel (Auto/Locked)
 /// Menu Function for activating hurricane mode
-void menu_setPanelMode(unsigned char id)
+void menu_setPanelMode(unsigned char id)  ///////////////////BLOCKING!
 {
     unsigned char setting, key;
     setting = setting_bits1 | 0b00000001;
@@ -472,9 +582,63 @@ void menu_setPanelMode(unsigned char id)
 /// AC/Battery switch
 void menu_setACBatt(unsigned char id)
 {
-    unsigned char setting, key;
-    setting = (setting_bits1 | 0b00110000) >> 4;
-    while(1)
+    static unsigned char setting;
+    static unsigned swtch = 0, newDisp=1;
+    unsigned char key;
+    if(swtch==0)
+    {
+        setting = (setting_bits1 | 0b00110000) >> 4; // import current value once
+        swtch = 1;
+        newDisp=1;
+    }
+    key = keypad_pull();
+    if(key == UPKEY)
+    {
+        if(setting == 4) setting = 0;
+        else ++setting;
+        newDisp=1;
+    }
+    else if(key == DOWNKEY)
+    {
+        if(setting == 0) setting = 4;
+        else --setting;
+        newDisp=1;
+    }
+    else if(key == CANCEL)
+    {
+        lcd_display("Canceled changing","the Power Source");
+        delay(8);
+        curFunct = NULL;
+        newDisp = 1;
+        swtch = 0;
+        return;
+    }
+    else if(key == ENTERKEY)
+    {
+        if(setting < 4)
+        {
+            setting_bits1 &= 0b11001111; // reset the bits
+            setting_bits1 |= (setting%4) << 4; // then write the bits.
+        }
+        curFunct = NULL;
+        swtch = 0;
+        switch(setting)
+        {
+            case 0:
+                menu[5].entry[0].text = "Power Reset";
+                break;
+            case 1:
+                menu[5].entry[0].text = "Power on AC ONLY";
+                break;
+            case 2:
+                menu[5].entry[0].text = "Power on BAT ONLY";
+                break;
+            case 3:
+                menu[5].entry[0].text = "Power on Auto";
+        }
+        return;
+    }
+    if(newDisp)
     {
         switch(setting)
         {
@@ -493,32 +657,7 @@ void menu_setACBatt(unsigned char id)
             case 4:
                 lcd_display("Select Powersource","Cancel");
         }
-        while((key = keypad_pull()) == NOKEY) continue;
-        if(key == UPKEY)
-        {
-            if(setting == 4) setting = 0;
-            else ++setting;
-        }
-        else if(key == DOWNKEY)
-        {
-            if(setting == 0) setting = 4;
-            else --setting;
-        }
-        else if(key == CANCEL)
-        {
-            lcd_display("Canceled Changing","the Power Source");
-            delay(8);
-            break;
-        }
-        else if(key == ENTERKEY)
-        {
-            if(setting == 4) break; // exit out of the loop without doing anything
-            else
-            {
-                setting_bits1 &= 0b11001111; // reset the bits
-                setting_bits1 |= (setting%4) << 4; // then write the bits.
-            }
-        }
+        newDisp = 0;
     }
 }
 

@@ -41,7 +41,7 @@ static menuFunct curFunct; // if a function is selected
 void menu_up(unsigned char);
 void menu_next(unsigned char);
 void menu_prev(unsigned char);
-void menu_enter(unsigned char);
+void menu_enter();
 static void menu_display();
 
 // Functions that are for the LCD
@@ -50,6 +50,7 @@ void lcd_usb(unsigned char);
 unsigned char lcd_display(const unsigned char*,const unsigned char*);
 void lcd_background(unsigned char,unsigned char,unsigned char); // change the background color (PWM). Does not need return since it is internal.
 
+void menu_getSelection(); // sets the pole number. asks when you enter a sub-menu.
 void menu_setLightMode(unsigned char);
 void menu_setHurricaneMode(unsigned char);
 void menu_setPanelMode(unsigned char);
