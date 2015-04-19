@@ -195,6 +195,7 @@ unsigned pir(void){
 
 unsigned char limits(void)
 {
+    // If any limit switch is pressed - stop all motors
     if(PIN_LIMIT_DOWN || PIN_LIMIT_UP || PIN_LIMIT_EAST || PIN_LIMIT_WEST)
     {
         motor_move(STOP);

@@ -21,10 +21,10 @@
 #define PIN_MOVE_DOWN_1 PORTDbits.RD6
 #define PIN_MOVE_DOWN_2 PORTDbits.RD5
 
-#define PIN_MOVE_EAST_1 PORTBbits.RB3
-#define PIN_MOVE_EAST_2 PORTBbits.RB4
-#define PIN_MOVE_WEST_1 PORTBbits.RB2
-#define PIN_MOVE_WEST_2 PORTBbits.RB1
+#define PIN_MOVE_EAST_1 PORTBbits.RB1
+#define PIN_MOVE_EAST_2 PORTBbits.RB2
+#define PIN_MOVE_WEST_1 PORTBbits.RB3
+#define PIN_MOVE_WEST_2 PORTBbits.RB4
 
 #define ERR 8
 

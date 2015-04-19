@@ -175,44 +175,44 @@ void pwm_setup()
  *
  * \todo TODO: finish `pwm_set`
  */
-unsigned pwm_set(unsigned char channel, unsigned char duty, unsigned char value) // Set pin to duty cycle
-{
-    int temp, x;
-    x = channel;
-    temp = duty;
-    value = (temp * 255)/100;
-    binary_conversion(value);
-
-    PR2 = 0xFF;
-
-    CCPR1L = value;
-
-    if(x == 1 || x == 2)
-    {
-        CCP1CON = 0b00111100;
-        T2CONbits.T2OUTPS = 0b0011;         //1:4 postscalar
-        T2CONbits.T2CKPS = 0b11;            //1:16 prescaler
-        T2CONbits.TMR2ON = 1;
-    }
-
-    if(x == 3)
-    {
-        CCP2CON = 0b00111100;
-        T2CONbits.T2OUTPS = 0b0011;         //1:4 postscalar
-        T2CONbits.T2CKPS = 0b11;            //1:16 prescaler
-        T2CONbits.TMR2ON = 1;
-    }
-
-    if(x == 4 || x == 5 || x == 6)
-    {
-        CCP3CON = 0b00111100;
-        T2CONbits.T2OUTPS = 0b0011;         //1:4 postscalar
-        T2CONbits.T2CKPS = 0b11;            //1:16 prescaler
-        T2CONbits.TMR2ON = 1;
-    }
-
-    return true;
-}
+//unsigned pwm_set(unsigned char channel, unsigned char duty, unsigned char value) // Set pin to duty cycle
+//{
+//    int temp, x;
+//    x = channel;
+//    temp = duty;
+//    value = (temp * 255)/100;
+//    binary_conversion(value);
+//
+//    PR2 = 0xFF;
+//
+//    CCPR1L = value;
+//
+//    if(x == 1 || x == 2)
+//    {
+//        CCP1CON = 0b00111100;
+//        T2CONbits.T2OUTPS = 0b0011;         //1:4 postscalar
+//        T2CONbits.T2CKPS = 0b11;            //1:16 prescaler
+//        T2CONbits.TMR2ON = 1;
+//    }
+//
+//    if(x == 3)
+//    {
+//        CCP2CON = 0b00111100;
+//        T2CONbits.T2OUTPS = 0b0011;         //1:4 postscalar
+//        T2CONbits.T2CKPS = 0b11;            //1:16 prescaler
+//        T2CONbits.TMR2ON = 1;
+//    }
+//
+//    if(x == 4 || x == 5 || x == 6)
+//    {
+//        CCP3CON = 0b00111100;
+//        T2CONbits.T2OUTPS = 0b0011;         //1:4 postscalar
+//        T2CONbits.T2CKPS = 0b11;            //1:16 prescaler
+//        T2CONbits.TMR2ON = 1;
+//    }
+//
+//    return true;
+//}
 
 /*! \brief Takes a packet and transmits it according to its contents. Returns true if successful.
  *
@@ -414,15 +414,15 @@ unsigned timeoutCheck(unsigned short timeCheck)
     return time > timeCheck;
 }
 
-int binary_conversion(int n)
-{
-    int tem, z=1, bin=0;
-    while (n != 0)
-    {
-        tem = n%2;
-        n/=2;
-        bin+=tem*z;
+//int binary_conversion(int n)
+//{
+//    int tem, z=1, bin=0;
+//    while (n != 0)
+//    {
+//        tem = n%2;
+//        n/=2;
+//        bin+=tem*z;
 //        i*10;
-    }
-    return bin;
-}
+//    }
+//    return bin;
+//}

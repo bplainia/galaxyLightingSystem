@@ -28,7 +28,7 @@ void power_setup(void)
 
 
 //The following are designed to send error alerts to the error page for maintenance.
-void power_switch(void)
+void power_switch(unsigned char)
 {
     battin = battin ^ 0b1;
 }

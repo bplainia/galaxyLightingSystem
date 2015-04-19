@@ -196,7 +196,7 @@ void dusk_moveback(void)
 
 /*! \brief Command the motors to move in the direction specified
  */
-void motor_move(char direction){
+void motor_move(unsigned char direction){
     switch(direction)
     {
         case UP:

@@ -85,7 +85,7 @@ static void i2c_wait(void); // Check and wait to see if a i2c function is runnin
 static unsigned i2c_send(unsigned char); // private function to send a byte
 static unsigned char i2c_recv(unsigned); // private function to recieve a byte
 
-void delay(unsigned char);
+void delay(unsigned short);
 void timeoutInit(void);
 unsigned timeoutCheck(unsigned short);
 

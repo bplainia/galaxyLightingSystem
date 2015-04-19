@@ -90,7 +90,7 @@ void lcd_setup()
     // Clock Options
     menu[4].text          = "Clock Options";
         menu[4].entry[0].text = "Show Time";
-        menu[4].entry[0].function = seeTime();
+ //       menu[4].entry[0].function = seeTime();
         menu[4].entry[0].data = NULL;
 
         menu[4].entry[1].text = "Set Time";
@@ -103,7 +103,7 @@ void lcd_setup()
     menu[5].text = "Misc. Options";
         menu[5].entry[0].text = "Toggle AC/Battery";
 
-        menu[5].entry[1].function = power_switch;           //allows user to switch power via interface
+//        menu[5].entry[1].function = power_switch;           //allows user to switch power via interface
         menu[5].entry[1].text = "Restart";
 
         menu[5].entry[2].text = "Go to Main Menu";
