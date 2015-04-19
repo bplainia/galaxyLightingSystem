@@ -41,7 +41,7 @@ void mem_push()
 unsigned char mem_append_log(unsigned char err)
 {
     datetime currenttime;
-    rtc_get(datetime currenttime);
+    rtc_get(&currenttime);
     unsigned char* LOG[256];
     unsigned char errorNum;
     int i;
@@ -51,12 +51,12 @@ unsigned char mem_append_log(unsigned char err)
     i = 5;
     j = 0x10;
 
-    LOG[0] = currenttime.year;
-    LOG[1] = currenttime.month;
-    LOG[2] = currenttime.day;
-    LOG[3] = currenttime.hour;
-    LOG[4] = currenttime.minute;
-    LOG[i] = errorNum;
+    LOG[0] = &currenttime.year;
+    LOG[1] = &currenttime.month;
+    LOG[2] = &currenttime.day;
+    LOG[3] = &currenttime.hour;
+    LOG[4] = &currenttime.minute;
+    LOG[i] = &errorNum;
 
 
     mem_write(j, &LOG[0], 1);
@@ -77,10 +77,8 @@ if(j == 0x5F)
 {
     j = 0x10;
 }
-else
-
-continue;
-
+    
+    
     return 0; // default return is no error
 }
 

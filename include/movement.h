@@ -21,10 +21,10 @@
 #define PIN_MOVE_DOWN_1 PORTDbits.RD6
 #define PIN_MOVE_DOWN_2 PORTDbits.RD5
 
-#define PIN_MOVE_EAST_1 PORTBbits.RB3
-#define PIN_MOVE_EAST_2 PORTBbits.RB4
-#define PIN_MOVE_WEST_1 PORTBbits.RB2
-#define PIN_MOVE_WEST_2 PORTBbits.RB1
+#define PIN_MOVE_EAST_1 PORTBbits.RB1
+#define PIN_MOVE_EAST_2 PORTBbits.RB2
+#define PIN_MOVE_WEST_1 PORTBbits.RB3
+#define PIN_MOVE_WEST_2 PORTBbits.RB4
 
 #define ERR 8
 
@@ -37,7 +37,7 @@ unsigned char move = 0;
 void move_setup(void);
 void limit_test(void);
 void daytime_move(void);
-void dusk_moveback(unsigned int);
+void dusk_moveback(void);
 void season_adjust(void);
 void maint_move(unsigned char);
 void motor_move(char);

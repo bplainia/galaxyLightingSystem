@@ -1,39 +1,12 @@
 #include <light.h>
+#include <sensors.h>
 
-/*! \brief setup for light
- *
- * --> Test value (global var) used to show if function was entered
- */
-void led_setup(void){
 
-    // Define pin as output
-    LED_IO = 0;
-    light = light ^ 0b00000001;
-}
 
-/*! \brief operate the light as normal
- *
- * Outputs: change state on light pin to control the light
- *
- * --> Test value (global var) used to show if function was entered
- */
-void led_auto(void){
-    light = light ^ 0b00000010;
-//    if photo_value(1) < daylevel
-//       if time_since_motion < 10
-//            LED_OUT = 0;
-//       else
-//            LED_OUT = PWM
-//    else
-//       LED_OUT = 1;
-    
-}
 
 /*! \brief change the light as directed by maintenance panel
  *
  * Outputs: change state on light pin to control the light
- *
- * --> Test value (global var) used to show if function was entered
  */
 void led_maintenance(unsigned char lightState)
 {
@@ -43,19 +16,44 @@ void led_maintenance(unsigned char lightState)
             led_auto();
         break;
         case ON:
-            LED_OUT = 0;
+            led(ON);
         break;
         case DIM:
-            // LED_OUT = pwm
-            light = light ^ 0b00000100;
+            led(DIM);
         break;
         case OFF:
-            LED_OUT = 1;
+            led(OFF);
         break;
         default:
             led_auto();
     }
 
+}
+
+// Setup pin for LED as output
+void led_setup(void)
+{
+    LED_PIN = OUTPUT;
+
+}
+
+// Function to modify the LED to turn either ON, OFF, or DIM
+void led(unsigned char state)
+{
+    switch(state)
+    {
+        case OFF:
+            pwm_set(LED_CHAN, LED_DUTY_OFF);
+            break;
+        case ON:
+            pwm_set(LED_CHAN, LED_DUTY_ON);
+            break;
+        case DIM:
+            pwm_set(LED_CHAN, LED_DUTY_DIM);
+            break;
+        default:
+            ;
+    }
 }
 
 //for the maintenance error alerts

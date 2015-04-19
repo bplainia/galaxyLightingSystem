@@ -1,6 +1,6 @@
 #include <sensors.h>
 
-#include "rtc.h"
+#include <rtc.h>
 
 /*! \brief setup sensors
  */
@@ -46,7 +46,7 @@ unsigned int photo_value(unsigned char photonum, unsigned update)
 {
     unsigned int photoVal = 0;
 
-    if(update)
+    if(update)      // if requested do a full adc conversion
     {
         switch (photonum)
         {
@@ -64,7 +64,7 @@ unsigned int photo_value(unsigned char photonum, unsigned update)
                 break;
         }
     }
-
+                    // then read adc value
     switch (photonum)
     {
         case PHOTO_LEV:
@@ -113,7 +113,7 @@ unsigned char temperature(void){
 unsigned int ang_pos(unsigned potnum, unsigned update){
     unsigned int potVal = 0;
     
-    if(update)
+    if(update)      // if requested do a full adc conversion
     {
         switch (potnum)
         {
@@ -123,7 +123,7 @@ unsigned int ang_pos(unsigned potnum, unsigned update){
                 adc_update(CHAN_POT_YEAR);
         }
     }
-    switch (potnum)
+    switch (potnum)     // then read adc value
     {
          case POT_DAY:
             potVal = adc_read(CHAN_POT_DAY);
@@ -195,6 +195,7 @@ unsigned pir(void){
 
 unsigned char limits(void)
 {
+    // If any limit switch is pressed - stop all motors
     if(PIN_LIMIT_DOWN || PIN_LIMIT_UP || PIN_LIMIT_EAST || PIN_LIMIT_WEST)
     {
         motor_move(STOP);

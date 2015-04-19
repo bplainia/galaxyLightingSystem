@@ -6,7 +6,7 @@
 #include <powerman.h>                         //PIC hardware mapping
 #include <eeprom.h>                           //eeprom memory
 
-void power_setup()
+void power_setup(void)
 {
 //    PIE2bits.HLVDIE=1;      //  initiated in order to enable HLVD interupts
 //    INTCONbits.GIE=1;
@@ -28,22 +28,29 @@ void power_setup()
 
 
 //The following are designed to send error alerts to the error page for maintenance.
-void power_switch(unsigned char none)
+void power_switch(unsigned char)
 {
-    battin = !battin;
+    battin = battin ^ 0b1;
 }
+
 void batt_live(unsigned char none)
 {
-    unsigned char batt_status;
-    
-    if(...)
+    float battvolt;
+    unsigned short rawvoltage;
+    rawvoltage = (ADCBUF4H << 8) | ADCBUF4L;
+    battvolt = rawvoltage*3.3/4096;       //input variable
+
+    if(battvolt<1f)
     {
+
+ //       menu[7].entry[]
+
 
     }
 }
 
 
-void power_loop()        //Power switch depending on battery level
+void power_loop(void)        //Power switch depending on battery level
 {
     float battvolt;
     unsigned short rawvoltage;
@@ -62,15 +69,11 @@ void power_loop()        //Power switch depending on battery level
         LATAbits.LATA4 = 1;            //This will the grid power off.
     }
 
-    if(((battvolt>11.5))
+    if(battvolt > 11.5)
     {
         mem_append_log(ERR_BATTLOW);
     }
 
-//    if(battin=1)
-//    {
-//        mem_append_log(MAINT_BATT_CHK)
-//    }
-
 }
+
 

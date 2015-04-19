@@ -67,67 +67,73 @@ void adc_updateAll()
 
 }
 
-// /// Read adc value out of the ADC buffer for the passed channel
-//unsigned int adc_read(unsigned char channel)
-//{
-//    unsigned int adcVal;
-//    int *adcPtr;
-//
-//    switch(channel)
-//    {
-//        case 0:
-//            adcPtr = (int *)&ADCBUF0L;
-//            break;
-//        case 1:
-//            adcPtr = (int *)&ADCBUF1L;
-//            break;
-//        case 2:
-//            adcPtr = (int *)&ADCBUF2L;
-//            break;
-//        case 3:
-//            adcPtr = (int *)&ADCBUF3L;
-//            break;
-//        case 4:
-//            adcPtr = (int *)&ADCBUF4L;
-//            break;
-//        case 5:
-//            adcPtr = (int *)&ADCBUF5L;
-//            break;
-//        case 6:
-//            adcPtr = (int *)&ADCBUF6L;
-//            break;
-//        case 7:
-//            adcPtr = (int *)&ADCBUF7L;
-//            break;
-//        case 8:
-//            adcPtr = (int *)&ADCBUF8L;
-//            break;
-//        case 9:
-//            adcPtr = (int *)&ADCBUF9L;
-//            break;
-//        case 10:
-//            adcPtr = (int *)&ADCBUF10L;
-//            break;
-//        case 11:
-//            adcPtr = (int *)&ADCBUF11L;
-//            break;
-//        case 12:
-//            adcPtr = (int *)&ADCBUF12L;
-//            break;
-//        case 13:
-//            adcPtr = (int *)&ADCBUF13L;
-//            break;
-//        case 14:
-//            adcPtr = (int *)&ADCBUF14L;
-//            break;
-//        case 15:
-//            adcPtr = (int *)&ADCBUF15L;
-//            break;
-//    }
-//
-//    adcVal = *adcPtr;
-//    return(adcVal);
-//}
+ /// Read adc value out of the ADC buffer for the passed channel
+unsigned int adc_read(unsigned char channel)
+{
+    unsigned int adcVal;        // code as suggested by Dr. Francis
+    int *adcPtr;
+
+        // Each pin is attached to an adc channel
+        // Depending on which device (pin) is desired, that channel is requested
+        // when an adc is performed the result is put into the buffer for that channel
+        // for this code a pointer is created that points at the low byte of the buffer
+        // an int is used to grab the data in the byte, which should grab the low and high byte
+
+    switch(channel)
+    {
+        case 0:
+            adcPtr = (int *)&ADCBUF0L;
+            break;
+        case 1:
+            adcPtr = (int *)&ADCBUF1L;
+            break;
+        case 2:
+            adcPtr = (int *)&ADCBUF2L;
+            break;
+        case 3:
+            adcPtr = (int *)&ADCBUF3L;
+            break;
+        case 4:
+            adcPtr = (int *)&ADCBUF4L;
+            break;
+        case 5:
+            adcPtr = (int *)&ADCBUF5L;
+            break;
+        case 6:
+            adcPtr = (int *)&ADCBUF6L;
+            break;
+        case 7:
+            adcPtr = (int *)&ADCBUF7L;
+            break;
+        case 8:
+            adcPtr = (int *)&ADCBUF8L;
+            break;
+        case 9:
+            adcPtr = (int *)&ADCBUF9L;
+            break;
+        case 10:
+            adcPtr = (int *)&ADCBUF10L;
+            break;
+        case 11:
+            adcPtr = (int *)&ADCBUF11L;
+            break;
+        case 12:
+            adcPtr = (int *)&ADCBUF12L;
+            break;
+        case 13:
+            adcPtr = (int *)&ADCBUF13L;
+            break;
+        case 14:
+            adcPtr = (int *)&ADCBUF14L;
+            break;
+        case 15:
+            adcPtr = (int *)&ADCBUF15L;
+            break;
+    }
+
+    adcVal = *adcPtr;
+    return(adcVal);
+}
 // Three reasons this won't work: 
 //   1. they are not integers,
 //   2. you are supposed to get it straight from the buffer and does not include the channels we need
@@ -169,44 +175,44 @@ void pwm_setup()
  *
  * \todo TODO: finish `pwm_set`
  */
-unsigned pwm_set(unsigned char channel, unsigned char duty) // Set pin to duty cycle
-{
-    int temp, x, duty;
-    channel = x;
-    temp = duty;
-    value = (temp * 255)/100;
-    binary_conversion(value);
-
-    PR2 = 0xFF;
-
-    value = CCPRxL;
-
-    if(x == 1 || x == 2)
-    {
-        CCPxCON = 0b00111100;
-        T2CONbits.T2OUTPS = 0b0011;         //1:4 postscalar
-        T2CONbits.T2CKPS = 0b11;            //1:16 prescaler
-        T2CONbits.TMR2ON = 1;
-    }
-
-    if(x == 3)
-    {
-        CCPxCON = 0b00111100;
-        T2CONbits.T2OUTPS = 0b0011;         //1:4 postscalar
-        T2CONbits.T2CKPS = 0b11;            //1:16 prescaler
-        T2CONbits.TMR2ON = 1;
-    }
-
-    if(x == 4 || x == 5 || x == 6)
-    {
-        CCPxCON = 0b00111100;
-        T2CONbits.T2OUTPS = 0b0011;         //1:4 postscalar
-        T2CONbits.T2CKPS = 0b11;            //1:16 prescaler
-        T2CONbits.TMR2ON = 1;
-    }
-
-    return true;
-}
+//unsigned pwm_set(unsigned char channel, unsigned char duty, unsigned char value) // Set pin to duty cycle
+//{
+//    int temp, x;
+//    x = channel;
+//    temp = duty;
+//    value = (temp * 255)/100;
+//    binary_conversion(value);
+//
+//    PR2 = 0xFF;
+//
+//    CCPR1L = value;
+//
+//    if(x == 1 || x == 2)
+//    {
+//        CCP1CON = 0b00111100;
+//        T2CONbits.T2OUTPS = 0b0011;         //1:4 postscalar
+//        T2CONbits.T2CKPS = 0b11;            //1:16 prescaler
+//        T2CONbits.TMR2ON = 1;
+//    }
+//
+//    if(x == 3)
+//    {
+//        CCP2CON = 0b00111100;
+//        T2CONbits.T2OUTPS = 0b0011;         //1:4 postscalar
+//        T2CONbits.T2CKPS = 0b11;            //1:16 prescaler
+//        T2CONbits.TMR2ON = 1;
+//    }
+//
+//    if(x == 4 || x == 5 || x == 6)
+//    {
+//        CCP3CON = 0b00111100;
+//        T2CONbits.T2OUTPS = 0b0011;         //1:4 postscalar
+//        T2CONbits.T2CKPS = 0b11;            //1:16 prescaler
+//        T2CONbits.TMR2ON = 1;
+//    }
+//
+//    return true;
+//}
 
 /*! \brief Takes a packet and transmits it according to its contents. Returns true if successful.
  *
@@ -408,15 +414,15 @@ unsigned timeoutCheck(unsigned short timeCheck)
     return time > timeCheck;
 }
 
-void binary_conversion(int n)
-{
-    int tem, z=1, bin=0;
-    while (n != 0)
-    {
-        tem = n%2;
-        n/=2;
-        bin+=tem*z;
-        i*10;
-    }
-    return bin;
-}
+//int binary_conversion(int n)
+//{
+//    int tem, z=1, bin=0;
+//    while (n != 0)
+//    {
+//        tem = n%2;
+//        n/=2;
+//        bin+=tem*z;
+//        i*10;
+//    }
+//    return bin;
+//}
