@@ -8,7 +8,7 @@
 #define HELPKEY 13
 #define SECONDKEY 14
 #define ENTERKEY 15
-#define NOKEY 0xFF
+#define NOKEY 20
 
 // Variables
 

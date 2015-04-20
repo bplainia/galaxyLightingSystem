@@ -25,7 +25,7 @@
 // Global Variables (beware race conditions)
 
 /// The first status byte - Includes the two state machine states, the rtc initialization state, and whether or not the loop will sleep at the end.
-struct {
+volatile struct {
     unsigned    rtcInit   : 1;
     unsigned    alarmInit : 1;
     unsigned    mmode     : 2; // 0=off, 1=main, 2=slave

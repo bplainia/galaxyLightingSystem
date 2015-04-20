@@ -155,12 +155,15 @@ void pwm_setup()
     // Some reminders:
     // PWM Period = (PR2 + 1) * 4 * (1/<Primary Oscilator>) * <TMR2 Prescale>
     // Max Resolution = log_2 (Fosc/Fpwm)
-    // Duty Cycle = (CCPR4L:CCP4CON<5:4>)*Tosc*Prescale
 
-    // PWM Backlight Channels
+    // PWM Channels Setup
+    TRISCbits.TRISC7 = 0;
     RPOR18_19bits.RPO19R = 0x8; // set RP19 to CCP4 for the Light
+    TRISEbits.TRISE4 = 0;
     RPOR32_33bits.RPO32R = 0x9; // set RP32 to CCP5 for RED PWM
+    TRISEbits.TRISE5 = 0;
     RPOR34_35bits.RPO34R = 0x9; // set RP34 to CCP6 for GRN PWM
+    TRISEbits.TRISE6 = 0;
     RPOR36_37bits.RPO37R = 0x8; // set RP37 to CCP7 for BLU PWM
 
     // delay timer
