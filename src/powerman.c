@@ -69,7 +69,7 @@ void power_loop(void)        //Power switch depending on battery level
         LATAbits.LATA4 = 1;            //This will the grid power off.
     }
 
-    if(battvolt > 11.5)
+    if(battvolt < 3f)
     {
         mem_append_log(ERR_BATTLOW);
     }
