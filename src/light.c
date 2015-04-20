@@ -1,8 +1,8 @@
+// Author: Luke Williams
+// Light Control code (includes motion detector code)
+
 #include <light.h>
 #include <sensors.h>
-
-
-
 
 /*! \brief change the light as directed by maintenance panel
  *
@@ -27,7 +27,7 @@ void led_maintenance(unsigned char lightState)
         default:
             led_auto();
     }
-
+    return;
 }
 
 // Setup pin for LED as output

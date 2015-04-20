@@ -20,6 +20,7 @@ void move_setup(void){
     PINIO_MOVE_UPDOWN_2 = OUTPUT;
     PINIO_MOVE_UPDOWN_3 = OUTPUT;
     PINIO_MOVE_UPDOWN_4 = OUTPUT;
+    return;
 }
 
 /*! \brief Move the panel to each limit to find values on pots
@@ -366,7 +367,7 @@ void year_pos_move(unsigned int desPos)
     motor_move(STOP);
 }
 
-unsigned int abs(unsigned int num)
+unsigned int abs(int num)
 {
     if(num < 0)
     {

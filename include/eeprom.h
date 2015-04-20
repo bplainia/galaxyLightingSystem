@@ -45,8 +45,8 @@ typedef enum errorCode {NONE=0,SPACEOVERRIDE=1,BATTERYLOW=2};
 unsigned char mem_check(void); // Check the memory. Certain things are checksumed.
 void mem_push(void); // Save special bytes that are in ram to eeprom.
 unsigned char mem_append_log(unsigned char); // saves an event to the log space.
-static unsigned mem_write(unsigned short, unsigned char[], unsigned char); // Write byte(s) to address
-static unsigned mem_read(unsigned short, unsigned char*, unsigned char); // read bytes at address
+static unsigned mem_write(unsigned int, unsigned char[], unsigned char); // Write byte(s) to address
+static unsigned mem_read(unsigned int, unsigned char*, unsigned char); // read bytes at address
 
 
 #endif

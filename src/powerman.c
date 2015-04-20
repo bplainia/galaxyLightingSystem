@@ -36,7 +36,7 @@ void power_switch(unsigned char)
 void batt_live(unsigned char none)
 {
     float battvolt;
-    unsigned short rawvoltage;
+    unsigned int rawvoltage;
     rawvoltage = (ADCBUF4H << 8) | ADCBUF4L;
     battvolt = rawvoltage*3.3/4096;       //input variable
 
@@ -53,7 +53,7 @@ void batt_live(unsigned char none)
 void power_loop(void)        //Power switch depending on battery level
 {
     float battvolt;
-    unsigned short rawvoltage;
+    unsigned int rawvoltage;
     rawvoltage = (ADCBUF4H << 8) | ADCBUF4L;
     battvolt = rawvoltage*3.3/4096;       //input variable
 

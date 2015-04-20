@@ -35,14 +35,15 @@ typedef struct
 /// menu: The menu entries for the LCD.
 /// Note that the 0th entry is the main menu.
 menuEntry menu[8];
-static menuFunct curFunct; // if a function is selected
+menuFunct curFunct; // if a function is selected
+signed char mainMenuPtr = 0, subMenuPtr = 0;
 
 // Functions that are for the menu system.
 void menu_up(unsigned char);
 void menu_next(unsigned char);
 void menu_prev(unsigned char);
 void menu_enter();
-static void menu_display();
+void menu_display();
 
 // Functions that are for the LCD
 void lcd_setup();

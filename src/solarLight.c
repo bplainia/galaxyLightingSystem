@@ -92,6 +92,11 @@ void main(void)
     // A very super-simple main function by Ben. Makes this coding similar
     // to programming an arduino. Ain't that nice? So don't put anything
     // else here now. This is a finished function.
+    
+    // Setup Oscillator
+    OSCCON2bits.SOSCGO = 1;
+    OSCCON4 = 0b01100000;
+
     INTCONbits.GIE = 0; // disable all interrupts
     INTCONbits.PEIE = 1; // enable periphrial interrupts (disabled by GIE currently)
     RCONbits.IPEN = 1; // Priority interrupts
@@ -272,7 +277,7 @@ void interrupt high_priority isr_high()
     if(TMR1IE && TMR1IF) // This is the delay counter
     {
         TMR1IF = 0;
-        TMR1H  = 0xEF;
+        TMR1H  = 0xF7;
         TMR1L  = 0xFF;       // set to increment `time` every 1/8th of a second
         ++time;
         ++delayTime;

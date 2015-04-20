@@ -1,6 +1,9 @@
 #include <sensors.h>
 
 #include <rtc.h>
+#include <light.h>
+#include <shared.h>
+#include <movement.h>
 
 /*! \brief setup sensors
  */
@@ -32,6 +35,7 @@ void sensor_setup(void){
     PINAD_LIMIT_UP = DIGITAL;
     PINAD_LIMIT_EAST = DIGITAL;
     PINAD_LIMIT_WEST = DIGITAL;
+    return;
 }
 
 /*! \brief Check the analog value of a particular photoresistor
@@ -134,7 +138,7 @@ unsigned int ang_pos(unsigned potnum, unsigned update){
     return potVal;
 }
 
-/*! \brief check the PIR sensor and turn light ON or DIM depending on motion
+/*! \brief check the PIR sensor and turn light LED_ON or DIM depending on motion
  *   Only active during night time state
  *
  * Inputs: none
@@ -144,7 +148,7 @@ unsigned int ang_pos(unsigned potnum, unsigned update){
 unsigned pir(void){
 
     static unsigned last = NO_MOVE;
-    static unsigned led_on = OFF;
+    static unsigned led_on = LED_OFF;
     static unsigned char ten_min_min = 60;
     static unsigned char ten_min_sec = 60;
     static unsigned char five_sec = 60;
@@ -165,12 +169,12 @@ unsigned pir(void){
         }
         else if(currenttime.second <= five_sec)
         {
-            led(ON);
-            led_on = ON;
+            led(LED_ON);
+            led_on = LED_ON;
         }
         last = MOVE;
     }
-    else if(led_on = ON)
+    else if(led_on == LED_ON)
     {
 
         if (last == MOVE)
@@ -185,8 +189,8 @@ unsigned pir(void){
         }
         else if((currenttime.minute <= ten_min_min) && (currenttime.second <= ten_min_sec))
         {
-            led(DIM);
-            led_on = OFF;
+            led(LED_DIM);
+            led_on = LED_OFF;
         }
         last = NO_MOVE;
     }

@@ -40,9 +40,9 @@ void daytime_move(void);
 void dusk_moveback(void);
 void season_adjust(void);
 void maint_move(unsigned char);
-void motor_move(char);
+void motor_move(unsigned char);
 void day_pos_move(unsigned int);
 void year_pos_move(unsigned int);
-unsigned int abs(unsigned int);
+unsigned int abs(int);
 
 #endif

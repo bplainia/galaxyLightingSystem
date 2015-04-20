@@ -42,7 +42,7 @@ unsigned char mem_append_log(unsigned char err)
 {
     datetime currenttime;
     rtc_get(&currenttime);
-    unsigned char* LOG[256];
+    unsigned char* LOG[85];
     unsigned char errorNum;
     int i;
     int j;
@@ -90,7 +90,7 @@ if(j == 0x5F)
  *
  * Outputs: A single bit specifying Success
  */
-static unsigned mem_write(unsigned short addr, unsigned char* data, unsigned char length)
+static unsigned mem_write(unsigned int addr, unsigned char* data, unsigned char length)
 {
     return i2c_tx(0x50,1,addr & 0x00FF,addr >> 8,data,length);
 }
@@ -103,7 +103,7 @@ static unsigned mem_write(unsigned short addr, unsigned char* data, unsigned cha
  *
  * Outputs: A array of data (`length` long). Will return the null pointer if there was an error.
  */
-static unsigned mem_read(unsigned short addr, unsigned char *data, unsigned char length)
+static unsigned mem_read(unsigned int addr, unsigned char *data, unsigned char length)
 {
     // Create packet and byte array for the i2c function to write to
     return i2c_rx(0x50,1,addr & 0x00FF,addr >> 8,data,length);

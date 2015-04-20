@@ -1,11 +1,11 @@
 #include <shared.h>
 #include <hid.h>
 #include <lcd.h>
-#include <stdlib.h>
 
 #include <communication.h>
 
-static struct fifo *keypadIn, *keypadOut;
+static struct fifo *keypadIn, *keypadOut, myFifo[50];
+static unsigned char ;
 static unsigned char keypadNum;
 
 /// Sets up the Human Interface Periphrials (keyboard, usb, and lcd) and their pins.
@@ -13,7 +13,7 @@ void hid_setup(void)
 {
     // setup keypad
     SPBRGH3         = 0x00; //! \todo  TODO: initialize baud rate to 9600
-    SPBRG3          = 0x00;
+    SPBRG3          = 51;
     TXSTA3bits.SYNC = 0;
     RCSTA3bits.SPEN = 1;
     RC3IE           = 0; // Make sure the keypad is not causing interrupts right now.
@@ -34,7 +34,7 @@ void hid_loop(void) // execute hid functions; is called from the main loop
 {
     unsigned char temp;
     static bit newScreen; // if 1, update the LCD
-    static menuFunct *lastFunct = NULL;
+    static menuFunct lastFunct = NULL;
     // check pins and flags for changes for the mmode state machine
 
     // execute the state machine
@@ -53,7 +53,7 @@ void hid_loop(void) // execute hid functions; is called from the main loop
                 temp = keypad_pull();
                 if(temp == ENTERKEY) // enter was pressed - execute menu entry
                 {
-                    menu_enter(0);
+                    menu_enter();
                     newScreen = 1;
                 }
                 else if(temp == UPKEY)
@@ -76,7 +76,7 @@ void hid_loop(void) // execute hid functions; is called from the main loop
             // cannot do anything while it is in these two states
             // we are transmitting and recieving data.
 
-            if(curFunct != lastFunct && curFunct == NULL) // we just came back from a menu function so we need to update.
+            if(curFunct != lastFunct && curFunct == (menuFunct) NULL) // we just came back from a menu function so we need to update.
             {
                 lastFunct = NULL;
                 newScreen = 1;
@@ -94,6 +94,7 @@ void hid_loop(void) // execute hid functions; is called from the main loop
         case 0b11: // Slave Mode
             break;
     }
+    return;
 }
 
 // LCD functions
@@ -104,7 +105,7 @@ unsigned lcd_begin(void)             // Welcome and setup screen for menu system
     unsigned char command;
 
     if(status.mmode == 0) status.mmode = 1; // Entered Maintenence Mode (LCD and Communications are now on)
-    else return; // already in master mode
+    else return true; // already in master mode
     COMSTAT.STATE = 0b100; // I am now a lonely idling master
     lcd_background(255,255,255);
     lcd_display("Welcome! Please     ", "enter passkey:      ");
@@ -140,7 +141,7 @@ unsigned lcd_begin(void)             // Welcome and setup screen for menu system
         mainMenuPtr = 0;
         return false;
     }
-
+    return false;
 }
 
 /// display "exiting", then turn off the led, and exit maintainence mode
@@ -218,14 +219,19 @@ unsigned keypad_push(char keypress)
     // now that the keypress has been translated, we will make a spot for it.
     if(command != NOKEY && keypadNum < 50) // limited to 50 keypresses
     {
-        newAddr = (struct fifo *) malloc(sizeof(struct fifo));
-        if(newAddr == (struct fifo *) NULL)
+        // equivilent to malloc:
+        if(keypadIn == &myFifo[49] || keypadIn == NULL) // if there is nothing or it is at the end
         {
-            return true;
+            newAddr = myFifo;
         }
+        else
+        {
+            newAddr = ++keypadIn;
+        }
+
         if(keypadOut==NULL) // if the queue is empty
         {
-            keypadOut = newAddr; // put in the new address
+            keypadOut = myFifo; // put in the new address
         }
         if(keypadIn != NULL) // if the queue is not empty
         {
@@ -256,7 +262,8 @@ unsigned char keypad_pull()
     command = keypadOut->byte; // get the byte out of the FIFO
     nextAddr = keypadOut->nextAddr; // get the next address
 
-    free(keypadOut); // free the memory up - No Memory Leaks allowed!
+    keypadOut->byte = 0;
+    keypadOut->nextAddr = NULL;
     
     keypadOut = nextAddr; // move the pointer to the next bit of data
     --keypadNum;

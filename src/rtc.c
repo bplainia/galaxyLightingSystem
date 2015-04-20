@@ -7,6 +7,7 @@ void rtc_setup()
     //! \todo TODO: Check to see if the rtcc is setup already
     RTCCON1bits.RTCEN = 1; // Enable RTC Clock
     status.rtcInit = 0; // real time clock has not been setup since reset!
+    return;
 }
 
 /*! \brief Set the time on the RTCC
@@ -199,7 +200,7 @@ static unsigned char bcd2char(unsigned char in)
 static unsigned char weekday(unsigned char year, unsigned char month, unsigned char day)
 {
     // Calculation retrieved from http://www.timeanddate.com/date/doomsday-weekday.html (Feb 6, 2015)
-    char mod, diff, div;
+    signed char mod, diff, div;
     mod = (year % 12);
     diff = year - (mod*12);
     if(diff < 0) diff = -diff; // absolute function

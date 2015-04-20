@@ -7,7 +7,7 @@
 #include <string.h>
 
 // Local Variable
-char mainMenuPtr = 0, subMenuPtr = 0;
+
 unsigned char selectedPole=255;
 
 #define NUMMENUENTRIES 7
@@ -91,11 +91,11 @@ void lcd_setup()
     // Clock Options
     menu[4].text          = "Clock Options";
         menu[4].entry[0].text = "Show Time";
-        menu[4].entry[0].function = menu_seeTime();
+        menu[4].entry[0].function = menu_seeTime;
         menu[4].entry[0].data = NULL;
 
         menu[4].entry[1].text = "Set Time";
-        menu[4].entry[1].function = menu_setTime();
+        menu[4].entry[1].function = menu_setTime;
 
         menu[4].entry[2].text = "Go to Main Menu";
         menu[4].entry[2].function = menu_up;
@@ -104,7 +104,7 @@ void lcd_setup()
     // Misc. Options (Includes Power Control)
     menu[5].text = "Misc. Options";
         menu[5].entry[0].text = "Toggle AC/Battery";
-        menu[5].entry[0].function = menu_ACBatt;           //allows user to switch power via interface
+        menu[5].entry[0].function = menu_setACBatt;           //allows user to switch power via interface
         menu[5].entry[0].data = NULL;
 
         menu[5].entry[1].text = "Go to Main Menu";
@@ -117,23 +117,23 @@ void lcd_setup()
         menu[6].entry[5].function = menu_up;
         menu[6].entry[5].data = NULL;
         
-        menu[6].entry[1].text = "CEO: DJ S."
+        menu[6].entry[1].text = "CEO: DJ S.";
         menu[6].entry[1].function = menu_up;
         menu[6].entry[1].data = NULL;
         
-        menu[6].entry[2].text = "CFO: Ben Plain"
+        menu[6].entry[2].text = "CFO: Ben Plain";
         menu[6].entry[2].function = menu_up;
         menu[6].entry[2].data = NULL;
         
-        menu[6].entry[3].text = "CEvE: Josh Smith"
+        menu[6].entry[3].text = "CEvE: Josh Smith";
         menu[6].entry[3].function = menu_up;
         menu[6].entry[3].data = NULL;
         
-        menu[6].entry[4].text = "CME: J Luke Williams"
+        menu[6].entry[4].text = "CME: J Luke Williams";
         menu[6].entry[4].function = menu_up;
         menu[6].entry[4].data = NULL;
         
-        menu[6].entry[0].function = "Patience, INC"
+        menu[6].entry[0].text = "Patience, INC";
         menu[6].entry[0].function = menu_up;
         menu[6].entry[0].data = NULL;
         
@@ -145,26 +145,36 @@ void lcd_setup()
     //Maintenance needed, these are read only
     menu[7].text = "Error Alerts      ";      //no response. "immediate attention needed"
         menu[7].entry[0].text = "Battery offline   ";       //
-        menu[7].entry[0].data = batt_live;
+        menu[7].entry[0].function = NULL;
+        menu[7].entry[0].data = NULL; // batt_live
 
         menu[7].entry[1].text = "Bulb dead       ";
-        menu[7].entry[1].function = bulb_detect;
+        menu[7].entry[1].function = NULL; //bulb_detect;
+        menu[7].entry[1].data = NULL;
 
         menu[7].entry[2].text = "Tracking motors off       ";
+        menu[7].entry[2].function = NULL;
+        menu[7].entry[2].data = NULL;
 
         menu[7].entry[3].text = "Sensors off range        ";
+        menu[7].entry[3].function = NULL;
+        menu[7].entry[3].data = NULL;
 
         menu[7].entry[4].text = "Comm Offline       ";
+        menu[7].entry[4].function = NULL;
+        menu[7].entry[4].data = NULL;
 
         menu[7].entry[5].text = "Go to Main Menu    ";
-
-        menu[7].entry[6].function = menu_up;
-    menu[7].numEntries = 7;         //TODO: Do not understand!! what goes in questionmark?
+        menu[7].entry[5].function = menu_up;
+        menu[7].entry[5].data = NULL;
+    menu[7].numEntries = 6;         //TODO: Do not understand!! what goes in questionmark?
 
     
     // If you add another main menu entry, make sure to change NUMMENUENTRIES
 
     curFunct = NULL;
+    mainMenuPtr = 0, subMenuPtr = 0;
+    return;
 }
 
 /// display USB connected on lcd. Press the special key to disconnect.
@@ -177,7 +187,7 @@ void lcd_usb(unsigned char enable)
     lcd_display("      USB Mode      ", "       Active       ");
 }
 
-unsigned char lcd_display(char line1[21], char line2[21])
+unsigned char lcd_display(const unsigned char *line1, const unsigned char *line2)
 {
 /*! # Research into the ST7036
  * found a link (https://www.newhavendisplay.com/app_notes/NHD-C0220BiZ.txt)[https://www.newhavendisplay.com/app_notes/NHD-C0220BiZ.txt]
@@ -196,7 +206,7 @@ unsigned char lcd_display(char line1[21], char line2[21])
             if(line1[i] == '\0') break;
             ++i;
         }
-        i2c_tx(0x78,0,0x40,0,line1,i);
+        i2c_tx(0x78,0,0x40,0,(unsigned char*)line1,i);
     }
 
     // write to the second line
@@ -209,7 +219,7 @@ unsigned char lcd_display(char line1[21], char line2[21])
             if(line2[i] == '\0') break;
             ++i;
         }
-        i2c_tx(0x78,0,0x40,0,line2,i);
+        i2c_tx(0x78,0,0x40,0,(unsigned char*)line2,i);
     }
     return false;
 }
@@ -231,7 +241,7 @@ void lcd_background(unsigned char red, unsigned char green, unsigned char blue)
 void menu_up(unsigned char none)
 {
     curFunct = NULL;
-    if(subMenuPtr >= 0)
+    if(subMenuPtr != -1)
     {
         subMenuPtr = -1;
     }
@@ -301,25 +311,25 @@ void menu_enter()
 }
 
 // Generates a lcdEntry and displays it. This is the main function.
-static void menu_display()
+void menu_display()
 {
-    char *line1, *line2;
+    char line1[25], line2[25];
 
     if(subMenuPtr < 0) // we are in a main menu.
     {
-        line1 = "     Main Menu      ";
-        line2 = menu[mainMenuPtr].text;
+        strcpy(line1,"     Main Menu      ");
+        strcpy(line2,menu[mainMenuPtr].text);
     }
     else
     {
-        line1 = menu[mainMenuPtr].text;
+        strcpy(line1,menu[mainMenuPtr].text);
         if(menu[mainMenuPtr].entry[subMenuPtr].data != NULL)
         {
-            line2 = sprintf(menu[mainMenuPtr].entry[subMenuPtr].text,menu[mainMenuPtr].entry[subMenuPtr].data);
+             sprintf(line2,menu[mainMenuPtr].entry[subMenuPtr].text,menu[mainMenuPtr].entry[subMenuPtr].data);
         }
         else
         {
-            line2 = menu[subMenuPtr].text;
+            strcpy(line2, menu[subMenuPtr].text);
         }
     }
     
@@ -327,10 +337,10 @@ static void menu_display()
     lcd_display(line1,line2);
 }
 
-menu_getSelection() // BLOCKING
+void menu_getSelection() // BLOCKING
 {
     unsigned char number; // keypad number entry
-    const unsigned char numberStr;
+    unsigned char numberStr[21];
     unsigned char key;
     unsigned char second=0;
     lcd_display("Please enter pole #:","(Enter for Local)");
@@ -665,10 +675,10 @@ void menu_setACBatt(unsigned char id)
 /// \todo TODO: If we ever get time, we need to make these functions non-blocking
 void menu_seeTime(unsigned char na)
 {
-    const unsigned char *curTimeString;
+    unsigned char curTimeString[21];
     static unsigned char lastSecond = 61; // force the update first time into the loop with an impossible value
     datetime curTime;
-    rtc_get(curTime);
+    rtc_get(&curTime);
     if(lastSecond != curTime.second)
     {
         lastSecond = curTime.second;
@@ -680,4 +690,28 @@ void menu_seeTime(unsigned char na)
         lastSecond = 61;
         curFunct = NULL;
     }
+}
+
+void menu_setXaxis(unsigned char id)
+{
+    lcd_display("Not Implemented",NULL);
+    delay(4);
+    curFunct = NULL;
+    return;
+}
+
+void menu_setYaxis(unsigned char id)
+{
+    lcd_display("Not Implemented",NULL);
+    delay(4);
+    curFunct = NULL;
+    return;
+}
+
+void menu_setTime(unsigned char na)
+{
+    lcd_display("Not Implemented",NULL);
+    delay(4);
+    curFunct = NULL;
+    return;
 }

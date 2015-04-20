@@ -58,9 +58,9 @@
 #define MOVE 1
 
 // LED states
-#define OFF 0
-#define ON 1
-#define DIM 2
+#define LED_OFF 0
+#define LED_ON 1
+#define LED_DIM 2
 
 // light levels
 #define CLOUDY 1400
@@ -89,5 +89,6 @@ unsigned char temperature(void);
 unsigned int angle(unsigned, unsigned);
 unsigned pir(void);
 unsigned char limits(void);
+unsigned int ang_pos(unsigned, unsigned);
 
 #endif

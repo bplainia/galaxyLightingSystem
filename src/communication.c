@@ -32,7 +32,7 @@ void comm_start()
     //Setup UART Module 1 Transmision
     TXSTA1bits.BRGH = 1; // High Baud Rate mode
     SPBRGH1 = 0; // Baud rate
-    SPBRG1  = 63; // set for 250kbps (Maximum is 500kbps with the transciever)
+    SPBRG1  = 31; // set for 250kbps (Maximum is 500kbps with the transciever)
     TXSTA1bits.SYNC = 0; // Make sure the module is not in syncronous mode
     RCSTA1bits.SPEN = 1; // Enable serial port
     TXSTA1bits.TXEN = 1; // Enable transmitter
@@ -98,7 +98,7 @@ unsigned char comm_rx()
 }
 
 /// Get two bytes off the stack. Returns a short.
-unsigned short comm_rx_word()
+unsigned int comm_rx_word()
 {
     //! \todo  TODO: What happens if ther is no data there?
     return (comm_rx() << 8) + comm_rx();
@@ -123,7 +123,7 @@ unsigned char comm_get_status(unsigned char addr)
     comm_tx(addr,1);        // send address of the specific pole
     comm_tx(0b00000101, 0);
     byte = comm_rx();
-    
+    return byte;
 }
 
 /// this is called by the main loop.exe

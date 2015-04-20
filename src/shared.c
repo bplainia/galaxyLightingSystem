@@ -142,77 +142,80 @@ unsigned int adc_read(unsigned char channel)
 /// Setup TMR2 for use by all the CCP modules
 void pwm_setup() 
 {
-    CCPTMRS0bits.C1TSEL = 0b000;    // Initialize TMR2
-    //! \todo  TODO: Setup the timer for PWM
-    PR2   = 0XFF;       //
-    T2CON = 0b00000111; // 1:16 prescaler from instruction = 750kHz
+    PR2   = 0XFF;          //
+    // T2CON = 0b00000111; // 1:16 prescaler from instruction = 750kHz
+
+    CCP3CON = 0b00111100; //???????
+    T2CONbits.T2CKPS = 0b11;            //1:16 prescaler (now we have a 1MHz clock coming into TMRx)
+    T2CONbits.TMR2ON = 1;
+    // our minimum frequency is 1953.125Hz at 32MHz.
+    // giving a resolution of 10 bits
+    // CCPTMRS0 do not need modified. already set to TMR1/2 (PWM uses 2)
 
     // Some reminders:
     // PWM Period = (PR2 + 1) * 4 * (1/<Primary Oscilator>) * <TMR2 Prescale>
     // Max Resolution = log_2 (Fosc/Fpwm)
     // Duty Cycle = (CCPR4L:CCP4CON<5:4>)*Tosc*Prescale
 
-    // LCD Backlight Channels
-
+    // PWM Backlight Channels
+    RPOR18_19bits.RPO19R = 0x8; // set RP19 to CCP4 for the Light
     RPOR32_33bits.RPO32R = 0x9; // set RP32 to CCP5 for RED PWM
     RPOR34_35bits.RPO34R = 0x9; // set RP34 to CCP6 for GRN PWM
     RPOR36_37bits.RPO37R = 0x8; // set RP37 to CCP7 for BLU PWM
 
+    // delay timer
     TMR1H = 0xEF;
     TMR1L = 0xFF;       // set to increment `time` every 1/8th of a second
     TMR1IE = 1;         // enable interrupt for timer 1
-    T1CON = 0b10001011; // Use SOSC, no prescaler Sync it, 16-bit r/w mode, enable.
+    T1CON = 0b10001011; // Use SOSC, no prescaler, Sync it, 16-bit r/w mode, enable.
+    return;
 }
 
 /*! \brief Sets a specific pwm channel to a certain duty cycle in %
  *
- *  Inputs: Channel - which PWM channel to use, duty - the duty cycle in percent.
+ *  Inputs: Channel - which PWM channel to use, duty - the duty cycle (`duty`/256).
  *  Channels 1 and 2 are the motor drivers (using the 2 ECCP modules in full bridge mode)
  *  Channel 3 is for the light (using normal CCP PWM module)
  *  Channel 4,5,6 are for the LCD Backlight (Using PWM modules)
  *
  *  Outputs: A single bit specifying whether or not the command succeded (1 = success)
  *
- * \todo TODO: finish `pwm_set`
+ *
+ * DutyCycle = ((CCPR4L:CCP4CON<5:4>) * TOSC * (TMR2 Prescale Value)
+ * DutyCycle = Value * 64000000/ 4 / 16
+ * Value = 1000000/dutyCycle
  */
-//unsigned pwm_set(unsigned char channel, unsigned char duty, unsigned char value) // Set pin to duty cycle
-//{
-//    int temp, x;
-//    x = channel;
-//    temp = duty;
-//    value = (temp * 255)/100;
-//    binary_conversion(value);
-//
-//    PR2 = 0xFF;
-//
-//    CCPR1L = value;
-//
-//    if(x == 1 || x == 2)
-//    {
-//        CCP1CON = 0b00111100;
-//        T2CONbits.T2OUTPS = 0b0011;         //1:4 postscalar
-//        T2CONbits.T2CKPS = 0b11;            //1:16 prescaler
-//        T2CONbits.TMR2ON = 1;
-//    }
-//
-//    if(x == 3)
-//    {
-//        CCP2CON = 0b00111100;
-//        T2CONbits.T2OUTPS = 0b0011;         //1:4 postscalar
-//        T2CONbits.T2CKPS = 0b11;            //1:16 prescaler
-//        T2CONbits.TMR2ON = 1;
-//    }
-//
-//    if(x == 4 || x == 5 || x == 6)
-//    {
-//        CCP3CON = 0b00111100;
-//        T2CONbits.T2OUTPS = 0b0011;         //1:4 postscalar
-//        T2CONbits.T2CKPS = 0b11;            //1:16 prescaler
-//        T2CONbits.TMR2ON = 1;
-//    }
-//
-//    return true;
-//}
+unsigned pwm_set(unsigned char channel, unsigned int duty) // Set pin to duty cycle
+{
+    if(duty > 256) duty = 256;
+    duty = 4 * duty; // ten bytes is 1024. with 256 sections, we
+    if(duty != 0) --duty; // since 1024 is 0x100_0000_0000, we need to knock it down one
+
+    switch(channel)
+    {
+        case 0:
+        case 1:
+        case 2:
+            return true; // error
+        case 3: // light - ccp4
+            CCPR4L = duty & 0x00FF;
+            CCP4CONbits.DC4B = duty >> 8;
+            break;
+        case 4: // red - ccp5
+            CCPR5L = duty & 0x00FF;
+            CCP5CONbits.DC5B = duty >> 8;
+            break;
+        case 5: // green - ccp6
+            CCPR6L = duty & 0x00FF;
+            CCP6CONbits.DC6B = duty >> 8;
+            break;
+        case 6: // blue - ccp7
+            CCPR7L = duty & 0x00FF;
+            CCP7CONbits.DC7B = duty >> 8;
+            ;
+    }
+    return false; // no error
+}
 
 /*! \brief Takes a packet and transmits it according to its contents. Returns true if successful.
  *
@@ -224,9 +227,9 @@ void pwm_setup()
  *  It then transmits `packet.dataLength` bytes from the `packet.data` array.
  *  If at any time a byte is not acknowleged, the function will return 0 (false). 
  */
-unsigned i2c_tx(unsigned char addr, unsigned char reg16, unsigned char regl, unsigned char regh, unsigned char *data, unsigned short dataLength)
+unsigned i2c_tx(unsigned char addr, unsigned char reg16, unsigned char regl, unsigned char regh, unsigned char *data, unsigned int dataLength)
 {
-    unsigned short i = 0;
+    unsigned int i = 0;
     if(dataLength == 0) return true; // Do nothing if there is a zero data length.
     i2c_start();
     i2c_send(addr & 0b11111110); // write mode; address
@@ -258,7 +261,7 @@ unsigned i2c_check(unsigned char addr)
  * Inputs: `packet`: A packet consisting of an address, a number for quantity, and an array to fill with the quantity.
  * Outputs: None formally. Modifies the `data` portion of the packet pointer that was given.
  */
-unsigned i2c_rx(unsigned char addr, unsigned char reg16, unsigned char regl, unsigned char regh, unsigned char *data, unsigned short dataLength) // recieve data from address
+unsigned i2c_rx(unsigned char addr, unsigned char reg16, unsigned char regl, unsigned char regh, unsigned char *data, unsigned int dataLength) // recieve data from address
 {
     unsigned char i = 0;
     if(dataLength == 0) return true; // Do nothing if there is a zero data length.
@@ -391,10 +394,10 @@ void i2c_lcdInit()
  * first, then call `timeoutCheck` like the delay. It will return false when the
  * timeout has been reached.
  */
-void delay(unsigned short times)
+void delay(unsigned int times)
 {
     delayTime = 0;
-    TMR1H = 0xEF;
+    TMR1H = 0xF7;
     TMR1L = 0xFF;       // set to increment `time` every 1/8th of a second
     while(delayTime<times) continue;
 }
@@ -404,25 +407,12 @@ void timeoutInit()
 {
     // set the timer variable to zero and restart the timer
     time  = 0;
-    TMR1H = 0xEF;
+    TMR1H = 0xF7;
     TMR1L = 0xFF; // set to increment `time` every 1/8th of a second
 }
 
 /// Check if we have waited a certain ammount of time
-unsigned timeoutCheck(unsigned short timeCheck)
+unsigned timeoutCheck(unsigned int timeCheck)
 {
     return time > timeCheck;
 }
-
-//int binary_conversion(int n)
-//{
-//    int tem, z=1, bin=0;
-//    while (n != 0)
-//    {
-//        tem = n%2;
-//        n/=2;
-//        bin+=tem*z;
-//        i*10;
-//    }
-//    return bin;
-//}
