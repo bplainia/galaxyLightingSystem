@@ -6,6 +6,14 @@
 #include <stdio.h>
 #include <string.h>
 
+typedef struct
+{
+    unsigned setting :1;
+    unsigned ran :1;
+    unsigned key : 5;
+    unsigned newDisp : 1;
+}specialChar;
+
 // Local Variable
 
 unsigned char selectedPole=255;
@@ -17,6 +25,8 @@ void lcd_setup()
     // setup LCD pins: memory has already been started, so no need to setup
     TRISEbits.TRISE6 = 0;
     TRISEbits.TRISE5 = 0;
+    TRISCbits.TRISC2 = 0;
+    LATCbits.LATC2 = 1; // reset off on lcd
 
     // Now Let's Initialize the LCD
     i2c_lcdInit(); // a special function that had to be made.
@@ -554,38 +564,43 @@ void menu_setHurricaneMode(unsigned char id)
 /// Menu Function for activating hurricane mode
 void menu_setPanelMode(unsigned char id)  ///////////////////BLOCKING!
 {
-    unsigned char setting, key;
-    setting = setting_bits1 | 0b00000001;
-    while(1)
+    static specialChar x = {0,1,NOKEY,1};
+    if(x.ran==0)
     {
-        if(setting==0)
+        x.setting = setting_bits1 | 0b00000001;
+        x.ran=1;
+        if(x.setting == 1)
         {
-                lcd_display("Panel Movement set:","Locked/Manual");
+            lcd_display("Confirm Unlock Panel","Enter or Cancel?");
         }
         else
         {
-                lcd_display("Panel Movement set:","Auto Mode");
+            lcd_display("Confirm Lock Panel","Enter or Cancel?");
         }
-        while((key = keypad_pull()) == NOKEY) continue;
-        if(key == UPKEY | key == DOWNKEY)
+    }
+    x.key = keypad_pull();
+    if(x.key == CANCEL || x.key == SECONDKEY)
+    {
+        lcd_display("Canceled Changing","Panel Mode");
+        delay(8);
+        curFunct=NULL;
+        return;
+    }
+    else if(x.key == ENTERKEY)
+    {
+        if(x.setting > 0)
         {
-            setting  = !setting;
+            setting_bits1 |= 0b00000001; // lock the panel with a 1
+            menu[2].entry[2].text = "Unlock Panel";
         }
-        else if(key == CANCEL)
+        else
         {
-            lcd_display("Canceled Changing","Panel Mode");
-            delay(8);
-            break;
+            setting_bits1 &= 0b11111110; // unlock the panel with a 0
+            menu[2].entry[2].text = "Lock Panel";
         }
-        else if(key == ENTERKEY)
-        {
-            if(setting > 0)
-            {
-                setting_bits1 |= 0b00000001;
-            }
-            else
-                setting_bits1 &= 0b11111110;
-        }
+        x.ran=0;
+        curFunct=NULL;
+        return;
     }
 }
 
@@ -694,24 +709,57 @@ void menu_seeTime(unsigned char na)
 
 void menu_setXaxis(unsigned char id)
 {
-    lcd_display("Not Implemented",NULL);
-    delay(4);
-    curFunct = NULL;
+    static bit ran = 0;
+    if(ran==0)
+    {
+        ran=1;
+        lcd_display("Not Implemented",NULL);
+        timeoutInit();
+    }
+
+    if(timeoutCheck(4))
+    {
+        curFunct = NULL;
+        ran = 0;
+    }
     return;
 }
 
 void menu_setYaxis(unsigned char id)
 {
-    lcd_display("Not Implemented",NULL);
-    delay(4);
-    curFunct = NULL;
+    static bit ran = 0;
+    if(ran==0)
+    {
+        ran=1;
+        lcd_display("Not Implemented",NULL);
+        timeoutInit();
+    }
+
+    if(timeoutCheck(4))
+    {
+        curFunct = NULL;
+        ran = 0;
+    }
     return;
 }
 
 void menu_setTime(unsigned char na)
 {
-    lcd_display("Not Implemented",NULL);
-    delay(4);
-    curFunct = NULL;
+    static datetime yourTime;
+    unsigned char curTimeString[21];
+    static bit ran = 0;
+    if(ran==0)
+    {
+        ran=1;
+        lcd_display("Not Implemented",NULL);
+        timeoutInit();
+    }
+    //sprintf(curTimeString,"%2d/%2d/20%2d %2d:%2d:%2d",curTime.month,curTime.day,curTime.year,curTime.hour,curTime.minute,curTime.second);
+    //lcd_display("Set Time:",curTimeString);
+    if(timeoutCheck(4))
+    {
+        curFunct = NULL;
+        ran = 0;
+    }
     return;
 }

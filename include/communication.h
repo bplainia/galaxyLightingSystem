@@ -24,7 +24,7 @@ unsigned int comm_rx_word(void); // get a word from the RX FIFO
 
 // Variables
 char comm_overflow;
-struct comstat_t
+volatile struct comstat_t
 {
     unsigned  RXOVER   : 1; // rx buffer overflow error
     unsigned  TERROR   : 1; // no its not a terror, its a token error
@@ -36,7 +36,7 @@ struct comstat_t
 //    unsigned char byte;
 //    unsigned isAddress;
 //}rxBuff[RXBUFFSIZE];
-unsigned char rxBuff[RXBUFFSIZE];
+volatile unsigned char rxBuff[RXBUFFSIZE];
 
-unsigned char rxPtrOut, rxPtrIn, masterAddr;
+volatile unsigned char rxPtrOut, rxPtrIn, masterAddr;
 #endif

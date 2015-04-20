@@ -125,7 +125,6 @@ void setup()
     pwm_setup();
     adc_setup();
     move_setup();
-    led_setup();
     sensor_setup();
     if(memStatus & 0b00001111) // if we returned from ?, don't waste time doing the limit test.
     {
@@ -168,13 +167,14 @@ void loop()
 
     hid_loop(); // Maintainence Mode State Machine.
 
-    if(status.state == 1) // If daytime
+    // TODO: Sleep when we can to save power.
+    if(status.state == 1 && status.mmode) // If daytime and not in maintainence mode
     {
-        // do a full sleep
+        ;// do a full sleep
     }
     else if(status.state == 2)
     {
-        // do an idle "sleep"
+        ;// do an idle "sleep"
     }
 
 
@@ -211,7 +211,9 @@ void low_priority interrupt isr()
             }
             else 
             {
+                masterAddr = temp;
                 COMSTAT.STATE = 0b001;
+                status.mmode = 0b10; // slave mode
                 RCSTA1bits.ADDEN = 1; // back to address mode
             }
         }
