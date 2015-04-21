@@ -31,7 +31,6 @@ void lcd_setup()
     // Now Let's Initialize the LCD
     i2c_lcdInit(); // a special function that had to be made.
     lcd_display("Initializing"," PIC");
-    delay(3);
     /// \todo TODO: Remove "Initializing PIC" from the screen once it is done.
 
 
@@ -183,7 +182,7 @@ void lcd_setup()
     // If you add another main menu entry, make sure to change NUMMENUENTRIES
 
     curFunct = NULL;
-    mainMenuPtr = 0, subMenuPtr = 0;
+    mainMenuPtr = -1, subMenuPtr = -1;
     return;
 }
 
@@ -206,10 +205,11 @@ unsigned char lcd_display(const unsigned char *line1, const unsigned char *line2
     unsigned char i;
 
     i2c_tx(0x78,0,0,0,&clear,1);
+    __delay_ms(10); // wait for it to clear.
     // Write to the first line
     if(line1 != NULL)
     {
-        i2c_tx(0x78,0,0x00,0,&firstLine,1); // DDRAM address set to 0;
+        //i2c_tx(0x78,0,0x00,0,&firstLine,1); // DDRAM address set to 0;
         i = 0;
         while(i <= 20) // find the null character in the string
         {
@@ -325,9 +325,13 @@ void menu_display()
 {
     char line1[25], line2[25];
 
-    if(subMenuPtr < 0) // we are in a main menu.
+    if(mainMenuPtr == -1 || status.mmode == 0)
     {
-        strcpy(line1,"     Main Menu      ");
+        return;
+    }
+    else if(subMenuPtr == -1) // we are in a main menu.
+    {
+        strcpy(line1,"   --Main Menu--");
         strcpy(line2,menu[mainMenuPtr].text);
     }
     else
@@ -745,21 +749,137 @@ void menu_setYaxis(unsigned char id)
 
 void menu_setTime(unsigned char na)
 {
-    static datetime yourTime;
+    static datetime curTime;
     unsigned char curTimeString[21];
-    static bit ran = 0;
+    static unsigned char step = 0;
+    static unsigned ran = 0;
+    static bit blinker;
+    static bit newDisp;
+    unsigned char key;
+    key=keypad_pull();
     if(ran==0)
     {
         ran=1;
-        lcd_display("Not Implemented",NULL);
+        blinker = 0;
+        newDisp=1;
+        rtc_get(&curTime);
         timeoutInit();
+        curTime.second = 0; // always start from zero
     }
-    //sprintf(curTimeString,"%2d/%2d/20%2d %2d:%2d:%2d",curTime.month,curTime.day,curTime.year,curTime.hour,curTime.minute,curTime.second);
-    //lcd_display("Set Time:",curTimeString);
-    if(timeoutCheck(4))
+    if(timeoutCheck(3)==1)
+    {
+        timeoutInit();
+        blinker = !blinker;
+        newDisp=1;
+    }
+
+    if(newDisp==1)
+    {
+        switch(step)
+        {
+            case 0: // year
+                if(blinker==0) sprintf(curTimeString,"%2d/%2d/20%2d %2d:%2d",curTime.month,curTime.day,curTime.year,curTime.hour,curTime.minute);
+                else sprintf(curTimeString,"%2d/%2d/____ %2d:%2d",curTime.month,curTime.day,curTime.hour,curTime.minute);
+                break;
+            case 1: // month
+                if(blinker==0) sprintf(curTimeString,"%2d/%2d/20%2d %2d:%2d",curTime.month,curTime.day,curTime.year,curTime.hour,curTime.minute);
+                else sprintf(curTimeString,"__/%2d/20%2d %2d:%2d",curTime.day,curTime.year,curTime.hour,curTime.minute);
+                break;
+            case 2: // day
+                if(blinker==0) sprintf(curTimeString,"%2d/%2d/20%2d %2d:%2d",curTime.month,curTime.day,curTime.year,curTime.hour,curTime.minute);
+                else sprintf("%2d/__/20%2d %2d:%2d",curTime.month,curTime.year,curTime.hour,curTime.minute);
+                break;
+            case 3: // hour
+                if(blinker==0) sprintf(curTimeString,"%2d/%2d/20%2d %2d:%2d",curTime.month,curTime.day,curTime.year,curTime.hour,curTime.minute);
+                else sprintf("%2d/%2d/20%2d __:%2d",curTime.month,curTime.day,curTime.year,curTime.minute);
+                break;
+            case 4: // minute
+                if(blinker==0) sprintf(curTimeString,"%2d/%2d/20%2d %2d:%2d",curTime.month,curTime.day,curTime.year,curTime.hour,curTime.minute);
+                else sprintf("%2d/%2d/20%2d %2d:__",curTime.month,curTime.day,curTime.year,curTime.hour);
+                break;
+        }
+        lcd_display("Set Time:",curTimeString);
+    }
+
+    if(key == CANCEL)
     {
         curFunct = NULL;
         ran = 0;
     }
+    else if(key == ENTERKEY)
+    {
+        rtc_set(curTime);
+        curFunct = NULL;
+        ran = 0;
+    }
+    else if(key == UPKEY)
+    {
+        switch(step)
+        {
+        case 0: // year
+            if(curTime.year==99) curTime.year = 0;
+            else ++(curTime.year);
+            break;
+        case 1: // month
+            if(curTime.month==12) curTime.month = 1;
+            else ++(curTime.month);
+            if(curTime.day > daysInMonth(curTime.month,curTime.year)) curTime.day = 1;
+            break;
+        case 2: // day
+            if(curTime.day==daysInMonth(curTime.month,curTime.year)) curTime.day = 1;
+            else curTime.day++;
+            break;
+        case 3: // hour
+            if(curTime.hour == 23) curTime.hour = 0;
+            else curTime.hour++;
+            break;
+        case 4: // minute
+            if(curTime.minute == 59) curTime.minute = 0;
+            else curTime.minute++;
+        }
+    }
+    else if(key == DOWNKEY)
+    {
+        switch(step)
+        {
+        case 0: // year
+            if(curTime.year==0) curTime.year = 99;
+            else --(curTime.year);
+            break;
+        case 1: // month
+            if(curTime.month==1) curTime.month = 12;
+            else --(curTime.month);
+            if(curTime.day > daysInMonth(curTime.month,curTime.year)) curTime.day = 1;
+            break;
+        case 2: // day
+            if(curTime.day==1) curTime.day = daysInMonth(curTime.month,curTime.year);
+            else curTime.day--;
+            break;
+        case 3: // hour
+            if(curTime.hour == 0) curTime.hour = 23;
+            else curTime.hour--;
+            break;
+        case 4: // minute
+            if(curTime.minute == 0) curTime.minute = 59;
+            else curTime.minute--;
+        }
+    }
     return;
+}
+
+static unsigned char daysInMonth(unsigned char month, unsigned char year)
+{
+    if(month==2) // february
+    {
+        if(year != 0 && (year%4 == 0))
+        {
+            return 28;
+        }
+        return 27;
+    }
+    else if(month == 3 || month == 6 || month == 9 || month == 11) // april, june, september, november
+    {
+        return 30;
+    }
+    return 31;
 }

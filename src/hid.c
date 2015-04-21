@@ -16,7 +16,7 @@ void hid_setup(void)
     SPBRG3          = 51;
     TXSTA3bits.SYNC = 0;
     RCSTA3bits.SPEN = 1;
-    RC3IE           = 0; // Make sure the keypad is not causing interrupts right now.
+    RC3IE           = 1;
     RC3IP           = 0; // Low priority interrupt for the keypad
     RCSTA3bits.CREN = 1; // Enable
     RPINR4_5bits.U3RXR   = 0x7; // set USART3 to RP28 for input of keypad
@@ -33,7 +33,7 @@ void hid_setup(void)
 void hid_loop(void) // execute hid functions; is called from the main loop
 {
     unsigned char temp;
-    static bit newScreen; // if 1, update the LCD
+    static bit newScreen = 0; // if 1, update the LCD
     static menuFunct lastFunct = NULL;
     // check pins and flags for changes for the mmode state machine
 

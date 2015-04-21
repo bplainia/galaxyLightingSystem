@@ -97,13 +97,15 @@ void main(void)
     OSCCON2bits.SOSCGO = 1;
     OSCCON4 = 0b01100000;
 
-    INTCONbits.GIE = 0; // disable all interrupts
-    INTCONbits.PEIE = 1; // enable periphrial interrupts (disabled by GIE currently)
+    INTCONbits.GIEH = 0; // disable all interrupts
+    INTCONbits.GIEL = 0; // enable periphrial interrupts (disabled by GIE currently)
     RCONbits.IPEN = 1; // Priority interrupts
     
     setup();             // setup everything
 
-    INTCONbits.GIE = 1; // enable all interrupts
+    INTCONbits.GIEH = 1; // enable all interrupts
+    INTCONbits.GIEL = 1;
+    
     while(1) loop();     // execute loop forever
 }
 
@@ -121,8 +123,8 @@ void setup()
     {
         rtc_setup();
     }
+    pwm_setup(); // initializes timers
     hid_setup();
-    pwm_setup();
     adc_setup();
     move_setup();
     sensor_setup();
@@ -130,6 +132,7 @@ void setup()
     {
       //  limit_test();           // Calibration for position pots
     }
+    lcd_display("-",NULL); // clear the screen
 }
 
 /*! /brief The MAIN loop that executes EVERYTHING!
@@ -142,7 +145,7 @@ void loop()
 
     // Put things that you need to process here. Dont' spend too much time
     // in your process. Others want to do stuff too...
-//                adc_updateAll(); // Update all the ADC buffers every loop
+                adc_updateAll(); // Update all the ADC buffers every loop
 //                switch(status.state)
 //                {
 //                    case 1: // Daytime Mode
@@ -190,7 +193,7 @@ void loop()
  * software should ensure the appropriate interrupt flag bits are clear prior to enabling
  * an interrupt. This feature allows for software polling.
  */
-void low_priority interrupt isr()
+void interrupt low_priority isr()
 {
     volatile unsigned char temp, temp2;
     if(RC1IE && RC1IF)

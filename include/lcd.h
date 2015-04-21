@@ -61,6 +61,7 @@ void menu_setTime(unsigned char);
 void menu_setXaxis(unsigned char);
 void menu_setYaxis(unsigned char);
 void menu_seeStatus(unsigned char);
+static unsigned char daysInMonth(unsigned char, unsigned char);
 
 /*! \page menu The LCD Menu System
  *

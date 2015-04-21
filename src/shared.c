@@ -418,4 +418,5 @@ void timeoutInit()
 unsigned timeoutCheck(unsigned int timeCheck)
 {
     return time > timeCheck;
+    // returns true if the time is up
 }
