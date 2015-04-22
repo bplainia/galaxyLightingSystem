@@ -119,7 +119,7 @@ void setup()
     i2c_setup();  // Initialize I2C
     //! \todo  TODO: Check to see if the chip started after a POR, BOR, or is from VBATT
     memStatus = mem_check(); // checks where it started up from, and if memory is ok
-    if(memStatus & 0b00000001) // if we did not return from VBATT
+    if(RCON3bits.VBAT == 0) // we have not returned from VBATT (first time startup essentially)
     {
         rtc_setup();
     }
@@ -132,7 +132,7 @@ void setup()
     {
       //  limit_test();           // Calibration for position pots
     }
-    lcd_display("-",NULL); // clear the screen
+    lcd_display(0,NULL); // clear the screen
 }
 
 /*! /brief The MAIN loop that executes EVERYTHING!
@@ -145,7 +145,7 @@ void loop()
 
     // Put things that you need to process here. Dont' spend too much time
     // in your process. Others want to do stuff too...
-                adc_updateAll(); // Update all the ADC buffers every loop
+                //adc_updateAll(); // Update all the ADC buffers every loop
 //                switch(status.state)
 //                {
 //                    case 1: // Daytime Mode
@@ -169,6 +169,7 @@ void loop()
     //  }
 
     hid_loop(); // Maintainence Mode State Machine.
+    //power_loop();
 
     // TODO: Sleep when we can to save power.
     if(status.state == 1 && status.mmode) // If daytime and not in maintainence mode

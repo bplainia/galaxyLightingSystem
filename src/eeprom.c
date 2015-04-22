@@ -5,7 +5,7 @@
 /// Check the memory. Certain things are checksumed.
 unsigned char mem_check()
 {
-    unsigned char memStatus = 0;
+    unsigned char memStatus = 1;
     /// \todo TODO: check the POR, BOR, and VBATT bits to see where we returned from.
     /// For now, this function merely checks to see if the EEPROM exists
     /// \todo TODO: set myAddr, the address of the pole, which is saved in EEPROM

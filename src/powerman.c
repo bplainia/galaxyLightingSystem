@@ -5,6 +5,7 @@
 
 #include <powerman.h>                         //PIC hardware mapping
 #include <eeprom.h>                           //eeprom memory
+#include <math.h>
 
 void power_setup(void)
 {
@@ -40,7 +41,7 @@ void batt_live(unsigned char none)
     rawvoltage = (ADCBUF4H << 8) | ADCBUF4L;
     battvolt = rawvoltage*3.3/4096;       //input variable
 
-    if(battvolt<1f)
+    if(battvolt < 1.0f)
     {
 
  //       menu[7].entry[]

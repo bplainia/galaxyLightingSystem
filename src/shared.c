@@ -10,6 +10,7 @@
 /// Setup the ADC module
 void adc_setup()
 {
+    // Input Configuration:
     // AN4 = Battery, AN2,3 = Pots, 8,19,18,17 = Photocells, AN0 = Temp
     ADCSS0L = 0b00011101; //temp, pots, batt
     ANCON1 = 0b00011101;    //battery in
@@ -18,10 +19,15 @@ void adc_setup()
     ADCSS0H = 0b00000001; // photo pin 8
     ADCSS1L = 0b00001110; // rest of photos
     ADCSS0H = 0; // no adc's on this one
-    SAMC1   = 10;// sample time
-    ADRC    = 1;// auto conversion trigger
+
+    // configuring the module: ___________________________________
+    // output resolution, voltage reference, clock select, how will sampling be done, output format/destination, readings per interrupt
+    ADCON1Hbits.MODE12 = 1; // use 12-bit resolution
+    ADCON3Hbits.SAMC   = 10;// sample time
+    ADCON3Hbits.ADRC   = 1; // auto conversion trigger
+    ADCON1Lbits.SSRC   = 0b0111; // auto sample clock
     // enable ADC
-    //! \todo TODO: Finish setting up ADC (clock, other)
+    ADCON1Hbits.ADON = 1; // converter is now on!
 }
 
 /*! \brief Update a single ADC buffer
@@ -34,6 +40,8 @@ void adc_update(unsigned char chA) // Read specific pin - raw
     if(chA > 0b11111) return;
     ADCHS0Lbits.CH0SA = chA;
     SAMP = 1; // Initiate sample
+    while(!ADCON1Lbits.DONE) continue;
+    return;
 }
 
 /*! \brief Updates two ADC channels to the buffers.
@@ -49,22 +57,29 @@ void adc_update2(unsigned char chA, unsigned char chB)
     ADCHS0Hbits.CH0SB = chB;
     ADCON2Lbits.ALTS = 1;
     SAMP = 1; // Initiate sample(s)
-    while(!DONE) continue;
+    while(!ADCON1Lbits.DONE) continue;
     DONE = 0;
-    while(!DONE) continue;
+    while(ADCON1Lbits.DONE) continue;
     DONE = 0;
 
     // Done.
     ADCON2Lbits.ALTS = 0;
+    return;
 }
 
 /// Update all the ADC buffers that are activated in `adc_setup()`.
 void adc_updateAll() 
 {
+    ADCON2Lbits.ALTS = 0;
     ADCON2Hbits.CSCNA = 1; // Enable Channel Scan
+    ADCON2Hbits.BUFREGEN = 1;// buffers set for single results. not a fifo.
+    ADCON5Hbits.ASENA  = 1;  // enable auto-scan
+    ADCON1Lbits.ASAM = 1;
     //! \todo  TODO: adcUpdateAll() needs finisheds
+    while(!ADCON1Lbits.DONE) continue;
+    ADCON1Lbits.DONE = 0;
     ADCON2Hbits.CSCNA = 0; // Disable Channel Scan
-
+    ADCON1Lbits.ASAM = 0;
 }
 
  /// Read adc value out of the ADC buffer for the passed channel
@@ -215,7 +230,6 @@ unsigned pwm_set(unsigned char channel, unsigned int duty) // Set pin to duty cy
         case 6: // blue - ccp7
             CCPR7L = duty & 0x00FF;
             CCP7CONbits.DC7B = duty >> 8;
-            ;
     }
     return false; // no error
 }
@@ -290,7 +304,8 @@ unsigned i2c_rx(unsigned char addr, unsigned char reg16, unsigned char regl, uns
 void i2c_setup() // Initialize the I2C pins
 {
     SSP1CON1 = 0b00101000; // Enable MSSP in master i2c mode. Auto-configs the pins.
-    SSP1ADD  = 0x9F; // for 100kHz Clock at 64MHz primary clock.
+    //SSP1ADD  = 0x4F; // for 100kHz Clock at 32MHz primary clock.
+    SSP1ADD  = 0x7F;
 }
 
 //! \brief Transmit a start bit on the i2c bus
@@ -349,7 +364,7 @@ static unsigned i2c_send(unsigned char byte)
 static unsigned char i2c_recv(unsigned ack)
 {
     SSP1CON2bits.RCEN = 1; // Enable recieve of bits.
-    while(!SSP1STATbits.BF) continue; // wait for recieving to finish
+    while(SSP1STATbits.BF) continue; // wait for recieving to finish
     if(ack == 1) i2c_ack();
     else i2c_nack();
     i2c_wait();

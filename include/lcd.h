@@ -36,7 +36,8 @@ typedef struct
 /// Note that the 0th entry is the main menu.
 menuEntry menu[8];
 menuFunct curFunct; // if a function is selected
-signed char mainMenuPtr = 0, subMenuPtr = 0;
+signed char mainMenuPtr = -1, subMenuPtr = -1;
+unsigned char selectedPole;
 
 // Functions that are for the menu system.
 void menu_up(unsigned char);
@@ -48,7 +49,7 @@ void menu_display();
 // Functions that are for the LCD
 void lcd_setup();
 void lcd_usb(unsigned char);
-unsigned char lcd_display(const unsigned char*,const unsigned char*);
+unsigned char lcd_display(unsigned char, unsigned char*);
 void lcd_background(unsigned char,unsigned char,unsigned char); // change the background color (PWM). Does not need return since it is internal.
 
 void menu_getSelection(); // sets the pole number. asks when you enter a sub-menu.

@@ -5,6 +5,7 @@
 #include <lcd.h>
 #include <stdio.h>
 #include <string.h>
+#include <math.h>
 
 typedef struct
 {
@@ -16,7 +17,7 @@ typedef struct
 
 // Local Variable
 
-unsigned char selectedPole=255;
+unsigned char lineData[21];
 
 #define NUMMENUENTRIES 7
 /// \todo TODO: Make the menues into a Constant that resides in program memory.
@@ -30,7 +31,16 @@ void lcd_setup()
 
     // Now Let's Initialize the LCD
     i2c_lcdInit(); // a special function that had to be made.
-    lcd_display("Initializing"," PIC");
+    lcd_display(0,NULL);
+    strcpy(lineData,"Initializing");
+    lcd_display(1,lineData);
+    strcpy(lineData," PIC");
+    lcd_display(2,lineData);
+    __delay_ms(10);  __delay_ms(10);  __delay_ms(10);  __delay_ms(10);
+    __delay_ms(10);  __delay_ms(10);  __delay_ms(10);  __delay_ms(10);
+    __delay_ms(10);  __delay_ms(10);  __delay_ms(10);  __delay_ms(10);
+    __delay_ms(10);  __delay_ms(10);  __delay_ms(10);  __delay_ms(10);
+    __delay_ms(10);  __delay_ms(10);  __delay_ms(10);  __delay_ms(10);
     /// \todo TODO: Remove "Initializing PIC" from the screen once it is done.
 
 
@@ -88,6 +98,7 @@ void lcd_setup()
     menu[2].numEntries = 5;
 
     // Comm Status
+    menu[3].text = "Josh's Menu";
     menu[3].entry[0].text = "Comm Status";
     menu[3].entry[1].text = "Master/Slave Mode";       // 0=master, 1=slave
     menu[3].entry[2].text = "Comm to Master ";
@@ -183,6 +194,7 @@ void lcd_setup()
 
     curFunct = NULL;
     mainMenuPtr = -1, subMenuPtr = -1;
+    selectedPole=255;
     return;
 }
 
@@ -193,43 +205,52 @@ void lcd_usb(unsigned char enable)
     /// Set Color to Blue
     lcd_background(0,0,255);
     /// Then display USB Connected
-    lcd_display("      USB Mode      ", "       Active       ");
+    lcd_display(0,NULL);
+    strcpy(lineData,"      USB Mode");
+    lcd_display(1,lineData);
+    strcpy(lineData,"       Active");
+    lcd_display(2,lineData);
+    return;
 }
 
-unsigned char lcd_display(const unsigned char *line1, const unsigned char *line2)
+unsigned char lcd_display(unsigned char line, unsigned char data[21])
 {
 /*! # Research into the ST7036
  * found a link (https://www.newhavendisplay.com/app_notes/NHD-C0220BiZ.txt)[https://www.newhavendisplay.com/app_notes/NHD-C0220BiZ.txt]
  */
-    char firstLine = 0x80, secondLine = 0xC0, clear = 0x01;
+    char firstLine = 0x02, secondLine = 0xC0, clear = 0x01;
     unsigned char i;
 
-    i2c_tx(0x78,0,0,0,&clear,1);
-    __delay_ms(10); // wait for it to clear.
-    // Write to the first line
-    if(line1 != NULL)
+    if(line == 0 || data == NULL)
     {
-        //i2c_tx(0x78,0,0x00,0,&firstLine,1); // DDRAM address set to 0;
+        //i2c_lcdInit();
+        i2c_tx(0x78,0,0x00,0,&clear,1);
+        __delay_ms(10); // wait for it to clear.
+    }
+    // Write to the first line
+    else if(line == 1)
+    {
+        i2c_tx(0x78,0,0x00,0,&firstLine,1); // DDRAM address set to 0;
         i = 0;
-        while(i <= 20) // find the null character in the string
+        while(i < 20) // find the null character in the string
         {
-            if(line1[i] == '\0') break;
+            if(data[i] == '\0') break;
             ++i;
         }
-        i2c_tx(0x78,0,0x40,0,(unsigned char*)line1,i);
+        i2c_tx(0x78,0,0x40,0,data,i);
     }
 
     // write to the second line
-    if(line2 != NULL)
+    else if(line == 2)
     {
         i2c_tx(0x78,0,0x00,0,&secondLine,1); // DDRAM address set to 0x40 - the second line.
         i = 0;
-        while(i <= 20) // find the null character in the string
+        while(i < 20) // find the null character in the string
         {
-            if(line2[i] == '\0') break;
+            if(data[i] == '\0') break;
             ++i;
         }
-        i2c_tx(0x78,0,0x40,0,(unsigned char*)line2,i);
+        i2c_tx(0x78,0,0x40,0,data,i);
     }
     return false;
 }
@@ -243,6 +264,7 @@ void lcd_background(unsigned char red, unsigned char green, unsigned char blue)
     pwm_set(4,red);
     pwm_set(5,green);
     pwm_set(6,blue);
+    return;
 }
 
 // ************************ Menu Functions ******************************* //
@@ -256,6 +278,7 @@ void menu_up(unsigned char none)
         subMenuPtr = -1;
     }
     /// TODO: What if we are in the main menu?
+    return;
 }
 
 /// Change the pointer to next number or come around. Called by the down button.
@@ -277,6 +300,7 @@ void menu_next(unsigned char none)
         }
     }
     menu_display();
+    return;
 }
 
 /// Go to the previous menu entry. Called by the up button.
@@ -309,7 +333,7 @@ void menu_enter()
         /// \todo TODO: Get the pole ID if the main menu items are not 0, 4, or 6.
 
         // Get Pole ID menu.
-        menu_getSelection();
+        if((mainMenuPtr != 0) && (mainMenuPtr != 6)) menu_getSelection();
 
         subMenuPtr = 0; // go to the main screen of the submenu
     }
@@ -329,7 +353,7 @@ void menu_display()
     {
         return;
     }
-    else if(subMenuPtr == -1) // we are in a main menu.
+    else if(subMenuPtr == -1 && mainMenuPtr != -1) // we are in a main menu.
     {
         strcpy(line1,"   --Main Menu--");
         strcpy(line2,menu[mainMenuPtr].text);
@@ -343,21 +367,27 @@ void menu_display()
         }
         else
         {
-            strcpy(line2, menu[subMenuPtr].text);
+            strcpy(line2, menu[mainMenuPtr].entry[subMenuPtr].text);
         }
     }
     
     // now display the screen on the lcd
-    lcd_display(line1,line2);
+    lcd_display(0,NULL);
+    lcd_display(1,line1);
+    lcd_display(2,line2);
 }
 
 void menu_getSelection() // BLOCKING
 {
-    unsigned char number; // keypad number entry
-    unsigned char numberStr[21];
+    unsigned int number; // keypad number entry
+    unsigned char numberStr[13];
     unsigned char key;
     unsigned char second=0;
-    lcd_display("Please enter pole #:","(Enter for Local)");
+    lcd_display(0,NULL);
+    strcpy(lineData,"Please enter pole #:");
+    lcd_display(1,lineData);
+    strcpy(lineData,"(Enter for Local) ");
+    lcd_display(2,lineData);
     while(1) // loop for errors
     {
         while(1) // loop for first digit or local
@@ -366,8 +396,9 @@ void menu_getSelection() // BLOCKING
             if(key < 10)
             {
                 number = key;
-                sprintf(numberStr,"Pole: %1d",number);
-                lcd_display("Please enter pole #:",numberStr);
+                sprintf(numberStr,"Pole: %3d         ",number);
+                lcd_display(2,numberStr);
+                break;
             }
             else if(key == ENTERKEY)
             {
@@ -386,12 +417,14 @@ void menu_getSelection() // BLOCKING
                 if(second==0)
                 {
                     second = 1;
-                    lcd_display("Please enter pole #:","(Enter for Global)");
+                    strcpy(numberStr,"(Enter for Global)");
+                    lcd_display(2,numberStr);
                 }
                 else
                 {
                     second = 0;
-                    lcd_display("Please enter pole #:","(Enter for Local)");
+                    strcpy(numberStr,"(Enter for Local) ");
+                    lcd_display(2,numberStr);
                 }
             }
         }
@@ -401,8 +434,9 @@ void menu_getSelection() // BLOCKING
             if(key < 10)
             {
                 number = key + (number*10);
-                sprintf(numberStr,"Pole: %1d",number);
-                lcd_display("Please enter pole #:",numberStr);
+                sprintf(numberStr,"Pole: %3d",number);
+                lcd_display(2,numberStr);
+                break;
             }
             else if(key == ENTERKEY)
             {
@@ -416,14 +450,23 @@ void menu_getSelection() // BLOCKING
             if(key < 10)
             {
                 number = key + (number*10);
-                sprintf(numberStr,"Pole: %1d",number);
+                sprintf(numberStr,"Pole: %3d",number);
                 if(number > 249)
                 {
-                    lcd_display("Please enter valid","pole below 250!");
+                    lcd_display(0,NULL);
+                    strcpy(lineData,"Please enter valid");
+                    lcd_display(1,lineData);
+                    strcpy(lineData,"pole below 250!");
+                    lcd_display(2,lineData);
                     delay(8);
-                    lcd_display("Please enter pole #:","(Enter for Local)");
+                    strcpy(lineData,"Please enter pole #:");
+                    lcd_display(1,lineData);
+                    
+                    strcpy(numberStr,"(Enter for Local) ");
+                    lcd_display(2,numberStr);
                     second = 0;
                     number = 0;
+                    break;
                 }
                 else
                 {
@@ -452,6 +495,9 @@ void menu_setLightMode(unsigned char id)
     {
         setting = (setting_bits1 | 0b00001100) >> 2;
         swtch = 1;
+        lcd_display(0,NULL);
+        strcpy(lineData,"Change Light Mode");
+        lcd_display(1,lineData);
     }
     key = keypad_pull();
     if(key == UPKEY)
@@ -466,7 +512,11 @@ void menu_setLightMode(unsigned char id)
     }
     else if(key == CANCEL)
     {
-        lcd_display("Canceled Changing","Light Mode");
+        lcd_display(0,NULL);
+        strcpy(lineData,"Canceled Changing");
+        lcd_display(1,lineData);
+        strcpy(lineData,"Light Mode");
+        lcd_display(2,lineData);
         delay(10);
         curFunct = NULL;
         swtch = 0;
@@ -500,20 +550,21 @@ void menu_setLightMode(unsigned char id)
     switch(setting)
     {
         case 0:
-            lcd_display("Change Light Mode","Off");
+            strcpy(lineData,"Off             ");
             break;
         case 1:
-            lcd_display("Change Light Mode","Dim");
+            strcpy(lineData,"Dim             ");
             break;
         case 2:
-            lcd_display("Change Light Mode","High");
+            strcpy(lineData,"High            ");
             break;
         case 3:
-            lcd_display("Change Light Mode","Auto");
+            strcpy(lineData,"Auto            ");
             break;
         case 4:
-            lcd_display("Change Light Mode","Cancel");
+            strcpy(lineData,"Cancel");
     }
+    lcd_display(2,lineData);
 }
 
 /// Menu Function for activating hurricane mode
@@ -524,20 +575,31 @@ void menu_setHurricaneMode(unsigned char id)
     setting = (setting_bits1 | 0b00000010) >> 1;
     if(swtch == 0)
     {
+        lcd_display(0,NULL);
         if(setting==0)
         {
-                lcd_display("Confirm Activation","ENTER/CLEAR");
+            strcpy(lineData,"Confirm Activation");
+            lcd_display(1,lineData);
+            strcpy(lineData,"ENTER/CLEAR");
+            lcd_display(2,lineData);    
         }
         else
         {
-                lcd_display("Unlock Hurricane","(CLEAR cancels)");
+            strcpy(lineData,"Unlock Hurricane");
+            lcd_display(1,lineData);
+            strcpy(lineData,"(CLEAR cancels)");
+            lcd_display(2,lineData);    
         }
         swtch = 1;
     }
     key = keypad_pull();
     if(key == CANCEL)
     {
-        lcd_display("Canceled Changing","Hurricane Mode");
+        lcd_display(0,NULL);
+        strcpy(lineData,"Canceled Changing");
+        lcd_display(1,lineData);
+        strcpy(lineData,"Hurricane Mode");
+        lcd_display(2,lineData);
         delay(10);
         swtch = 0;
         curFunct = NULL;
@@ -566,7 +628,7 @@ void menu_setHurricaneMode(unsigned char id)
 
 ///  Lock the solar panel (Auto/Locked)
 /// Menu Function for activating hurricane mode
-void menu_setPanelMode(unsigned char id)  ///////////////////BLOCKING!
+void menu_setPanelMode(unsigned char id) 
 {
     static specialChar x = {0,1,NOKEY,1};
     if(x.ran==0)
@@ -575,17 +637,25 @@ void menu_setPanelMode(unsigned char id)  ///////////////////BLOCKING!
         x.ran=1;
         if(x.setting == 1)
         {
-            lcd_display("Confirm Unlock Panel","Enter or Cancel?");
+            strcpy(lineData,"Confirm Unlock Panel");
         }
         else
         {
-            lcd_display("Confirm Lock Panel","Enter or Cancel?");
+            strcpy(lineData,"Confirm Lock Panel");
         }
+        lcd_display(0,NULL);
+        lcd_display(1,lineData);
+        strcpy(lineData,"Enter or Cancel?");
+        lcd_display(2,lineData);
     }
     x.key = keypad_pull();
     if(x.key == CANCEL || x.key == SECONDKEY)
     {
-        lcd_display("Canceled Changing","Panel Mode");
+        lcd_display(0,NULL);
+        strcpy(lineData,"Canceled Changing");
+        lcd_display(1,lineData);
+        strcpy(lineData,"Panel Mode");
+        lcd_display(2,lineData);
         delay(8);
         curFunct=NULL;
         return;
@@ -635,7 +705,11 @@ void menu_setACBatt(unsigned char id)
     }
     else if(key == CANCEL)
     {
-        lcd_display("Canceled changing","the Power Source");
+        lcd_display(0,NULL);
+        strcpy(lineData,"Canceled changing");
+        lcd_display(1,lineData);
+        strcpy(lineData,"the Power Source");
+        lcd_display(2,lineData);
         delay(8);
         curFunct = NULL;
         newDisp = 1;
@@ -648,6 +722,9 @@ void menu_setACBatt(unsigned char id)
         {
             setting_bits1 &= 0b11001111; // reset the bits
             setting_bits1 |= (setting%4) << 4; // then write the bits.
+            lcd_display(0,NULL);
+            strcpy(lineData,"Select Powersource");
+            lcd_display(1,lineData);
         }
         curFunct = NULL;
         swtch = 0;
@@ -672,20 +749,21 @@ void menu_setACBatt(unsigned char id)
         switch(setting)
         {
             case 0:
-                lcd_display("Select Powersource","Reset");
+                strcpy(lineData,"Reset         ");
                 break;
             case 1:
-                lcd_display("Select Powersource","AC Only");
+                strcpy(lineData,"AC Only       ");
                 break;
             case 2:
-                lcd_display("Select Powersource","Battery Only");
+                strcpy(lineData,"Battery Only  ");
                 break;
             case 3:
-                lcd_display("Select Powersource","Auto (Batt/AC)");
+                strcpy(lineData,"Auto (Batt/AC)");
                 break;
             case 4:
-                lcd_display("Select Powersource","Cancel");
+                strcpy(lineData,"Cancel        ");
         }
+        lcd_display(2,lineData);
         newDisp = 0;
     }
 }
@@ -696,18 +774,28 @@ void menu_seeTime(unsigned char na)
 {
     unsigned char curTimeString[21];
     static unsigned char lastSecond = 61; // force the update first time into the loop with an impossible value
+    static unsigned ran = 0;
     datetime curTime;
+    if(ran == 0)
+    {
+        lcd_display(0,NULL);
+        strcpy(lineData,"Current Time:");
+        lcd_display(1,lineData);
+        ran = 1;
+    }
     rtc_get(&curTime);
     if(lastSecond != curTime.second)
     {
         lastSecond = curTime.second;
         sprintf(curTimeString,"%2d/%2d/20%2d %2d:%2d:%2d",curTime.month,curTime.day,curTime.year,curTime.hour,curTime.minute,curTime.second);
-        lcd_display("Current Time:",curTimeString);
+        lcd_display(2,curTimeString);
     }
     if(keypad_pull() != NOKEY) // wait for a key to be pressed to leave the function
     {
         lastSecond = 61;
         curFunct = NULL;
+        ran = 0;
+        return;
     }
 }
 
@@ -717,11 +805,13 @@ void menu_setXaxis(unsigned char id)
     if(ran==0)
     {
         ran=1;
-        lcd_display("Not Implemented",NULL);
+        strcpy(lineData,"Not Implemented");
+        lcd_display(0,NULL);
+        lcd_display(1,lineData);
         timeoutInit();
     }
 
-    if(timeoutCheck(4))
+    if(timeoutCheck(16))
     {
         curFunct = NULL;
         ran = 0;
@@ -735,11 +825,13 @@ void menu_setYaxis(unsigned char id)
     if(ran==0)
     {
         ran=1;
-        lcd_display("Not Implemented",NULL);
+        strcpy(lineData,"Not Implemented");
+        lcd_display(0,NULL);
+        lcd_display(1,lineData);
         timeoutInit();
     }
 
-    if(timeoutCheck(4))
+    if(timeoutCheck(16))
     {
         curFunct = NULL;
         ran = 0;
@@ -765,6 +857,9 @@ void menu_setTime(unsigned char na)
         rtc_get(&curTime);
         timeoutInit();
         curTime.second = 0; // always start from zero
+        strcpy(curTimeString,"Set Time:");
+        lcd_display(0,NULL);
+        lcd_display(1,curTimeString);
     }
     if(timeoutCheck(3)==1)
     {
@@ -778,7 +873,8 @@ void menu_setTime(unsigned char na)
         switch(step)
         {
             case 0: // year
-                if(blinker==0) sprintf(curTimeString,"%2d/%2d/20%2d %2d:%2d",curTime.month,curTime.day,curTime.year,curTime.hour,curTime.minute);
+                if(blinker==0 && curTime.year < 10) sprintf(curTimeString,"%2d/%2d/200%1d %2d:%2d",curTime.month,curTime.day,curTime.year,curTime.hour,curTime.minute);
+                else if(blinker==0) sprintf(curTimeString,"%2d/%2d/20%2d %2d:%2d",curTime.month,curTime.day,curTime.year,curTime.hour,curTime.minute);
                 else sprintf(curTimeString,"%2d/%2d/____ %2d:%2d",curTime.month,curTime.day,curTime.hour,curTime.minute);
                 break;
             case 1: // month
@@ -787,18 +883,18 @@ void menu_setTime(unsigned char na)
                 break;
             case 2: // day
                 if(blinker==0) sprintf(curTimeString,"%2d/%2d/20%2d %2d:%2d",curTime.month,curTime.day,curTime.year,curTime.hour,curTime.minute);
-                else sprintf("%2d/__/20%2d %2d:%2d",curTime.month,curTime.year,curTime.hour,curTime.minute);
+                else sprintf(curTimeString,"%2d/__/20%2d %2d:%2d",curTime.month,curTime.year,curTime.hour,curTime.minute);
                 break;
             case 3: // hour
                 if(blinker==0) sprintf(curTimeString,"%2d/%2d/20%2d %2d:%2d",curTime.month,curTime.day,curTime.year,curTime.hour,curTime.minute);
-                else sprintf("%2d/%2d/20%2d __:%2d",curTime.month,curTime.day,curTime.year,curTime.minute);
+                else sprintf(curTimeString,"%2d/%2d/20%2d __:%2d",curTime.month,curTime.day,curTime.year,curTime.minute);
                 break;
             case 4: // minute
                 if(blinker==0) sprintf(curTimeString,"%2d/%2d/20%2d %2d:%2d",curTime.month,curTime.day,curTime.year,curTime.hour,curTime.minute);
-                else sprintf("%2d/%2d/20%2d %2d:__",curTime.month,curTime.day,curTime.year,curTime.hour);
+                else sprintf(curTimeString,"%2d/%2d/20%2d %2d:__",curTime.month,curTime.day,curTime.year,curTime.hour);
                 break;
         }
-        lcd_display("Set Time:",curTimeString);
+        lcd_display(2,curTimeString);
     }
 
     if(key == CANCEL)
@@ -808,9 +904,13 @@ void menu_setTime(unsigned char na)
     }
     else if(key == ENTERKEY)
     {
-        rtc_set(curTime);
-        curFunct = NULL;
-        ran = 0;
+        ++step;
+        if(step > 4)
+        {
+            rtc_set(curTime);
+            curFunct = NULL;
+            ran = 0;
+        }
     }
     else if(key == UPKEY)
     {

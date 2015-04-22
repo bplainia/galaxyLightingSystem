@@ -37,7 +37,7 @@ void comm_start()
     RCSTA1bits.SPEN = 1; // Enable serial port
     TXSTA1bits.TXEN = 1; // Enable transmitter
     TX1IF = 0;
-    TX1IE = 0;
+    TX1IE = 0; // no interrupt for transmission.
     TX1IP = 0; // Low Priority
     //enable tx1ie after clearing flag
     TXSTA1bits.TX9 = 1; // Enable 9-bit mode

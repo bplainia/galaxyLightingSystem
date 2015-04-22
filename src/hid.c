@@ -1,12 +1,11 @@
 #include <shared.h>
 #include <hid.h>
 #include <lcd.h>
+#include <string.h>
 
 #include <communication.h>
 
-static struct fifo *keypadIn, *keypadOut, myFifo[50];
-static unsigned char ;
-static unsigned char keypadNum;
+static unsigned char keypadIn, keypadOut, keypadFifo[16], keypadNum;
 
 /// Sets up the Human Interface Periphrials (keyboard, usb, and lcd) and their pins.
 void hid_setup(void)
@@ -20,7 +19,7 @@ void hid_setup(void)
     RC3IP           = 0; // Low priority interrupt for the keypad
     RCSTA3bits.CREN = 1; // Enable
     RPINR4_5bits.U3RXR   = 0x7; // set USART3 to RP28 for input of keypad
-    keypadIn = keypadOut = (struct fifo *) NULL; // initialize the keypad pointers
+    keypadIn = keypadOut = 0; // initialize the keypad pointers
 
     // Setup LCD
     lcd_setup();
@@ -45,7 +44,7 @@ void hid_loop(void) // execute hid functions; is called from the main loop
             {
                 lcd_begin(); // returns true if password was wrong or function was canceled
             }
-            else if((COMSTAT.STATE > 0b100)||(COMSTAT.STATE == 0b111))
+            // else if((COMSTAT.STATE > 0b100)||(COMSTAT.STATE == 0b111))
             break;
         case 0b01: // LCD Mode
             if(COMSTAT.STATE == 0b100 && curFunct == NULL)
@@ -56,12 +55,12 @@ void hid_loop(void) // execute hid functions; is called from the main loop
                     menu_enter();
                     newScreen = 1;
                 }
-                else if(temp == UPKEY)
+                else if(temp == DOWNKEY)
                 {
                     menu_next(0);
                     newScreen = 1;
                 }
-                else if(temp == DOWNKEY)
+                else if(temp == UPKEY)
                 {
                     menu_prev(0);
                     newScreen = 1;
@@ -75,11 +74,14 @@ void hid_loop(void) // execute hid functions; is called from the main loop
             //else if(COMSTAT.STATE == 0b101 && COMSTAT.STATE == 0b110)
             // cannot do anything while it is in these two states
             // we are transmitting and recieving data.
-
-            if(curFunct != lastFunct && curFunct == (menuFunct) NULL) // we just came back from a menu function so we need to update.
+            if(curFunct != NULL) // beware of null pointers!
             {
-                lastFunct = NULL;
-                newScreen = 1;
+                curFunct(selectedPole);
+            }
+            if(curFunct != lastFunct) // we just came back from a menu function so we need to update.
+            {
+                lastFunct = curFunct;
+                if(curFunct == (menuFunct)NULL) newScreen = 1;
             }
 
             if(newScreen)
@@ -103,20 +105,26 @@ unsigned lcd_begin(void)             // Welcome and setup screen for menu system
     unsigned char password[] = {5,3,1}; // hidden deep in the code is the password
     unsigned char i = 0;
     unsigned char command;
+    unsigned char lineData[21];
 
     if(status.mmode == 0) status.mmode = 1; // Entered Maintenence Mode (LCD and Communications are now on)
     else return true; // already in master mode
     COMSTAT.STATE = 0b100; // I am now a lonely idling master
     lcd_background(255,255,255);
-    lcd_display("Welcome! Please     ", "enter passkey:      ");
-    while(i<3)
+    lcd_display(0,NULL);
+    strcpy(lineData,"Welcome. Please");
+    lcd_display(1,lineData);
+    strcpy(lineData,"enter passkey:");
+    lcd_display(2,lineData);
+    while(i < 3)
     {
-        while((command = keypad_pull()) == 0xFF); /// \todo FIXME: See if you can try to not have a potentially infinite loop within the main loop.
-        if(command == CLEAR) // if there was an error or clear
+        while((command = keypad_pull()) == NOKEY); /// \todo FIXME: See if you can try to not have a potentially infinite loop within the main loop.
+        if(command == CANCEL) // if there was an error or clear
         {
             status.mmode = 0; // Entered Maintenence Mode (LCD and Communications are now on)
             COMSTAT.STATE = 0b000; // I am now a lonely idling master
             lcd_background(0,0,0);
+            lcd_display(0,NULL);
             return true;
         }
         else if(command < 10) // is a number
@@ -124,23 +132,30 @@ unsigned lcd_begin(void)             // Welcome and setup screen for menu system
             if(command == password[i])
             {
                 ++i; // next key
+                strcat(lineData,"*"); // add a asterisk
+                lcd_display(2,lineData); // display the asterisk
+                delay(2); // debounce
+                keypad_flush();
             }
             else
             {
                 status.mmode = 0; // Entered Maintenence Mode (LCD and Communications are now on)
                 COMSTAT.STATE = 0b000; // I am now a lonely idling master
-                lcd_display("Wrong Password      ", "                    ");
-                delay(3);
+                strcpy(lineData,"Wrong Password");
+                lcd_display(0,NULL);
+                lcd_display(1,lineData);
+                delay(16);
+                lcd_display(0,NULL);
                 lcd_background(0,0,0);
                 return true;
             }
-        }
-        // reset our pointers for the menu display
-        curFunct = NULL;
-        subMenuPtr = 0;
-        mainMenuPtr = 0;
-        return false;
+        }   
     }
+        // reset our pointers for the menu display
+    curFunct = NULL;
+    subMenuPtr = -1;
+    mainMenuPtr = 0;
+    menu_display();
     return false;
 }
 
@@ -148,10 +163,13 @@ unsigned lcd_begin(void)             // Welcome and setup screen for menu system
 void lcd_end(unsigned char NA)               // exit out of menu and return to normal
 {
     curFunct = NULL;
+    subMenuPtr = -1;
+    mainMenuPtr = -1;
     if(status.mmode == 1) 
     {
-        status.mmode = 0; // Entered Maintenence Mode (LCD and Communications are now on)
-        lcd_display("                    ", "                    ");
+        status.mmode = 0; // Left Maintenence Mode (LCD and Communications are now on)
+        COMSTAT.STATE = 0;
+        lcd_display(0,NULL);
     }
     else return;
 }
@@ -161,7 +179,6 @@ void lcd_end(unsigned char NA)               // exit out of menu and return to n
 unsigned keypad_push(char keypress)
 {
     unsigned char command = NOKEY; // command to store into FIFO: if greater than 10, then is a command, otherwise is a keypress
-    struct fifo *newAddr;
     switch(keypress)
     {
         // number keys
@@ -217,29 +234,10 @@ unsigned keypad_push(char keypress)
     }
 
     // now that the keypress has been translated, we will make a spot for it.
-    if(command != NOKEY && keypadNum < 50) // limited to 50 keypresses
+    if(command != NOKEY && keypadNum < 15) // limited to 50 keypresses
     {
-        // equivilent to malloc:
-        if(keypadIn == &myFifo[49] || keypadIn == NULL) // if there is nothing or it is at the end
-        {
-            newAddr = myFifo;
-        }
-        else
-        {
-            newAddr = ++keypadIn;
-        }
-
-        if(keypadOut==NULL) // if the queue is empty
-        {
-            keypadOut = myFifo; // put in the new address
-        }
-        if(keypadIn != NULL) // if the queue is not empty
-        {
-            keypadIn->nextAddr = newAddr;
-        }
-        newAddr->byte = command;  // set the command inside our new array
-        newAddr->nextAddr = NULL; // ensure the pointer is null so that we know it is the end
-        keypadIn = newAddr;       // change the pointer finally
+        keypadFifo[keypadIn++] = command;
+        if(keypadIn > 15) keypadIn=0;
         ++keypadNum;
         return false;
     }
@@ -251,21 +249,14 @@ unsigned keypad_push(char keypress)
  */
 unsigned char keypad_pull()
 {
-    struct fifo *nextAddr;
     unsigned char command;
 
-    if(keypadOut == NULL) // handle an empty FIFO
+    if(keypadOut == keypadIn) // handle an empty FIFO
     {
         return NOKEY;
     }
-
-    command = keypadOut->byte; // get the byte out of the FIFO
-    nextAddr = keypadOut->nextAddr; // get the next address
-
-    keypadOut->byte = 0;
-    keypadOut->nextAddr = NULL;
-    
-    keypadOut = nextAddr; // move the pointer to the next bit of data
+    command = keypadFifo[keypadOut++]; // get the byte out of the FIFO
+    if(keypadOut > 15) keypadOut = 0;
     --keypadNum;
     return command;
 }
@@ -286,12 +277,16 @@ unsigned char keypad_size(void)
  */
 unsigned keypad_flush(void)
 {
-    if(keypad_pull() == NOKEY)
-    {
-        return true; // already empty
-    }
-    while(keypad_pull() != NOKEY);
-    return false; // had something in it
+//    if(keypad_pull() == NOKEY)
+//    {
+//        return true; // already empty
+//    }
+//    while(keypad_pull() != NOKEY);
+//    return false; // had something in it
+    keypadIn  = 0; // reset keypad fifo to nothing
+    keypadOut = 0;
+    keypadNum = 0;
+    return false;
 }
 
 // USB functions
