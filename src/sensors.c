@@ -49,23 +49,26 @@ void sensor_setup(void){
  */
 unsigned int photo_value(unsigned char photonum, unsigned update)
 {
-    unsigned int photoVal = 0;
+    static unsigned int photoLev  = 0;
+    static unsigned int photoYear = 0;
+    static unsigned int photoEast = 0;
+    static unsigned int photoWest = 0;
 
     if(update)      // if requested do a full adc conversion
     {
         switch (photonum)
         {
             case PHOTO_LEV:
-                adc_update(CHAN_PHOTO_LEV);
+                photoLev=adc_read(CHAN_PHOTO_LEV);
                 break;
             case PHOTO_YEAR:
-                adc_update(CHAN_PHOTO_YEAR);
+                photoYear = adc_read(CHAN_PHOTO_YEAR);
                 break;
             case PHOTO_EAST:
-                adc_update(CHAN_PHOTO_EAST);
+                photoEast = adc_read(CHAN_PHOTO_EAST);
                 break;
             case PHOTO_WEST:
-                adc_update(CHAN_PHOTO_WEST);
+                photoWest = adc_read(CHAN_PHOTO_WEST);
                 break;
         }
     }
@@ -73,20 +76,16 @@ unsigned int photo_value(unsigned char photonum, unsigned update)
     switch (photonum)
     {
         case PHOTO_LEV:
-            photoVal = adc_read(CHAN_PHOTO_LEV);
-            break;
+            return photoLev;
         case PHOTO_YEAR:
-            photoVal = adc_read(CHAN_PHOTO_YEAR);
-            break;
+            return photoYear;
         case PHOTO_EAST:
-            photoVal = adc_read(CHAN_PHOTO_EAST);
-            break;
+            return photoEast;
         case PHOTO_WEST:
-            photoVal = adc_read(CHAN_PHOTO_WEST);
-            break;
+            return photoWest;
+        default:
+            return 0;
     }
-
-    return(photoVal);
 }
 
 /*! \brief Check the temperature inside the enclosure
@@ -116,27 +115,28 @@ unsigned char temperature(void){
  * --> Test values (returns) used to show if function preformed as desired
  */
 unsigned int ang_pos(unsigned potnum, unsigned update){
-    unsigned int potVal = 0;
+    static unsigned int potVal = 0;
+    static unsigned int potVal2 = 0;
     
     if(update)      // if requested do a full adc conversion
     {
         switch (potnum)
         {
              case POT_DAY:
-                adc_update(CHAN_POT_DAY);
+                potVal = adc_read(CHAN_POT_DAY);
              case POT_YEAR:
-                adc_update(CHAN_POT_YEAR);
+                potVal2 = adc_read(CHAN_POT_YEAR);
         }
     }
     switch (potnum)     // then read adc value
     {
-         case POT_DAY:
-            potVal = adc_read(CHAN_POT_DAY);
-         case POT_YEAR:
-            potVal = adc_read(CHAN_POT_YEAR);
+        case POT_DAY:
+             return potVal;
+        case POT_YEAR:
+             return potVal2;
+        default:
+            return 0;
     }
-
-    return potVal;
 }
 
 /*! \brief check the PIR sensor and turn light LED_ON or DIM depending on motion
@@ -148,50 +148,41 @@ unsigned int ang_pos(unsigned potnum, unsigned update){
  */
 unsigned pir(void){
 
+    int rep5, rep10; // replace, they tick over every second
+
     static unsigned last = NO_MOVE;
     static unsigned led_on = LED_OFF;
-    static unsigned char ten_min_min = 60;
-    static unsigned char ten_min_sec = 60;
-    static unsigned char five_sec = 60;
-    datetime currenttime;
     unsigned char setting;
     setting = (setting_bits1 | 0b00001100) >> 2;
-    if(setting == 0b11)
+    if(setting == 0b11 && (setting_timeout > 0))
     {
-        rtc_get(&currenttime);
+
+        // when movement occurs, reset 5 second timer
+        // if movement has continued for more than five seconds, turn the light on
 
         if (PIN_PIR == MOVE)
         {
             if (last == NO_MOVE)
             {
-                five_sec = currenttime.second;
-                if (five_sec < 5)
-                {
-                    five_sec = five_sec + 60;
-                }
-                five_sec = five_sec - 5;
+                pirLowTime = 0;
             }
-            else if(currenttime.second <= five_sec)
+            else if(pirLowTime > 5)
             {
                 led(LED_ON);
                 led_on = LED_ON;
+                pirTime = 0;
             }
             last = MOVE;
         }
-        else if(led_on == LED_ON)
-        {
 
-            if (last == MOVE)
-            {
-                ten_min_min = currenttime.minute;
-                ten_min_sec = currenttime.second;
-                if(ten_min_min < 10)
-                {
-                    ten_min_min = ten_min_min + 60;
-                }
-                ten_min_min = ten_min_min - 10;
-            }
-            else if((currenttime.minute <= ten_min_min) && (currenttime.second <= ten_min_sec))
+        // when there movement stops, and if the light is on (check for speed)
+        // reset the 10 minute timer
+        // after 10 minutes, turn the light back to DIM
+        // 10 min timer is only reset if motion is detected for more than 5 seconds
+
+        else if(led_on == LED_ON)   //
+        {
+            if(pirTime >= setting_timeout * (unsigned char)60 )
             {
                 led(LED_DIM);
                 led_on = LED_OFF;
@@ -200,6 +191,9 @@ unsigned pir(void){
         }
         return last;
     }
+    else if(setting == 0) led(OFF);
+    else if(setting == 1) led(DIM);
+    else led(ON); // setting = 2
     return false;
 }
 

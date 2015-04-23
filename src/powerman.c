@@ -6,24 +6,15 @@
 #include <powerman.h>                         //PIC hardware mapping
 #include <eeprom.h>                           //eeprom memory
 #include <math.h>
+#include <lcd.h>
+#include <hid.h>
 
 void power_setup(void)
 {
-//    PIE2bits.HLVDIE=1;      //  initiated in order to enable HLVD interupts
-//    INTCONbits.GIE=1;
-
-
     TRISAbits.TRISA4 = 0;   // RA4 set as output to relay
     TRISAbits.TRISA5 = 1;   // battery input
+<<<<<<< Updated upstream
     LATAbits.LATA4=0;         //output initially set to zero
-
-
-    //setup HLVD
-//    HLVDCONbits.HLVDEN=1;       //enable HLVD
-//    HLVDCONbits.VDIRMAG=0;  //Low-level voltage detect
-//    HLVDCONbits.IRVST=1;    //Internal reference voltage stable flag bit
-//    HLVDCONbits.HLVDL=1111;    //external analog input is used
-
 }
 
 
@@ -31,26 +22,31 @@ void power_setup(void)
 //check battery level using adc converter
 void power_loop(void)        //Power switch depending on battery level
 {
-    float battvolt;
-    unsigned int rawvoltage;
-    rawvoltage = (ADCBUF4H << 8) | ADCBUF4L;
-    battvolt = rawvoltage*3.3/4096;       //input variable
+    double battvolt;
+    unsigned int rawbat;
+    unsigned char set;
+    static unsigned errored = 0;
+    set = (setting_bits1 | 0b00110000) >> 4;
+    rawbat = adc_read(ANBATT);
 
 //KEEP IN MIND: VOLTAGE DIVIDER!!!!
-    if(battvolt<2f)     //turns battery off if voltage too low
+/// \todo FIXME: What happens if our battery is low and we lose AC? (Right now, we loose the light and motors)
+    if((battvolt<2f)  || (set == 1))     //turns battery off if voltage too low
     {
-        LATAbits.LATA4 = 0;            //This will change the relay to grid power.
+        LATAbits.LATA4 = 0;            //This will change the relay to AC power.
+    }
+    else if((battvolt>2.3) && (set > 1))      //turns battery on if voltage too high or forced
+    {
+        LATAbits.LATA4 = 1;            //This will the turn the AC power off.
     }
 
-
-    if(battvolt>2.3f)      //turns battery on if voltage too high
+    if(battvolt < 0.6f&& battvolt > 0.2) // error when low but there is a battery
     {
-        LATAbits.LATA4 = 1;            //This will the grid power off.
-    }
-
-    if(battvolt < 0.6f)
-    {
-        mem_append_log(ERR_BATTLOW);
+        if(errored == 0)
+        {
+            mem_append_log(ERR_BATTLOW);
+            errored = 1;
+        }
     }
 
 }

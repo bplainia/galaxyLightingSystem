@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
+#include <powerman.h>
 
 typedef struct
 {
@@ -65,10 +66,10 @@ void lcd_setup()
         menu[1].entry[0].function = menu_setLightMode;
         
         menu[1].entry[1].text = "Set Dim Timeout: %2d";
-        menu[1].entry[1].function = NULL;
+        menu[1].entry[1].function = menu_setDimLength;
         menu[1].entry[1].data = &setting_timeout;
         
-        menu[1].entry[2].text = "Set Dim Level: %3d\%";
+        menu[1].entry[2].text = "Set Dim Level: %03d";
         menu[1].entry[2].function = menu_setDimLevel;
         menu[1].entry[2].data = &setting_lightDim;
         
@@ -131,9 +132,13 @@ void lcd_setup()
         menu[5].entry[0].function = menu_setACBatt;           //allows user to switch power via interface
         menu[5].entry[0].data = NULL;
 
-        menu[5].entry[1].text = "Go to Main Menu";
-        menu[5].entry[1].function = menu_up;
-    menu[5].numEntries = 2;
+        menu[5].entry[1].text = "Battery Voltage";
+        menu[5].entry[1].function = menu_battVoltage;           //allows user to switch power via interface
+        menu[5].entry[1].data = NULL;
+
+        menu[5].entry[2].text = "Go to Main Menu";
+        menu[5].entry[2].function = menu_up;
+    menu[5].numEntries = 3;
 
     // About
     menu[6].text = "About               ";
@@ -702,6 +707,9 @@ void menu_setACBatt(unsigned char id)
         setting = (setting_bits1 | 0b00110000) >> 4; // import current value once
         swtch = 1;
         newDisp=1;
+        lcd_display(0,NULL);
+        strcpy(lineData,"Select Powersource");
+        lcd_display(1,lineData);
     }
     key = keypad_pull();
     if(key == UPKEY)
@@ -735,27 +743,23 @@ void menu_setACBatt(unsigned char id)
         {
             setting_bits1 &= 0b11001111; // reset the bits
             setting_bits1 |= (setting%4) << 4; // then write the bits.
-            lcd_display(0,NULL);
-            strcpy(lineData,"Select Powersource");
-            lcd_display(1,lineData);
         }
         curFunct = NULL;
         swtch = 0;
         switch(setting)
         {
             case 0:
-                menu[5].entry[0].text = "Power Reset";
+                menu[5].entry[0].text = "Resettting Light... ";
+                asm("RESET"); // reset
                 break;
             case 1:
-                menu[5].entry[0].text = "Power on AC ONLY";
-                LATAbits.LATA4 = 0;
+                menu[5].entry[0].text = "Power on AC ONLY ";
                 break;
             case 2:
-                menu[5].entry[0].text = "Power on BAT ONLY";
-                LATAbits.LATA4 = 1;
+                menu[5].entry[0].text = "Power on BAT ONLY ";
                 break;
             case 3:
-                menu[5].entry[0].text = "Power on Auto";
+                menu[5].entry[0].text = "Power on Auto     ";
         }
         return;
     }
@@ -1047,6 +1051,80 @@ void menu_setDimLevel(unsigned char id)
     return;
 }
 
+void menu_setDimLength(unsigned char id)
+{
+    static unsigned int setting;
+    unsigned char dimState;
+    static unsigned ran = 0;
+    static bit newDisp;
+    unsigned char key;
+    key=keypad_pull();
+    if(ran==0)
+    {
+        ran=1;
+        newDisp=1;
+        setting = setting_timeout;
+        strcpy(lineData,"Set Dim Timeout:");
+        lcd_display(0,NULL);
+        lcd_display(1,lineData);
+        dimState = (setting_bits1 | 0b00001100) >> 2;
+    }
+
+    if(newDisp==1)
+    {
+        if(setting == 0) strcpy(lineData,"Length: Disabled");
+        else sprintf(lineData,"Length: %d min   ",setting);
+        lcd_display(2,lineData);
+        if(dimState == 1) pwm_set(LED_CHAN, setting); // refresh the dim state if dimmed
+    }
+
+    if(key == CANCEL)
+    {
+        curFunct = NULL;
+        ran = 0;
+    }
+    else if(key == ENTERKEY)
+    {
+        setting_timeout = setting;
+        curFunct = NULL;
+        ran = 0;
+    }
+    else if(key == UPKEY)
+    {
+        if(setting == 15) setting = 0;
+        else setting++;
+        newDisp = 1;
+    }
+    else if(key == DOWNKEY)
+    {
+        if(setting == 0) setting = 15;
+        else setting--;
+        newDisp = 1;
+    }
+    return;
+}
+
+void menu_battVoltage(unsigned char id)
+{
+    static unsigned ran = 0;
+    unsigned char string[21];
+    double battvolt;
+    if(ran == 0)
+    {
+        battvolt = adc_read(ANBATT)*9.9/4096.0;       //input variable
+        lcd_display(0,NULL);
+        strcpy(string,"Battery Voltage:");
+        lcd_display(1,string);
+        sprintf(string,"%02.2f",battvolt);
+        lcd_display(2,string);
+        ran = 1;
+    }
+    if(keypad_pull() == ENTERKEY)
+    {
+        curFunct = NULL;
+        ran = 0;
+    }
+}
 
 static unsigned char daysInMonth(unsigned char month, unsigned char year)
 {

@@ -33,10 +33,11 @@
 
 /// \todo TODO: Have default values setup on the first run.
 //from menu [ben]: I need the following variables:
-unsigned char setting_timeout;
-unsigned char setting_bits1; // b5-4 = AC/Battery mode, b3-2 = light mode, b1 = hurricane, b0 = locked/auto.
+unsigned char setting_timeout = 10; // Five minutes
+unsigned char setting_bits1 = 0b00111100; // b5-4 = AC/Battery mode, b3-2 = light mode, b1 = hurricane, b0 = locked/auto.
 unsigned char setting_lightDim = 251; // approx 7.4% duty cycle (takes 0.4A)
-unsigned char setting_xaxis, setting_yaxis;
+unsigned char setting_xaxis = 0; // auto
+unsigned char setting_yaxis = 0; // auto
 
 
 typedef enum errorCode {NONE=0,SPACEOVERRIDE=1,BATTERYLOW=2};

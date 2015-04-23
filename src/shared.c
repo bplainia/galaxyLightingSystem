@@ -12,147 +12,37 @@ void adc_setup()
 {
     // Input Configuration:
     // AN4 = Battery, AN2,3 = Pots, 8,19,18,17 = Photocells, AN0 = Temp
-    ADCSS0L = 0b00011101; //temp, pots, batt
-    ANCON1 = 0b00011101;    //battery in
-    ANCON2 = 0b00000001;
-    ANCON3 = 0b00001110;    
-    ADCSS0H = 0b00000001; // photo pin 8
-    ADCSS1L = 0b00001110; // rest of photos
-    ADCSS0H = 0; // no adc's on this one
+    ANCON1 = 0b10101101; // photo pin3, batt, pot pin21, pot pin22, temp
+    ANCON2 = 0b00110000; // photo pin5, photo pin4
+    ANCON3 = 0b01000000; // photo pin6
 
     // configuring the module: ___________________________________
     // output resolution, voltage reference, clock select, how will sampling be done, output format/destination, readings per interrupt
-    ADCON1Hbits.MODE12 = 1; // use 12-bit resolution
-    ADCON3Hbits.SAMC   = 10;// sample time
-    ADCON3Hbits.ADRC   = 1; // auto conversion trigger
+    ADCON1Hbits.MODE12 = 1;      // use 12-bit resolution
     ADCON1Lbits.SSRC   = 0b0111; // auto sample clock
-    // enable ADC
-    ADCON1Hbits.ADON = 1; // converter is now on!
-}
-
-/*! \brief Update a single ADC buffer
- *
- * Input: A single number specifying which channel to update from 0 to 15.
- * Outputs: A single bit specifying success. (1=success)
- */
-void adc_update(unsigned char chA) // Read specific pin - raw
-{
-    if(chA > 0b11111) return;
-    ADCHS0Lbits.CH0SA = chA;
-    SAMP = 1; // Initiate sample
-    while(!ADCON1Lbits.DONE) continue;
-    return;
-}
-
-/*! \brief Updates two ADC channels to the buffers.
- *
- *  Inputs: two unsigned chars, `chA` and `chB`, specify which ADC channel to update.
- *
- *  Outputs: A single bit specifying success. (1=success)
- */
-void adc_update2(unsigned char chA, unsigned char chB)
-{
-    if((chA > 0b11111) || (chB > 0b11111)) return;
-    ADCHS0Lbits.CH0SA = chA;
-    ADCHS0Hbits.CH0SB = chB;
-    ADCON2Lbits.ALTS = 1;
-    SAMP = 1; // Initiate sample(s)
-    while(!ADCON1Lbits.DONE) continue;
-    DONE = 0;
-    while(ADCON1Lbits.DONE) continue;
-    DONE = 0;
-
-    // Done.
-    ADCON2Lbits.ALTS = 0;
-    return;
-}
-
-/// Update all the ADC buffers that are activated in `adc_setup()`.
-void adc_updateAll() 
-{
-    ADCON2Lbits.ALTS = 0;
-    ADCON2Hbits.CSCNA = 1; // Enable Channel Scan
-    ADCON2Hbits.BUFREGEN = 1;// buffers set for single results. not a fifo.
-    ADCON5Hbits.ASENA  = 1;  // enable auto-scan
-    ADCON1Lbits.ASAM = 1;
-    //! \todo  TODO: adcUpdateAll() needs finisheds
-    while(!ADCON1Lbits.DONE) continue;
-    ADCON1Lbits.DONE = 0;
-    ADCON2Hbits.CSCNA = 0; // Disable Channel Scan
-    ADCON1Lbits.ASAM = 0;
+    ADCON3H            = 0x1F;
+    ADCON3L            = 0x02;
+    ADCON2H            = 0;
+    ADCON3L            = 0;
+    ADCON1Hbits.ADON   = 1; // converter is now on!
 }
 
  /// Read adc value out of the ADC buffer for the passed channel
+/// The only channels we need are 0,2,3,4,8,17,18,19.
 unsigned int adc_read(unsigned char channel)
 {
-    unsigned int adcVal;        // code as suggested by Dr. Francis
-    int *adcPtr;
-
         // Each pin is attached to an adc channel
         // Depending on which device (pin) is desired, that channel is requested
         // when an adc is performed the result is put into the buffer for that channel
         // for this code a pointer is created that points at the low byte of the buffer
         // an int is used to grab the data in the byte, which should grab the low and high byte
 
-    switch(channel)
-    {
-        case 0:
-            adcPtr = (int *)&ADCBUF0L;
-            break;
-        case 1:
-            adcPtr = (int *)&ADCBUF1L;
-            break;
-        case 2:
-            adcPtr = (int *)&ADCBUF2L;
-            break;
-        case 3:
-            adcPtr = (int *)&ADCBUF3L;
-            break;
-        case 4:
-            adcPtr = (int *)&ADCBUF4L;
-            break;
-        case 5:
-            adcPtr = (int *)&ADCBUF5L;
-            break;
-        case 6:
-            adcPtr = (int *)&ADCBUF6L;
-            break;
-        case 7:
-            adcPtr = (int *)&ADCBUF7L;
-            break;
-        case 8:
-            adcPtr = (int *)&ADCBUF8L;
-            break;
-        case 9:
-            adcPtr = (int *)&ADCBUF9L;
-            break;
-        case 10:
-            adcPtr = (int *)&ADCBUF10L;
-            break;
-        case 11:
-            adcPtr = (int *)&ADCBUF11L;
-            break;
-        case 12:
-            adcPtr = (int *)&ADCBUF12L;
-            break;
-        case 13:
-            adcPtr = (int *)&ADCBUF13L;
-            break;
-        case 14:
-            adcPtr = (int *)&ADCBUF14L;
-            break;
-        case 15:
-            adcPtr = (int *)&ADCBUF15L;
-            break;
-    }
-
-    adcVal = *adcPtr;
-    return(adcVal);
+    ADCHS0Lbits.CH0NA = 0; // AVss
+    ADCHS0Lbits.CH0SA = channel; // choose the correct channel
+    ADCON1Lbits.SAMP = 1; // begin sampling
+    while(!ADCON1Lbits.DONE) continue; // wait til it is done
+    return ADCBUF0; // return the buffer
 }
-// Three reasons this won't work: 
-//   1. they are not integers,
-//   2. you are supposed to get it straight from the buffer and does not include the channels we need
-//   3. It doesn't have comments. :P
 
 /// Setup TMR2 for use by all the CCP modules
 void pwm_setup() 
