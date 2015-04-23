@@ -27,29 +27,8 @@ void power_setup(void)
 }
 
 
-//The following are designed to send error alerts to the error page for maintenance.
-void power_switch(unsigned char)
-{
-    battin = battin ^ 0b1;
-}
 
-void batt_live(unsigned char none)
-{
-    float battvolt;
-    unsigned int rawvoltage;
-    rawvoltage = (ADCBUF4H << 8) | ADCBUF4L;
-    battvolt = rawvoltage*3.3/4096;       //input variable
-
-    if(battvolt < 1.0f)
-    {
-
- //       menu[7].entry[]
-
-
-    }
-}
-
-
+//check battery level using adc converter
 void power_loop(void)        //Power switch depending on battery level
 {
     float battvolt;
@@ -57,19 +36,19 @@ void power_loop(void)        //Power switch depending on battery level
     rawvoltage = (ADCBUF4H << 8) | ADCBUF4L;
     battvolt = rawvoltage*3.3/4096;       //input variable
 
-
-    if((battvolt<10.5f) | (battin==1))    //turns battery off if voltage too low
+//KEEP IN MIND: VOLTAGE DIVIDER!!!!
+    if(battvolt<2f)     //turns battery off if voltage too low
     {
         LATAbits.LATA4 = 0;            //This will change the relay to grid power.
     }
 
 
-    if((battvolt>11.5f) | (battin==0))      //turns battery on if voltage too high
+    if(battvolt>2.3f)      //turns battery on if voltage too high
     {
         LATAbits.LATA4 = 1;            //This will the grid power off.
     }
 
-    if(battvolt < 3f)
+    if(battvolt < 0.6f)
     {
         mem_append_log(ERR_BATTLOW);
     }

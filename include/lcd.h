@@ -19,6 +19,8 @@
 #include <light.h>
 #include <movement.h>
 
+
+
 typedef void (*menuFunct)(unsigned char); // menu functions. the char is for the pole ID.
 
 typedef struct
@@ -40,7 +42,6 @@ menuEntry menu[8];
 menuFunct curFunct; // if a function is selected
 signed char mainMenuPtr = -1, subMenuPtr = -1;
 unsigned char selectedPole;
-
 // Functions that are for the menu system.
 void menu_up(unsigned char);
 void menu_next(unsigned char);
