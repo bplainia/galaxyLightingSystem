@@ -17,19 +17,19 @@ void rtc_setup()
  * Detailed Description:
  * Note: Will convert the numbers to BCD endcoding before returning them
  */
-unsigned rtc_set(datetime time)
+unsigned rtc_set(datetime *time)
 {
     EECON2 = 0x55;           // Perform unlock sequence for special things
     EECON2 = 0xAA;
     RTCCON1bits.RTCWREN = 1; // Enable write to real time clock
     RTCCON1bits.RTCPTR = 0b11; // Let's start with writing the year
-    RTCVALL = char2bcd(time.year);// Write Year
-    RTCVALH = char2bcd(time.month); // write month (rtcptr at 10)
-    RTCVALL = char2bcd(time.day);
-    RTCVALH = weekday(time.year,time.month,time.day); // write weekday (already only one digit)
-    RTCVALL = char2bcd(time.hour); // write hours (remember 24 hr format
-    RTCVALH = char2bcd(time.minute); // write minutes
-    RTCVALL = char2bcd(time.second); // write seconds (most likely 0)
+    RTCVALL = char2bcd((*time).year);// Write Year
+    RTCVALH = char2bcd((*time).month); // write month (rtcptr at 10)
+    RTCVALL = char2bcd((*time).day);
+    RTCVALH = weekday((*time).year,(*time).month,(*time).day); // write weekday (already only one digit)
+    RTCVALL = char2bcd((*time).hour); // write hours (remember 24 hr format
+    RTCVALH = char2bcd((*time).minute); // write minutes
+    RTCVALL = char2bcd((*time).second); // write seconds (most likely 0)
     RTCCON1bits.RTCWREN = 0; // Finished. Disable write to rtc.
     status.rtcInit = 1;
     return false;

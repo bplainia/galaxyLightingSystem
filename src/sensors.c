@@ -4,6 +4,7 @@
 #include <light.h>
 #include <shared.h>
 #include <movement.h>
+#include <eeprom.h>
 
 /*! \brief setup sensors
  */
@@ -153,48 +154,53 @@ unsigned pir(void){
     static unsigned char ten_min_sec = 60;
     static unsigned char five_sec = 60;
     datetime currenttime;
-
-    rtc_get(&currenttime);
-        
-    if (PIN_PIR == MOVE)
+    unsigned char setting;
+    setting = (setting_bits1 | 0b00001100) >> 2;
+    if(setting == 0b11)
     {
-        if (last == NO_MOVE)
-        {
-            five_sec = currenttime.second;
-            if (five_sec < 5)
-            {
-                five_sec = five_sec + 60;
-            }
-            five_sec = five_sec - 5;
-        }
-        else if(currenttime.second <= five_sec)
-        {
-            led(LED_ON);
-            led_on = LED_ON;
-        }
-        last = MOVE;
-    }
-    else if(led_on == LED_ON)
-    {
+        rtc_get(&currenttime);
 
-        if (last == MOVE)
-        { 
-            ten_min_min = currenttime.minute;
-            ten_min_sec = currenttime.second;
-            if(ten_min_min < 10)
-            {
-                ten_min_min = ten_min_min + 60;
-            }
-            ten_min_min = ten_min_min - 10;
-        }
-        else if((currenttime.minute <= ten_min_min) && (currenttime.second <= ten_min_sec))
+        if (PIN_PIR == MOVE)
         {
-            led(LED_DIM);
-            led_on = LED_OFF;
+            if (last == NO_MOVE)
+            {
+                five_sec = currenttime.second;
+                if (five_sec < 5)
+                {
+                    five_sec = five_sec + 60;
+                }
+                five_sec = five_sec - 5;
+            }
+            else if(currenttime.second <= five_sec)
+            {
+                led(LED_ON);
+                led_on = LED_ON;
+            }
+            last = MOVE;
         }
-        last = NO_MOVE;
+        else if(led_on == LED_ON)
+        {
+
+            if (last == MOVE)
+            {
+                ten_min_min = currenttime.minute;
+                ten_min_sec = currenttime.second;
+                if(ten_min_min < 10)
+                {
+                    ten_min_min = ten_min_min + 60;
+                }
+                ten_min_min = ten_min_min - 10;
+            }
+            else if((currenttime.minute <= ten_min_min) && (currenttime.second <= ten_min_sec))
+            {
+                led(LED_DIM);
+                led_on = LED_OFF;
+            }
+            last = NO_MOVE;
+        }
+        return last;
     }
-    return last;
+    return false;
 }
 
 unsigned char limits(void)

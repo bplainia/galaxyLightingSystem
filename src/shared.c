@@ -172,20 +172,34 @@ void pwm_setup()
     // Max Resolution = log_2 (Fosc/Fpwm)
 
     // PWM Channels Setup
-    TRISCbits.TRISC7 = 0;
-    RPOR18_19bits.RPO19R = 0x8; // set RP19 to CCP4 for the Light
+    TRISAbits.TRISA1 = 0;
+    RPOR0_1bits.RPO1R = 0x9; // set RP1 to CCP9 for the Light
+    CCP9CONbits.CCP9M = 0b1100;
+
     TRISEbits.TRISE4 = 0;
     RPOR32_33bits.RPO32R = 0x9; // set RP32 to CCP5 for RED PWM
+    CCP5CONbits.CCP5M = 0b1100;
+
     TRISEbits.TRISE5 = 0;
     RPOR34_35bits.RPO34R = 0x9; // set RP34 to CCP6 for GRN PWM
+    CCP6CONbits.CCP6M = 0b1100;
+
     TRISEbits.TRISE6 = 0;
     RPOR36_37bits.RPO37R = 0x8; // set RP37 to CCP7 for BLU PWM
+    CCP7CONbits.CCP7M = 0b1100;
 
     // delay timer
     TMR1H = 0xEF;
     TMR1L = 0xFF;       // set to increment `time` every 1/8th of a second
     TMR1IE = 1;         // enable interrupt for timer 1
+    TMR1IP = 1;         // high priority
     T1CON = 0b10001011; // Use SOSC, no prescaler, Sync it, 16-bit r/w mode, enable.
+    // pir/movement timer
+    TMR3H = 0xEF;
+    TMR3L = 0xFF;       // set to increment `time` every 1/8th of a second
+    TMR3IE = 1;         // enable interrupt for timer 1
+    TMR1IP = 1;         // high priority
+    T3CON = 0b10001011; // Use SOSC, no prescaler, Sync it, 16-bit r/w mode, enable.
     return;
 }
 
@@ -215,9 +229,9 @@ unsigned pwm_set(unsigned char channel, unsigned int duty) // Set pin to duty cy
         case 1:
         case 2:
             return true; // error
-        case 3: // light - ccp4
-            CCPR4L = duty & 0x00FF;
-            CCP4CONbits.DC4B = duty >> 8;
+        case 3: // light - ccp9 - ON RP1/RA1
+            CCPR9L = duty & 0x00FF;
+            CCP9CONbits.DC9B = duty >> 8;
             break;
         case 4: // red - ccp5
             CCPR5L = duty & 0x00FF;

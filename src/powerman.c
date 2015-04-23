@@ -13,9 +13,8 @@ void power_setup(void)
 //    INTCONbits.GIE=1;
 
 
-    PORTAbits.RA4 = 0;   // RA4 set as output to relay
-    TRISAbits.TRISA5 = 0;   // battery input
-    //ANCON1bits.ANSEL4=1;        //analog input is AN4
+    TRISAbits.TRISA4 = 0;   // RA4 set as output to relay
+    TRISAbits.TRISA5 = 1;   // battery input
     LATAbits.LATA4=0;         //output initially set to zero
 
 

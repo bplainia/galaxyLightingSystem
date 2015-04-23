@@ -79,7 +79,9 @@ enum {LIMIT_DOWN, LIMIT_UP, LIMIT_EAST, LIMIT_WEST};
 
 //#define ALARM_FLAG PIR3bits.RTCCIF
 
-
+// Variables
+unsigned int pirTime = 0;
+unsigned char pirLowTime = 0;
 
 // Functions
 

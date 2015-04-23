@@ -35,7 +35,7 @@
 //from menu [ben]: I need the following variables:
 unsigned char setting_timeout;
 unsigned char setting_bits1; // b5-4 = AC/Battery mode, b3-2 = light mode, b1 = hurricane, b0 = locked/auto.
-unsigned char setting_lightDim;
+unsigned char setting_lightDim = 251; // approx 7.4% duty cycle (takes 0.4A)
 unsigned char setting_xaxis, setting_yaxis;
 
 

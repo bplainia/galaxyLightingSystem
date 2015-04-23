@@ -119,10 +119,10 @@ void setup()
     i2c_setup();  // Initialize I2C
     //! \todo  TODO: Check to see if the chip started after a POR, BOR, or is from VBATT
     memStatus = mem_check(); // checks where it started up from, and if memory is ok
-    if(RCON3bits.VBAT == 0) // we have not returned from VBATT (first time startup essentially)
-    {
+//    if(RCON3bits.VBAT == 0) // we have not returned from VBATT (first time startup essentially)
+//    {
         rtc_setup();
-    }
+//    }
     pwm_setup(); // initializes timers
     hid_setup();
     adc_setup();
@@ -133,6 +133,7 @@ void setup()
       //  limit_test();           // Calibration for position pots
     }
     lcd_display(0,NULL); // clear the screen
+    LATAbits.LATA4 = 1;
 }
 
 /*! /brief The MAIN loop that executes EVERYTHING!
@@ -145,20 +146,19 @@ void loop()
 
     // Put things that you need to process here. Dont' spend too much time
     // in your process. Others want to do stuff too...
-                //adc_updateAll(); // Update all the ADC buffers every loop
-//                switch(status.state)
-//                {
-//                    case 1: // Daytime Mode
-//                        daytime_move();
-//                        led(OFF);
-//                        break;
-//                    case 2: // Nighttime mode
-//                        pir();
-//                        break;
-//                    case 3: // ERROR mode
-//                        // light off
-//                        ;
-//                }
+                switch(status.state)
+                {
+                    case 1: // Daytime Mode
+                        //daytime_move();
+                        led(OFF);
+                        break;
+                    case 2: // Nighttime mode
+                        pir();
+                        break;
+                    case 3: // ERROR mode
+                        // light off
+                        ;
+                }
     // Dusk event
     //  if(photo_value(1, PHOTO_LEV) < DUSK) // && time = after 6ish
     //  {
@@ -170,6 +170,7 @@ void loop()
 
     hid_loop(); // Maintainence Mode State Machine.
     //power_loop();
+    //light_loop();
 
     // TODO: Sleep when we can to save power.
     if(status.state == 1 && status.mmode) // If daytime and not in maintainence mode
@@ -287,6 +288,14 @@ void interrupt high_priority isr_high()
         TMR1L  = 0xFF;       // set to increment `time` every 1/8th of a second
         ++time;
         ++delayTime;
+    }
+    if(TMR3IE && TMR3IF) // This is the delay counter
+    {
+        TMR3IF = 0;
+        TMR3H  = 0xDF;
+        TMR3L  = 0xFF;       // set to increment `time` every second
+        ++pirTime;
+        ++moveTime;
     }
 }
 

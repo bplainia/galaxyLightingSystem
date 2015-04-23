@@ -16,6 +16,8 @@
 #include <sensors.h>
 #include <string.h>
 #include <eeprom.h>
+#include <light.h>
+#include <movement.h>
 
 typedef void (*menuFunct)(unsigned char); // menu functions. the char is for the pole ID.
 
@@ -62,6 +64,7 @@ void menu_setTime(unsigned char);
 void menu_setXaxis(unsigned char);
 void menu_setYaxis(unsigned char);
 void menu_seeStatus(unsigned char);
+void menu_setDimLevel(unsigned char);
 static unsigned char daysInMonth(unsigned char, unsigned char);
 
 /*! \page menu The LCD Menu System

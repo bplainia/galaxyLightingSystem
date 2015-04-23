@@ -50,7 +50,7 @@ typedef struct
 // Functions
 
 void rtc_setup(void);
-unsigned rtc_set(datetime);
+unsigned rtc_set(datetime*);
 unsigned rtc_get(datetime*);
 
 unsigned alarm_set(alarmtime);

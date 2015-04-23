@@ -12,9 +12,9 @@ void led_maintenance(unsigned char lightState)
 {
     switch (lightState)
     {
-        case AUTO:
-            led_auto();
-        break;
+//        case AUTO:
+//            led_auto();
+//        break;
         case ON:
             led(ON);
         break;
@@ -23,9 +23,9 @@ void led_maintenance(unsigned char lightState)
         break;
         case OFF:
             led(OFF);
-        break;
-        default:
-            led_auto();
+//        break;
+//        default:
+//            led_auto();
     }
     return;
 }
@@ -34,7 +34,7 @@ void led_maintenance(unsigned char lightState)
 void led_setup(void)
 {
     LED_PIN = OUTPUT;
-
+    pwm_set(LED_CHAN, LED_DUTY_DIM);
 }
 
 // Function to modify the LED to turn either ON, OFF, or DIM
@@ -49,7 +49,7 @@ void led(unsigned char state)
             pwm_set(LED_CHAN, LED_DUTY_ON);
             break;
         case DIM:
-            pwm_set(LED_CHAN, LED_DUTY_DIM);
+            pwm_set(LED_CHAN, setting_lightDim);
             break;
         default:
             ;

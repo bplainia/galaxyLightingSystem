@@ -27,6 +27,8 @@ void lcd_setup()
     TRISEbits.TRISE6 = 0;
     TRISEbits.TRISE5 = 0;
     TRISCbits.TRISC2 = 0;
+    LATCbits.LATC2 = 0; // reset on - lcd
+    __delay_ms(10);
     LATCbits.LATC2 = 1; // reset off on lcd
 
     // Now Let's Initialize the LCD
@@ -63,9 +65,11 @@ void lcd_setup()
         menu[1].entry[0].function = menu_setLightMode;
         
         menu[1].entry[1].text = "Set Dim Timeout: %2d";
+        menu[1].entry[1].function = NULL;
         menu[1].entry[1].data = &setting_timeout;
         
-        menu[1].entry[2].text = "Set Dim Level: %2d%%";
+        menu[1].entry[2].text = "Set Dim Level: %3d\%";
+        menu[1].entry[2].function = menu_setDimLevel;
         menu[1].entry[2].data = &setting_lightDim;
         
         menu[1].entry[3].text = "Go to Main Menu";
@@ -192,6 +196,7 @@ void lcd_setup()
     
     // If you add another main menu entry, make sure to change NUMMENUENTRIES
 
+    i2c_lcdInit();
     curFunct = NULL;
     mainMenuPtr = -1, subMenuPtr = -1;
     selectedPole=255;
@@ -278,6 +283,11 @@ void menu_up(unsigned char none)
         subMenuPtr = -1;
     }
     /// TODO: What if we are in the main menu?
+    else
+    {
+        subMenuPtr = 0;
+        mainMenuPtr = 0; // exit?
+    }
     return;
 }
 
@@ -333,7 +343,7 @@ void menu_enter()
         /// \todo TODO: Get the pole ID if the main menu items are not 0, 4, or 6.
 
         // Get Pole ID menu.
-        if((mainMenuPtr != 0) && (mainMenuPtr != 6)) menu_getSelection();
+        if((mainMenuPtr != 0) && (mainMenuPtr != 6) && (mainMenuPtr != 4)) menu_getSelection();
 
         subMenuPtr = 0; // go to the main screen of the submenu
     }
@@ -379,7 +389,7 @@ void menu_display()
 
 void menu_getSelection() // BLOCKING
 {
-    unsigned int number; // keypad number entry
+    unsigned char number; // keypad number entry
     unsigned char numberStr[13];
     unsigned char key;
     unsigned char second=0;
@@ -433,7 +443,7 @@ void menu_getSelection() // BLOCKING
             key=keypad_pull();
             if(key < 10)
             {
-                number = key + (number*10);
+                number = key + (number*(unsigned char)10);
                 sprintf(numberStr,"Pole: %3d",number);
                 lcd_display(2,numberStr);
                 break;
@@ -449,7 +459,7 @@ void menu_getSelection() // BLOCKING
             key=keypad_pull();
             if(key < 10)
             {
-                number = key + (number*10);
+                number = key + (number * (unsigned char)10);
                 sprintf(numberStr,"Pole: %3d",number);
                 if(number > 249)
                 {
@@ -531,16 +541,19 @@ void menu_setLightMode(unsigned char id)
             switch(setting)
             {
                 case 0:
-                    menu[1].entry[0].text = "Light Mode (OFF)";
+                    menu[1].entry[0].text = "Light Mode (OFF)    ";
+                    led_maintenance(OFF);
                     break;
                 case 1:
-                    menu[1].entry[0].text = "Light Mode (Dim)";
+                    menu[1].entry[0].text = "Light Mode (Dim)    ";
+                    led_maintenance(DIM);
                     break;
                 case 2:
-                    menu[1].entry[0].text = "Light Mode (Full)";
+                    menu[1].entry[0].text = "Light Mode (Full)   ";
+                    led_maintenance(ON);
                     break;
                 case 3:
-                    menu[1].entry[0].text = "Light Mode (Auto)";
+                    menu[1].entry[0].text = "Light Mode (Auto)   ";
             }
         }
         curFunct = NULL;
@@ -550,16 +563,16 @@ void menu_setLightMode(unsigned char id)
     switch(setting)
     {
         case 0:
-            strcpy(lineData,"Off             ");
+            strcpy(lineData,"Off                 ");
             break;
         case 1:
-            strcpy(lineData,"Dim             ");
+            strcpy(lineData,"Dim                 ");
             break;
         case 2:
-            strcpy(lineData,"High            ");
+            strcpy(lineData,"High                ");
             break;
         case 3:
-            strcpy(lineData,"Auto            ");
+            strcpy(lineData,"Auto                ");
             break;
         case 4:
             strcpy(lineData,"Cancel");
@@ -578,16 +591,16 @@ void menu_setHurricaneMode(unsigned char id)
         lcd_display(0,NULL);
         if(setting==0)
         {
-            strcpy(lineData,"Confirm Activation");
+            strcpy(lineData,"Confirm Activation   ");
             lcd_display(1,lineData);
-            strcpy(lineData,"ENTER/CLEAR");
+            strcpy(lineData,"ENTER/CLEAR          ");
             lcd_display(2,lineData);    
         }
         else
         {
-            strcpy(lineData,"Unlock Hurricane");
+            strcpy(lineData,"Unlock Hurricane     ");
             lcd_display(1,lineData);
-            strcpy(lineData,"(CLEAR cancels)");
+            strcpy(lineData,"(CLEAR cancels)      ");
             lcd_display(2,lineData);    
         }
         swtch = 1;
@@ -735,9 +748,12 @@ void menu_setACBatt(unsigned char id)
                 break;
             case 1:
                 menu[5].entry[0].text = "Power on AC ONLY";
+                //if(PORTCbits.RC5)  LATAbits.LATA4 = 0;
+                LATAbits.LATA4 = 0;
                 break;
             case 2:
                 menu[5].entry[0].text = "Power on BAT ONLY";
+                LATAbits.LATA4 = 1;
                 break;
             case 3:
                 menu[5].entry[0].text = "Power on Auto";
@@ -749,16 +765,16 @@ void menu_setACBatt(unsigned char id)
         switch(setting)
         {
             case 0:
-                strcpy(lineData,"Reset         ");
+                strcpy(lineData,"Reset               ");
                 break;
             case 1:
-                strcpy(lineData,"AC Only       ");
+                strcpy(lineData,"AC Only             ");
                 break;
             case 2:
-                strcpy(lineData,"Battery Only  ");
+                strcpy(lineData,"Battery Only        ");
                 break;
             case 3:
-                strcpy(lineData,"Auto (Batt/AC)");
+                strcpy(lineData,"Auto (Batt/AC)      ");
                 break;
             case 4:
                 strcpy(lineData,"Cancel        ");
@@ -776,21 +792,24 @@ void menu_seeTime(unsigned char na)
     static unsigned char lastSecond = 61; // force the update first time into the loop with an impossible value
     static unsigned ran = 0;
     datetime curTime;
+    rtc_get(&curTime);
     if(ran == 0)
     {
         lcd_display(0,NULL);
-        strcpy(lineData,"Current Time:");
-        lcd_display(1,lineData);
+        strcpy(curTimeString,"Current Time:");
+        lcd_display(1,curTimeString);
         ran = 1;
-    }
-    rtc_get(&curTime);
-    if(lastSecond != curTime.second)
-    {
         lastSecond = curTime.second;
-        sprintf(curTimeString,"%2d/%2d/20%2d %2d:%2d:%2d",curTime.month,curTime.day,curTime.year,curTime.hour,curTime.minute,curTime.second);
-        lcd_display(2,curTimeString);
+//        sprintf(curTimeString,"%2d/%2d/20%2d %2d:%2d:%2d",curTime.month,curTime.day,curTime.year,curTime.hour,curTime.minute,curTime.second);
+//        lcd_display(2,curTimeString);
     }
-    if(keypad_pull() != NOKEY) // wait for a key to be pressed to leave the function
+//    else if(lastSecond != curTime.second)
+//    {
+//        lastSecond = curTime.second;
+    sprintf(curTimeString,"%2d/%2d/20%2d %2d:%2d:%2d",curTime.month,curTime.day,curTime.year,curTime.hour,curTime.minute,curTime.second);
+    lcd_display(2,curTimeString);
+//    }
+    if(keypad_pull() == ENTERKEY) // wait for enter to be pressed before leaving function
     {
         lastSecond = 61;
         curFunct = NULL;
@@ -893,6 +912,8 @@ void menu_setTime(unsigned char na)
                 if(blinker==0) sprintf(curTimeString,"%2d/%2d/20%2d %2d:%2d",curTime.month,curTime.day,curTime.year,curTime.hour,curTime.minute);
                 else sprintf(curTimeString,"%2d/%2d/20%2d %2d:__",curTime.month,curTime.day,curTime.year,curTime.hour);
                 break;
+            default:
+                strcpy(curTimeString,"error in ptr");
         }
         lcd_display(2,curTimeString);
     }
@@ -907,9 +928,13 @@ void menu_setTime(unsigned char na)
         ++step;
         if(step > 4)
         {
-            rtc_set(curTime);
+            curTime.second = 0;
+            curTime.weekday = 0;
+            curTime.weekofyear = 0;
+            rtc_set(&curTime);
             curFunct = NULL;
             ran = 0;
+            step = 0;
         }
     }
     else if(key == UPKEY)
@@ -937,6 +962,8 @@ void menu_setTime(unsigned char na)
             if(curTime.minute == 59) curTime.minute = 0;
             else curTime.minute++;
         }
+        timeoutInit();
+        blinker = 0;
     }
     else if(key == DOWNKEY)
     {
@@ -963,9 +990,64 @@ void menu_setTime(unsigned char na)
             if(curTime.minute == 0) curTime.minute = 59;
             else curTime.minute--;
         }
+        timeoutInit();
+        blinker = 0;
     }
     return;
 }
+
+void menu_setDimLevel(unsigned char id)
+{
+    static unsigned int setting;
+    unsigned char dimState;
+    static unsigned ran = 0;
+    static bit newDisp;
+    unsigned char key;
+    key=keypad_pull();
+    if(ran==0)
+    {
+        ran=1;
+        newDisp=1;
+        setting = setting_lightDim;
+        strcpy(lineData,"Set Dim Level:");
+        lcd_display(0,NULL);
+        lcd_display(1,lineData);
+        dimState = (setting_bits1 | 0b00001100) >> 2;
+    }
+
+    if(newDisp==1)
+    {
+        sprintf(lineData,"Value: %d/256",setting);
+        lcd_display(2,lineData);
+        if(dimState == 1) pwm_set(LED_CHAN, setting); // refresh the dim state if dimmed
+    }
+
+    if(key == CANCEL)
+    {
+        curFunct = NULL;
+        ran = 0;
+    }
+    else if(key == ENTERKEY)
+    {
+        setting_lightDim = setting;
+        curFunct = NULL;
+        ran = 0;
+    }
+    else if(key == UPKEY)
+    {
+        if(setting == 256) setting = 0;
+        else setting++;
+        newDisp = 1;
+    }
+    else if(key == DOWNKEY)
+    {
+        if(setting == 0) setting = 256;
+        else setting--;
+        newDisp = 1;
+    }
+    return;
+}
+
 
 static unsigned char daysInMonth(unsigned char month, unsigned char year)
 {
