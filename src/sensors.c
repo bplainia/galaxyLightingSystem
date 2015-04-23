@@ -148,12 +148,15 @@ unsigned int ang_pos(unsigned potnum, unsigned update){
  */
 unsigned pir(void){
 
+    int rep5, rep10; // replace, they tick over every second
+
     static unsigned last = NO_MOVE;
     static unsigned led_on = LED_OFF;
     unsigned char setting;
     setting = (setting_bits1 | 0b00001100) >> 2;
     if(setting == 0b11 && (setting_timeout > 0))
     {
+
         // when movement occurs, reset 5 second timer
         // if movement has continued for more than five seconds, turn the light on
 
