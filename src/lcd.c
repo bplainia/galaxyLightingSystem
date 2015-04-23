@@ -1089,7 +1089,7 @@ void menu_alarm_battery(unsigned char id)
       
  }
 
-//alarm for limit sensors: NOT DONE
+//alarm for limit sensors: DONE!!!
 void menu_alarm_sensor(unsigned char id)
 {
     if((PIN_LIMIT_DOWN==1) && (PIN_LIMIT_UP==1))
@@ -1097,48 +1097,55 @@ void menu_alarm_sensor(unsigned char id)
         menu[7].entry[3].text = "Seasonal Sensors OFF"
                 menu[7].entry[3].function = menu_up;
     }
-    else
+    if((PIN_LIMIT_DOWN==0) || (PIN_LIMIT_UP==0))
     {
         menu[7].entry[3].text = "Season Sensors Active"
+                menu[7].entry[3].function = menu_up;
     }
-
     if((PIN_LIMIT_EAST==1) && (PIN_LIMIT_WEST==1))
     {
         menu[7].entry[3].text = "Day Sensors OFF"
                 menu[7].entry[3].function = menu_up;
     }
-    else
+    if((PIN_LIMIT_EAST==0) || (PIN_LIMIT_WEST==0))
     {
         menu[7].entry[3].text = "Day Sensors Active"
+                menu[7].entry[3].function = menu_up;
     }
 }
 
 
-//alarm for motors
+//alarm for motors: NOT DONE YET!!!
+//from motor_move interupt
 void menu_alarm_motor(unsigned char id)
 {
-//    if(
-//            (ang_pos(POT_DAY,1)) && ()
-
+    if((UP) || (DOWN))
+    {
+        delay                                           //I need a delay
+        menu[7].entry[2].text = "Yaxis Motor OFF"
+                menu[7].entry[2].function = menu_up;
+    }
+    if((EAST) || (WEST))
+    {
+        delay                                           //I need a delay
+        menu[7].entry[2].text = "Motors set"
+                menu[7].entry[2].function = menu_up;
+    }
 }
 
 
 
-#define PIN_LIMIT_DOWN      LATGbits.LATG4
-#define PIN_LIMIT_UP        LATFbits.LATF2
-#define PIN_LIMIT_EAST      LATFbits.LATF6
-#define PIN_LIMIT_WEST      LATFbits.LATF7
 
 //alarm for the light lamp: DONE!!
 void menu_alarm_light(unsigned char id)
 {
-        if((LED_DUTY_ON) && (PHOTO_LEV > 0.3f))                                     //change...
+        if((LED_DUTY_ON) && (PHOTO_LEV > 0.3f))            //double check
         {
             strcpy(lineData,"Light Bulb Offline");
             lcd_display(1,lineData);
             strcpy(lineData,"Check Connection");
             lcd_display(2,lineData);
-            menu[7].entry[0].function = menu_up;
+            menu[7].entry[1].function = menu_up;
         }
         else
         {
@@ -1154,13 +1161,13 @@ void menu_alarm_light(unsigned char id)
 //alarm for the communication: NOT DONE!!
 void menu_alarm_comm(unsigned char id)
 {
-        if(PORTCbits.RC5==0)                                     //change...
+        if(TXSTA1bits.BRGH == 0)                                     //change...
         {
             strcpy(lineData,"Comm Offline");
             lcd_display(1,lineData);
             strcpy(lineData,"Check Connection");
             lcd_display(2,lineData);
-            menu[7].entry[0].function = menu_up;
+            menu[7].entry[4].function = menu_up;
         }
         else
         {

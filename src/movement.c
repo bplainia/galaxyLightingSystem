@@ -1,4 +1,5 @@
 #include <movement.h>
+#include <lcd.h>
 
 
 /* Global variable matrix for analog limits on potentiometers
@@ -378,3 +379,16 @@ unsigned int abs(int num)
 
 // FIXME: Luke, BEWARE USING INTS. Please try to remove them. They waste cpu. - Ben
 // Please see lcd.c and eeprom.h for details on command stuff.
+
+void mhurricane(void)
+{
+    while(limits() != PIN_LIMIT_DOWN)
+    {
+        if(keypad_pull() == CANCEL)
+        {
+            return;
+        }
+
+        motor_move(DOWN);
+    }
+}

@@ -36,12 +36,12 @@
 #define PINAD_LIMIT_EAST    ANCON2bits.ANSEL10
 #define PINAD_LIMIT_WEST    ANCON2bits.ANSEL11
 
-#define PIN_PIR             LATCbits.LATC6
+#define PIN_PIR             PORTCbits.RC6
 
-#define PIN_LIMIT_DOWN      LATGbits.LATG4
-#define PIN_LIMIT_UP        LATFbits.LATF2
-#define PIN_LIMIT_EAST      LATFbits.LATF6
-#define PIN_LIMIT_WEST      LATFbits.LATF7
+#define PIN_LIMIT_DOWN      PORTGbits.RG4
+#define PIN_LIMIT_UP        PORTFbits.RF2
+#define PIN_LIMIT_EAST      PORTFbits.RF6
+#define PIN_LIMIT_WEST      PORTFbits.RF7
 
 #define CHAN_POT_DAY    2   // 0b00010
 #define CHAN_POT_YEAR   3   // 0b00011

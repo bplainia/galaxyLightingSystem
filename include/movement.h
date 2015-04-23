@@ -43,6 +43,7 @@ void maint_move(unsigned char);
 void motor_move(unsigned char);
 void day_pos_move(unsigned int);
 void year_pos_move(unsigned int);
+void mhurricane(void);
 unsigned int abs(int);
 
 #endif
