@@ -148,50 +148,42 @@ unsigned int ang_pos(unsigned potnum, unsigned update){
  */
 unsigned pir(void){
 
+    int rep5, rep10; // replace, they tick over every second
+
     static unsigned last = NO_MOVE;
     static unsigned led_on = LED_OFF;
-    static unsigned char ten_min_min = 60;
-    static unsigned char ten_min_sec = 60;
-    static unsigned char five_sec = 60;
-    datetime currenttime;
+
     unsigned char setting;
     setting = (setting_bits1 | 0b00001100) >> 2;
     if(setting == 0b11)
     {
-        rtc_get(&currenttime);
+
+        // when movement occurs, reset 5 second timer
+        // if movement has continued for more than five seconds, turn the light on
 
         if (PIN_PIR == MOVE)
         {
             if (last == NO_MOVE)
             {
-                five_sec = currenttime.second;
-                if (five_sec < 5)
-                {
-                    five_sec = five_sec + 60;
-                }
-                five_sec = five_sec - 5;
+                rep5 = 0;
             }
-            else if(currenttime.second <= five_sec)
+            else if(rep5 > 5)
             {
                 led(LED_ON);
                 led_on = LED_ON;
+                rep10 = 0;
             }
             last = MOVE;
         }
-        else if(led_on == LED_ON)
-        {
 
-            if (last == MOVE)
-            {
-                ten_min_min = currenttime.minute;
-                ten_min_sec = currenttime.second;
-                if(ten_min_min < 10)
-                {
-                    ten_min_min = ten_min_min + 60;
-                }
-                ten_min_min = ten_min_min - 10;
-            }
-            else if((currenttime.minute <= ten_min_min) && (currenttime.second <= ten_min_sec))
+        // when there movement stops, and if the light is on (check for speed)
+        // reset the 10 minute timer
+        // after 10 minutes, turn the light back to DIM
+        // 10 min timer is only reset if motion is detected for more than 5 seconds
+
+        else if(led_on == LED_ON)   //
+        {
+            if(rep10 >= 10*60)
             {
                 led(LED_DIM);
                 led_on = LED_OFF;
