@@ -102,7 +102,7 @@ void lcd_setup()
     menu[2].numEntries = 5;
 
     // Comm Status
-    menu[3].text = "Josh's Menu";
+    menu[3].text = "Comm Menu";     //Ben, you created this for the communication. I thought you were going to tag communication updates here?
     menu[3].entry[0].text = "Comm Status";
     menu[3].entry[1].text = "Master/Slave Mode";       // 0=master, 1=slave
     menu[3].entry[2].text = "Comm to Master ";
@@ -168,24 +168,24 @@ void lcd_setup()
 
     //Maintenance needed, these are read only
     menu[7].text = "Error Alerts      ";      //no response. "immediate attention needed"
-        menu[7].entry[0].text = "Battery offline   ";       //
-        menu[7].entry[0].function = NULL;
-        menu[7].entry[0].data = NULL; // batt_live
+        menu[7].entry[0].text = "Battery Alarm   ";       //
+        menu[7].entry[0].function = menu_alarm_battery;
+        menu[7].entry[0].data = NULL; 
 
-        menu[7].entry[1].text = "Bulb dead       ";
-        menu[7].entry[1].function = NULL; //bulb_detect;
+        menu[7].entry[1].text = "Light Alarm       ";
+        menu[7].entry[1].function = menu_alarm_light;     //bulb dead? bulb on?
         menu[7].entry[1].data = NULL;
 
-        menu[7].entry[2].text = "Tracking motors off       ";
-        menu[7].entry[2].function = NULL;
+        menu[7].entry[2].text = "Motor Alarm       ";
+        menu[7].entry[2].function = menu_alarm_motor;
         menu[7].entry[2].data = NULL;
 
-        menu[7].entry[3].text = "Sensors off range        ";
-        menu[7].entry[3].function = NULL;
+        menu[7].entry[3].text = "Sensors Alarm        ";
+        menu[7].entry[3].function = menu_alarm_sensor;
         menu[7].entry[3].data = NULL;
 
         menu[7].entry[4].text = "Comm Offline       ";
-        menu[7].entry[4].function = NULL;
+        menu[7].entry[4].function = menu_alarm_comm;
         menu[7].entry[4].data = NULL;
 
         menu[7].entry[5].text = "Go to Main Menu    ";
@@ -748,7 +748,6 @@ void menu_setACBatt(unsigned char id)
                 break;
             case 1:
                 menu[5].entry[0].text = "Power on AC ONLY";
-                //if(PORTCbits.RC5)  LATAbits.LATA4 = 0;
                 LATAbits.LATA4 = 0;
                 break;
             case 2:
@@ -1065,3 +1064,98 @@ static unsigned char daysInMonth(unsigned char month, unsigned char year)
     }
     return 31;
 }
+
+
+/// Alarm for the battery
+void menu_alarm_battery(unsigned char id)
+{
+     static unsigned swtch = 0;
+    unsigned char setting, key;
+    setting = (setting_bits1 | 0b00000010) >> 1;
+    if(swtch == 0)
+    {
+        lcd_display(0,NULL);
+        if(PORTCbits.RC5==0)
+        {
+            strcpy(lineData,"Battery Offline");
+            lcd_display(1,lineData);
+            strcpy(lineData,"Check Connection");
+            lcd_display(2,lineData);
+            menu[7].entry[0].function = menu_up;
+        }
+        else
+        {
+            strcpy(lineData,"Battery Online");
+            lcd_display(1,lineData);
+            strcpy(lineData,"(Good to go)      ");
+            lcd_display(2,lineData);
+            menu[7].entry[0].function = menu_up;
+        }
+        swtch = 1;
+    }
+ }
+
+//a
+
+
+
+
+
+//alarm for the light lamp
+void menu_alarm_light(unsigned char id)
+{
+     static unsigned swtch = 0;
+    unsigned char setting, key;
+    setting = (setting_bits1 | 0b00000010) >> 1;
+    if(swtch == 0)
+    {
+        lcd_display(0,NULL);
+        if(LED_DUTY_ON && )                                     //change...
+        {
+            strcpy(lineData,"Light Bulb Offline");
+            lcd_display(1,lineData);
+            strcpy(lineData,"Check Connection");
+            lcd_display(2,lineData);
+            menu[7].entry[0].function = menu_up;
+        }
+        else
+        {
+            strcpy(lineData,"Light Bulb Online");
+            lcd_display(1,lineData);
+            strcpy(lineData,"(Good to go)      ");
+            lcd_display(2,lineData);
+            menu[7].entry[1].function = menu_up;
+        }
+        swtch = 1;
+    }
+ }
+
+
+//alarm for the communication
+void menu_alarm_comm(unsigned char id)
+{
+     static unsigned swtch = 0;
+    unsigned char setting, key;
+    setting = (setting_bits1 | 0b00000010) >> 1;
+    if(swtch == 0)
+    {
+        lcd_display(0,NULL);
+        if(PORTCbits.RC5==0)                                     //change...
+        {
+            strcpy(lineData,"Comm Offline");
+            lcd_display(1,lineData);
+            strcpy(lineData,"Check Connection");
+            lcd_display(2,lineData);
+            menu[7].entry[0].function = menu_up;
+        }
+        else
+        {
+            strcpy(lineData,"Comm Online");
+            lcd_display(1,lineData);
+            strcpy(lineData,"(Good to go)      ");
+            lcd_display(2,lineData);
+            menu[7].entry[4].function = menu_up;
+        }
+        swtch = 1;
+    }
+ }

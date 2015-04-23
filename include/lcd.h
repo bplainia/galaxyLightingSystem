@@ -65,6 +65,11 @@ void menu_setXaxis(unsigned char);
 void menu_setYaxis(unsigned char);
 void menu_seeStatus(unsigned char);
 void menu_setDimLevel(unsigned char);
+void menu_alarm_battery(unsigned char);
+void menu_alarm_light(unsigned char);
+void menu_alarm_motor(unsigned char);
+void menu_alarm_sensor(unsigned char);
+void menu_alarm_comm(unsigned char);
 static unsigned char daysInMonth(unsigned char, unsigned char);
 
 /*! \page menu The LCD Menu System
