@@ -105,13 +105,25 @@ void lcd_setup()
     // Comm Status
     menu[3].text = "Comm Menu";     //Ben, you created this for the communication. I thought you were going to tag communication updates here?
     menu[3].entry[0].text = "Comm Status";
+    menu[3].entry[0].function = NULL;
+    menu[3].entry[0].data = NULL;
+
     menu[3].entry[1].text = "Master/Slave Mode";       // 0=master, 1=slave
+    menu[3].entry[1].function = NULL;
+    menu[3].entry[1].data = NULL;
+
     menu[3].entry[2].text = "Comm to Master ";
+    menu[3].entry[2].data = NULL;
+    menu[3].entry[2].function = NULL;
+
     menu[3].entry[3].text = "Pole ID#:%3d";
     menu[3].entry[3].data = &myAddr;       //my addr (find this)
+    menu[3].entry[3].function = NULL;
+
     menu[3].entry[4].text = "Go to Main Menu";
-    menu[3].entry[0].function = menu_up;
-    menu[3].numEntries = 1;
+    menu[3].entry[4].data = NULL;
+    menu[3].entry[4].function = menu_up;
+    menu[3].numEntries = 5;
 
     // Clock Options
     menu[4].text          = "Clock Options";
@@ -121,9 +133,11 @@ void lcd_setup()
 
         menu[4].entry[1].text = "Set Time";
         menu[4].entry[1].function = menu_setTime;
+        menu[4].entry[1].data = NULL;
 
         menu[4].entry[2].text = "Go to Main Menu";
         menu[4].entry[2].function = menu_up;
+        menu[4].entry[2].data = NULL;
     menu[4].numEntries = 3;
 
     // Misc. Options (Includes Power Control)
@@ -138,6 +152,7 @@ void lcd_setup()
 
         menu[5].entry[2].text = "Go to Main Menu";
         menu[5].entry[2].function = menu_up;
+        menu[5].entry[2].data = NULL;
     menu[5].numEntries = 3;
 
     // About
@@ -182,11 +197,11 @@ void lcd_setup()
         menu[7].entry[1].data = NULL;
 
         menu[7].entry[2].text = "Motor Alarm       ";
-        menu[7].entry[2].function = menu_alarm_motor;
+        menu[7].entry[2].function = NULL;   //menu_alarm_motor;
         menu[7].entry[2].data = NULL;
 
         menu[7].entry[3].text = "Sensors Alarm        ";
-        menu[7].entry[3].function = menu_alarm_sensor;
+        menu[7].entry[3].function = NULL; //menu_alarm_sensor;
         menu[7].entry[3].data = NULL;
 
         menu[7].entry[4].text = "Comm Offline       ";
@@ -196,7 +211,7 @@ void lcd_setup()
         menu[7].entry[5].text = "Go to Main Menu    ";
         menu[7].entry[5].function = menu_up;
         menu[7].entry[5].data = NULL;
-    menu[7].numEntries = 6;         //TODO: Do not understand!! what goes in questionmark?
+    menu[7].numEntries = 6;
 
     
     // If you add another main menu entry, make sure to change NUMMENUENTRIES
@@ -205,6 +220,7 @@ void lcd_setup()
     curFunct = NULL;
     mainMenuPtr = -1, subMenuPtr = -1;
     selectedPole=255;
+    lcd_background(0,0,0);
     return;
 }
 
@@ -378,7 +394,7 @@ void menu_display()
         strcpy(line1,menu[mainMenuPtr].text);
         if(menu[mainMenuPtr].entry[subMenuPtr].data != NULL)
         {
-             sprintf(line2,menu[mainMenuPtr].entry[subMenuPtr].text,menu[mainMenuPtr].entry[subMenuPtr].data);
+             sprintf(line2,menu[mainMenuPtr].entry[subMenuPtr].text,*(menu[mainMenuPtr].entry[subMenuPtr].data));
         }
         else
         {
@@ -503,27 +519,31 @@ void menu_getSelection() // BLOCKING
 /// Set the light mode (full,dim,auto,off)
 void menu_setLightMode(unsigned char id)
 {
-    static unsigned char setting;
+    static unsigned char setting = 3;
     static unsigned swtch = 0;
+    static unsigned newDisp = 1;
     unsigned char key;
     if(swtch==0) // swtch is the variable that keeps this from importing the current setting every time.
     {
-        setting = (setting_bits1 | 0b00001100) >> 2;
+        setting = (setting_bits1 & 0b00001100) >> 2;
         swtch = 1;
         lcd_display(0,NULL);
-        strcpy(lineData,"Change Light Mode");
+        strcpy(lineData,"Change Light Mode   ");
         lcd_display(1,lineData);
+        newDisp = 1;
     }
     key = keypad_pull();
     if(key == UPKEY)
     {
         if(setting == 4) setting = 0;
         else ++setting;
+        newDisp = 1;
     }
     else if(key == DOWNKEY)
     {
         if(setting == 0) setting = 4;
         else --setting;
+        newDisp = 1;
     }
     else if(key == CANCEL)
     {
@@ -565,24 +585,32 @@ void menu_setLightMode(unsigned char id)
         swtch = 0;
         return;
     }
-    switch(setting)
+    if(newDisp)
     {
-        case 0:
-            strcpy(lineData,"Off                 ");
-            break;
-        case 1:
-            strcpy(lineData,"Dim                 ");
-            break;
-        case 2:
-            strcpy(lineData,"High                ");
-            break;
-        case 3:
-            strcpy(lineData,"Auto                ");
-            break;
-        case 4:
-            strcpy(lineData,"Cancel");
+        switch(setting)
+        {
+            case 0:
+                strcpy(lineData,"Off                 ");
+                break;
+            case 1:
+                strcpy(lineData,"Dim                 ");
+                break;
+            case 2:
+                strcpy(lineData,"High                ");
+                break;
+            case 3:
+                strcpy(lineData,"Auto                ");
+                break;
+            case 4:
+                strcpy(lineData,"Cancel");
+                break;
+            default:
+                setting=3;
+                return;
+        }
+        lcd_display(2,lineData);
+        newDisp = 0;
     }
-    lcd_display(2,lineData);
 }
 
 /// Menu Function for activating hurricane mode
@@ -590,7 +618,7 @@ void menu_setHurricaneMode(unsigned char id)
 {
     static unsigned swtch = 0;
     unsigned char setting, key;
-    setting = (setting_bits1 | 0b00000010) >> 1;
+    setting = (setting_bits1 & 0b00000010) >> 1;
     if(swtch == 0)
     {
         lcd_display(0,NULL);
@@ -651,7 +679,7 @@ void menu_setPanelMode(unsigned char id)
     static specialChar x = {0,1,NOKEY,1};
     if(x.ran==0)
     {
-        x.setting = setting_bits1 | 0b00000001;
+        x.setting = setting_bits1 & 0b00000001;
         x.ran=1;
         if(x.setting == 1)
         {
@@ -704,7 +732,7 @@ void menu_setACBatt(unsigned char id)
     unsigned char key;
     if(swtch==0)
     {
-        setting = (setting_bits1 | 0b00110000) >> 4; // import current value once
+        setting = (setting_bits1 & 0b00110000) >> 4; // import current value once
         swtch = 1;
         newDisp=1;
         lcd_display(0,NULL);
@@ -1015,7 +1043,7 @@ void menu_setDimLevel(unsigned char id)
         strcpy(lineData,"Set Dim Level:");
         lcd_display(0,NULL);
         lcd_display(1,lineData);
-        dimState = (setting_bits1 | 0b00001100) >> 2;
+        dimState = (setting_bits1 & 0b00001100) >> 2;
     }
 
     if(newDisp==1)
@@ -1067,7 +1095,7 @@ void menu_setDimLength(unsigned char id)
         strcpy(lineData,"Set Dim Timeout:");
         lcd_display(0,NULL);
         lcd_display(1,lineData);
-        dimState = (setting_bits1 | 0b00001100) >> 2;
+        dimState = (setting_bits1 & 0b00001100) >> 2;
     }
 
     if(newDisp==1)
@@ -1104,25 +1132,69 @@ void menu_setDimLength(unsigned char id)
     return;
 }
 
-void menu_battVoltage(unsigned char id)
+void menu_setAddr(unsigned char id)
 {
+    static unsigned int setting;
+    unsigned char dimState;
     static unsigned ran = 0;
-    unsigned char string[21];
-    double battvolt;
-    if(ran == 0)
+    static bit newDisp;
+    unsigned char key;
+    key=keypad_pull();
+    if(ran==0)
     {
-        battvolt = adc_read(ANBATT)*9.9/4096.0;       //input variable
+        ran=1;
+        newDisp=1;
+        setting = myAddr;
+        strcpy(lineData,"Set Pole Address:");
         lcd_display(0,NULL);
-        strcpy(string,"Battery Voltage:");
-        lcd_display(1,string);
-        sprintf(string,"%02.2f",battvolt);
-        lcd_display(2,string);
-        ran = 1;
+        lcd_display(1,lineData);
     }
-    if(keypad_pull() == ENTERKEY)
+
+    if(newDisp==1)
+    {
+        sprintf(lineData,"Address: %03d/249   ",setting);
+        lcd_display(2,lineData);
+    }
+
+    if(key == CANCEL)
     {
         curFunct = NULL;
         ran = 0;
+    }
+    else if(key == ENTERKEY)
+    {
+        setting_timeout = setting;
+        curFunct = NULL;
+        ran = 0;
+    }
+    else if(key == UPKEY)
+    {
+        if(setting == 249) setting = 0;
+        else setting++;
+        newDisp = 1;
+    }
+    else if(key == DOWNKEY)
+    {
+        if(setting == 0) setting = 249;
+        else setting--;
+        newDisp = 1;
+    }
+    return;
+}
+
+void menu_battVoltage(unsigned char id)
+{
+    unsigned char string[21];
+    double battvolt;
+    battvolt = adc_read(ANBATT)*9.9/4096.0;       //input variable
+    lcd_display(0,NULL);
+    strcpy(string,"Battery Voltage:   ");
+    lcd_display(1,string);
+    sprintf(string,"%02.2f             ",battvolt);
+    lcd_display(2,string);
+    if(keypad_pull() == ENTERKEY)
+    {
+        curFunct = NULL;
     }
 }
 
@@ -1147,14 +1219,14 @@ static unsigned char daysInMonth(unsigned char month, unsigned char year)
 /// Alarm for the battery: DONE!
 void menu_alarm_battery(unsigned char id)
 {
-     
-        if(PORTCbits.RC5==0)
+    double batVolt;
+    batVolt = adc_read(ANBATT) * 3.3 / 4028.0;
+        if(batVolt < 1.0)
         {
             strcpy(lineData,"Battery Offline");
             lcd_display(1,lineData);
             strcpy(lineData,"Check Connection");
             lcd_display(2,lineData);
-            menu[7].entry[0].function = menu_up;
         }
         else
         {
@@ -1162,66 +1234,68 @@ void menu_alarm_battery(unsigned char id)
             lcd_display(1,lineData);
             strcpy(lineData,"(Good to go)      ");
             lcd_display(2,lineData);
-            menu[7].entry[0].function = menu_up;
         }
-      
+      if(keypad_pull() == ENTERKEY)
+        {
+            curFunct = NULL;
+        }
  }
 
 //alarm for limit sensors: DONE!!!
-void menu_alarm_sensor(unsigned char id)
-{
-    if((PIN_LIMIT_DOWN==1) && (PIN_LIMIT_UP==1))
-    {
-        menu[7].entry[3].text = "Seasonal Sensors OFF"
-                menu[7].entry[3].function = menu_up;
-    }
-    if((PIN_LIMIT_DOWN==0) || (PIN_LIMIT_UP==0))
-    {
-        menu[7].entry[3].text = "Season Sensors Active"
-                menu[7].entry[3].function = menu_up;
-    }
-    if((PIN_LIMIT_EAST==1) && (PIN_LIMIT_WEST==1))
-    {
-        menu[7].entry[3].text = "Day Sensors OFF"
-                menu[7].entry[3].function = menu_up;
-    }
-    if((PIN_LIMIT_EAST==0) || (PIN_LIMIT_WEST==0))
-    {
-        menu[7].entry[3].text = "Day Sensors Active"
-                menu[7].entry[3].function = menu_up;
-    }
-}
-
-
-//alarm for motors: NOT DONE YET!!!
-//from motor_move interupt
-void menu_alarm_motor(unsigned char id)
-{
-    if((UP) || (DOWN) && (PIN_LIMIT_DOWN==0) && (PIN_LIMIT_UP==0))
-    {
-        delay                                           //I need a delay
-        menu[7].entry[2].text = "Yaxis Motor OFF"
-                menu[7].entry[2].function = menu_up;
-    }
-    if((EAST) || (WEST) && (PIN_LIMIT_EAST==0) && (PIN_LIMIT_WEST==0))
-    {
-        delay                                         //I need a delay
-        menu[7].entry[2].text = "Xaxis Motor OFF"
-                menu[7].entry[2].function = menu_up;
-    }
-    if((EAST) || (WEST) && (PIN_LIMIT_EAST==1) && (PIN_LIMIT_WEST==1))
-    {
-        delay                                         //I need a delay
-        menu[7].entry[2].text = "Motors set"
-                menu[7].entry[2].function = menu_up;
-    }
-    if((EAST) || (WEST) && (PIN_LIMIT_EAST==1) && (PIN_LIMIT_WEST==1))
-    {
-        delay                                         //I need a delay
-        menu[7].entry[2].text = "Motors set"
-                menu[7].entry[2].function = menu_up;
-    }
-}
+//void menu_alarm_sensor(unsigned char id)
+//{
+//    if((PIN_LIMIT_DOWN==1) && (PIN_LIMIT_UP==1))
+//    {
+//        menu[7].entry[3].text = "Seasonal Sensors OFF"
+//                menu[7].entry[3].function = menu_up;
+//    }
+//    if((PIN_LIMIT_DOWN==0) || (PIN_LIMIT_UP==0))
+//    {
+//        menu[7].entry[3].text = "Season Sensors Active"
+//                menu[7].entry[3].function = menu_up;
+//    }
+//    if((PIN_LIMIT_EAST==1) && (PIN_LIMIT_WEST==1))
+//    {
+//        menu[7].entry[3].text = "Day Sensors OFF"
+//                menu[7].entry[3].function = menu_up;
+//    }
+//    if((PIN_LIMIT_EAST==0) || (PIN_LIMIT_WEST==0))
+//    {
+//        menu[7].entry[3].text = "Day Sensors Active"
+//                menu[7].entry[3].function = menu_up;
+//    }
+//}
+//
+//
+////alarm for motors: NOT DONE YET!!!
+////from motor_move interupt
+//void menu_alarm_motor(unsigned char id)
+//{
+//    if((UP) || (DOWN) && (PIN_LIMIT_DOWN==0) && (PIN_LIMIT_UP==0))
+//    {
+//        delay                                           //I need a delay
+//        menu[7].entry[2].text = "Yaxis Motor OFF"
+//                menu[7].entry[2].function = menu_up;
+//    }
+//    if((EAST) || (WEST) && (PIN_LIMIT_EAST==0) && (PIN_LIMIT_WEST==0))
+//    {
+//        delay                                         //I need a delay
+//        menu[7].entry[2].text = "Xaxis Motor OFF"
+//                menu[7].entry[2].function = menu_up;
+//    }
+//    if((EAST) || (WEST) && (PIN_LIMIT_EAST==1) && (PIN_LIMIT_WEST==1))
+//    {
+//        delay                                         //I need a delay
+//        menu[7].entry[2].text = "Motors set"
+//                menu[7].entry[2].function = menu_up;
+//    }
+//    if((EAST) || (WEST) && (PIN_LIMIT_EAST==1) && (PIN_LIMIT_WEST==1))
+//    {
+//        delay                                         //I need a delay
+//        menu[7].entry[2].text = "Motors set"
+//                menu[7].entry[2].function = menu_up;
+//    }
+//}
 
 
 
@@ -1235,7 +1309,6 @@ void menu_alarm_light(unsigned char id)
             lcd_display(1,lineData);
             strcpy(lineData,"Check Connection");
             lcd_display(2,lineData);
-            menu[7].entry[1].function = menu_up;
         }
         else
         {
@@ -1243,7 +1316,10 @@ void menu_alarm_light(unsigned char id)
             lcd_display(1,lineData);
             strcpy(lineData,"(Good to go)      ");
             lcd_display(2,lineData);
-            menu[7].entry[1].function = menu_up;
+        }
+        if(keypad_pull() == ENTERKEY)
+        {
+            curFunct = NULL;
         }
  }
 
@@ -1257,7 +1333,6 @@ void menu_alarm_comm(unsigned char id)
             lcd_display(1,lineData);
             strcpy(lineData,"Check Connection");
             lcd_display(2,lineData);
-            menu[7].entry[4].function = menu_up;
         }
         else
         {
@@ -1265,6 +1340,9 @@ void menu_alarm_comm(unsigned char id)
             lcd_display(1,lineData);
             strcpy(lineData,"(Good to go)      ");
             lcd_display(2,lineData);
-            menu[7].entry[4].function = menu_up;
+        }
+        if(keypad_pull() == ENTERKEY)
+        {
+            curFunct = NULL;
         }
  }

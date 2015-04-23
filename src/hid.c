@@ -170,6 +170,7 @@ void lcd_end(unsigned char NA)               // exit out of menu and return to n
         status.mmode = 0; // Left Maintenence Mode (LCD and Communications are now on)
         COMSTAT.STATE = 0;
         lcd_display(0,NULL);
+        lcd_background(0,0,0);
     }
     else return;
 }

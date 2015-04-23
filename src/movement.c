@@ -377,18 +377,19 @@ unsigned int abs(int num)
     return(num);
 }
 
-// FIXME: Luke, BEWARE USING INTS. Please try to remove them. They waste cpu. - Ben
-// Please see lcd.c and eeprom.h for details on command stuff.
-
 void mhurricane(void)
 {
     while(limits() != PIN_LIMIT_DOWN)
     {
         if(keypad_pull() == CANCEL)
         {
+            motor_move(STOP);
             return;
         }
 
         motor_move(DOWN);
     }
+
+    motor_move(STOP);
+    return;
 }
