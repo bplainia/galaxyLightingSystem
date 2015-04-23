@@ -10,7 +10,7 @@ unsigned char mem_check()
     /// For now, this function merely checks to see if the EEPROM exists
     /// \todo TODO: set myAddr, the address of the pole, which is saved in EEPROM
     if(i2c_check(0x50)) memStatus |= 0b00001000; // EEPROM Does not exist
-    mem_read(0x0000,&myAddr,1);
+    //mem_read(0x0000,&myAddr,1);
     return memStatus; // this should always be something other than zero since it will always no have returned from zero
 }
 

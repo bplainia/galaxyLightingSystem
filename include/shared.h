@@ -17,6 +17,15 @@
 #define true 1
 #define false 0
 
+#define ANPHOTO1 7
+#define ANPHOTO2 12
+#define ANPHOTO3 13
+#define ANPHOTO4 14
+#define ANPOT1   3
+#define ANPOT2   2
+#define ANBATT   5
+#define ANTEMP   0
+
 /// System frequency is 32MHz. USB is at 48MHz
 #define _XTAL_FREQ 32000000 //
 
@@ -48,27 +57,13 @@ typedef struct
     unsigned char dataLength; // the length of the data
 }i2cPacket;
 
-/// A structure with a byte and a pointer to the next pointer
-/// This is for dynamic FIFO
-struct fifo
-{
-    unsigned char byte;
-    struct fifo *nextAddr;
-};
-
 // Standard Functions
 
 void adc_setup(void); // setup the adc module
-void adc_update(unsigned char); // Update a pin
-//unsigned int adc_read(unsigned char); // Read the given adc value out of the adc buffer
-void adc_update2(unsigned char, unsigned char); // Update 2 pins consecutively
-void adc_updateAll(); // Update all the ADC buffers that were selected in setup
-unsigned int adc_read(unsigned char);
+unsigned int adc_read(unsigned char); // Read the given adc value out of the adc buffer
 
 void pwm_setup(void); // Initialize TMR2 (you get to setup on your own)
 unsigned pwm_set(unsigned char, unsigned int); // Set pin to duty cycle
-
-void binary_conversion(int);        //DJ, what does this do?
 
 void i2c_setup(void); // Initialize the I2C pins
 unsigned i2c_tx(unsigned char, unsigned char, unsigned char, unsigned char, unsigned char*, unsigned int); // send data to address

@@ -71,6 +71,8 @@ void menu_alarm_light(unsigned char);
 void menu_alarm_motor(unsigned char);
 void menu_alarm_sensor(unsigned char);
 void menu_alarm_comm(unsigned char);
+void menu_setDimLength(unsigned char);
+void menu_battVoltage(unsigned char);
 static unsigned char daysInMonth(unsigned char, unsigned char);
 
 /*! \page menu The LCD Menu System

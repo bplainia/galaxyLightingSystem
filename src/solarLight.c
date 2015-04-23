@@ -169,8 +169,8 @@ void loop()
     //  }
 
     hid_loop(); // Maintainence Mode State Machine.
-    //power_loop();
-    //light_loop();
+    power_loop();
+    pir();
 
     // TODO: Sleep when we can to save power.
     if(status.state == 1 && status.mmode) // If daytime and not in maintainence mode
@@ -295,7 +295,7 @@ void interrupt high_priority isr_high()
         TMR3H  = 0xDF;
         TMR3L  = 0xFF;       // set to increment `time` every second
         ++pirTime;
-        ++moveTime;
+        ++pirLowTime;
     }
 }
 
