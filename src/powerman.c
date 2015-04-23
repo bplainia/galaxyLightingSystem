@@ -13,7 +13,6 @@ void power_setup(void)
 {
     TRISAbits.TRISA4 = 0;   // RA4 set as output to relay
     TRISAbits.TRISA5 = 1;   // battery input
-<<<<<<< Updated upstream
     LATAbits.LATA4=0;         //output initially set to zero
 }
 

@@ -1197,15 +1197,27 @@ void menu_alarm_sensor(unsigned char id)
 //from motor_move interupt
 void menu_alarm_motor(unsigned char id)
 {
-    if((UP) || (DOWN))
+    if((UP) || (DOWN) && (PIN_LIMIT_DOWN==0) && (PIN_LIMIT_UP==0))
     {
         delay                                           //I need a delay
         menu[7].entry[2].text = "Yaxis Motor OFF"
                 menu[7].entry[2].function = menu_up;
     }
-    if((EAST) || (WEST))
+    if((EAST) || (WEST) && (PIN_LIMIT_EAST==0) && (PIN_LIMIT_WEST==0))
     {
-        delay                                           //I need a delay
+        delay                                         //I need a delay
+        menu[7].entry[2].text = "Xaxis Motor OFF"
+                menu[7].entry[2].function = menu_up;
+    }
+    if((EAST) || (WEST) && (PIN_LIMIT_EAST==1) && (PIN_LIMIT_WEST==1))
+    {
+        delay                                         //I need a delay
+        menu[7].entry[2].text = "Motors set"
+                menu[7].entry[2].function = menu_up;
+    }
+    if((EAST) || (WEST) && (PIN_LIMIT_EAST==1) && (PIN_LIMIT_WEST==1))
+    {
+        delay                                         //I need a delay
         menu[7].entry[2].text = "Motors set"
                 menu[7].entry[2].function = menu_up;
     }
