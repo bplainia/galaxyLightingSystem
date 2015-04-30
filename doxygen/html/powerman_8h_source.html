@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.9.1"/>
-<title>Sr. Design 2015: C:/Users/Benjaminp/Documents/GitHub/firmware/include/powerman.h Source File</title>
+<title>Sr. Design 2015: C:/Users/Benjaminp/Documents/GitHub/firmware.X/include/powerman.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -114,22 +114,32 @@ $(document).ready(function(){initNavTree('powerman_8h_source.html','');});
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="shared_8h.html">shared.h</a>&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keywordtype">void</span> <a class="code" href="powerman_8h.html#affee66c0d193c4f976a52524f3608c25">power_intiate</a>();</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keywordtype">void</span> <a class="code" href="powerman_8h.html#a72cb243cfbd2b01077ed944b8056ce18">power_grid_chk</a>();      <span class="comment">//Check for main grid power if battery is getting low.</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="powerman_8h_html_a72cb243cfbd2b01077ed944b8056ce18"><div class="ttname"><a href="powerman_8h.html#a72cb243cfbd2b01077ed944b8056ce18">power_grid_chk</a></div><div class="ttdeci">void power_grid_chk()</div><div class="ttdef"><b>Definition:</b> <a href="powerman_8c_source.html#l00034">powerman.c:34</a></div></div>
+<div class="line"><a name="l00006"></a><span class="lineno"><a class="line" href="powerman_8h.html#a86363dcd400c2c5638d3dfbf1cb6d78b">    6</a></span>&#160;<span class="keywordtype">unsigned</span> <a class="code" href="powerman_8h.html#a86363dcd400c2c5638d3dfbf1cb6d78b">battin</a>;</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keywordtype">void</span> <a class="code" href="powerman_8h.html#ad0a24eaca8d3f175483a62c3c53d61dd">power_setup</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keywordtype">void</span> <a class="code" href="powerman_8h.html#aff12f1b3caaf4bc68a59f67ebb761d7e">power_loop</a>(<span class="keywordtype">void</span>);      <span class="comment">//Check for main grid power if battery is getting low.</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keywordtype">void</span> <a class="code" href="powerman_8h.html#a9247db7d9b59186007d75affd50ec962">power_switch</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>);</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keywordtype">void</span> <a class="code" href="powerman_8h.html#ac954b5398c1712e01da2fa8fd5fccab2">bulb_detect</a>();</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keywordtype">void</span> <a class="code" href="powerman_8h.html#a048b238d1d8bc57d709d428c14acb47d">batt_live</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>);</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">//definitions</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="powerman_8h_html_a9247db7d9b59186007d75affd50ec962"><div class="ttname"><a href="powerman_8h.html#a9247db7d9b59186007d75affd50ec962">power_switch</a></div><div class="ttdeci">void power_switch(unsigned char)</div></div>
+<div class="ttc" id="powerman_8h_html_aff12f1b3caaf4bc68a59f67ebb761d7e"><div class="ttname"><a href="powerman_8h.html#aff12f1b3caaf4bc68a59f67ebb761d7e">power_loop</a></div><div class="ttdeci">void power_loop(void)</div><div class="ttdef"><b>Definition:</b> <a href="powerman_8c_source.html#l00022">powerman.c:22</a></div></div>
+<div class="ttc" id="powerman_8h_html_ad0a24eaca8d3f175483a62c3c53d61dd"><div class="ttname"><a href="powerman_8h.html#ad0a24eaca8d3f175483a62c3c53d61dd">power_setup</a></div><div class="ttdeci">void power_setup(void)</div><div class="ttdef"><b>Definition:</b> <a href="powerman_8c_source.html#l00012">powerman.c:12</a></div></div>
+<div class="ttc" id="powerman_8h_html_ac954b5398c1712e01da2fa8fd5fccab2"><div class="ttname"><a href="powerman_8h.html#ac954b5398c1712e01da2fa8fd5fccab2">bulb_detect</a></div><div class="ttdeci">void bulb_detect()</div></div>
 <div class="ttc" id="shared_8h_html"><div class="ttname"><a href="shared_8h.html">shared.h</a></div></div>
-<div class="ttc" id="powerman_8h_html_affee66c0d193c4f976a52524f3608c25"><div class="ttname"><a href="powerman_8h.html#affee66c0d193c4f976a52524f3608c25">power_intiate</a></div><div class="ttdeci">void power_intiate()</div><div class="ttdef"><b>Definition:</b> <a href="powerman_8c_source.html#l00008">powerman.c:8</a></div></div>
+<div class="ttc" id="powerman_8h_html_a86363dcd400c2c5638d3dfbf1cb6d78b"><div class="ttname"><a href="powerman_8h.html#a86363dcd400c2c5638d3dfbf1cb6d78b">battin</a></div><div class="ttdeci">unsigned battin</div><div class="ttdef"><b>Definition:</b> <a href="powerman_8h_source.html#l00006">powerman.h:6</a></div></div>
+<div class="ttc" id="powerman_8h_html_a048b238d1d8bc57d709d428c14acb47d"><div class="ttname"><a href="powerman_8h.html#a048b238d1d8bc57d709d428c14acb47d">batt_live</a></div><div class="ttdeci">void batt_live(unsigned char)</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="powerman_8h.html">powerman.h</a></li>
-    <li class="footer">Generated on Wed Apr 15 2015 22:43:22 for Sr. Design 2015 by
+    <li class="footer">Generated on Thu Apr 23 2015 21:58:23 for Sr. Design 2015 by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.9.1 </li>
   </ul>

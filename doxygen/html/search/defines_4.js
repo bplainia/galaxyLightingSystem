@@ -1,23 +1,10 @@
 var searchData=
 [
   ['daily',['DAILY',['../rtc_8h.html#a926db88cf57ecd626ba6fa2acf0653fe',1,'rtc.h']]],
-  ['data_5fintf',['DATA_INTF',['../usb__device__cdc_8h.html#a07b2668863d059f30d2f2eac198b10fa',1,'usb_device_cdc.h']]],
-  ['desc_5fconfig_5fuint32_5ft',['DESC_CONFIG_uint32_t',['../usb__device_8h.html#a9605ba8c566ae4a4294169ddac50ab60',1,'usb_device.h']]],
-  ['desc_5fconfig_5fuint8_5ft',['DESC_CONFIG_uint8_t',['../usb__device_8h.html#af9184eace2608b99ae883d7ae355c9c1',1,'usb_device.h']]],
-  ['desc_5fconfig_5fword',['DESC_CONFIG_WORD',['../usb__device_8h.html#ab7bf3317d8606d3dacdd6280bbcc50b3',1,'usb_device.h']]],
+  ['daytimetrue',['DAYTIMETRUE',['../eeprom_8h.html#af9685c0fc19028742c8e8fc3fbf81b69',1,'eeprom.h']]],
   ['digital',['DIGITAL',['../sensors_8h.html#a5e3f0ed2799c1275891b863e4b8c89eb',1,'sensors.h']]],
-  ['dim',['DIM',['../light_8h.html#ac25189db92959bff3c6c2adf4c34b50a',1,'DIM():&#160;light.h'],['../sensors_8h.html#ac25189db92959bff3c6c2adf4c34b50a',1,'DIM():&#160;sensors.h']]],
-  ['disablenonzeroendpoints',['DisableNonZeroEndpoints',['../usb__hal__pic18_8h.html#acefd584d320e126a7bc12b970538cc87',1,'usb_hal_pic18.h']]],
+  ['dim',['DIM',['../light_8h.html#ac25189db92959bff3c6c2adf4c34b50a',1,'light.h']]],
   ['down',['DOWN',['../sensors_8h.html#a4193cd1c8c2e6ebd0e056fa2364a663f',1,'sensors.h']]],
-  ['dsc_5ffn_5facm',['DSC_FN_ACM',['../usb__device__cdc_8h.html#a7f0b8ad0084d1373a20f3574db443e6d',1,'usb_device_cdc.h']]],
-  ['dsc_5ffn_5fcall_5fmgt',['DSC_FN_CALL_MGT',['../usb__device__cdc_8h.html#ad96d2d4836e87652d3ec7e8e4f2cf395',1,'usb_device_cdc.h']]],
-  ['dsc_5ffn_5fcountry_5fselection',['DSC_FN_COUNTRY_SELECTION',['../usb__device__cdc_8h.html#a2a149ae91675c94fb6989550369e92e8',1,'usb_device_cdc.h']]],
-  ['dsc_5ffn_5fdlm',['DSC_FN_DLM',['../usb__device__cdc_8h.html#a085a177705ce7ed62619637832ccb2a6',1,'usb_device_cdc.h']]],
-  ['dsc_5ffn_5fheader',['DSC_FN_HEADER',['../usb__device__cdc_8h.html#aafbb11d44479224d9a2759bbf930faa9',1,'usb_device_cdc.h']]],
-  ['dsc_5ffn_5frpt_5fcapabilities',['DSC_FN_RPT_CAPABILITIES',['../usb__device__cdc_8h.html#aee8ae824673012c38f21e786c2a41a21',1,'usb_device_cdc.h']]],
-  ['dsc_5ffn_5ftel_5fop_5fmodes',['DSC_FN_TEL_OP_MODES',['../usb__device__cdc_8h.html#af92ee8bdfe706d730758a4a98f566e10',1,'usb_device_cdc.h']]],
-  ['dsc_5ffn_5ftelephone_5fringer',['DSC_FN_TELEPHONE_RINGER',['../usb__device__cdc_8h.html#ac196b5ef880c1967516b28dede2a6525',1,'usb_device_cdc.h']]],
-  ['dsc_5ffn_5funion',['DSC_FN_UNION',['../usb__device__cdc_8h.html#a74d9a50255805c282f98043170ee9330',1,'usb_device_cdc.h']]],
-  ['dsc_5ffn_5fusb_5fterminal',['DSC_FN_USB_TERMINAL',['../usb__device__cdc_8h.html#adb019c49f0a99c75c445e762fa65ae61',1,'usb_device_cdc.h']]],
+  ['downkey',['DOWNKEY',['../hid_8h.html#a8040b78eda949ef3de9b41c44c8dc5a8',1,'hid.h']]],
   ['dusk',['DUSK',['../sensors_8h.html#af5a876bec3fad4a3cf390369033916bc',1,'sensors.h']]]
 ];

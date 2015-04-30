@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['lcd_2ec',['lcd.c',['../lcd_8c.html',1,'']]],
-  ['lcd_2eh',['lcd.h',['../lcd_8h.html',1,'']]],
-  ['light_2ec',['light.c',['../light_8c.html',1,'']]],
-  ['light_2eh',['light.h',['../light_8h.html',1,'']]]
+  ['mainpage_2emd',['mainpage.md',['../mainpage_8md.html',1,'']]],
+  ['movement_2ec',['movement.c',['../movement_8c.html',1,'']]],
+  ['movement_2eh',['movement.h',['../movement_8h.html',1,'']]]
 ];

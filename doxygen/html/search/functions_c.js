@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['rtc_5fget',['rtc_get',['../rtc_8h.html#acee4efb6bf46425cbfc10232487aa3eb',1,'rtc_get(datetime *):&#160;rtc.c'],['../rtc_8c.html#aa82c881639ceb58638e763227ddab068',1,'rtc_get(datetime *time):&#160;rtc.c']]],
-  ['rtc_5fset',['rtc_set',['../rtc_8h.html#a58ce2d182f76e7f14fd40c21d9465a0c',1,'rtc_set(datetime):&#160;rtc.c'],['../rtc_8c.html#a476351b7fe2d99467f8e9b972cd47434',1,'rtc_set(datetime time):&#160;rtc.c']]],
-  ['rtc_5fsetup',['rtc_setup',['../rtc_8h.html#ae83559199d1a128c09c800d2622d5628',1,'rtc_setup(void):&#160;rtc.c'],['../rtc_8c.html#a9e961a2e8e8309e4fd490ac35f68a293',1,'rtc_setup():&#160;rtc.c']]]
+  ['temperature',['temperature',['../sensors_8h.html#a3c0cbef72f446f593e0858802ba65be1',1,'temperature(void):&#160;sensors.c'],['../sensors_8c.html#a3c0cbef72f446f593e0858802ba65be1',1,'temperature(void):&#160;sensors.c']]],
+  ['timeoutcheck',['timeoutCheck',['../shared_8h.html#a79fb34ecd6beb1c5db0e0e5f62385205',1,'timeoutCheck(unsigned int):&#160;shared.c'],['../shared_8c.html#a8d7f7d93d22ce918b02ffd02ac4497ba',1,'timeoutCheck(unsigned int timeCheck):&#160;shared.c']]],
+  ['timeoutinit',['timeoutInit',['../shared_8h.html#a9b2f904e1d031b510a020dbf7449bf66',1,'timeoutInit(void):&#160;shared.c'],['../shared_8c.html#a916766b01f558f94b764d86c51418d1f',1,'timeoutInit():&#160;shared.c']]]
 ];

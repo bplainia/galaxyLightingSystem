@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.9.1"/>
-<title>Sr. Design 2015: C:/Users/Benjaminp/Documents/GitHub/firmware/src/powerman.c File Reference</title>
+<title>Sr. Design 2015: C:/Users/Benjaminp/Documents/GitHub/firmware.X/src/powerman.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -112,90 +112,63 @@ $(document).ready(function(){initNavTree('powerman_8c.html','');});
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;<a class="el" href="powerman_8h_source.html">powerman.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="eeprom_8h_source.html">eeprom.h</a>&gt;</code><br />
+<code>#include &lt;math.h&gt;</code><br />
+<code>#include &lt;<a class="el" href="lcd_8h_source.html">lcd.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="hid_8h_source.html">hid.h</a>&gt;</code><br />
 </div>
 <p><a href="powerman_8c_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:affee66c0d193c4f976a52524f3608c25"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="powerman_8c.html#affee66c0d193c4f976a52524f3608c25">power_intiate</a> ()</td></tr>
-<tr class="separator:affee66c0d193c4f976a52524f3608c25"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a05b907ccf068ecf3baa67aaf04690e91"><td class="memItemLeft" align="right" valign="top">void interrupt&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="powerman_8c.html#a05b907ccf068ecf3baa67aaf04690e91">ipr</a> ()</td></tr>
-<tr class="separator:a05b907ccf068ecf3baa67aaf04690e91"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a72cb243cfbd2b01077ed944b8056ce18"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="powerman_8c.html#a72cb243cfbd2b01077ed944b8056ce18">power_grid_chk</a> ()</td></tr>
-<tr class="separator:a72cb243cfbd2b01077ed944b8056ce18"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acf7c89c4c16c742c488fa36cb51b5916"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="powerman_8c.html#acf7c89c4c16c742c488fa36cb51b5916">power_batt_chk</a> ()</td></tr>
-<tr class="separator:acf7c89c4c16c742c488fa36cb51b5916"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0a24eaca8d3f175483a62c3c53d61dd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="powerman_8c.html#ad0a24eaca8d3f175483a62c3c53d61dd">power_setup</a> (void)</td></tr>
+<tr class="separator:ad0a24eaca8d3f175483a62c3c53d61dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff12f1b3caaf4bc68a59f67ebb761d7e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="powerman_8c.html#aff12f1b3caaf4bc68a59f67ebb761d7e">power_loop</a> (void)</td></tr>
+<tr class="separator:aff12f1b3caaf4bc68a59f67ebb761d7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>\brief This file is for later use for power management functions as we see fit for them. May not even use at all. </p>
 
 <p>Definition in file <a class="el" href="powerman_8c_source.html">powerman.c</a>.</p>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="a05b907ccf068ecf3baa67aaf04690e91"></a>
+<a class="anchor" id="aff12f1b3caaf4bc68a59f67ebb761d7e"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void interrupt ipr </td>
+          <td class="memname">void power_loop </td>
           <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000019">Todo:</a></b></dt><dd>FIXME: What happens if our battery is low and we lose AC? (Right now, we loose the light and motors) </dd></dl>
+
+<p>Definition at line <a class="el" href="powerman_8c_source.html#l00022">22</a> of file <a class="el" href="powerman_8c_source.html">powerman.c</a>.</p>
+
+<p>Referenced by <a class="el" href="solar_light_8c_source.html#l00143">loop()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad0a24eaca8d3f175483a62c3c53d61dd"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void power_setup </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="powerman_8c_source.html#l00028">28</a> of file <a class="el" href="powerman_8c_source.html">powerman.c</a>.</p>
+<p>Definition at line <a class="el" href="powerman_8c_source.html#l00012">12</a> of file <a class="el" href="powerman_8c_source.html">powerman.c</a>.</p>
 
-</div>
-</div>
-<a class="anchor" id="acf7c89c4c16c742c488fa36cb51b5916"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void power_batt_chk </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="powerman_8c_source.html#l00041">41</a> of file <a class="el" href="powerman_8c_source.html">powerman.c</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a72cb243cfbd2b01077ed944b8056ce18"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void power_grid_chk </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="powerman_8c_source.html#l00034">34</a> of file <a class="el" href="powerman_8c_source.html">powerman.c</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="affee66c0d193c4f976a52524f3608c25"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void power_intiate </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="powerman_8c_source.html#l00008">8</a> of file <a class="el" href="powerman_8c_source.html">powerman.c</a>.</p>
+<p>Referenced by <a class="el" href="solar_light_8c_source.html#l00113">setup()</a>.</p>
 
 </div>
 </div>
@@ -205,7 +178,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="powerman_8c.html">powerman.c</a></li>
-    <li class="footer">Generated on Wed Apr 15 2015 22:43:23 for Sr. Design 2015 by
+    <li class="footer">Generated on Thu Apr 23 2015 21:58:24 for Sr. Design 2015 by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.9.1 </li>
   </ul>

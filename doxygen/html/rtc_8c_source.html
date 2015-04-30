@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.9.1"/>
-<title>Sr. Design 2015: C:/Users/Benjaminp/Documents/GitHub/firmware/src/rtc.c Source File</title>
+<title>Sr. Design 2015: C:/Users/Benjaminp/Documents/GitHub/firmware.X/src/rtc.c Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -115,208 +115,204 @@ $(document).ready(function(){initNavTree('rtc_8c_source.html','');});
 <div class="line"><a name="l00005"></a><span class="lineno"><a class="line" href="rtc_8c.html#a9e961a2e8e8309e4fd490ac35f68a293">    5</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="rtc_8c.html#a9e961a2e8e8309e4fd490ac35f68a293">rtc_setup</a>()</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    RTCCON1bits.RTCEN = 1; <span class="comment">// Enable RTC Clock</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    <a class="code" href="shared_8h.html#a8cb046a24ba7bdac20aa5ba5488b0656">status</a>.rtcInit = 0; <span class="comment">// real time clock has not been setup since reset!</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;}</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="rtc_8c.html#a476351b7fe2d99467f8e9b972cd47434">   19</a></span>&#160;<span class="keywordtype">unsigned</span> <a class="code" href="rtc_8c.html#a476351b7fe2d99467f8e9b972cd47434">rtc_set</a>(<a class="code" href="structdatetime.html">datetime</a> time)</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;{</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    EECON2 = 0x55;           <span class="comment">// Perform unlock sequence for special things</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    EECON2 = 0xAA;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    RTCCON1bits.RTCWREN = 1; <span class="comment">// Enable write to real time clock</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    RTCCON1bits.RTCPTR = 0b11; <span class="comment">// Let&#39;s start with writing the year</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    RTCVALL = char2bcd(time.<a class="code" href="structdatetime.html#a189605ebe7fb094d2d8d511d855c4bb0">year</a>);<span class="comment">// Write Year</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    RTCVALH = char2bcd(time.<a class="code" href="structdatetime.html#a4900720b55a67c901372712af062d615">month</a>); <span class="comment">// write month (rtcptr at 10)</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    RTCVALL = char2bcd(time.<a class="code" href="structdatetime.html#ab9ba6d415537c392fea1a330751865f9">day</a>);</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    RTCVALH = weekday(time.<a class="code" href="structdatetime.html#a189605ebe7fb094d2d8d511d855c4bb0">year</a>,time.<a class="code" href="structdatetime.html#a4900720b55a67c901372712af062d615">month</a>,time.<a class="code" href="structdatetime.html#ab9ba6d415537c392fea1a330751865f9">day</a>); <span class="comment">// write weekday (already only one digit)</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    RTCVALL = char2bcd(time.<a class="code" href="structdatetime.html#accdfe3c33766c9d6b3dc8996bb828dff">hour</a>); <span class="comment">// write hours (remember 24 hr format</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    RTCVALH = char2bcd(time.<a class="code" href="structdatetime.html#abf175f4cae8f64efbd5a637c25cfa5c7">minute</a>); <span class="comment">// write minutes</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    RTCVALL = char2bcd(time.<a class="code" href="structdatetime.html#a544c1372684ea82c01371865df228fe4">second</a>); <span class="comment">// write seconds (most likely 0)</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    RTCCON1bits.RTCWREN = 0; <span class="comment">// Finished. Disable write to rtc.</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <a class="code" href="shared_8h.html#a8cb046a24ba7bdac20aa5ba5488b0656">status</a>.rtcInit = 1;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;}</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
-<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="rtc_8c.html#aa82c881639ceb58638e763227ddab068">   39</a></span>&#160;<span class="keywordtype">unsigned</span> <a class="code" href="rtc_8c.html#aa82c881639ceb58638e763227ddab068">rtc_get</a>(<a class="code" href="structdatetime.html">datetime</a> *time)</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;{</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    RTCCON1bits.RTCPTR = 0b11;           <span class="comment">// Let&#39;s start with the year</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    (*time).year    = bcd2char(RTCVALL); <span class="comment">// Get the Year</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    (*time).month   = bcd2char(RTCVALH); <span class="comment">// Get the month (rtcptr at 0b10)</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    (*time).day     = bcd2char(RTCVALL); <span class="comment">// Get the day of the month</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    (*time).weekday = RTCVALH;           <span class="comment">// Get the weekday</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    (*time).hour    = bcd2char(RTCVALL); <span class="comment">// Get the hour (remember 24 hr format)</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    (*time).minute  = bcd2char(RTCVALH); <span class="comment">// Get the minute</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    (*time).second  = bcd2char(RTCVALL); <span class="comment">// Get the second (most likely 0)</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;}</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment">// Alarm things</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="rtc_8c.html#a3064ad13742d99dced913f814a7ce5ff">   61</a></span>&#160;<span class="comment"></span><span class="keywordtype">unsigned</span> <a class="code" href="rtc_8c.html#a3064ad13742d99dced913f814a7ce5ff">alarm_set</a>(<a class="code" href="structalarmtime.html">alarmtime</a> time)</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;{</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <a class="code" href="rtc_8c.html#a59601aa4f1e309a8dd9dec8055e0a87e">alarm_disable</a>(); <span class="comment">// prevent false alarms</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    ALRMCFGbits.ALRMPTR = 0b10;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="comment">// if the frequency is incorrect, error</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordflow">if</span>(time.<a class="code" href="structalarmtime.html#af05c152475e32c3c6ff2b156cf687299">frequency</a> &lt; 0b1001)</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    {</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    }</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="comment">// Set the month</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordflow">if</span>(time.<a class="code" href="structalarmtime.html#af05c152475e32c3c6ff2b156cf687299">frequency</a> == 0b1001) <span class="comment">// yearly</span></div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    {</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        ALRMVALH = char2bcd(time.<a class="code" href="structalarmtime.html#a4900720b55a67c901372712af062d615">month</a>); <span class="comment">// set the month</span></div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    }</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    {</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        ALRMVALH = 0; <span class="comment">// set the month</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    }</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="comment">// set the day</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordflow">if</span>(time.<a class="code" href="structalarmtime.html#af05c152475e32c3c6ff2b156cf687299">frequency</a> &gt;= 0b1000) <span class="comment">// monthly</span></div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    {</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        ALRMVALL = char2bcd(time.<a class="code" href="structalarmtime.html#ab9ba6d415537c392fea1a330751865f9">day</a>); <span class="comment">// set the day</span></div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    }</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    {</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        ALRMVALL = 0; <span class="comment">// set the day</span></div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    }</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="comment">// set the weekday</span></div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keywordflow">if</span>(time.<a class="code" href="structalarmtime.html#af05c152475e32c3c6ff2b156cf687299">frequency</a> == 0b0111) <span class="comment">// weekly</span></div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    {</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        <span class="keywordflow">if</span>(time.<a class="code" href="structalarmtime.html#ab9ba6d415537c392fea1a330751865f9">day</a> &gt; 6)</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        {</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        }</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        ALRMVALH = time.<a class="code" href="structalarmtime.html#ab9ba6d415537c392fea1a330751865f9">day</a>; <span class="comment">// set the weekday</span></div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    }</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    {</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        ALRMVALH = 0; <span class="comment">// set the weekday to nothing</span></div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    }</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="comment">// set the hour</span></div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keywordflow">if</span>(time.<a class="code" href="structalarmtime.html#af05c152475e32c3c6ff2b156cf687299">frequency</a> &gt;= 0b0110) <span class="comment">// daily</span></div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    {</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        ALRMVALL = char2bcd(time.<a class="code" href="structalarmtime.html#accdfe3c33766c9d6b3dc8996bb828dff">hour</a>); <span class="comment">// set the hour</span></div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    }</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    {</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        ALRMVALL = 0; <span class="comment">// set the hour to nothing</span></div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    }</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <span class="comment">// set the minute</span></div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="keywordflow">if</span>(time.<a class="code" href="structalarmtime.html#af05c152475e32c3c6ff2b156cf687299">frequency</a> &gt;= 0b0101) <span class="comment">// hourly</span></div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    {</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        ALRMVALH = char2bcd(time.<a class="code" href="structalarmtime.html#abf175f4cae8f64efbd5a637c25cfa5c7">minute</a>);</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    }</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span>(time.<a class="code" href="structalarmtime.html#af05c152475e32c3c6ff2b156cf687299">frequency</a> == 0b0100) <span class="comment">// every 10 min</span></div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    {</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        ALRMVALH = time.<a class="code" href="structalarmtime.html#abf175f4cae8f64efbd5a637c25cfa5c7">minute</a> % 10;</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    }</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    {</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        ALRMVALH = 0;</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    }</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <span class="comment">// set the second</span></div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    <span class="keywordflow">if</span>(time.<a class="code" href="structalarmtime.html#af05c152475e32c3c6ff2b156cf687299">frequency</a> &gt;= 0b0011) <span class="comment">// every minute</span></div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    {</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;        ALRMVALL = char2bcd(time.<a class="code" href="structalarmtime.html#a544c1372684ea82c01371865df228fe4">second</a>);</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    }</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span>(time.<a class="code" href="structalarmtime.html#af05c152475e32c3c6ff2b156cf687299">frequency</a> == 0b0010) <span class="comment">// every 10 seconds</span></div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    {</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;        ALRMVALL = time.<a class="code" href="structalarmtime.html#a544c1372684ea82c01371865df228fe4">second</a> % 10;</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    }</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    {</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;        ALRMVALL = 0;</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    }</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    <span class="comment">// the last two items are 1=second and 0=half second.</span></div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    <span class="keywordflow">if</span>(time.<a class="code" href="structalarmtime.html#a3fcd36b5f45dd7d834451cb9e1b81169">repeat</a> &gt; 2)</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    {</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>; <span class="comment">// if we were in another language, this would be an exeption</span></div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    }</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    <span class="keywordflow">if</span>(time.<a class="code" href="structalarmtime.html#a3fcd36b5f45dd7d834451cb9e1b81169">repeat</a> &gt; 0)</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    {</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        ALRMRPT = time.<a class="code" href="structalarmtime.html#a1fcc3b31437c17986a267d486585a52b">times</a>;</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    }</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    ALRMCFGbits.CHIME = time.<a class="code" href="structalarmtime.html#a3fcd36b5f45dd7d834451cb9e1b81169">repeat</a> &gt;&gt; 1; <span class="comment">// b1 is the chime bit</span></div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    ALRMCFGbits.AMASK = time.<a class="code" href="structalarmtime.html#af05c152475e32c3c6ff2b156cf687299">frequency</a>; <span class="comment">// now set the frequency of the alarm</span></div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    <a class="code" href="shared_8h.html#a8cb046a24ba7bdac20aa5ba5488b0656">status</a>.alarmInit = 1; <span class="comment">// we now have setup an alarm :)</span></div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>; <span class="comment">// success: nothing bad happened.</span></div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;}</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;</div>
-<div class="line"><a name="l00165"></a><span class="lineno"><a class="line" href="rtc_8c.html#a90ba74701d3d697f2fe95a325a4956e8">  165</a></span>&#160;<span class="keywordtype">unsigned</span> <a class="code" href="rtc_8c.html#a90ba74701d3d697f2fe95a325a4956e8">alarm_enable</a>()</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;{</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    <span class="keywordflow">if</span>(!<a class="code" href="shared_8h.html#a8cb046a24ba7bdac20aa5ba5488b0656">status</a>.rtcInit || !<a class="code" href="shared_8h.html#a8cb046a24ba7bdac20aa5ba5488b0656">status</a>.alarmInit) <span class="keywordflow">return</span> <span class="keyword">true</span>; <span class="comment">// failed</span></div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    ALRMCFGbits.ALRMEN = 1;</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;}</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;</div>
-<div class="line"><a name="l00176"></a><span class="lineno"><a class="line" href="rtc_8c.html#a59601aa4f1e309a8dd9dec8055e0a87e">  176</a></span>&#160;<span class="keywordtype">unsigned</span> <a class="code" href="rtc_8c.html#a59601aa4f1e309a8dd9dec8055e0a87e">alarm_disable</a>()</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;{</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    <span class="keywordflow">if</span>(!ALRMCFGbits.ALRMEN) <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;    ALRMCFGbits.ALRMEN = 0;</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;}</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;<span class="keyword">static</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> char2bcd(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> in)</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;{</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    <span class="comment">// Will only return the last 2 digits (will ignore the 1 or 2 if it is there)</span></div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;    <span class="comment">// Make sure to use input validation of some sort.</span></div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;    <span class="keywordflow">return</span> in % 10 | ((in/10)%10 &lt;&lt; 4); <span class="comment">// byte to 2-decimal BCD</span></div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;<span class="comment"></span>}</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;<span class="keyword">static</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> bcd2char(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> in)</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;{</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    <span class="keywordflow">return</span> (((in &gt;&gt; 4)*10) + (in &amp; 0x0F));</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;}</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;</div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;<span class="keyword">static</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> weekday(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> year, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> month, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> day)</div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;{</div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;    <span class="comment">// Calculation retrieved from http://www.timeanddate.com/date/doomsday-weekday.html (Feb 6, 2015)</span></div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    <span class="keywordtype">char</span> mod, diff, div;</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    mod = (year % 12);</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;    diff = year - (mod*12);</div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;    <span class="keywordflow">if</span>(diff &lt; 0) diff = -diff; <span class="comment">// absolute function</span></div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;    div = diff / 4;</div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    <span class="keywordflow">return</span> (mod+diff+div) % 7; <span class="comment">// returns weekday 0 (sunday) to 6 (saturday)</span></div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;}</div>
-<div class="ttc" id="rtc_8c_html_aa82c881639ceb58638e763227ddab068"><div class="ttname"><a href="rtc_8c.html#aa82c881639ceb58638e763227ddab068">rtc_get</a></div><div class="ttdeci">unsigned rtc_get(datetime *time)</div><div class="ttdoc">gives the current time as a datetime structure. </div><div class="ttdef"><b>Definition:</b> <a href="rtc_8c_source.html#l00039">rtc.c:39</a></div></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    <a class="code" href="shared_8h.html#aa7c9fc731b0d5b04b8241fd9891c66e5">status</a>.rtcInit = 0; <span class="comment">// real time clock has not been setup since reset!</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;}</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="rtc_8c.html#aaa3d0f1c5fd1758531b98efa5dea3ea8">   20</a></span>&#160;<span class="keywordtype">unsigned</span> <a class="code" href="rtc_8c.html#aaa3d0f1c5fd1758531b98efa5dea3ea8">rtc_set</a>(<a class="code" href="structdatetime.html">datetime</a> *<a class="code" href="shared_8h.html#acd96be5d8734d87c6aa8ecc9d6ee0ee7">time</a>)</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;{</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    EECON2 = 0x55;           <span class="comment">// Perform unlock sequence for special things</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    EECON2 = 0xAA;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    RTCCON1bits.RTCWREN = 1; <span class="comment">// Enable write to real time clock</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    RTCCON1bits.RTCPTR = 0b11; <span class="comment">// Let&#39;s start with writing the year</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    RTCVALL = char2bcd((*time).year);<span class="comment">// Write Year</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    RTCVALH = char2bcd((*time).month); <span class="comment">// write month (rtcptr at 10)</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    RTCVALL = char2bcd((*time).day);</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    RTCVALH = weekday((*time).year,(*time).month,(*time).day); <span class="comment">// write weekday (already only one digit)</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    RTCVALL = char2bcd((*time).hour); <span class="comment">// write hours (remember 24 hr format</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    RTCVALH = char2bcd((*time).minute); <span class="comment">// write minutes</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    RTCVALL = char2bcd((*time).second); <span class="comment">// write seconds (most likely 0)</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    RTCCON1bits.RTCWREN = 0; <span class="comment">// Finished. Disable write to rtc.</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <a class="code" href="shared_8h.html#aa7c9fc731b0d5b04b8241fd9891c66e5">status</a>.rtcInit = 1;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;}</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="rtc_8c.html#aa82c881639ceb58638e763227ddab068">   40</a></span>&#160;<span class="keywordtype">unsigned</span> <a class="code" href="rtc_8c.html#aa82c881639ceb58638e763227ddab068">rtc_get</a>(<a class="code" href="structdatetime.html">datetime</a> *<a class="code" href="shared_8h.html#acd96be5d8734d87c6aa8ecc9d6ee0ee7">time</a>)</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;{</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    RTCCON1bits.RTCPTR = 0b11;           <span class="comment">// Let&#39;s start with the year</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    (*time).year    = bcd2char(RTCVALL); <span class="comment">// Get the Year</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    (*time).month   = bcd2char(RTCVALH); <span class="comment">// Get the month (rtcptr at 0b10)</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    (*time).day     = bcd2char(RTCVALL); <span class="comment">// Get the day of the month</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    (*time).weekday = RTCVALH;           <span class="comment">// Get the weekday</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    (*time).hour    = bcd2char(RTCVALL); <span class="comment">// Get the hour (remember 24 hr format)</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    (*time).minute  = bcd2char(RTCVALH); <span class="comment">// Get the minute</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    (*time).second  = bcd2char(RTCVALL); <span class="comment">// Get the second (most likely 0)</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;}</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment">// Alarm things</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="rtc_8c.html#a3064ad13742d99dced913f814a7ce5ff">   62</a></span>&#160;<span class="comment"></span><span class="keywordtype">unsigned</span> <a class="code" href="rtc_8c.html#a3064ad13742d99dced913f814a7ce5ff">alarm_set</a>(<a class="code" href="structalarmtime.html">alarmtime</a> <a class="code" href="shared_8h.html#acd96be5d8734d87c6aa8ecc9d6ee0ee7">time</a>)</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;{</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <a class="code" href="rtc_8c.html#a59601aa4f1e309a8dd9dec8055e0a87e">alarm_disable</a>(); <span class="comment">// prevent false alarms</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    ALRMCFGbits.ALRMPTR = 0b10;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="comment">// if the frequency is incorrect, error</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordflow">if</span>(time.<a class="code" href="structalarmtime.html#af05c152475e32c3c6ff2b156cf687299">frequency</a> &lt; 0b1001)</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    {</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    }</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="comment">// Set the month</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordflow">if</span>(time.<a class="code" href="structalarmtime.html#af05c152475e32c3c6ff2b156cf687299">frequency</a> == 0b1001) <span class="comment">// yearly</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    {</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        ALRMVALH = char2bcd(time.<a class="code" href="structalarmtime.html#a4900720b55a67c901372712af062d615">month</a>); <span class="comment">// set the month</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    }</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    {</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        ALRMVALH = 0; <span class="comment">// set the month</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    }</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="comment">// set the day</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keywordflow">if</span>(time.<a class="code" href="structalarmtime.html#af05c152475e32c3c6ff2b156cf687299">frequency</a> &gt;= 0b1000) <span class="comment">// monthly</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    {</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        ALRMVALL = char2bcd(time.<a class="code" href="structalarmtime.html#ab9ba6d415537c392fea1a330751865f9">day</a>); <span class="comment">// set the day</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    }</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    {</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        ALRMVALL = 0; <span class="comment">// set the day</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    }</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="comment">// set the weekday</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keywordflow">if</span>(time.<a class="code" href="structalarmtime.html#af05c152475e32c3c6ff2b156cf687299">frequency</a> == 0b0111) <span class="comment">// weekly</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    {</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        <span class="keywordflow">if</span>(time.<a class="code" href="structalarmtime.html#ab9ba6d415537c392fea1a330751865f9">day</a> &gt; 6)</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        {</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        }</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        ALRMVALH = time.<a class="code" href="structalarmtime.html#ab9ba6d415537c392fea1a330751865f9">day</a>; <span class="comment">// set the weekday</span></div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    }</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    {</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        ALRMVALH = 0; <span class="comment">// set the weekday to nothing</span></div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    }</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="comment">// set the hour</span></div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keywordflow">if</span>(time.<a class="code" href="structalarmtime.html#af05c152475e32c3c6ff2b156cf687299">frequency</a> &gt;= 0b0110) <span class="comment">// daily</span></div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    {</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        ALRMVALL = char2bcd(time.<a class="code" href="structalarmtime.html#accdfe3c33766c9d6b3dc8996bb828dff">hour</a>); <span class="comment">// set the hour</span></div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    }</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    {</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        ALRMVALL = 0; <span class="comment">// set the hour to nothing</span></div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    }</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="comment">// set the minute</span></div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <span class="keywordflow">if</span>(time.<a class="code" href="structalarmtime.html#af05c152475e32c3c6ff2b156cf687299">frequency</a> &gt;= 0b0101) <span class="comment">// hourly</span></div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    {</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        ALRMVALH = char2bcd(time.<a class="code" href="structalarmtime.html#abf175f4cae8f64efbd5a637c25cfa5c7">minute</a>);</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    }</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span>(time.<a class="code" href="structalarmtime.html#af05c152475e32c3c6ff2b156cf687299">frequency</a> == 0b0100) <span class="comment">// every 10 min</span></div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    {</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        ALRMVALH = time.<a class="code" href="structalarmtime.html#abf175f4cae8f64efbd5a637c25cfa5c7">minute</a> % 10;</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    }</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    {</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        ALRMVALH = 0;</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    }</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    <span class="comment">// set the second</span></div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <span class="keywordflow">if</span>(time.<a class="code" href="structalarmtime.html#af05c152475e32c3c6ff2b156cf687299">frequency</a> &gt;= 0b0011) <span class="comment">// every minute</span></div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    {</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;        ALRMVALL = char2bcd(time.<a class="code" href="structalarmtime.html#a544c1372684ea82c01371865df228fe4">second</a>);</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    }</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span>(time.<a class="code" href="structalarmtime.html#af05c152475e32c3c6ff2b156cf687299">frequency</a> == 0b0010) <span class="comment">// every 10 seconds</span></div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    {</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;        ALRMVALL = time.<a class="code" href="structalarmtime.html#a544c1372684ea82c01371865df228fe4">second</a> % 10;</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    }</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    {</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;        ALRMVALL = 0;</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    }</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    <span class="comment">// the last two items are 1=second and 0=half second.</span></div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    <span class="keywordflow">if</span>(time.<a class="code" href="structalarmtime.html#a3fcd36b5f45dd7d834451cb9e1b81169">repeat</a> &gt; 2)</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    {</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>; <span class="comment">// if we were in another language, this would be an exeption</span></div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    }</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    <span class="keywordflow">if</span>(time.<a class="code" href="structalarmtime.html#a3fcd36b5f45dd7d834451cb9e1b81169">repeat</a> &gt; 0)</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    {</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;        ALRMRPT = time.<a class="code" href="structalarmtime.html#a1fcc3b31437c17986a267d486585a52b">times</a>;</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    }</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    ALRMCFGbits.CHIME = time.<a class="code" href="structalarmtime.html#a3fcd36b5f45dd7d834451cb9e1b81169">repeat</a> &gt;&gt; 1; <span class="comment">// b1 is the chime bit</span></div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    ALRMCFGbits.AMASK = time.<a class="code" href="structalarmtime.html#af05c152475e32c3c6ff2b156cf687299">frequency</a>; <span class="comment">// now set the frequency of the alarm</span></div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    <a class="code" href="shared_8h.html#aa7c9fc731b0d5b04b8241fd9891c66e5">status</a>.alarmInit = 1; <span class="comment">// we now have setup an alarm :)</span></div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>; <span class="comment">// success: nothing bad happened.</span></div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;}</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;</div>
+<div class="line"><a name="l00166"></a><span class="lineno"><a class="line" href="rtc_8c.html#a90ba74701d3d697f2fe95a325a4956e8">  166</a></span>&#160;<span class="keywordtype">unsigned</span> <a class="code" href="rtc_8c.html#a90ba74701d3d697f2fe95a325a4956e8">alarm_enable</a>()</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;{</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    <span class="keywordflow">if</span>(!<a class="code" href="shared_8h.html#aa7c9fc731b0d5b04b8241fd9891c66e5">status</a>.rtcInit || !<a class="code" href="shared_8h.html#aa7c9fc731b0d5b04b8241fd9891c66e5">status</a>.alarmInit) <span class="keywordflow">return</span> <span class="keyword">true</span>; <span class="comment">// failed</span></div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    ALRMCFGbits.ALRMEN = 1;</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;}</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;</div>
+<div class="line"><a name="l00177"></a><span class="lineno"><a class="line" href="rtc_8c.html#a59601aa4f1e309a8dd9dec8055e0a87e">  177</a></span>&#160;<span class="keywordtype">unsigned</span> <a class="code" href="rtc_8c.html#a59601aa4f1e309a8dd9dec8055e0a87e">alarm_disable</a>()</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;{</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;    <span class="keywordflow">if</span>(!ALRMCFGbits.ALRMEN) <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    ALRMCFGbits.ALRMEN = 0;</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;}</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;<span class="keyword">static</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> char2bcd(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> in)</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;{</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;    <span class="comment">// Will only return the last 2 digits (will ignore the 1 or 2 if it is there)</span></div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;    <span class="comment">// Make sure to use input validation of some sort.</span></div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    <span class="keywordflow">return</span> in % 10 | ((in/10)%10 &lt;&lt; 4); <span class="comment">// byte to 2-decimal BCD</span></div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;<span class="comment"></span>}</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;<span class="keyword">static</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> bcd2char(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> in)</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;{</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    <span class="keywordflow">return</span> (((in &gt;&gt; 4)*10) + (in &amp; 0x0F));</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;}</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;<span class="keyword">static</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> weekday(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> year, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> month, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> day)</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;{</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    <span class="comment">// Calculation retrieved from http://www.timeanddate.com/date/doomsday-weekday.html (Feb 6, 2015)</span></div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    <span class="keywordtype">signed</span> <span class="keywordtype">char</span> mod, diff, div;</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;    mod = (year % 12);</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;    diff = year - (mod*12);</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;    <span class="keywordflow">if</span>(diff &lt; 0) diff = -diff; <span class="comment">// absolute function</span></div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    div = diff / 4;</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;    <span class="keywordflow">return</span> (mod+diff+div) % 7; <span class="comment">// returns weekday 0 (sunday) to 6 (saturday)</span></div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;}</div>
+<div class="ttc" id="rtc_8c_html_aa82c881639ceb58638e763227ddab068"><div class="ttname"><a href="rtc_8c.html#aa82c881639ceb58638e763227ddab068">rtc_get</a></div><div class="ttdeci">unsigned rtc_get(datetime *time)</div><div class="ttdoc">gives the current time as a datetime structure. </div><div class="ttdef"><b>Definition:</b> <a href="rtc_8c_source.html#l00040">rtc.c:40</a></div></div>
 <div class="ttc" id="rtc_8h_html"><div class="ttname"><a href="rtc_8h.html">rtc.h</a></div></div>
 <div class="ttc" id="structalarmtime_html_af05c152475e32c3c6ff2b156cf687299"><div class="ttname"><a href="structalarmtime.html#af05c152475e32c3c6ff2b156cf687299">alarmtime::frequency</a></div><div class="ttdeci">unsigned char frequency</div><div class="ttdef"><b>Definition:</b> <a href="rtc_8h_source.html#l00046">rtc.h:46</a></div></div>
 <div class="ttc" id="structalarmtime_html"><div class="ttname"><a href="structalarmtime.html">alarmtime</a></div><div class="ttdef"><b>Definition:</b> <a href="rtc_8h_source.html#l00038">rtc.h:38</a></div></div>
-<div class="ttc" id="structdatetime_html_accdfe3c33766c9d6b3dc8996bb828dff"><div class="ttname"><a href="structdatetime.html#accdfe3c33766c9d6b3dc8996bb828dff">datetime::hour</a></div><div class="ttdeci">unsigned char hour</div><div class="ttdef"><b>Definition:</b> <a href="rtc_8h_source.html#l00033">rtc.h:33</a></div></div>
-<div class="ttc" id="rtc_8c_html_a3064ad13742d99dced913f814a7ce5ff"><div class="ttname"><a href="rtc_8c.html#a3064ad13742d99dced913f814a7ce5ff">alarm_set</a></div><div class="ttdeci">unsigned alarm_set(alarmtime time)</div><div class="ttdoc">Set the alarm date/time. </div><div class="ttdef"><b>Definition:</b> <a href="rtc_8c_source.html#l00061">rtc.c:61</a></div></div>
-<div class="ttc" id="structdatetime_html_ab9ba6d415537c392fea1a330751865f9"><div class="ttname"><a href="structdatetime.html#ab9ba6d415537c392fea1a330751865f9">datetime::day</a></div><div class="ttdeci">unsigned char day</div><div class="ttdef"><b>Definition:</b> <a href="rtc_8h_source.html#l00032">rtc.h:32</a></div></div>
+<div class="ttc" id="rtc_8c_html_aaa3d0f1c5fd1758531b98efa5dea3ea8"><div class="ttname"><a href="rtc_8c.html#aaa3d0f1c5fd1758531b98efa5dea3ea8">rtc_set</a></div><div class="ttdeci">unsigned rtc_set(datetime *time)</div><div class="ttdoc">Set the time on the RTCC. </div><div class="ttdef"><b>Definition:</b> <a href="rtc_8c_source.html#l00020">rtc.c:20</a></div></div>
+<div class="ttc" id="rtc_8c_html_a3064ad13742d99dced913f814a7ce5ff"><div class="ttname"><a href="rtc_8c.html#a3064ad13742d99dced913f814a7ce5ff">alarm_set</a></div><div class="ttdeci">unsigned alarm_set(alarmtime time)</div><div class="ttdoc">Set the alarm date/time. </div><div class="ttdef"><b>Definition:</b> <a href="rtc_8c_source.html#l00062">rtc.c:62</a></div></div>
 <div class="ttc" id="structdatetime_html"><div class="ttname"><a href="structdatetime.html">datetime</a></div><div class="ttdoc">structure to save the date and time into a single variable in normal binary format (Not BCD!) ...</div><div class="ttdef"><b>Definition:</b> <a href="rtc_8h_source.html#l00026">rtc.h:26</a></div></div>
-<div class="ttc" id="structdatetime_html_abf175f4cae8f64efbd5a637c25cfa5c7"><div class="ttname"><a href="structdatetime.html#abf175f4cae8f64efbd5a637c25cfa5c7">datetime::minute</a></div><div class="ttdeci">unsigned char minute</div><div class="ttdef"><b>Definition:</b> <a href="rtc_8h_source.html#l00034">rtc.h:34</a></div></div>
-<div class="ttc" id="structdatetime_html_a4900720b55a67c901372712af062d615"><div class="ttname"><a href="structdatetime.html#a4900720b55a67c901372712af062d615">datetime::month</a></div><div class="ttdeci">unsigned char month</div><div class="ttdef"><b>Definition:</b> <a href="rtc_8h_source.html#l00029">rtc.h:29</a></div></div>
-<div class="ttc" id="rtc_8c_html_a476351b7fe2d99467f8e9b972cd47434"><div class="ttname"><a href="rtc_8c.html#a476351b7fe2d99467f8e9b972cd47434">rtc_set</a></div><div class="ttdeci">unsigned rtc_set(datetime time)</div><div class="ttdoc">Set the time on the RTCC. </div><div class="ttdef"><b>Definition:</b> <a href="rtc_8c_source.html#l00019">rtc.c:19</a></div></div>
+<div class="ttc" id="shared_8h_html_aa7c9fc731b0d5b04b8241fd9891c66e5"><div class="ttname"><a href="shared_8h.html#aa7c9fc731b0d5b04b8241fd9891c66e5">status</a></div><div class="ttdeci">volatile struct @3 status</div><div class="ttdoc">The first status byte - Includes the two state machine states, the rtc initialization state...</div></div>
 <div class="ttc" id="rtc_8c_html_a9e961a2e8e8309e4fd490ac35f68a293"><div class="ttname"><a href="rtc_8c.html#a9e961a2e8e8309e4fd490ac35f68a293">rtc_setup</a></div><div class="ttdeci">void rtc_setup()</div><div class="ttdoc">Real-time Clock/Calendar Module setup. </div><div class="ttdef"><b>Definition:</b> <a href="rtc_8c_source.html#l00005">rtc.c:5</a></div></div>
 <div class="ttc" id="structalarmtime_html_a4900720b55a67c901372712af062d615"><div class="ttname"><a href="structalarmtime.html#a4900720b55a67c901372712af062d615">alarmtime::month</a></div><div class="ttdeci">unsigned char month</div><div class="ttdef"><b>Definition:</b> <a href="rtc_8h_source.html#l00040">rtc.h:40</a></div></div>
-<div class="ttc" id="rtc_8c_html_a59601aa4f1e309a8dd9dec8055e0a87e"><div class="ttname"><a href="rtc_8c.html#a59601aa4f1e309a8dd9dec8055e0a87e">alarm_disable</a></div><div class="ttdeci">unsigned alarm_disable()</div><div class="ttdoc">Disable the alarm. </div><div class="ttdef"><b>Definition:</b> <a href="rtc_8c_source.html#l00176">rtc.c:176</a></div></div>
-<div class="ttc" id="rtc_8c_html_a90ba74701d3d697f2fe95a325a4956e8"><div class="ttname"><a href="rtc_8c.html#a90ba74701d3d697f2fe95a325a4956e8">alarm_enable</a></div><div class="ttdeci">unsigned alarm_enable()</div><div class="ttdoc">Enables the alarm. Make sure to setup the alarm first! </div><div class="ttdef"><b>Definition:</b> <a href="rtc_8c_source.html#l00165">rtc.c:165</a></div></div>
+<div class="ttc" id="rtc_8c_html_a59601aa4f1e309a8dd9dec8055e0a87e"><div class="ttname"><a href="rtc_8c.html#a59601aa4f1e309a8dd9dec8055e0a87e">alarm_disable</a></div><div class="ttdeci">unsigned alarm_disable()</div><div class="ttdoc">Disable the alarm. </div><div class="ttdef"><b>Definition:</b> <a href="rtc_8c_source.html#l00177">rtc.c:177</a></div></div>
+<div class="ttc" id="rtc_8c_html_a90ba74701d3d697f2fe95a325a4956e8"><div class="ttname"><a href="rtc_8c.html#a90ba74701d3d697f2fe95a325a4956e8">alarm_enable</a></div><div class="ttdeci">unsigned alarm_enable()</div><div class="ttdoc">Enables the alarm. Make sure to setup the alarm first! </div><div class="ttdef"><b>Definition:</b> <a href="rtc_8c_source.html#l00166">rtc.c:166</a></div></div>
 <div class="ttc" id="shared_8h_html"><div class="ttname"><a href="shared_8h.html">shared.h</a></div></div>
-<div class="ttc" id="shared_8h_html_a8cb046a24ba7bdac20aa5ba5488b0656"><div class="ttname"><a href="shared_8h.html#a8cb046a24ba7bdac20aa5ba5488b0656">status</a></div><div class="ttdeci">struct @4 status</div><div class="ttdoc">The first status byte - Includes the two state machine states, the rtc initialization state...</div></div>
 <div class="ttc" id="structalarmtime_html_ab9ba6d415537c392fea1a330751865f9"><div class="ttname"><a href="structalarmtime.html#ab9ba6d415537c392fea1a330751865f9">alarmtime::day</a></div><div class="ttdeci">unsigned char day</div><div class="ttdef"><b>Definition:</b> <a href="rtc_8h_source.html#l00041">rtc.h:41</a></div></div>
-<div class="ttc" id="structdatetime_html_a189605ebe7fb094d2d8d511d855c4bb0"><div class="ttname"><a href="structdatetime.html#a189605ebe7fb094d2d8d511d855c4bb0">datetime::year</a></div><div class="ttdeci">unsigned char year</div><div class="ttdef"><b>Definition:</b> <a href="rtc_8h_source.html#l00028">rtc.h:28</a></div></div>
 <div class="ttc" id="structalarmtime_html_a1fcc3b31437c17986a267d486585a52b"><div class="ttname"><a href="structalarmtime.html#a1fcc3b31437c17986a267d486585a52b">alarmtime::times</a></div><div class="ttdeci">unsigned char times</div><div class="ttdef"><b>Definition:</b> <a href="rtc_8h_source.html#l00045">rtc.h:45</a></div></div>
-<div class="ttc" id="structdatetime_html_a544c1372684ea82c01371865df228fe4"><div class="ttname"><a href="structdatetime.html#a544c1372684ea82c01371865df228fe4">datetime::second</a></div><div class="ttdeci">unsigned char second</div><div class="ttdef"><b>Definition:</b> <a href="rtc_8h_source.html#l00035">rtc.h:35</a></div></div>
 <div class="ttc" id="structalarmtime_html_accdfe3c33766c9d6b3dc8996bb828dff"><div class="ttname"><a href="structalarmtime.html#accdfe3c33766c9d6b3dc8996bb828dff">alarmtime::hour</a></div><div class="ttdeci">unsigned char hour</div><div class="ttdef"><b>Definition:</b> <a href="rtc_8h_source.html#l00042">rtc.h:42</a></div></div>
 <div class="ttc" id="structalarmtime_html_a3fcd36b5f45dd7d834451cb9e1b81169"><div class="ttname"><a href="structalarmtime.html#a3fcd36b5f45dd7d834451cb9e1b81169">alarmtime::repeat</a></div><div class="ttdeci">unsigned char repeat</div><div class="ttdef"><b>Definition:</b> <a href="rtc_8h_source.html#l00047">rtc.h:47</a></div></div>
 <div class="ttc" id="structalarmtime_html_abf175f4cae8f64efbd5a637c25cfa5c7"><div class="ttname"><a href="structalarmtime.html#abf175f4cae8f64efbd5a637c25cfa5c7">alarmtime::minute</a></div><div class="ttdeci">unsigned char minute</div><div class="ttdef"><b>Definition:</b> <a href="rtc_8h_source.html#l00043">rtc.h:43</a></div></div>
 <div class="ttc" id="structalarmtime_html_a544c1372684ea82c01371865df228fe4"><div class="ttname"><a href="structalarmtime.html#a544c1372684ea82c01371865df228fe4">alarmtime::second</a></div><div class="ttdeci">unsigned char second</div><div class="ttdef"><b>Definition:</b> <a href="rtc_8h_source.html#l00044">rtc.h:44</a></div></div>
+<div class="ttc" id="shared_8h_html_acd96be5d8734d87c6aa8ecc9d6ee0ee7"><div class="ttname"><a href="shared_8h.html#acd96be5d8734d87c6aa8ecc9d6ee0ee7">time</a></div><div class="ttdeci">volatile unsigned int time</div><div class="ttdef"><b>Definition:</b> <a href="shared_8h_source.html#l00047">shared.h:47</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="rtc_8c.html">rtc.c</a></li>
-    <li class="footer">Generated on Wed Apr 15 2015 22:43:22 for Sr. Design 2015 by
+    <li class="footer">Generated on Thu Apr 23 2015 21:58:23 for Sr. Design 2015 by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.9.1 </li>
   </ul>

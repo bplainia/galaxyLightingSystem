@@ -1,5 +1,6 @@
 /*! \page
  * Contains the functions for the menu items on the LCD.
+ * Author: Benjamin Plain
  */
 
 #include <lcd.h>

@@ -1,8 +1,6 @@
 var searchData=
 [
-  ['otgcore_5fcontrolusbresistors',['OTGCORE_ControlUsbResistors',['../usb__hal_8h.html#a59efb335c1386869414fc93537d1771a',1,'usb_hal.h']]],
-  ['otgcore_5fgetstalledendpoints',['OTGCORE_GetStalledEndpoints',['../usb__hal_8h.html#ac7c0cdf2e428816041de63438ec72552',1,'usb_hal.h']]],
-  ['otgcore_5fsetdeviceaddr',['OTGCORE_SetDeviceAddr',['../usb__hal_8h.html#aad67a6a9b524bacbd3f5e69467312766',1,'usb_hal.h']]],
-  ['otgcore_5fstallpipe',['OTGCORE_StallPipe',['../usb__hal_8h.html#ae0df36486278cd9c4eb6be3846534e41',1,'usb_hal.h']]],
-  ['otgcore_5funstallpipe',['OTGCORE_UnstallPipe',['../usb__hal_8h.html#a63be60b91a29e888b382d61d141ed930',1,'usb_hal.h']]]
+  ['rtc_5fget',['rtc_get',['../rtc_8h.html#acee4efb6bf46425cbfc10232487aa3eb',1,'rtc_get(datetime *):&#160;rtc.c'],['../rtc_8c.html#aa82c881639ceb58638e763227ddab068',1,'rtc_get(datetime *time):&#160;rtc.c']]],
+  ['rtc_5fset',['rtc_set',['../rtc_8h.html#ab19861c310bb1a7656342f37ebcc0381',1,'rtc_set(datetime *):&#160;rtc.c'],['../rtc_8c.html#aaa3d0f1c5fd1758531b98efa5dea3ea8',1,'rtc_set(datetime *time):&#160;rtc.c']]],
+  ['rtc_5fsetup',['rtc_setup',['../rtc_8h.html#ae83559199d1a128c09c800d2622d5628',1,'rtc_setup(void):&#160;rtc.c'],['../rtc_8c.html#a9e961a2e8e8309e4fd490ac35f68a293',1,'rtc_setup():&#160;rtc.c']]]
 ];

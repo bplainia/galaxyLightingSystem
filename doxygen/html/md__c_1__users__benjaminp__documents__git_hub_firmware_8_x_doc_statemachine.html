@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.9.1"/>
-<title>Sr. Design 2015: Globals</title>
+<title>Sr. Design 2015: State Machines</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -48,9 +48,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
+      <li class="current"><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
-      <li class="current"><a href="files.html"><span>Files</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -69,48 +69,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       </li>
     </ul>
   </div>
-  <div id="navrow2" class="tabs2">
-    <ul class="tablist">
-      <li><a href="files.html"><span>File&#160;List</span></a></li>
-      <li class="current"><a href="globals.html"><span>Globals</span></a></li>
-    </ul>
-  </div>
-  <div id="navrow3" class="tabs2">
-    <ul class="tablist">
-      <li class="current"><a href="globals.html"><span>All</span></a></li>
-      <li><a href="globals_func.html"><span>Functions</span></a></li>
-      <li><a href="globals_vars.html"><span>Variables</span></a></li>
-      <li><a href="globals_type.html"><span>Typedefs</span></a></li>
-      <li><a href="globals_enum.html"><span>Enumerations</span></a></li>
-      <li><a href="globals_eval.html"><span>Enumerator</span></a></li>
-      <li><a href="globals_defs.html"><span>Macros</span></a></li>
-    </ul>
-  </div>
-  <div id="navrow4" class="tabs3">
-    <ul class="tablist">
-      <li><a href="globals.html#index__"><span>_</span></a></li>
-      <li><a href="globals_a.html#index_a"><span>a</span></a></li>
-      <li><a href="globals_b.html#index_b"><span>b</span></a></li>
-      <li><a href="globals_c.html#index_c"><span>c</span></a></li>
-      <li><a href="globals_d.html#index_d"><span>d</span></a></li>
-      <li><a href="globals_e.html#index_e"><span>e</span></a></li>
-      <li><a href="globals_f.html#index_f"><span>f</span></a></li>
-      <li><a href="globals_h.html#index_h"><span>h</span></a></li>
-      <li><a href="globals_i.html#index_i"><span>i</span></a></li>
-      <li><a href="globals_k.html#index_k"><span>k</span></a></li>
-      <li><a href="globals_l.html#index_l"><span>l</span></a></li>
-      <li><a href="globals_m.html#index_m"><span>m</span></a></li>
-      <li><a href="globals_n.html#index_n"><span>n</span></a></li>
-      <li><a href="globals_o.html#index_o"><span>o</span></a></li>
-      <li><a href="globals_p.html#index_p"><span>p</span></a></li>
-      <li><a href="globals_r.html#index_r"><span>r</span></a></li>
-      <li><a href="globals_s.html#index_s"><span>s</span></a></li>
-      <li class="current"><a href="globals_t.html#index_t"><span>t</span></a></li>
-      <li><a href="globals_u.html#index_u"><span>u</span></a></li>
-      <li><a href="globals_w.html#index_w"><span>w</span></a></li>
-      <li><a href="globals_y.html#index_y"><span>y</span></a></li>
-    </ul>
-  </div>
 </div><!-- top -->
 <div id="side-nav" class="ui-resizable side-nav-resizable">
   <div id="nav-tree">
@@ -123,7 +81,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('globals_t.html','');});
+$(document).ready(function(){initNavTree('md__c_1__users__benjaminp__documents__git_hub_firmware_8_x_doc_statemachine.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -140,42 +98,42 @@ $(document).ready(function(){initNavTree('globals_t.html','');});
 </iframe>
 </div>
 
+<div class="header">
+  <div class="headertitle">
+<div class="title">State Machines </div>  </div>
+</div><!--header-->
 <div class="contents">
-<div class="textblock">Here is a list of all functions, variables, defines, enums, and typedefs with links to the files they belong to:</div>
-
-<h3><a class="anchor" id="index_t"></a>- t -</h3><ul>
-<li>temperature()
-: <a class="el" href="sensors_8h.html#a3c0cbef72f446f593e0858802ba65be1">sensors.h</a>
-, <a class="el" href="sensors_8c.html#a3c0cbef72f446f593e0858802ba65be1">sensors.c</a>
-</li>
-<li>TENMINUTES
-: <a class="el" href="rtc_8h.html#a476b58fd8471b67543a69fe918407af1">rtc.h</a>
-</li>
-<li>TENSECOND
-: <a class="el" href="rtc_8h.html#a3a578056e9096a0683153d47093d3520">rtc.h</a>
-</li>
-<li>time
-: <a class="el" href="shared_8h.html#acd96be5d8734d87c6aa8ecc9d6ee0ee7">shared.h</a>
-</li>
-<li>timeoutCheck()
-: <a class="el" href="shared_8h.html#a79fb34ecd6beb1c5db0e0e5f62385205">shared.h</a>
-, <a class="el" href="shared_8c.html#a8d7f7d93d22ce918b02ffd02ac4497ba">shared.c</a>
-</li>
-<li>timeoutInit()
-: <a class="el" href="shared_8c.html#a916766b01f558f94b764d86c51418d1f">shared.c</a>
-, <a class="el" href="shared_8h.html#a9b2f904e1d031b510a020dbf7449bf66">shared.h</a>
-</li>
-<li>true
-: <a class="el" href="shared_8h.html#a41f9c5fb8b08eb5dc3edce4dcb37fee7">shared.h</a>
-</li>
-<li>TXBUFFSIZE
-: <a class="el" href="communication_8h.html#afa6659b1a6ac30d274c24ebbf8578fe8">communication.h</a>
-</li>
-<li>TXPIN
-: <a class="el" href="communication_8h.html#ad7371134b74d77a9646ab529bda75f1f">communication.h</a>
+<div class="toc"><h3>Table of Contents</h3>
+<ul><li class="level1"><a href="#daynight_sm">The Day/Night State Machine</a></li>
+<li class="level1"><a href="#mmode_sm">Maintainence Mode State Machine</a><ul><li class="level2"><a href="#standbymode">Mode 0: Standby</a></li>
+<li class="level2"><a href="#mastermode">Modes 1 and 3: Master Mode</a></li>
+<li class="level2"><a href="#slavemode">Mode 2: Slave Mode</a></li>
+</ul>
 </li>
 </ul>
-</div><!-- contents -->
+</div>
+<div class="textblock"><h1><a class="anchor" id="daynight_sm"></a>
+The Day/Night State Machine</h1>
+<p>There should be a picture here of the day/night state machine.</p>
+<h1><a class="anchor" id="mmode_sm"></a>
+Maintainence Mode State Machine</h1>
+<div class="image">
+<img src="../images/mmode-sm.png"  alt="The Maintainence Mode State Machine"/>
+</div>
+ <h2><a class="anchor" id="standbymode"></a>
+Mode 0: Standby</h2>
+<p>In this state, the state machine will process several things.</p><ol type="1">
+<li>Wait for address and data in an interrupt routine</li>
+<li>Wait for a keypress from the keypad in an interrupt routine</li>
+<li>Check if the USB is plugged in. </li>
+</ol>
+<h2><a class="anchor" id="mastermode"></a>
+Modes 1 and 3: Master Mode</h2>
+<p>In these states, the machine will check for commands in the command buffer that come from the keypad or usb, depending on the state. </p>
+<h2><a class="anchor" id="slavemode"></a>
+Mode 2: Slave Mode</h2>
+<p>Wait for commands and execute them. Will trade the "token" with the master/controller. </p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

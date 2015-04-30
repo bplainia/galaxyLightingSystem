@@ -1,13 +1,21 @@
 var hid_8h =
 [
+    [ "CANCEL", "hid_8h.html#aa498dfb3e15bd0b6ad9ef32a24990e8c", null ],
+    [ "DOWNKEY", "hid_8h.html#a8040b78eda949ef3de9b41c44c8dc5a8", null ],
+    [ "ENTERKEY", "hid_8h.html#a94edc76852477ad7d610991193ac4d4e", null ],
+    [ "HELPKEY", "hid_8h.html#ac1dd8245fedfde453fcc7808a3affa12", null ],
+    [ "NOKEY", "hid_8h.html#a0cd3704ca12e8da175026792db1bbac2", null ],
+    [ "SECONDKEY", "hid_8h.html#a5bb79899fa0c4730a9581c77113e1a31", null ],
+    [ "UPKEY", "hid_8h.html#a7d1c739711205fc8b19e7c0a771119a8", null ],
     [ "hid_execute", "hid_8h.html#ad86bb70da5f2a8d68f034c87319e92b5", null ],
     [ "hid_loop", "hid_8h.html#a3adc740464e5cf31ec498fa7038a6ea0", null ],
     [ "hid_setup", "hid_8h.html#a914e6f1d1791841a025c442762a4e7ea", null ],
-    [ "key_insertion", "hid_8h.html#a95fbf67e1f4e955662a6a195f6c3ecbe", null ],
-    [ "key_isr", "hid_8h.html#aec7d7c0c8f3da40e3ac22e6afdd5409a", null ],
-    [ "key_removal", "hid_8h.html#a20e8465b449308ba37b0de5494742c4c", null ],
-    [ "lcd_begin", "hid_8h.html#a438f617a14d9f21cbb2bd06d8c7c9ecf", null ],
-    [ "lcd_end", "hid_8h.html#a666482694abca54ecd49341cb21859e2", null ],
+    [ "keypad_flush", "hid_8h.html#a3ecb6cc852671ba3bb72a0b40a88afe2", null ],
+    [ "keypad_pull", "hid_8h.html#a89b38caca66b22bd9ad1e3c517fe0e36", null ],
+    [ "keypad_push", "hid_8h.html#a1c0f094d5cfeffa7c727adcdf6e6c9a3", null ],
+    [ "keypad_size", "hid_8h.html#ac31461d3dc3cd49644f7dfa8e1cf767f", null ],
+    [ "lcd_begin", "hid_8h.html#ad251b7b41f013de5c717ddeb8d6db5bc", null ],
+    [ "lcd_end", "hid_8h.html#a85869c348d0a7400e6cff6dcc2ab2908", null ],
     [ "usb_allStatus", "hid_8h.html#ab26a4ce64c0b47da8c58fc24f1f1653f", null ],
     [ "usb_begin", "hid_8h.html#a82e62e9a42197f93a21fe7e26b60ff8a", null ],
     [ "usb_end", "hid_8h.html#aecd52c6957ef22df00468190b442a640", null ],
@@ -15,6 +23,5 @@ var hid_8h =
     [ "usb_isr", "hid_8h.html#a9dd0caa7d41601fb1547f79cdb8c4726", null ],
     [ "usb_myStatus", "hid_8h.html#a08245c1b8fa8ab614af4afc687e83ad7", null ],
     [ "usb_oneStatus", "hid_8h.html#af2e28fc5e977463f0118e3f959175d1d", null ],
-    [ "usb_removal", "hid_8h.html#ade5ee0d0d942cf40705c058ad24f23a6", null ],
-    [ "masterState", "hid_8h.html#a1bd29c0e6f1cf964a61c8817b52e5116", null ]
+    [ "usb_removal", "hid_8h.html#ade5ee0d0d942cf40705c058ad24f23a6", null ]
 ];

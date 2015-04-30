@@ -1,12 +1,7 @@
 var searchData=
 [
-  ['i2c_5fcheck',['i2c_check',['../shared_8h.html#a0e97d114aa8238faa423a43d766af530',1,'i2c_check(unsigned char):&#160;shared.c'],['../shared_8c.html#a37c0b95630cd7d12e843ac4c714096ac',1,'i2c_check(unsigned char addr):&#160;shared.c']]],
-  ['i2c_5flcdinit',['i2c_lcdInit',['../shared_8h.html#abf244f82e04b444b879899a09a63bcd5',1,'i2c_lcdInit(void):&#160;shared.c'],['../shared_8c.html#a8d8fe4c44a1c3be9eca5dee67236d4f8',1,'i2c_lcdInit():&#160;shared.c']]],
-  ['i2c_5frx',['i2c_rx',['../shared_8h.html#afbd6833770b779777b50b1775213fbdb',1,'i2c_rx(unsigned char, unsigned char, unsigned char, unsigned char, unsigned char *, unsigned short):&#160;shared.c'],['../shared_8c.html#abba02944b1444e1f4deef0fa557804cc',1,'i2c_rx(unsigned char addr, unsigned char reg16, unsigned char regl, unsigned char regh, unsigned char *data, unsigned short dataLength):&#160;shared.c']]],
-  ['i2c_5fsetup',['i2c_setup',['../shared_8h.html#a6cf2b6b416b8fe80e2c25b106b96ba43',1,'i2c_setup(void):&#160;shared.c'],['../shared_8c.html#a4f4aa63c7d4429490f91bfd80164f309',1,'i2c_setup():&#160;shared.c']]],
-  ['i2c_5ftx',['i2c_tx',['../shared_8h.html#aa69811c45b886f04ea675879408d9a5f',1,'i2c_tx(unsigned char, unsigned char, unsigned char, unsigned char, unsigned char *, unsigned short):&#160;shared.c'],['../shared_8c.html#a27d0b2daf941559afb7dd6e46bf0167e',1,'i2c_tx(unsigned char addr, unsigned char reg16, unsigned char regl, unsigned char regh, unsigned char *data, unsigned short dataLength):&#160;shared.c']]],
-  ['ipr',['ipr',['../powerman_8c.html#a05b907ccf068ecf3baa67aaf04690e91',1,'powerman.c']]],
-  ['isr',['isr',['../solar_light_8c.html#a1954f15a47facbba53695a3aa4d3e84b',1,'solarLight.c']]],
-  ['isr_5fhigh',['isr_high',['../solar_light_8h.html#aad40a8e91930ee48a204578460cb5641',1,'solarLight.h']]],
-  ['isr_5flow',['isr_low',['../solar_light_8h.html#a1af6aa9cd9e38e34e05d6fc47306a184',1,'solarLight.h']]]
+  ['keypad_5fflush',['keypad_flush',['../hid_8h.html#a3ecb6cc852671ba3bb72a0b40a88afe2',1,'keypad_flush(void):&#160;hid.c'],['../hid_8c.html#a3ecb6cc852671ba3bb72a0b40a88afe2',1,'keypad_flush(void):&#160;hid.c']]],
+  ['keypad_5fpull',['keypad_pull',['../hid_8h.html#a89b38caca66b22bd9ad1e3c517fe0e36',1,'keypad_pull(void):&#160;hid.c'],['../hid_8c.html#a3a9d1c563afbae051c13ef1b46c2e930',1,'keypad_pull():&#160;hid.c']]],
+  ['keypad_5fpush',['keypad_push',['../hid_8h.html#a1c0f094d5cfeffa7c727adcdf6e6c9a3',1,'keypad_push(unsigned char):&#160;hid.h'],['../hid_8c.html#ae4d99f091ba4788d3ea8f7c3b2b27649',1,'keypad_push(char keypress):&#160;hid.c']]],
+  ['keypad_5fsize',['keypad_size',['../hid_8h.html#ac31461d3dc3cd49644f7dfa8e1cf767f',1,'keypad_size(void):&#160;hid.c'],['../hid_8c.html#ac31461d3dc3cd49644f7dfa8e1cf767f',1,'keypad_size(void):&#160;hid.c']]]
 ];

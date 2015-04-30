@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.9.1"/>
-<title>Sr. Design 2015: C:/Users/Benjaminp/Documents/GitHub/firmware/src/hid.c File Reference</title>
+<title>Sr. Design 2015: C:/Users/Benjaminp/Documents/GitHub/firmware.X/src/hid.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -114,7 +114,8 @@ $(document).ready(function(){initNavTree('hid_8c.html','');});
 <div class="textblock"><code>#include &lt;<a class="el" href="shared_8h_source.html">shared.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="hid_8h_source.html">hid.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="lcd_8h_source.html">lcd.h</a>&gt;</code><br />
-<code>#include &quot;<a class="el" href="communication_8h_source.html">communication.h</a>&quot;</code><br />
+<code>#include &lt;string.h&gt;</code><br />
+<code>#include &lt;<a class="el" href="communication_8h_source.html">communication.h</a>&gt;</code><br />
 </div>
 <p><a href="hid_8c_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -128,9 +129,21 @@ Functions</h2></td></tr>
 <tr class="separator:a3adc740464e5cf31ec498fa7038a6ea0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad251b7b41f013de5c717ddeb8d6db5bc"><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hid_8c.html#ad251b7b41f013de5c717ddeb8d6db5bc">lcd_begin</a> (void)</td></tr>
 <tr class="separator:ad251b7b41f013de5c717ddeb8d6db5bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a666482694abca54ecd49341cb21859e2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hid_8c.html#a666482694abca54ecd49341cb21859e2">lcd_end</a> (void)</td></tr>
-<tr class="memdesc:a666482694abca54ecd49341cb21859e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">display "exiting", then turn off the led, and exit maintainence mode  <a href="#a666482694abca54ecd49341cb21859e2">More...</a><br /></td></tr>
-<tr class="separator:a666482694abca54ecd49341cb21859e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5b257d9f127eb68bd467a3d73ac0f6d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hid_8c.html#af5b257d9f127eb68bd467a3d73ac0f6d">lcd_end</a> (unsigned char NA)</td></tr>
+<tr class="memdesc:af5b257d9f127eb68bd467a3d73ac0f6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">display "exiting", then turn off the led, and exit maintainence mode  <a href="#af5b257d9f127eb68bd467a3d73ac0f6d">More...</a><br /></td></tr>
+<tr class="separator:af5b257d9f127eb68bd467a3d73ac0f6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4d99f091ba4788d3ea8f7c3b2b27649"><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hid_8c.html#ae4d99f091ba4788d3ea8f7c3b2b27649">keypad_push</a> (char keypress)</td></tr>
+<tr class="memdesc:ae4d99f091ba4788d3ea8f7c3b2b27649"><td class="mdescLeft">&#160;</td><td class="mdescRight">Push a keypad press to the keypad command FIFO.  <a href="#ae4d99f091ba4788d3ea8f7c3b2b27649">More...</a><br /></td></tr>
+<tr class="separator:ae4d99f091ba4788d3ea8f7c3b2b27649"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a9d1c563afbae051c13ef1b46c2e930"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hid_8c.html#a3a9d1c563afbae051c13ef1b46c2e930">keypad_pull</a> ()</td></tr>
+<tr class="memdesc:a3a9d1c563afbae051c13ef1b46c2e930"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the last command from the keypad Attribution: Code from pages 630-633 of "A First Book of ANSI C" by Bronson.  <a href="#a3a9d1c563afbae051c13ef1b46c2e930">More...</a><br /></td></tr>
+<tr class="separator:a3a9d1c563afbae051c13ef1b46c2e930"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac31461d3dc3cd49644f7dfa8e1cf767f"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hid_8c.html#ac31461d3dc3cd49644f7dfa8e1cf767f">keypad_size</a> (void)</td></tr>
+<tr class="memdesc:ac31461d3dc3cd49644f7dfa8e1cf767f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Give the size of the dynamic keypad FIFO.  <a href="#ac31461d3dc3cd49644f7dfa8e1cf767f">More...</a><br /></td></tr>
+<tr class="separator:ac31461d3dc3cd49644f7dfa8e1cf767f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ecb6cc852671ba3bb72a0b40a88afe2"><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hid_8c.html#a3ecb6cc852671ba3bb72a0b40a88afe2">keypad_flush</a> (void)</td></tr>
+<tr class="memdesc:a3ecb6cc852671ba3bb72a0b40a88afe2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flush the keypad FIFO.  <a href="#a3ecb6cc852671ba3bb72a0b40a88afe2">More...</a><br /></td></tr>
+<tr class="separator:a3ecb6cc852671ba3bb72a0b40a88afe2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9dd0caa7d41601fb1547f79cdb8c4726"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hid_8c.html#a9dd0caa7d41601fb1547f79cdb8c4726">usb_isr</a> (void)</td></tr>
 <tr class="separator:a9dd0caa7d41601fb1547f79cdb8c4726"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a029c5235c430f6625bcd58d4a081c2fa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hid_8c.html#a029c5235c430f6625bcd58d4a081c2fa">usb_insertion</a> (void)</td></tr>
@@ -165,9 +178,9 @@ Functions</h2></td></tr>
 
 <p>Execute the Maintainence Mode State Machine. Please see the <a href="/statemachine.html#mmode_sm" title="Maintainence Mode State Machine">State Machine Page</a>. </p>
 
-<p>Definition at line <a class="el" href="hid_8c_source.html#l00027">27</a> of file <a class="el" href="hid_8c_source.html">hid.c</a>.</p>
+<p>Definition at line <a class="el" href="hid_8c_source.html#l00032">32</a> of file <a class="el" href="hid_8c_source.html">hid.c</a>.</p>
 
-<p>Referenced by <a class="el" href="solar_light_8c_source.html#l00135">loop()</a>.</p>
+<p>Referenced by <a class="el" href="solar_light_8c_source.html#l00143">loop()</a>.</p>
 
 </div>
 </div>
@@ -189,9 +202,95 @@ Functions</h2></td></tr>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000010">Todo:</a></b></dt><dd>TODO: initialize baud rate to 9600 </dd></dl>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000011">Todo:</a></b></dt><dd>TODO: Josh. Put your stuff to setup USB here. </dd></dl>
 
-<p>Definition at line <a class="el" href="hid_8c_source.html#l00008">8</a> of file <a class="el" href="hid_8c_source.html">hid.c</a>.</p>
+<p>Definition at line <a class="el" href="hid_8c_source.html#l00011">11</a> of file <a class="el" href="hid_8c_source.html">hid.c</a>.</p>
 
-<p>Referenced by <a class="el" href="solar_light_8c_source.html#l00106">setup()</a>.</p>
+<p>Referenced by <a class="el" href="solar_light_8c_source.html#l00113">setup()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a3ecb6cc852671ba3bb72a0b40a88afe2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned keypad_flush </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Flush the keypad FIFO. </p>
+
+<p>Definition at line <a class="el" href="hid_8c_source.html#l00279">279</a> of file <a class="el" href="hid_8c_source.html">hid.c</a>.</p>
+
+<p>Referenced by <a class="el" href="hid_8c_source.html#l00103">lcd_begin()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a3a9d1c563afbae051c13ef1b46c2e930"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned char keypad_pull </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the last command from the keypad Attribution: Code from pages 630-633 of "A First Book of ANSI C" by Bronson. </p>
+
+<p>Definition at line <a class="el" href="hid_8c_source.html#l00251">251</a> of file <a class="el" href="hid_8c_source.html">hid.c</a>.</p>
+
+<p>Referenced by <a class="el" href="hid_8c_source.html#l00032">hid_loop()</a>, <a class="el" href="hid_8c_source.html#l00103">lcd_begin()</a>, <a class="el" href="lcd_8c_source.html#l01220">menu_alarm_battery()</a>, <a class="el" href="lcd_8c_source.html#l01328">menu_alarm_comm()</a>, <a class="el" href="lcd_8c_source.html#l01304">menu_alarm_light()</a>, <a class="el" href="lcd_8c_source.html#l01185">menu_battVoltage()</a>, <a class="el" href="lcd_8c_source.html#l00411">menu_getSelection()</a>, <a class="el" href="lcd_8c_source.html#l00820">menu_seeTime()</a>, <a class="el" href="lcd_8c_source.html#l00728">menu_setACBatt()</a>, <a class="el" href="lcd_8c_source.html#l01135">menu_setAddr()</a>, <a class="el" href="lcd_8c_source.html#l01082">menu_setDimLength()</a>, <a class="el" href="lcd_8c_source.html#l01030">menu_setDimLevel()</a>, <a class="el" href="lcd_8c_source.html#l00617">menu_setHurricaneMode()</a>, <a class="el" href="lcd_8c_source.html#l00520">menu_setLightMode()</a>, <a class="el" href="lcd_8c_source.html#l00677">menu_setPanelMode()</a>, <a class="el" href="lcd_8c_source.html#l00892">menu_setTime()</a>, and <a class="el" href="movement_8c_source.html#l00380">mhurricane()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ae4d99f091ba4788d3ea8f7c3b2b27649"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned keypad_push </td>
+          <td>(</td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>keypress</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Push a keypad press to the keypad command FIFO. </p>
+
+<p>Definition at line <a class="el" href="hid_8c_source.html#l00180">180</a> of file <a class="el" href="hid_8c_source.html">hid.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac31461d3dc3cd49644f7dfa8e1cf767f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned char keypad_size </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Give the size of the dynamic keypad FIFO. </p>
+<p>Purpose: Size management, Debug</p>
+<p>Output: the number of entries there are being used. </p>
+
+<p>Definition at line <a class="el" href="hid_8c_source.html#l00271">271</a> of file <a class="el" href="hid_8c_source.html">hid.c</a>.</p>
 
 </div>
 </div>
@@ -210,21 +309,21 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000012">Todo:</a></b></dt><dd>FIXME: See if you can try to not have a potentially infinite loop within the main loop. </dd></dl>
 
-<p>Definition at line <a class="el" href="hid_8c_source.html#l00053">53</a> of file <a class="el" href="hid_8c_source.html">hid.c</a>.</p>
+<p>Definition at line <a class="el" href="hid_8c_source.html#l00103">103</a> of file <a class="el" href="hid_8c_source.html">hid.c</a>.</p>
 
-<p>Referenced by <a class="el" href="hid_8c_source.html#l00027">hid_loop()</a>.</p>
+<p>Referenced by <a class="el" href="hid_8c_source.html#l00032">hid_loop()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a666482694abca54ecd49341cb21859e2"></a>
+<a class="anchor" id="af5b257d9f127eb68bd467a3d73ac0f6d"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">void lcd_end </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>NA</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -232,7 +331,7 @@ Functions</h2></td></tr>
 
 <p>display "exiting", then turn off the led, and exit maintainence mode </p>
 
-<p>Definition at line <a class="el" href="hid_8c_source.html#l00091">91</a> of file <a class="el" href="hid_8c_source.html">hid.c</a>.</p>
+<p>Definition at line <a class="el" href="hid_8c_source.html#l00163">163</a> of file <a class="el" href="hid_8c_source.html">hid.c</a>.</p>
 
 </div>
 </div>
@@ -249,7 +348,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="hid_8c_source.html#l00147">147</a> of file <a class="el" href="hid_8c_source.html">hid.c</a>.</p>
+<p>Definition at line <a class="el" href="hid_8c_source.html#l00338">338</a> of file <a class="el" href="hid_8c_source.html">hid.c</a>.</p>
 
 </div>
 </div>
@@ -267,7 +366,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="hid_8c_source.html#l00118">118</a> of file <a class="el" href="hid_8c_source.html">hid.c</a>.</p>
+<p>Definition at line <a class="el" href="hid_8c_source.html#l00309">309</a> of file <a class="el" href="hid_8c_source.html">hid.c</a>.</p>
 
 </div>
 </div>
@@ -285,7 +384,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="hid_8c_source.html#l00151">151</a> of file <a class="el" href="hid_8c_source.html">hid.c</a>.</p>
+<p>Definition at line <a class="el" href="hid_8c_source.html#l00342">342</a> of file <a class="el" href="hid_8c_source.html">hid.c</a>.</p>
 
 </div>
 </div>
@@ -303,7 +402,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="hid_8c_source.html#l00107">107</a> of file <a class="el" href="hid_8c_source.html">hid.c</a>.</p>
+<p>Definition at line <a class="el" href="hid_8c_source.html#l00298">298</a> of file <a class="el" href="hid_8c_source.html">hid.c</a>.</p>
 
 </div>
 </div>
@@ -321,7 +420,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="hid_8c_source.html#l00103">103</a> of file <a class="el" href="hid_8c_source.html">hid.c</a>.</p>
+<p>Definition at line <a class="el" href="hid_8c_source.html#l00294">294</a> of file <a class="el" href="hid_8c_source.html">hid.c</a>.</p>
 
 </div>
 </div>
@@ -338,7 +437,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="hid_8c_source.html#l00143">143</a> of file <a class="el" href="hid_8c_source.html">hid.c</a>.</p>
+<p>Definition at line <a class="el" href="hid_8c_source.html#l00334">334</a> of file <a class="el" href="hid_8c_source.html">hid.c</a>.</p>
 
 </div>
 </div>
@@ -355,7 +454,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="hid_8c_source.html#l00139">139</a> of file <a class="el" href="hid_8c_source.html">hid.c</a>.</p>
+<p>Definition at line <a class="el" href="hid_8c_source.html#l00330">330</a> of file <a class="el" href="hid_8c_source.html">hid.c</a>.</p>
 
 </div>
 </div>
@@ -373,7 +472,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="hid_8c_source.html#l00111">111</a> of file <a class="el" href="hid_8c_source.html">hid.c</a>.</p>
+<p>Definition at line <a class="el" href="hid_8c_source.html#l00302">302</a> of file <a class="el" href="hid_8c_source.html">hid.c</a>.</p>
 
 </div>
 </div>
@@ -383,7 +482,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="hid_8c.html">hid.c</a></li>
-    <li class="footer">Generated on Wed Apr 15 2015 22:43:23 for Sr. Design 2015 by
+    <li class="footer">Generated on Thu Apr 23 2015 21:58:24 for Sr. Design 2015 by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.9.1 </li>
   </ul>

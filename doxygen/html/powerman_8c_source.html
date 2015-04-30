@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.9.1"/>
-<title>Sr. Design 2015: C:/Users/Benjaminp/Documents/GitHub/firmware/src/powerman.c Source File</title>
+<title>Sr. Design 2015: C:/Users/Benjaminp/Documents/GitHub/firmware.X/src/powerman.c Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -111,59 +111,70 @@ $(document).ready(function(){initNavTree('powerman_8c_source.html','');});
 <div class="contents">
 <a href="powerman_8c.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="powerman_8h.html">powerman.h</a>&gt;</span>                         <span class="comment">//PIC hardware mapping</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;</div>
-<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="powerman_8c.html#affee66c0d193c4f976a52524f3608c25">    8</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="powerman_8c.html#affee66c0d193c4f976a52524f3608c25">power_intiate</a>()</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    PIE2bits.HLVDIE=1;      <span class="comment">//  initiated in order to enable HLVD interupts</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    INTCONbits.GIE=1;</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    PORTAbits.RA4 = 0;   <span class="comment">// RA4 set as output to relay</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    PORTAbits.RA5 = 0;   <span class="comment">// battery input</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="comment">//ANSELAbits.AN4=1;        //analog input is AN4</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    LATAbits.LATA4=0;         <span class="comment">//output initially set to zero</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="eeprom_8h.html">eeprom.h</a>&gt;</span>                           <span class="comment">//eeprom memory</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;math.h&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="lcd_8h.html">lcd.h</a>&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="hid_8h.html">hid.h</a>&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="powerman_8c.html#ad0a24eaca8d3f175483a62c3c53d61dd">   12</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="powerman_8c.html#ad0a24eaca8d3f175483a62c3c53d61dd">power_setup</a>(<span class="keywordtype">void</span>)</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    TRISAbits.TRISA4 = 0;   <span class="comment">// RA4 set as output to relay</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    TRISAbits.TRISA5 = 1;   <span class="comment">// battery input</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    LATAbits.LATA4=0;         <span class="comment">//output initially set to zero</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;}</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="comment">//setup HLVD</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    HLVDCONbits.HLVDEN=1;       <span class="comment">//enable HLVD</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    HLVDCONbits.VDIRMAG=0;  <span class="comment">//Low-level voltage detect</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    HLVDCONbits.IRVST=1;    <span class="comment">//Internal reference voltage stable flag bit</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    HLVDCONbits.HLVDL=1111;    <span class="comment">//external analog input is used</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;}</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;</div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="powerman_8c.html#a05b907ccf068ecf3baa67aaf04690e91">   28</a></span>&#160;<span class="keywordtype">void</span> interrupt <a class="code" href="powerman_8c.html#a05b907ccf068ecf3baa67aaf04690e91">ipr</a>()        <span class="comment">//Power switch depending on battery level</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;{</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordflow">if</span>(HLVDIE &amp;&amp; HLVDIF)</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        PORTAbits.RA4 = 1;            <span class="comment">//This will change the relay to grid power.</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;}</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;</div>
-<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="powerman_8c.html#a72cb243cfbd2b01077ed944b8056ce18">   34</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="powerman_8c.html#a72cb243cfbd2b01077ed944b8056ce18">power_grid_chk</a>()      <span class="comment">//Check for main grid power if battery is getting low.</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;{</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordflow">if</span>(HLVDIE)</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            <span class="comment">//needs to enter sleep mode? Ben?</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;}</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
-<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="powerman_8c.html#acf7c89c4c16c742c488fa36cb51b5916">   41</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="powerman_8c.html#acf7c89c4c16c742c488fa36cb51b5916">power_batt_chk</a>()       <span class="comment">//Check for battery power before switching.</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;{</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;}</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="comment">//TODO: Any other power interupts??</span></div>
-<div class="ttc" id="powerman_8c_html_a72cb243cfbd2b01077ed944b8056ce18"><div class="ttname"><a href="powerman_8c.html#a72cb243cfbd2b01077ed944b8056ce18">power_grid_chk</a></div><div class="ttdeci">void power_grid_chk()</div><div class="ttdef"><b>Definition:</b> <a href="powerman_8c_source.html#l00034">powerman.c:34</a></div></div>
-<div class="ttc" id="powerman_8c_html_acf7c89c4c16c742c488fa36cb51b5916"><div class="ttname"><a href="powerman_8c.html#acf7c89c4c16c742c488fa36cb51b5916">power_batt_chk</a></div><div class="ttdeci">void power_batt_chk()</div><div class="ttdef"><b>Definition:</b> <a href="powerman_8c_source.html#l00041">powerman.c:41</a></div></div>
-<div class="ttc" id="powerman_8c_html_affee66c0d193c4f976a52524f3608c25"><div class="ttname"><a href="powerman_8c.html#affee66c0d193c4f976a52524f3608c25">power_intiate</a></div><div class="ttdeci">void power_intiate()</div><div class="ttdef"><b>Definition:</b> <a href="powerman_8c_source.html#l00008">powerman.c:8</a></div></div>
-<div class="ttc" id="powerman_8c_html_a05b907ccf068ecf3baa67aaf04690e91"><div class="ttname"><a href="powerman_8c.html#a05b907ccf068ecf3baa67aaf04690e91">ipr</a></div><div class="ttdeci">void interrupt ipr()</div><div class="ttdef"><b>Definition:</b> <a href="powerman_8c_source.html#l00028">powerman.c:28</a></div></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">//check battery level using adc converter</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="powerman_8c.html#aff12f1b3caaf4bc68a59f67ebb761d7e">   22</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="powerman_8c.html#aff12f1b3caaf4bc68a59f67ebb761d7e">power_loop</a>(<span class="keywordtype">void</span>)        <span class="comment">//Power switch depending on battery level</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;{</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordtype">double</span> battvolt;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> rawbat;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> set;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">unsigned</span> errored = 0;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    set = (<a class="code" href="eeprom_8h.html#ac6fd893040232d1fed13168b0d34b1c6">setting_bits1</a> &amp; 0b00110000) &gt;&gt; 4;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    rawbat = <a class="code" href="shared_8h.html#a9894f32679557d79d77d6b92f626ca5c">adc_read</a>(<a class="code" href="shared_8h.html#a88c168230dc4904371111a16a2262b7c">ANBATT</a>);</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">//KEEP IN MIND: VOLTAGE DIVIDER!!!!</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment"></span>    <span class="keywordflow">if</span>((battvolt &lt; 2.0)  &amp;&amp; ((set == 1) || (set == 3)))     <span class="comment">//turns battery off if voltage too low</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    {</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        LATAbits.LATA4 = 0;            <span class="comment">//This will change the relay to AC power.</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    }</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span>((battvolt &gt; 2.3) &amp;&amp; (set &gt; 1))      <span class="comment">//turns battery on if voltage too high or forced</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    {</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        LATAbits.LATA4 = 1;            <span class="comment">//This will the turn the AC power off.</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    }</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordflow">if</span>((battvolt &lt; 0.6) &amp;&amp; (battvolt &gt; 0.2)) <span class="comment">// error when low but there is a battery</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    {</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <span class="keywordflow">if</span>(errored == 0)</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        {</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;            <a class="code" href="eeprom_8h.html#a83798e03c72010aa1a2570892ccee100">mem_append_log</a>(<a class="code" href="eeprom_8h.html#a1a6c069f987602695502549ed20ace68">ERR_BATTLOW</a>);</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;            errored = 1;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        }</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    }</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;}</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div>
+<div class="ttc" id="shared_8h_html_a88c168230dc4904371111a16a2262b7c"><div class="ttname"><a href="shared_8h.html#a88c168230dc4904371111a16a2262b7c">ANBATT</a></div><div class="ttdeci">#define ANBATT</div><div class="ttdef"><b>Definition:</b> <a href="shared_8h_source.html#l00026">shared.h:26</a></div></div>
+<div class="ttc" id="hid_8h_html"><div class="ttname"><a href="hid_8h.html">hid.h</a></div></div>
+<div class="ttc" id="eeprom_8h_html_ac6fd893040232d1fed13168b0d34b1c6"><div class="ttname"><a href="eeprom_8h.html#ac6fd893040232d1fed13168b0d34b1c6">setting_bits1</a></div><div class="ttdeci">unsigned char setting_bits1</div><div class="ttdef"><b>Definition:</b> <a href="eeprom_8h_source.html#l00037">eeprom.h:37</a></div></div>
+<div class="ttc" id="powerman_8c_html_ad0a24eaca8d3f175483a62c3c53d61dd"><div class="ttname"><a href="powerman_8c.html#ad0a24eaca8d3f175483a62c3c53d61dd">power_setup</a></div><div class="ttdeci">void power_setup(void)</div><div class="ttdef"><b>Definition:</b> <a href="powerman_8c_source.html#l00012">powerman.c:12</a></div></div>
+<div class="ttc" id="eeprom_8h_html_a83798e03c72010aa1a2570892ccee100"><div class="ttname"><a href="eeprom_8h.html#a83798e03c72010aa1a2570892ccee100">mem_append_log</a></div><div class="ttdeci">unsigned char mem_append_log(unsigned char)</div><div class="ttdoc">saves an event to the log space. </div><div class="ttdef"><b>Definition:</b> <a href="eeprom_8c_source.html#l00041">eeprom.c:41</a></div></div>
+<div class="ttc" id="eeprom_8h_html_a1a6c069f987602695502549ed20ace68"><div class="ttname"><a href="eeprom_8h.html#a1a6c069f987602695502549ed20ace68">ERR_BATTLOW</a></div><div class="ttdeci">#define ERR_BATTLOW</div><div class="ttdef"><b>Definition:</b> <a href="eeprom_8h_source.html#l00014">eeprom.h:14</a></div></div>
+<div class="ttc" id="eeprom_8h_html"><div class="ttname"><a href="eeprom_8h.html">eeprom.h</a></div></div>
+<div class="ttc" id="powerman_8c_html_aff12f1b3caaf4bc68a59f67ebb761d7e"><div class="ttname"><a href="powerman_8c.html#aff12f1b3caaf4bc68a59f67ebb761d7e">power_loop</a></div><div class="ttdeci">void power_loop(void)</div><div class="ttdef"><b>Definition:</b> <a href="powerman_8c_source.html#l00022">powerman.c:22</a></div></div>
+<div class="ttc" id="lcd_8h_html"><div class="ttname"><a href="lcd_8h.html">lcd.h</a></div></div>
 <div class="ttc" id="powerman_8h_html"><div class="ttname"><a href="powerman_8h.html">powerman.h</a></div></div>
+<div class="ttc" id="shared_8h_html_a9894f32679557d79d77d6b92f626ca5c"><div class="ttname"><a href="shared_8h.html#a9894f32679557d79d77d6b92f626ca5c">adc_read</a></div><div class="ttdeci">unsigned int adc_read(unsigned char)</div><div class="ttdoc">Read adc value out of the ADC buffer for the passed channel. </div><div class="ttdef"><b>Definition:</b> <a href="shared_8c_source.html#l00032">shared.c:32</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="powerman_8c.html">powerman.c</a></li>
-    <li class="footer">Generated on Wed Apr 15 2015 22:43:22 for Sr. Design 2015 by
+    <li class="footer">Generated on Thu Apr 23 2015 21:58:23 for Sr. Design 2015 by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.9.1 </li>
   </ul>

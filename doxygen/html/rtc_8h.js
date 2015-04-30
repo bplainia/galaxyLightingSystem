@@ -17,6 +17,6 @@ var rtc_8h =
     [ "alarm_enable", "rtc_8h.html#a90ba74701d3d697f2fe95a325a4956e8", null ],
     [ "alarm_set", "rtc_8h.html#a346dc2e2c998fe2ba63490eb1ec90153", null ],
     [ "rtc_get", "rtc_8h.html#acee4efb6bf46425cbfc10232487aa3eb", null ],
-    [ "rtc_set", "rtc_8h.html#a58ce2d182f76e7f14fd40c21d9465a0c", null ],
+    [ "rtc_set", "rtc_8h.html#ab19861c310bb1a7656342f37ebcc0381", null ],
     [ "rtc_setup", "rtc_8h.html#ae83559199d1a128c09c800d2622d5628", null ]
 ];

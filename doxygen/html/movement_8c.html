@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.9.1"/>
-<title>Sr. Design 2015: C:/Users/Benjaminp/Documents/GitHub/firmware/src/movement.c File Reference</title>
+<title>Sr. Design 2015: C:/Users/Benjaminp/Documents/GitHub/firmware.X/src/movement.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -112,6 +112,7 @@ $(document).ready(function(){initNavTree('movement_8c.html','');});
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;<a class="el" href="movement_8h_source.html">movement.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="lcd_8h_source.html">lcd.h</a>&gt;</code><br />
 </div>
 <p><a href="movement_8c_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -126,11 +127,12 @@ Functions</h2></td></tr>
 <tr class="memitem:aa8591ba7e28cdff297c7c02f76cc9a36"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="movement_8c.html#aa8591ba7e28cdff297c7c02f76cc9a36">daytime_move</a> (void)</td></tr>
 <tr class="memdesc:aa8591ba7e28cdff297c7c02f76cc9a36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move the panel to point at the sun, either from sensors or memory.  <a href="#aa8591ba7e28cdff297c7c02f76cc9a36">More...</a><br /></td></tr>
 <tr class="separator:aa8591ba7e28cdff297c7c02f76cc9a36"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a239217822c528dec6104b0a23a998a03"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="movement_8c.html#a239217822c528dec6104b0a23a998a03">dusk_moveback</a> (unsigned int eastLimit)</td></tr>
-<tr class="memdesc:a239217822c528dec6104b0a23a998a03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move back to the east for the next day.  <a href="#a239217822c528dec6104b0a23a998a03">More...</a><br /></td></tr>
-<tr class="separator:a239217822c528dec6104b0a23a998a03"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a45792304b1e07f052b8619a70b6b3d83"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="movement_8c.html#a45792304b1e07f052b8619a70b6b3d83">motor_move</a> (char direction)</td></tr>
-<tr class="separator:a45792304b1e07f052b8619a70b6b3d83"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b7b82bcb06887dd1e0b337963861bfc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="movement_8c.html#a1b7b82bcb06887dd1e0b337963861bfc">dusk_moveback</a> (void)</td></tr>
+<tr class="memdesc:a1b7b82bcb06887dd1e0b337963861bfc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move back to the east for the next day.  <a href="#a1b7b82bcb06887dd1e0b337963861bfc">More...</a><br /></td></tr>
+<tr class="separator:a1b7b82bcb06887dd1e0b337963861bfc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e677af9b56269e5d6607fd3d22a0be0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="movement_8c.html#a2e677af9b56269e5d6607fd3d22a0be0">motor_move</a> (unsigned char direction)</td></tr>
+<tr class="memdesc:a2e677af9b56269e5d6607fd3d22a0be0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Command the motors to move in the direction specified.  <a href="#a2e677af9b56269e5d6607fd3d22a0be0">More...</a><br /></td></tr>
+<tr class="separator:a2e677af9b56269e5d6607fd3d22a0be0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8bf89395b9cf8aa5b7f45722394c59b4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="movement_8c.html#a8bf89395b9cf8aa5b7f45722394c59b4">season_adjust</a> (void)</td></tr>
 <tr class="memdesc:a8bf89395b9cf8aa5b7f45722394c59b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adjust the panel (if needed) based on the season.  <a href="#a8bf89395b9cf8aa5b7f45722394c59b4">More...</a><br /></td></tr>
 <tr class="separator:a8bf89395b9cf8aa5b7f45722394c59b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -141,27 +143,29 @@ Functions</h2></td></tr>
 <tr class="separator:a9baa4abef1841a47e15e42f94520e133"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa1e9156f5be761180d7923f2507ffe92"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="movement_8c.html#aa1e9156f5be761180d7923f2507ffe92">year_pos_move</a> (unsigned int desPos)</td></tr>
 <tr class="separator:aa1e9156f5be761180d7923f2507ffe92"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3e37a3f875b2320e4d9ff1ce2b5c28b1"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="movement_8c.html#a3e37a3f875b2320e4d9ff1ce2b5c28b1">abs</a> (unsigned int num)</td></tr>
-<tr class="separator:a3e37a3f875b2320e4d9ff1ce2b5c28b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59d6bd1b8b8a2aa1a69e8449f6a06035"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="movement_8c.html#a59d6bd1b8b8a2aa1a69e8449f6a06035">abs</a> (int num)</td></tr>
+<tr class="separator:a59d6bd1b8b8a2aa1a69e8449f6a06035"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa69581c5bbefce5dfa5a04745cc48775"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="movement_8c.html#aa69581c5bbefce5dfa5a04745cc48775">mhurricane</a> (void)</td></tr>
+<tr class="separator:aa69581c5bbefce5dfa5a04745cc48775"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="a3e37a3f875b2320e4d9ff1ce2b5c28b1"></a>
+<a class="anchor" id="a59d6bd1b8b8a2aa1a69e8449f6a06035"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">unsigned int abs </td>
           <td>(</td>
-          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>num</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="movement_8c_source.html#l00356">356</a> of file <a class="el" href="movement_8c_source.html">movement.c</a>.</p>
+<p>Definition at line <a class="el" href="movement_8c_source.html#l00371">371</a> of file <a class="el" href="movement_8c_source.html">movement.c</a>.</p>
 
-<p>Referenced by <a class="el" href="movement_8c_source.html#l00324">day_pos_move()</a>, <a class="el" href="movement_8c_source.html#l00102">daytime_move()</a>, <a class="el" href="movement_8c_source.html#l00029">limit_test()</a>, and <a class="el" href="movement_8c_source.html#l00340">year_pos_move()</a>.</p>
+<p>Referenced by <a class="el" href="movement_8c_source.html#l00339">day_pos_move()</a>, <a class="el" href="movement_8c_source.html#l00103">daytime_move()</a>, <a class="el" href="movement_8c_source.html#l00031">limit_test()</a>, and <a class="el" href="movement_8c_source.html#l00355">year_pos_move()</a>.</p>
 
 </div>
 </div>
@@ -179,9 +183,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="movement_8c_source.html#l00324">324</a> of file <a class="el" href="movement_8c_source.html">movement.c</a>.</p>
+<p>Definition at line <a class="el" href="movement_8c_source.html#l00339">339</a> of file <a class="el" href="movement_8c_source.html">movement.c</a>.</p>
 
-<p>Referenced by <a class="el" href="movement_8c_source.html#l00102">daytime_move()</a>, <a class="el" href="movement_8c_source.html#l00196">dusk_moveback()</a>, and <a class="el" href="movement_8c_source.html#l00029">limit_test()</a>.</p>
+<p>Referenced by <a class="el" href="movement_8c_source.html#l00103">daytime_move()</a>, <a class="el" href="movement_8c_source.html#l00194">dusk_moveback()</a>, and <a class="el" href="movement_8c_source.html#l00031">limit_test()</a>.</p>
 
 </div>
 </div>
@@ -201,21 +205,21 @@ Functions</h2></td></tr>
 
 <p>Move the panel to point at the sun, either from sensors or memory. </p>
 
-<p>Definition at line <a class="el" href="movement_8c_source.html#l00102">102</a> of file <a class="el" href="movement_8c_source.html">movement.c</a>.</p>
+<p>Definition at line <a class="el" href="movement_8c_source.html#l00103">103</a> of file <a class="el" href="movement_8c_source.html">movement.c</a>.</p>
 
-<p>Referenced by <a class="el" href="movement_8c_source.html#l00029">limit_test()</a>, and <a class="el" href="solar_light_8c_source.html#l00135">loop()</a>.</p>
+<p>Referenced by <a class="el" href="movement_8c_source.html#l00031">limit_test()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a239217822c528dec6104b0a23a998a03"></a>
+<a class="anchor" id="a1b7b82bcb06887dd1e0b337963861bfc"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">void dusk_moveback </td>
           <td>(</td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>eastLimit</em></td><td>)</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -223,9 +227,9 @@ Functions</h2></td></tr>
 
 <p>Move back to the east for the next day. </p>
 
-<p>Definition at line <a class="el" href="movement_8c_source.html#l00196">196</a> of file <a class="el" href="movement_8c_source.html">movement.c</a>.</p>
+<p>Definition at line <a class="el" href="movement_8c_source.html#l00194">194</a> of file <a class="el" href="movement_8c_source.html">movement.c</a>.</p>
 
-<p>Referenced by <a class="el" href="movement_8c_source.html#l00102">daytime_move()</a>, and <a class="el" href="movement_8c_source.html#l00029">limit_test()</a>.</p>
+<p>Referenced by <a class="el" href="movement_8c_source.html#l00103">daytime_move()</a>, and <a class="el" href="movement_8c_source.html#l00031">limit_test()</a>.</p>
 
 </div>
 </div>
@@ -246,9 +250,7 @@ Functions</h2></td></tr>
 <p>Move the panel to each limit to find values on pots. </p>
 <p>&ndash;&gt; Test value (global var) used to show if function was entered </p>
 
-<p>Definition at line <a class="el" href="movement_8c_source.html#l00029">29</a> of file <a class="el" href="movement_8c_source.html">movement.c</a>.</p>
-
-<p>Referenced by <a class="el" href="solar_light_8c_source.html#l00106">setup()</a>.</p>
+<p>Definition at line <a class="el" href="movement_8c_source.html#l00031">31</a> of file <a class="el" href="movement_8c_source.html">movement.c</a>.</p>
 
 </div>
 </div>
@@ -281,27 +283,47 @@ Functions</h2></td></tr>
 <p>tfixed = move to optimal position, day flat, year 30ish day_pos_move(pot_noon); year_pos_move((2*limitPot[DOWN]+limitPot[UP])/3);</p>
 <p>limits <a class="el" href="movement_8c.html#a9e3d487fc2cf3a8946fc4045ece08ca5" title="Move the panel to each limit to find values on pots. ">limit_test()</a></p>
 
-<p>Definition at line <a class="el" href="movement_8c_source.html#l00281">281</a> of file <a class="el" href="movement_8c_source.html">movement.c</a>.</p>
+<p>Definition at line <a class="el" href="movement_8c_source.html#l00296">296</a> of file <a class="el" href="movement_8c_source.html">movement.c</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a45792304b1e07f052b8619a70b6b3d83"></a>
+<a class="anchor" id="aa69581c5bbefce5dfa5a04745cc48775"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void mhurricane </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="movement_8c_source.html#l00380">380</a> of file <a class="el" href="movement_8c_source.html">movement.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a2e677af9b56269e5d6607fd3d22a0be0"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">void motor_move </td>
           <td>(</td>
-          <td class="paramtype">char&#160;</td>
+          <td class="paramtype">unsigned char&#160;</td>
           <td class="paramname"><em>direction</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="movement_8c_source.html#l00202">202</a> of file <a class="el" href="movement_8c_source.html">movement.c</a>.</p>
+<p>Command the motors to move in the direction specified. </p>
 
-<p>Referenced by <a class="el" href="movement_8c_source.html#l00324">day_pos_move()</a>, <a class="el" href="movement_8c_source.html#l00102">daytime_move()</a>, <a class="el" href="movement_8c_source.html#l00029">limit_test()</a>, <a class="el" href="sensors_8c_source.html#l00196">limits()</a>, <a class="el" href="movement_8c_source.html#l00248">season_adjust()</a>, and <a class="el" href="movement_8c_source.html#l00340">year_pos_move()</a>.</p>
+<p>Definition at line <a class="el" href="movement_8c_source.html#l00201">201</a> of file <a class="el" href="movement_8c_source.html">movement.c</a>.</p>
+
+<p>Referenced by <a class="el" href="movement_8c_source.html#l00339">day_pos_move()</a>, <a class="el" href="movement_8c_source.html#l00103">daytime_move()</a>, <a class="el" href="movement_8c_source.html#l00031">limit_test()</a>, <a class="el" href="sensors_8c_source.html#l00201">limits()</a>, <a class="el" href="movement_8c_source.html#l00380">mhurricane()</a>, <a class="el" href="movement_8c_source.html#l00263">season_adjust()</a>, and <a class="el" href="movement_8c_source.html#l00355">year_pos_move()</a>.</p>
 
 </div>
 </div>
@@ -321,9 +343,9 @@ Functions</h2></td></tr>
 
 <p>setup motors </p>
 
-<p>Definition at line <a class="el" href="movement_8c_source.html#l00012">12</a> of file <a class="el" href="movement_8c_source.html">movement.c</a>.</p>
+<p>Definition at line <a class="el" href="movement_8c_source.html#l00013">13</a> of file <a class="el" href="movement_8c_source.html">movement.c</a>.</p>
 
-<p>Referenced by <a class="el" href="solar_light_8c_source.html#l00106">setup()</a>.</p>
+<p>Referenced by <a class="el" href="solar_light_8c_source.html#l00113">setup()</a>.</p>
 
 </div>
 </div>
@@ -345,9 +367,9 @@ Functions</h2></td></tr>
 <p>Outputs: commands to the motors</p>
 <p>&ndash;&gt; Test value (global var) used to show if function was entered </p>
 
-<p>Definition at line <a class="el" href="movement_8c_source.html#l00248">248</a> of file <a class="el" href="movement_8c_source.html">movement.c</a>.</p>
+<p>Definition at line <a class="el" href="movement_8c_source.html#l00263">263</a> of file <a class="el" href="movement_8c_source.html">movement.c</a>.</p>
 
-<p>Referenced by <a class="el" href="movement_8c_source.html#l00102">daytime_move()</a>.</p>
+<p>Referenced by <a class="el" href="movement_8c_source.html#l00103">daytime_move()</a>.</p>
 
 </div>
 </div>
@@ -365,9 +387,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="movement_8c_source.html#l00340">340</a> of file <a class="el" href="movement_8c_source.html">movement.c</a>.</p>
+<p>Definition at line <a class="el" href="movement_8c_source.html#l00355">355</a> of file <a class="el" href="movement_8c_source.html">movement.c</a>.</p>
 
-<p>Referenced by <a class="el" href="movement_8c_source.html#l00029">limit_test()</a>.</p>
+<p>Referenced by <a class="el" href="movement_8c_source.html#l00031">limit_test()</a>.</p>
 
 </div>
 </div>
@@ -377,7 +399,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="movement_8c.html">movement.c</a></li>
-    <li class="footer">Generated on Wed Apr 15 2015 22:43:23 for Sr. Design 2015 by
+    <li class="footer">Generated on Thu Apr 23 2015 21:58:24 for Sr. Design 2015 by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.9.1 </li>
   </ul>

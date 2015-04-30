@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.9.1"/>
-<title>Sr. Design 2015: C:/Users/Benjaminp/Documents/GitHub/firmware/src/shared.c Source File</title>
+<title>Sr. Design 2015: C:/Users/Benjaminp/Documents/GitHub/firmware.X/src/shared.c Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -112,291 +112,302 @@ $(document).ready(function(){initNavTree('shared_8c_source.html','');});
 <a href="shared_8c.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;</div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="shared_8h.html">shared.h</a>&gt;</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;</div>
-<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="shared_8c.html#af5e0a217880b6f6976ff1c2b1297f7a3">   10</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="shared_8c.html#af5e0a217880b6f6976ff1c2b1297f7a3">adc_setup</a>()</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="comment">// AN4 = Battery, AN2,3 = Pots, 8,19,18,17 = Photocells, AN0 = Temp</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    ADCSS0L = 0b00011101; <span class="comment">//temp, pots, batt</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    ADCSS0H = 0b00000001; <span class="comment">// photo pin 8</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    ADCSS1L = 0b00001110; <span class="comment">// rest of photos</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    ADCSS0H = 0; <span class="comment">// no adc&#39;s on this one</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    SAMC1   = 10;<span class="comment">// sample time</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    ADRC    = 1;<span class="comment">// auto conversion trigger</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="comment">// enable ADC</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment"></span>}</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="shared_8c.html#ad5fe171537bbe6de73057ac05a6ce7f3">   28</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="shared_8c.html#ad5fe171537bbe6de73057ac05a6ce7f3">adc_update</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> chA) <span class="comment">// Read specific pin - raw</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;{</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordflow">if</span>(chA &gt; 0b11111) <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    ADCHS0Lbits.CH0SA = chA;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    SAMP = 1; <span class="comment">// Initiate sample</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;}</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;</div>
-<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="shared_8c.html#ad3268ffe59352c3866a3cd05ca551f93">   41</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="shared_8c.html#ad3268ffe59352c3866a3cd05ca551f93">adc_update2</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> chA, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> chB)</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;{</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordflow">if</span>((chA &gt; 0b11111) || (chB &gt; 0b11111)) <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    ADCHS0Lbits.CH0SA = chA;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    ADCHS0Hbits.CH0SB = chB;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    ADCON2Lbits.ALTS = 1;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    SAMP = 1; <span class="comment">// Initiate sample(s)</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordflow">while</span>(!DONE) <span class="keywordflow">continue</span>;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    DONE = 0;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordflow">while</span>(!DONE) <span class="keywordflow">continue</span>;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    DONE = 0;</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;</div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="shared_8c.html#af5e0a217880b6f6976ff1c2b1297f7a3">   11</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="shared_8c.html#af5e0a217880b6f6976ff1c2b1297f7a3">adc_setup</a>()</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="comment">// Input Configuration:</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="comment">// AN4 = Battery, AN2,3 = Pots, 8,19,18,17 = Photocells, AN0 = Temp</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    ANCON1 = 0b10101101; <span class="comment">// photo pin3, batt, pot pin21, pot pin22, temp</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    ANCON2 = 0b00110000; <span class="comment">// photo pin5, photo pin4</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    ANCON3 = 0b01000000; <span class="comment">// photo pin6</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="comment">// configuring the module: ___________________________________</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="comment">// output resolution, voltage reference, clock select, how will sampling be done, output format/destination, readings per interrupt</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    ADCON1Hbits.MODE12 = 1;      <span class="comment">// use 12-bit resolution</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    ADCON1Lbits.SSRC   = 0b0111; <span class="comment">// auto sample clock</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    ADCON3H            = 0x1F;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    ADCON3L            = 0x02;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    ADCON2H            = 0;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    ADCON3L            = 0;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    ADCON1Hbits.ADON   = 1; <span class="comment">// converter is now on!</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;}</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="shared_8c.html#a906da80df61e40eb0f2fe0243ad72e66">   32</a></span>&#160;<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="shared_8c.html#a906da80df61e40eb0f2fe0243ad72e66">adc_read</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> channel)</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;{</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="comment">// Each pin is attached to an adc channel</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <span class="comment">// Depending on which device (pin) is desired, that channel is requested</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <span class="comment">// when an adc is performed the result is put into the buffer for that channel</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="comment">// for this code a pointer is created that points at the low byte of the buffer</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="comment">// an int is used to grab the data in the byte, which should grab the low and high byte</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    ADCHS0Lbits.CH0NA = 0; <span class="comment">// AVss</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    ADCHS0Lbits.CH0SA = channel; <span class="comment">// choose the correct channel</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    ADCON1Lbits.SAMP = 1; <span class="comment">// begin sampling</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordflow">while</span>(!ADCON1Lbits.DONE) <span class="keywordflow">continue</span>; <span class="comment">// wait til it is done</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordflow">return</span> ADCBUF0; <span class="comment">// return the buffer</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;}</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="shared_8c.html#a6b11f55ddc2f9d1125c97a47e4a799f6">   48</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="shared_8c.html#a6b11f55ddc2f9d1125c97a47e4a799f6">pwm_setup</a>() </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;{</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    PR2   = 0XFF;          <span class="comment">//</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="comment">// T2CON = 0b00000111; // 1:16 prescaler from instruction = 750kHz</span></div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="comment">// Done.</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    ADCON2Lbits.ALTS = 0;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;}</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div>
-<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="shared_8c.html#a34a212934599b1e31db42ec3d8c15b73">   58</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="shared_8c.html#a34a212934599b1e31db42ec3d8c15b73">adc_updateAll</a>() </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;{</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    ADCON2Hbits.CSCNA = 1; <span class="comment">// Enable Channel Scan</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="comment"></span>    ADCON2Hbits.CSCNA = 0; <span class="comment">// Disable Channel Scan</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    CCP3CON = 0b00111100; <span class="comment">//???????</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    T2CONbits.T2CKPS = 0b11;            <span class="comment">//1:16 prescaler (now we have a 1MHz clock coming into TMRx)</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    T2CONbits.TMR2ON = 1;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="comment">// our minimum frequency is 1953.125Hz at 32MHz.</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="comment">// giving a resolution of 10 bits</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="comment">// CCPTMRS0 do not need modified. already set to TMR1/2 (PWM uses 2)</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="comment">// Some reminders:</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="comment">// PWM Period = (PR2 + 1) * 4 * (1/&lt;Primary Oscilator&gt;) * &lt;TMR2 Prescale&gt;</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="comment">// Max Resolution = log_2 (Fosc/Fpwm)</span></div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;}</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
-<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="shared_8c.html#a906da80df61e40eb0f2fe0243ad72e66">   67</a></span>&#160;<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="shared_8c.html#a906da80df61e40eb0f2fe0243ad72e66">adc_read</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> channel)</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;{</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> adcVal;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordtype">int</span> *adcPtr;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordflow">switch</span>(channel)</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    {</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        <span class="keywordflow">case</span> 0:</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;            adcPtr = (<span class="keywordtype">int</span> *)&amp;ADCBUF0L;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <span class="keywordflow">case</span> 1:</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;            adcPtr = (<span class="keywordtype">int</span> *)&amp;ADCBUF1L;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        <span class="keywordflow">case</span> 2:</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;            adcPtr = (<span class="keywordtype">int</span> *)&amp;ADCBUF2L;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <span class="keywordflow">case</span> 3:</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;            adcPtr = (<span class="keywordtype">int</span> *)&amp;ADCBUF3L;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        <span class="keywordflow">case</span> 4:</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;            adcPtr = (<span class="keywordtype">int</span> *)&amp;ADCBUF4L;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        <span class="keywordflow">case</span> 5:</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;            adcPtr = (<span class="keywordtype">int</span> *)&amp;ADCBUF5L;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        <span class="keywordflow">case</span> 6:</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;            adcPtr = (<span class="keywordtype">int</span> *)&amp;ADCBUF6L;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        <span class="keywordflow">case</span> 7:</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;            adcPtr = (<span class="keywordtype">int</span> *)&amp;ADCBUF7L;</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <span class="keywordflow">case</span> 8:</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;            adcPtr = (<span class="keywordtype">int</span> *)&amp;ADCBUF8L;</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        <span class="keywordflow">case</span> 9:</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;            adcPtr = (<span class="keywordtype">int</span> *)&amp;ADCBUF9L;</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        <span class="keywordflow">case</span> 10:</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;            adcPtr = (<span class="keywordtype">int</span> *)&amp;ADCBUF10L;</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        <span class="keywordflow">case</span> 11:</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;            adcPtr = (<span class="keywordtype">int</span> *)&amp;ADCBUF11L;</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        <span class="keywordflow">case</span> 12:</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;            adcPtr = (<span class="keywordtype">int</span> *)&amp;ADCBUF12L;</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        <span class="keywordflow">case</span> 13:</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;            adcPtr = (<span class="keywordtype">int</span> *)&amp;ADCBUF13L;</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        <span class="keywordflow">case</span> 14:</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;            adcPtr = (<span class="keywordtype">int</span> *)&amp;ADCBUF14L;</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        <span class="keywordflow">case</span> 15:</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;            adcPtr = (<span class="keywordtype">int</span> *)&amp;ADCBUF15L;</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    }</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    adcVal = *adcPtr;</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <span class="keywordflow">return</span>(adcVal);</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;}</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;</div>
-<div class="line"><a name="l00129"></a><span class="lineno"><a class="line" href="shared_8c.html#a6b11f55ddc2f9d1125c97a47e4a799f6">  129</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="shared_8c.html#a6b11f55ddc2f9d1125c97a47e4a799f6">pwm_setup</a>() </div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;{</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    CCPTMRS0bits.C1TSEL = 0b000;    <span class="comment">// Initialize TMR2</span></div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;<span class="comment"></span>    PR2   = 0XFF;       <span class="comment">//</span></div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    T2CON = 0b00000111; <span class="comment">// 1:16 prescaler from instruction = 750kHz</span></div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    <span class="comment">// Some reminders:</span></div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    <span class="comment">// PWM Period = (PR2 + 1) * 4 * (1/&lt;Primary Oscilator&gt;) * &lt;TMR2 Prescale&gt;</span></div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    <span class="comment">// Max Resolution = log_2 (Fosc/Fpwm)</span></div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    <span class="comment">// Duty Cycle = (CCPR4L:CCP4CON&lt;5:4&gt;)*Tosc*Prescale</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="comment">// PWM Channels Setup</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    TRISAbits.TRISA1 = 0;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    RPOR0_1bits.RPO1R = 0x9; <span class="comment">// set RP1 to CCP9 for the Light</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    CCP9CONbits.CCP9M = 0b1100;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    TRISEbits.TRISE4 = 0;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    RPOR32_33bits.RPO32R = 0x9; <span class="comment">// set RP32 to CCP5 for RED PWM</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    CCP5CONbits.CCP5M = 0b1100;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    TRISEbits.TRISE5 = 0;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    RPOR34_35bits.RPO34R = 0x9; <span class="comment">// set RP34 to CCP6 for GRN PWM</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    CCP6CONbits.CCP6M = 0b1100;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    TRISEbits.TRISE6 = 0;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    RPOR36_37bits.RPO37R = 0x8; <span class="comment">// set RP37 to CCP7 for BLU PWM</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    CCP7CONbits.CCP7M = 0b1100;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="comment">// delay timer</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    TMR1H = 0xEF;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    TMR1L = 0xFF;       <span class="comment">// set to increment `time` every 1/8th of a second</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    TMR1IE = 1;         <span class="comment">// enable interrupt for timer 1</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    TMR1IP = 1;         <span class="comment">// high priority</span></div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    T1CON = 0b10001011; <span class="comment">// Use SOSC, no prescaler, Sync it, 16-bit r/w mode, enable.</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="comment">// pir/movement timer</span></div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    TMR3H = 0xEF;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    TMR3L = 0xFF;       <span class="comment">// set to increment `time` every 1/8th of a second</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    TMR3IE = 1;         <span class="comment">// enable interrupt for timer 1</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    TMR1IP = 1;         <span class="comment">// high priority</span></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    T3CON = 0b10001011; <span class="comment">// Use SOSC, no prescaler, Sync it, 16-bit r/w mode, enable.</span></div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;}</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;</div>
+<div class="line"><a name="l00110"></a><span class="lineno"><a class="line" href="shared_8c.html#a5b97a0b14ea197562c0635dfec6df732">  110</a></span>&#160;<span class="keywordtype">unsigned</span> <a class="code" href="shared_8c.html#a5b97a0b14ea197562c0635dfec6df732">pwm_set</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> channel, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> duty) <span class="comment">// Set pin to duty cycle</span></div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;{</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keywordflow">if</span>(duty &gt; 256) duty = 256;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    duty = 4 * duty; <span class="comment">// ten bytes is 1024. with 256 sections, we</span></div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keywordflow">if</span>(duty != 0) --duty; <span class="comment">// since 1024 is 0x100_0000_0000, we need to knock it down one</span></div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <span class="keywordflow">switch</span>(channel)</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    {</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        <span class="keywordflow">case</span> 0:</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        <span class="keywordflow">case</span> 1:</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        <span class="keywordflow">case</span> 2:</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">true</span>; <span class="comment">// error</span></div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        <span class="keywordflow">case</span> 3: <span class="comment">// light - ccp9 - ON RP1/RA1</span></div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;            CCPR9L = duty &amp; 0x00FF;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;            CCP9CONbits.DC9B = duty &gt;&gt; 8;</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;            <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        <span class="keywordflow">case</span> 4: <span class="comment">// red - ccp5</span></div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;            CCPR5L = duty &amp; 0x00FF;</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;            CCP5CONbits.DC5B = duty &gt;&gt; 8;</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;            <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;        <span class="keywordflow">case</span> 5: <span class="comment">// green - ccp6</span></div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;            CCPR6L = duty &amp; 0x00FF;</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;            CCP6CONbits.DC6B = duty &gt;&gt; 8;</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;            <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;        <span class="keywordflow">case</span> 6: <span class="comment">// blue - ccp7</span></div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;            CCPR7L = duty &amp; 0x00FF;</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;            CCP7CONbits.DC7B = duty &gt;&gt; 8;</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    }</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>; <span class="comment">// no error</span></div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;}</div>
 <div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    <span class="comment">// LCD Backlight Channels</span></div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    RPOR32_33bits.RPO32R = 0x9; <span class="comment">// set RP32 to CCP5 for RED PWM</span></div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    RPOR34_35bits.RPO34R = 0x9; <span class="comment">// set RP34 to CCP6 for GRN PWM</span></div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    RPOR36_37bits.RPO37R = 0x8; <span class="comment">// set RP37 to CCP7 for BLU PWM</span></div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;}</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;</div>
-<div class="line"><a name="l00159"></a><span class="lineno"><a class="line" href="shared_8c.html#a501f54f5e2a92a3bc2d8e7c625371aae">  159</a></span>&#160;<span class="keywordtype">unsigned</span> <a class="code" href="shared_8c.html#a501f54f5e2a92a3bc2d8e7c625371aae">pwm_set</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> channel, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> duty) <span class="comment">// Set pin to duty cycle</span></div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;{</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;}</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;</div>
-<div class="line"><a name="l00175"></a><span class="lineno"><a class="line" href="shared_8c.html#a27d0b2daf941559afb7dd6e46bf0167e">  175</a></span>&#160;<span class="keywordtype">unsigned</span> <a class="code" href="shared_8c.html#a27d0b2daf941559afb7dd6e46bf0167e">i2c_tx</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> addr, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> reg16, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> regl, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> regh, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *data, <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> dataLength)</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;{</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> i = 0;</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    <span class="keywordflow">if</span>(dataLength == 0) <span class="keywordflow">return</span> <span class="keyword">true</span>; <span class="comment">// Do nothing if there is a zero data length.</span></div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;    i2c_start();</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    i2c_send(addr &amp; 0b11111110); <span class="comment">// write mode; address</span></div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;    <span class="keywordflow">if</span>(reg16 &gt; 0) i2c_send(regh); <span class="comment">// Address High Byte</span></div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    i2c_send(regl); <span class="comment">// Address Low Byte</span></div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    <span class="keywordflow">for</span>(i = 0; i &lt; dataLength; ++i)</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;    {</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;        i2c_send(data[i]);</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    }</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;    i2c_stop(); <span class="comment">// generate stop bit</span></div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;<span class="comment"></span>    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;}</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;</div>
-<div class="line"><a name="l00196"></a><span class="lineno"><a class="line" href="shared_8c.html#a37c0b95630cd7d12e843ac4c714096ac">  196</a></span>&#160;<span class="keywordtype">unsigned</span> <a class="code" href="shared_8c.html#a37c0b95630cd7d12e843ac4c714096ac">i2c_check</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> addr)</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;{</div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    i2c_start();</div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;    i2c_send(addr | 1); <span class="comment">// We will use the read mode address and then stop.</span></div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    i2c_stop();</div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;    <span class="keywordflow">return</span> SSP1CON2bits.ACKSTAT;</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;}</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;</div>
-<div class="line"><a name="l00209"></a><span class="lineno"><a class="line" href="shared_8c.html#abba02944b1444e1f4deef0fa557804cc">  209</a></span>&#160;<span class="keywordtype">unsigned</span> <a class="code" href="shared_8c.html#abba02944b1444e1f4deef0fa557804cc">i2c_rx</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> addr, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> reg16, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> regl, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> regh, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *data, <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> dataLength) <span class="comment">// recieve data from address</span></div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;{</div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> i = 0;</div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    <span class="keywordflow">if</span>(dataLength == 0) <span class="keywordflow">return</span> <span class="keyword">true</span>; <span class="comment">// Do nothing if there is a zero data length.</span></div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;    </div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;    <span class="comment">// write address</span></div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;    i2c_start();</div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;    i2c_send(addr &amp; 0b11111110); <span class="comment">// write mode at address</span></div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;    <span class="keywordflow">if</span>(reg16) i2c_send(regh); <span class="comment">// Address High Byte</span></div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;    i2c_send(regl); <span class="comment">// Address Low Byte</span></div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;    i2c_restart(); <span class="comment">// exit write mode</span></div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;    i2c_send(addr | 0b00000001); <span class="comment">// read mode at address</span></div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;    <span class="keywordflow">do</span></div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;    {</div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;        data[i] = i2c_recv(0); <span class="comment">// Ack</span></div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;    }</div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;    <span class="keywordflow">while</span> (++i &lt; dataLength);</div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    data[i] = i2c_recv(1); <span class="comment">// NOAck</span></div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;    i2c_stop();</div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;}</div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;</div>
-<div class="line"><a name="l00232"></a><span class="lineno"><a class="line" href="shared_8c.html#a4f4aa63c7d4429490f91bfd80164f309">  232</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="shared_8c.html#a4f4aa63c7d4429490f91bfd80164f309">i2c_setup</a>() <span class="comment">// Initialize the I2C pins</span></div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;{</div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;    SSP1CON1 = 0b00101000; <span class="comment">// Enable MSSP in master i2c mode. Auto-configs the pins.</span></div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;    SSP1ADD  = 0x9F; <span class="comment">// for 100kHz Clock at 64MHz primary clock.</span></div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;}</div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;</div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;<span class="keyword">static</span> <span class="keywordtype">void</span> i2c_start()</div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;{</div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;        SSP1CON2bits.SEN = 1; <span class="comment">// do a start bit.</span></div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;        <span class="keywordflow">while</span>(SSP1CON2bits.SEN) <span class="keywordflow">continue</span>; <span class="comment">// Wait until SSP1IF is set</span></div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;}</div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;<span class="keyword">static</span> <span class="keywordtype">void</span> i2c_restart()</div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;{</div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;    SSP1CON2bits.RSEN = 1; <span class="comment">// do a repeat start bit.</span></div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;    <span class="keywordflow">while</span>(SSP1CON2bits.RSEN) <span class="keywordflow">continue</span>;</div>
-<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;}</div>
-<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;</div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;<span class="keyword">static</span> <span class="keywordtype">void</span> i2c_stop()</div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;{</div>
-<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;    SSP1CON2bits.PEN = 1;</div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;    <span class="keywordflow">while</span>(SSP1CON2bits.PEN) <span class="keywordflow">continue</span>;</div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;}</div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;</div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;<span class="keyword">static</span> <span class="keywordtype">void</span> i2c_ack()</div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;{</div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;    SSP1CON2bits.ACKDT = 0;</div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;    SSP1CON2bits.ACKEN = 1;</div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;    <span class="keywordflow">while</span>(SSP1CON2bits.ACKEN) <span class="keywordflow">continue</span>;</div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;}</div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;</div>
-<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;<span class="keyword">static</span> <span class="keywordtype">void</span> i2c_nack()</div>
-<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;{</div>
-<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;    SSP1CON2bits.ACKDT = 1;</div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;    SSP1CON2bits.ACKEN = 1;</div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;    <span class="keywordflow">while</span>(SSP1CON2bits.ACKEN) <span class="keywordflow">continue</span>;</div>
-<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;}</div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;</div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;<span class="keyword">static</span> <span class="keywordtype">void</span> i2c_wait()</div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;{</div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;    <span class="keywordflow">while</span> ((SSP1CON2 &amp; 0x1F ) || ( SSP1STAT &amp; 0x04 ) );</div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;}</div>
-<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;</div>
-<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;<span class="keyword">static</span> <span class="keywordtype">unsigned</span> i2c_send(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> <a class="code" href="communication_8h.html#a1581cde4f73c9a797ae1e7afcc1bb3de">byte</a>)</div>
-<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;{</div>
-<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;    SSP1BUF = <a class="code" href="communication_8h.html#a1581cde4f73c9a797ae1e7afcc1bb3de">byte</a>; <span class="comment">// begin transmitting the byte</span></div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;    <span class="keywordflow">while</span>(SSP1STATbits.BF) <span class="keywordflow">continue</span>; <span class="comment">// wait for transmission to finish</span></div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;    i2c_wait();</div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;    <span class="keywordflow">return</span> (SSP1CON2bits.ACKDT || SSP1CON2bits.ACKSTAT); <span class="comment">// if not acknoleged or got NO-ACK</span></div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;}</div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;</div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;<span class="keyword">static</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> i2c_recv(<span class="keywordtype">unsigned</span> ack)</div>
-<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;{</div>
-<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;    SSP1CON2bits.RCEN = 1; <span class="comment">// Enable recieve of bits.</span></div>
-<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;    <span class="keywordflow">while</span>(!SSP1STATbits.BF) <span class="keywordflow">continue</span>; <span class="comment">// wait for recieving to finish</span></div>
-<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;    <span class="keywordflow">if</span>(ack == 1) i2c_ack();</div>
-<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;    <span class="keywordflow">else</span> i2c_nack();</div>
-<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;    i2c_wait();</div>
-<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;    <span class="keywordflow">return</span> SSP1BUF;</div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;}</div>
-<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;</div>
-<div class="line"><a name="l00301"></a><span class="lineno"><a class="line" href="shared_8c.html#a8d8fe4c44a1c3be9eca5dee67236d4f8">  301</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="shared_8c.html#a8d8fe4c44a1c3be9eca5dee67236d4f8">i2c_lcdInit</a>()</div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;{</div>
-<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;    <span class="comment">// this is from the LCD&#39;s datasheet.</span></div>
-<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;    <span class="comment">// What should I be doing with the R/W and RS bits?</span></div>
-<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;    <span class="comment">// Answer: These are virtual, but they should both be 0.</span></div>
-<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;    i2c_start(); <span class="comment">// send first and only start bit</span></div>
-<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;    <span class="keywordflow">if</span>(i2c_send(0x78) || i2c_send(0x00)) <span class="comment">// Address and is a command</span></div>
-<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;    {</div>
-<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;        __delay_ms(10);</div>
-<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;        <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;    }</div>
-<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;    __delay_ms(10);</div>
-<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;</div>
-<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;    <span class="keywordflow">if</span>(i2c_send(0x38)) <span class="comment">// second byte: N, DH, IS2, IS1</span></div>
-<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;    {</div>
-<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;        __delay_ms(10);</div>
-<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;        <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;    }</div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;    __delay_ms(10);</div>
-<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;</div>
-<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;    <span class="keywordflow">if</span>(i2c_send(0x39) | i2c_send(0x14) | i2c_send(0x78) | i2c_send(0x5E) |</div>
-<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;            i2c_send(0x6D) |  i2c_send(0x0C) |  i2c_send(0x01) | i2c_send(0x06))</div>
-<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;        <span class="comment">// function set again, bias set, contrast set, power/icon/contrast control, follower control, display of/off control.</span></div>
-<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;    {</div>
-<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;        __delay_ms(10);</div>
-<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;        <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;    }</div>
-<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;    __delay_ms(10);</div>
-<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;    i2c_stop();</div>
-<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;    <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;}</div>
-<div class="ttc" id="shared_8c_html_ad3268ffe59352c3866a3cd05ca551f93"><div class="ttname"><a href="shared_8c.html#ad3268ffe59352c3866a3cd05ca551f93">adc_update2</a></div><div class="ttdeci">void adc_update2(unsigned char chA, unsigned char chB)</div><div class="ttdoc">Updates two ADC channels to the buffers. </div><div class="ttdef"><b>Definition:</b> <a href="shared_8c_source.html#l00041">shared.c:41</a></div></div>
-<div class="ttc" id="shared_8c_html_a4f4aa63c7d4429490f91bfd80164f309"><div class="ttname"><a href="shared_8c.html#a4f4aa63c7d4429490f91bfd80164f309">i2c_setup</a></div><div class="ttdeci">void i2c_setup()</div><div class="ttdoc">Set up the i2c1 module. </div><div class="ttdef"><b>Definition:</b> <a href="shared_8c_source.html#l00232">shared.c:232</a></div></div>
-<div class="ttc" id="communication_8h_html_a1581cde4f73c9a797ae1e7afcc1bb3de"><div class="ttname"><a href="communication_8h.html#a1581cde4f73c9a797ae1e7afcc1bb3de">byte</a></div><div class="ttdeci">unsigned char byte</div><div class="ttdef"><b>Definition:</b> <a href="communication_8h_source.html#l00036">communication.h:36</a></div></div>
-<div class="ttc" id="shared_8c_html_a501f54f5e2a92a3bc2d8e7c625371aae"><div class="ttname"><a href="shared_8c.html#a501f54f5e2a92a3bc2d8e7c625371aae">pwm_set</a></div><div class="ttdeci">unsigned pwm_set(unsigned char channel, unsigned char duty)</div><div class="ttdoc">Sets a specific pwm channel to a certain duty cycle in %. </div><div class="ttdef"><b>Definition:</b> <a href="shared_8c_source.html#l00159">shared.c:159</a></div></div>
-<div class="ttc" id="shared_8c_html_a37c0b95630cd7d12e843ac4c714096ac"><div class="ttname"><a href="shared_8c.html#a37c0b95630cd7d12e843ac4c714096ac">i2c_check</a></div><div class="ttdeci">unsigned i2c_check(unsigned char addr)</div><div class="ttdoc">Checks to see if there is something at a certain address. Returns the acknowledge bit (0=ack) ...</div><div class="ttdef"><b>Definition:</b> <a href="shared_8c_source.html#l00196">shared.c:196</a></div></div>
-<div class="ttc" id="shared_8c_html_af5e0a217880b6f6976ff1c2b1297f7a3"><div class="ttname"><a href="shared_8c.html#af5e0a217880b6f6976ff1c2b1297f7a3">adc_setup</a></div><div class="ttdeci">void adc_setup()</div><div class="ttdoc">Setup the ADC module. </div><div class="ttdef"><b>Definition:</b> <a href="shared_8c_source.html#l00010">shared.c:10</a></div></div>
-<div class="ttc" id="shared_8c_html_a34a212934599b1e31db42ec3d8c15b73"><div class="ttname"><a href="shared_8c.html#a34a212934599b1e31db42ec3d8c15b73">adc_updateAll</a></div><div class="ttdeci">void adc_updateAll()</div><div class="ttdoc">Update all the ADC buffers that are activated in adc_setup(). </div><div class="ttdef"><b>Definition:</b> <a href="shared_8c_source.html#l00058">shared.c:58</a></div></div>
-<div class="ttc" id="shared_8c_html_ad5fe171537bbe6de73057ac05a6ce7f3"><div class="ttname"><a href="shared_8c.html#ad5fe171537bbe6de73057ac05a6ce7f3">adc_update</a></div><div class="ttdeci">void adc_update(unsigned char chA)</div><div class="ttdoc">Update a single ADC buffer. </div><div class="ttdef"><b>Definition:</b> <a href="shared_8c_source.html#l00028">shared.c:28</a></div></div>
-<div class="ttc" id="shared_8c_html_abba02944b1444e1f4deef0fa557804cc"><div class="ttname"><a href="shared_8c.html#abba02944b1444e1f4deef0fa557804cc">i2c_rx</a></div><div class="ttdeci">unsigned i2c_rx(unsigned char addr, unsigned char reg16, unsigned char regl, unsigned char regh, unsigned char *data, unsigned short dataLength)</div><div class="ttdoc">Gets Data from a slave at a specific address. Returns a char array pointer. </div><div class="ttdef"><b>Definition:</b> <a href="shared_8c_source.html#l00209">shared.c:209</a></div></div>
+<div class="line"><a name="l00151"></a><span class="lineno"><a class="line" href="shared_8c.html#a6c897c43577130ba55bb84f8bea97b6f">  151</a></span>&#160;<span class="keywordtype">unsigned</span> <a class="code" href="shared_8c.html#a6c897c43577130ba55bb84f8bea97b6f">i2c_tx</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> addr, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> reg16, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> regl, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> regh, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *data, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> dataLength)</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;{</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0;</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    <span class="keywordflow">if</span>(dataLength == 0) <span class="keywordflow">return</span> <span class="keyword">true</span>; <span class="comment">// Do nothing if there is a zero data length.</span></div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    i2c_start();</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    i2c_send(addr &amp; 0b11111110); <span class="comment">// write mode; address</span></div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    <span class="keywordflow">if</span>(reg16 &gt; 0) i2c_send(regh); <span class="comment">// Address High Byte</span></div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    i2c_send(regl); <span class="comment">// Address Low Byte</span></div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    <span class="keywordflow">for</span>(i = 0; i &lt; dataLength; ++i)</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    {</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;        i2c_send(data[i]);</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    }</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;    i2c_stop(); <span class="comment">// generate stop bit</span></div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;<span class="comment"></span>    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;}</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;</div>
+<div class="line"><a name="l00172"></a><span class="lineno"><a class="line" href="shared_8c.html#a37c0b95630cd7d12e843ac4c714096ac">  172</a></span>&#160;<span class="keywordtype">unsigned</span> <a class="code" href="shared_8c.html#a37c0b95630cd7d12e843ac4c714096ac">i2c_check</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> addr)</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;{</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;    i2c_start();</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    i2c_send(addr | 1); <span class="comment">// We will use the read mode address and then stop.</span></div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    i2c_stop();</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    <span class="keywordflow">return</span> SSP1CON2bits.ACKSTAT;</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;}</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;</div>
+<div class="line"><a name="l00185"></a><span class="lineno"><a class="line" href="shared_8c.html#aad1bc0e1fb48281f03b93569dd2d3576">  185</a></span>&#160;<span class="keywordtype">unsigned</span> <a class="code" href="shared_8c.html#aad1bc0e1fb48281f03b93569dd2d3576">i2c_rx</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> addr, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> reg16, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> regl, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> regh, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *data, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> dataLength) <span class="comment">// recieve data from address</span></div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;{</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> i = 0;</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;    <span class="keywordflow">if</span>(dataLength == 0) <span class="keywordflow">return</span> <span class="keyword">true</span>; <span class="comment">// Do nothing if there is a zero data length.</span></div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    </div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    <span class="comment">// write address</span></div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    i2c_start();</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;    i2c_send(addr &amp; 0b11111110); <span class="comment">// write mode at address</span></div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    <span class="keywordflow">if</span>(reg16) i2c_send(regh); <span class="comment">// Address High Byte</span></div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    i2c_send(regl); <span class="comment">// Address Low Byte</span></div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    i2c_restart(); <span class="comment">// exit write mode</span></div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    i2c_send(addr | 0b00000001); <span class="comment">// read mode at address</span></div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    <span class="keywordflow">do</span></div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    {</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;        data[i] = i2c_recv(0); <span class="comment">// Ack</span></div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    }</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;    <span class="keywordflow">while</span> (++i &lt; dataLength);</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    data[i] = i2c_recv(1); <span class="comment">// NOAck</span></div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    i2c_stop();</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;}</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;</div>
+<div class="line"><a name="l00208"></a><span class="lineno"><a class="line" href="shared_8c.html#a4f4aa63c7d4429490f91bfd80164f309">  208</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="shared_8c.html#a4f4aa63c7d4429490f91bfd80164f309">i2c_setup</a>() <span class="comment">// Initialize the I2C pins</span></div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;{</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    SSP1CON1 = 0b00101000; <span class="comment">// Enable MSSP in master i2c mode. Auto-configs the pins.</span></div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;    <span class="comment">//SSP1ADD  = 0x4F; // for 100kHz Clock at 32MHz primary clock.</span></div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    SSP1ADD  = 0x7F;</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;}</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;<span class="keyword">static</span> <span class="keywordtype">void</span> i2c_start()</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;{</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;        SSP1CON2bits.SEN = 1; <span class="comment">// do a start bit.</span></div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;        <span class="keywordflow">while</span>(SSP1CON2bits.SEN) <span class="keywordflow">continue</span>; <span class="comment">// Wait until SSP1IF is set</span></div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;}</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;<span class="keyword">static</span> <span class="keywordtype">void</span> i2c_restart()</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;{</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;    SSP1CON2bits.RSEN = 1; <span class="comment">// do a repeat start bit.</span></div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;    <span class="keywordflow">while</span>(SSP1CON2bits.RSEN) <span class="keywordflow">continue</span>;</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;}</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;<span class="keyword">static</span> <span class="keywordtype">void</span> i2c_stop()</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;{</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;    SSP1CON2bits.PEN = 1;</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;    <span class="keywordflow">while</span>(SSP1CON2bits.PEN) <span class="keywordflow">continue</span>;</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;}</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;<span class="keyword">static</span> <span class="keywordtype">void</span> i2c_ack()</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;{</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;    SSP1CON2bits.ACKDT = 0;</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;    SSP1CON2bits.ACKEN = 1;</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;    <span class="keywordflow">while</span>(SSP1CON2bits.ACKEN) <span class="keywordflow">continue</span>;</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;}</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;<span class="keyword">static</span> <span class="keywordtype">void</span> i2c_nack()</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;{</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;    SSP1CON2bits.ACKDT = 1;</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;    SSP1CON2bits.ACKEN = 1;</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;    <span class="keywordflow">while</span>(SSP1CON2bits.ACKEN) <span class="keywordflow">continue</span>;</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;}</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;<span class="keyword">static</span> <span class="keywordtype">void</span> i2c_wait()</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;{</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;    <span class="keywordflow">while</span> ((SSP1CON2 &amp; 0x1F ) || ( SSP1STAT &amp; 0x04 ) );</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;}</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;<span class="keyword">static</span> <span class="keywordtype">unsigned</span> i2c_send(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> byte)</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;{</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;    SSP1BUF = byte; <span class="comment">// begin transmitting the byte</span></div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;    <span class="keywordflow">while</span>(SSP1STATbits.BF) <span class="keywordflow">continue</span>; <span class="comment">// wait for transmission to finish</span></div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;    i2c_wait();</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;    <span class="keywordflow">return</span> (SSP1CON2bits.ACKDT || SSP1CON2bits.ACKSTAT); <span class="comment">// if not acknoleged or got NO-ACK</span></div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;}</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;<span class="keyword">static</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> i2c_recv(<span class="keywordtype">unsigned</span> ack)</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;{</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;    SSP1CON2bits.RCEN = 1; <span class="comment">// Enable recieve of bits.</span></div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;    <span class="keywordflow">while</span>(SSP1STATbits.BF) <span class="keywordflow">continue</span>; <span class="comment">// wait for recieving to finish</span></div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;    <span class="keywordflow">if</span>(ack == 1) i2c_ack();</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;    <span class="keywordflow">else</span> i2c_nack();</div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;    i2c_wait();</div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;    <span class="keywordflow">return</span> SSP1BUF;</div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;}</div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;</div>
+<div class="line"><a name="l00278"></a><span class="lineno"><a class="line" href="shared_8c.html#a8d8fe4c44a1c3be9eca5dee67236d4f8">  278</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="shared_8c.html#a8d8fe4c44a1c3be9eca5dee67236d4f8">i2c_lcdInit</a>()</div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;{</div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;    <span class="comment">// this is from the LCD&#39;s datasheet.</span></div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;    <span class="comment">// What should I be doing with the R/W and RS bits?</span></div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;    <span class="comment">// Answer: These are virtual, but they should both be 0.</span></div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;    i2c_start(); <span class="comment">// send first and only start bit</span></div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;    <span class="keywordflow">if</span>(i2c_send(0x78) || i2c_send(0x00)) <span class="comment">// Address and is a command</span></div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;    {</div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;        __delay_ms(10);</div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;        <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;    }</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;    __delay_ms(10);</div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;    <span class="keywordflow">if</span>(i2c_send(0x38)) <span class="comment">// second byte: N, DH, IS2, IS1</span></div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;    {</div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;        __delay_ms(10);</div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;        <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;    }</div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;    __delay_ms(10);</div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;</div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;    <span class="keywordflow">if</span>(i2c_send(0x39) | i2c_send(0x14) | i2c_send(0x78) | i2c_send(0x5E) |</div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;            i2c_send(0x6D) |  i2c_send(0x0C) |  i2c_send(0x01) | i2c_send(0x06))</div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;        <span class="comment">// function set again, bias set, contrast set, power/icon/contrast control, follower control, display of/off control.</span></div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;    {</div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;        __delay_ms(10);</div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;        <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;    }</div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;    __delay_ms(10);</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;    i2c_stop();</div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;    <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;}</div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;</div>
+<div class="line"><a name="l00319"></a><span class="lineno"><a class="line" href="shared_8c.html#a4940f2c912d6151f98479a6080cb0d2f">  319</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="shared_8c.html#a4940f2c912d6151f98479a6080cb0d2f">delay</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> times)</div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;{</div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;    <a class="code" href="shared_8h.html#ae977cb167e55789490febaeb3a2720a2">delayTime</a> = 0;</div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;    TMR1H = 0xF7;</div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;    TMR1L = 0xFF;       <span class="comment">// set to increment `time` every 1/8th of a second</span></div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;    <span class="keywordflow">while</span>(<a class="code" href="shared_8h.html#ae977cb167e55789490febaeb3a2720a2">delayTime</a>&lt;times) <span class="keywordflow">continue</span>;</div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;}</div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;</div>
+<div class="line"><a name="l00328"></a><span class="lineno"><a class="line" href="shared_8c.html#a916766b01f558f94b764d86c51418d1f">  328</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="shared_8c.html#a916766b01f558f94b764d86c51418d1f">timeoutInit</a>()</div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;{</div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;    <span class="comment">// set the timer variable to zero and restart the timer</span></div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;    <a class="code" href="shared_8h.html#acd96be5d8734d87c6aa8ecc9d6ee0ee7">time</a>  = 0;</div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;    TMR1H = 0xF7;</div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;    TMR1L = 0xFF; <span class="comment">// set to increment `time` every 1/8th of a second</span></div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;}</div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;</div>
+<div class="line"><a name="l00337"></a><span class="lineno"><a class="line" href="shared_8c.html#a8d7f7d93d22ce918b02ffd02ac4497ba">  337</a></span>&#160;<span class="keywordtype">unsigned</span> <a class="code" href="shared_8c.html#a8d7f7d93d22ce918b02ffd02ac4497ba">timeoutCheck</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> timeCheck)</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;{</div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="shared_8h.html#acd96be5d8734d87c6aa8ecc9d6ee0ee7">time</a> &gt; timeCheck;</div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;    <span class="comment">// returns true if the time is up</span></div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;}</div>
+<div class="ttc" id="shared_8c_html_a916766b01f558f94b764d86c51418d1f"><div class="ttname"><a href="shared_8c.html#a916766b01f558f94b764d86c51418d1f">timeoutInit</a></div><div class="ttdeci">void timeoutInit()</div><div class="ttdoc">Reset the timer variable and the timer counter so we can do a timeout. </div><div class="ttdef"><b>Definition:</b> <a href="shared_8c_source.html#l00328">shared.c:328</a></div></div>
+<div class="ttc" id="shared_8c_html_a4f4aa63c7d4429490f91bfd80164f309"><div class="ttname"><a href="shared_8c.html#a4f4aa63c7d4429490f91bfd80164f309">i2c_setup</a></div><div class="ttdeci">void i2c_setup()</div><div class="ttdoc">Set up the i2c1 module. </div><div class="ttdef"><b>Definition:</b> <a href="shared_8c_source.html#l00208">shared.c:208</a></div></div>
+<div class="ttc" id="shared_8c_html_a5b97a0b14ea197562c0635dfec6df732"><div class="ttname"><a href="shared_8c.html#a5b97a0b14ea197562c0635dfec6df732">pwm_set</a></div><div class="ttdeci">unsigned pwm_set(unsigned char channel, unsigned int duty)</div><div class="ttdoc">Sets a specific pwm channel to a certain duty cycle in %. </div><div class="ttdef"><b>Definition:</b> <a href="shared_8c_source.html#l00110">shared.c:110</a></div></div>
+<div class="ttc" id="shared_8c_html_a37c0b95630cd7d12e843ac4c714096ac"><div class="ttname"><a href="shared_8c.html#a37c0b95630cd7d12e843ac4c714096ac">i2c_check</a></div><div class="ttdeci">unsigned i2c_check(unsigned char addr)</div><div class="ttdoc">Checks to see if there is something at a certain address. Returns the acknowledge bit (0=ack) ...</div><div class="ttdef"><b>Definition:</b> <a href="shared_8c_source.html#l00172">shared.c:172</a></div></div>
+<div class="ttc" id="shared_8c_html_af5e0a217880b6f6976ff1c2b1297f7a3"><div class="ttname"><a href="shared_8c.html#af5e0a217880b6f6976ff1c2b1297f7a3">adc_setup</a></div><div class="ttdeci">void adc_setup()</div><div class="ttdoc">Setup the ADC module. </div><div class="ttdef"><b>Definition:</b> <a href="shared_8c_source.html#l00011">shared.c:11</a></div></div>
+<div class="ttc" id="shared_8c_html_a6c897c43577130ba55bb84f8bea97b6f"><div class="ttname"><a href="shared_8c.html#a6c897c43577130ba55bb84f8bea97b6f">i2c_tx</a></div><div class="ttdeci">unsigned i2c_tx(unsigned char addr, unsigned char reg16, unsigned char regl, unsigned char regh, unsigned char *data, unsigned int dataLength)</div><div class="ttdoc">Takes a packet and transmits it according to its contents. Returns true if successful. </div><div class="ttdef"><b>Definition:</b> <a href="shared_8c_source.html#l00151">shared.c:151</a></div></div>
+<div class="ttc" id="shared_8c_html_a8d7f7d93d22ce918b02ffd02ac4497ba"><div class="ttname"><a href="shared_8c.html#a8d7f7d93d22ce918b02ffd02ac4497ba">timeoutCheck</a></div><div class="ttdeci">unsigned timeoutCheck(unsigned int timeCheck)</div><div class="ttdoc">Check if we have waited a certain ammount of time. </div><div class="ttdef"><b>Definition:</b> <a href="shared_8c_source.html#l00337">shared.c:337</a></div></div>
 <div class="ttc" id="shared_8h_html"><div class="ttname"><a href="shared_8h.html">shared.h</a></div></div>
-<div class="ttc" id="shared_8c_html_a8d8fe4c44a1c3be9eca5dee67236d4f8"><div class="ttname"><a href="shared_8c.html#a8d8fe4c44a1c3be9eca5dee67236d4f8">i2c_lcdInit</a></div><div class="ttdeci">void i2c_lcdInit()</div><div class="ttdef"><b>Definition:</b> <a href="shared_8c_source.html#l00301">shared.c:301</a></div></div>
-<div class="ttc" id="shared_8c_html_a6b11f55ddc2f9d1125c97a47e4a799f6"><div class="ttname"><a href="shared_8c.html#a6b11f55ddc2f9d1125c97a47e4a799f6">pwm_setup</a></div><div class="ttdeci">void pwm_setup()</div><div class="ttdoc">Setup TMR2 for use by all the CCP modules. </div><div class="ttdef"><b>Definition:</b> <a href="shared_8c_source.html#l00129">shared.c:129</a></div></div>
-<div class="ttc" id="shared_8c_html_a906da80df61e40eb0f2fe0243ad72e66"><div class="ttname"><a href="shared_8c.html#a906da80df61e40eb0f2fe0243ad72e66">adc_read</a></div><div class="ttdeci">unsigned int adc_read(unsigned char channel)</div><div class="ttdoc">Read adc value out of the ADC buffer for the passed channel. </div><div class="ttdef"><b>Definition:</b> <a href="shared_8c_source.html#l00067">shared.c:67</a></div></div>
-<div class="ttc" id="shared_8c_html_a27d0b2daf941559afb7dd6e46bf0167e"><div class="ttname"><a href="shared_8c.html#a27d0b2daf941559afb7dd6e46bf0167e">i2c_tx</a></div><div class="ttdeci">unsigned i2c_tx(unsigned char addr, unsigned char reg16, unsigned char regl, unsigned char regh, unsigned char *data, unsigned short dataLength)</div><div class="ttdoc">Takes a packet and transmits it according to its contents. Returns true if successful. </div><div class="ttdef"><b>Definition:</b> <a href="shared_8c_source.html#l00175">shared.c:175</a></div></div>
+<div class="ttc" id="shared_8c_html_a8d8fe4c44a1c3be9eca5dee67236d4f8"><div class="ttname"><a href="shared_8c.html#a8d8fe4c44a1c3be9eca5dee67236d4f8">i2c_lcdInit</a></div><div class="ttdeci">void i2c_lcdInit()</div><div class="ttdef"><b>Definition:</b> <a href="shared_8c_source.html#l00278">shared.c:278</a></div></div>
+<div class="ttc" id="shared_8c_html_a6b11f55ddc2f9d1125c97a47e4a799f6"><div class="ttname"><a href="shared_8c.html#a6b11f55ddc2f9d1125c97a47e4a799f6">pwm_setup</a></div><div class="ttdeci">void pwm_setup()</div><div class="ttdoc">Setup TMR2 for use by all the CCP modules. </div><div class="ttdef"><b>Definition:</b> <a href="shared_8c_source.html#l00048">shared.c:48</a></div></div>
+<div class="ttc" id="shared_8c_html_a906da80df61e40eb0f2fe0243ad72e66"><div class="ttname"><a href="shared_8c.html#a906da80df61e40eb0f2fe0243ad72e66">adc_read</a></div><div class="ttdeci">unsigned int adc_read(unsigned char channel)</div><div class="ttdoc">Read adc value out of the ADC buffer for the passed channel. </div><div class="ttdef"><b>Definition:</b> <a href="shared_8c_source.html#l00032">shared.c:32</a></div></div>
+<div class="ttc" id="shared_8c_html_aad1bc0e1fb48281f03b93569dd2d3576"><div class="ttname"><a href="shared_8c.html#aad1bc0e1fb48281f03b93569dd2d3576">i2c_rx</a></div><div class="ttdeci">unsigned i2c_rx(unsigned char addr, unsigned char reg16, unsigned char regl, unsigned char regh, unsigned char *data, unsigned int dataLength)</div><div class="ttdoc">Gets Data from a slave at a specific address. Returns a char array pointer. </div><div class="ttdef"><b>Definition:</b> <a href="shared_8c_source.html#l00185">shared.c:185</a></div></div>
+<div class="ttc" id="shared_8c_html_a4940f2c912d6151f98479a6080cb0d2f"><div class="ttname"><a href="shared_8c.html#a4940f2c912d6151f98479a6080cb0d2f">delay</a></div><div class="ttdeci">void delay(unsigned int times)</div><div class="ttdoc">delay(#): delay #/8 seconds </div><div class="ttdef"><b>Definition:</b> <a href="shared_8c_source.html#l00319">shared.c:319</a></div></div>
+<div class="ttc" id="shared_8h_html_ae977cb167e55789490febaeb3a2720a2"><div class="ttname"><a href="shared_8h.html#ae977cb167e55789490febaeb3a2720a2">delayTime</a></div><div class="ttdeci">volatile unsigned int delayTime</div><div class="ttdef"><b>Definition:</b> <a href="shared_8h_source.html#l00047">shared.h:47</a></div></div>
+<div class="ttc" id="shared_8h_html_acd96be5d8734d87c6aa8ecc9d6ee0ee7"><div class="ttname"><a href="shared_8h.html#acd96be5d8734d87c6aa8ecc9d6ee0ee7">time</a></div><div class="ttdeci">volatile unsigned int time</div><div class="ttdef"><b>Definition:</b> <a href="shared_8h_source.html#l00047">shared.h:47</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="shared_8c.html">shared.c</a></li>
-    <li class="footer">Generated on Wed Apr 15 2015 22:43:22 for Sr. Design 2015 by
+    <li class="footer">Generated on Thu Apr 23 2015 21:58:23 for Sr. Design 2015 by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.9.1 </li>
   </ul>

@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.9.1"/>
-<title>Sr. Design 2015: C:/Users/Benjaminp/Documents/GitHub/firmware/src/lcd.c File Reference</title>
+<title>Sr. Design 2015: C:/Users/Benjaminp/Documents/GitHub/firmware.X/src/lcd.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -106,6 +106,7 @@ $(document).ready(function(){initNavTree('lcd_8c.html','');});
 
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Data Structures</a> &#124;
 <a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
@@ -116,12 +117,19 @@ $(document).ready(function(){initNavTree('lcd_8c.html','');});
 <div class="textblock"><code>#include &lt;<a class="el" href="lcd_8h_source.html">lcd.h</a>&gt;</code><br />
 <code>#include &lt;stdio.h&gt;</code><br />
 <code>#include &lt;string.h&gt;</code><br />
+<code>#include &lt;math.h&gt;</code><br />
+<code>#include &lt;<a class="el" href="powerman_8h_source.html">powerman.h</a>&gt;</code><br />
 </div>
 <p><a href="lcd_8c_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Data Structures</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structspecial_char.html">specialChar</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a82a25d7cc1371c9057f7d0193ea8ca03"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lcd_8c.html#a82a25d7cc1371c9057f7d0193ea8ca03">NUMMENUENTRIES</a>&#160;&#160;&#160;6</td></tr>
+<tr class="memitem:a82a25d7cc1371c9057f7d0193ea8ca03"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lcd_8c.html#a82a25d7cc1371c9057f7d0193ea8ca03">NUMMENUENTRIES</a>&#160;&#160;&#160;7</td></tr>
 <tr class="separator:a82a25d7cc1371c9057f7d0193ea8ca03"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
@@ -131,8 +139,8 @@ Functions</h2></td></tr>
 <tr class="memitem:a203cd757cd442035c4bd52b981194dc6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lcd_8c.html#a203cd757cd442035c4bd52b981194dc6">lcd_usb</a> (unsigned char enable)</td></tr>
 <tr class="memdesc:a203cd757cd442035c4bd52b981194dc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">display USB connected on lcd.  <a href="#a203cd757cd442035c4bd52b981194dc6">More...</a><br /></td></tr>
 <tr class="separator:a203cd757cd442035c4bd52b981194dc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad782dd1ff5a194164a9bda66b50cf164"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lcd_8c.html#ad782dd1ff5a194164a9bda66b50cf164">lcd_display</a> (char line1[21], char line2[21])</td></tr>
-<tr class="separator:ad782dd1ff5a194164a9bda66b50cf164"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa258240234d95b393c84d1f56c77357b"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lcd_8c.html#aa258240234d95b393c84d1f56c77357b">lcd_display</a> (unsigned char line, unsigned char data[21])</td></tr>
+<tr class="separator:aa258240234d95b393c84d1f56c77357b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7724f678822e8c36e78e2f82e0b77138"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lcd_8c.html#a7724f678822e8c36e78e2f82e0b77138">lcd_background</a> (unsigned char red, unsigned char green, unsigned char blue)</td></tr>
 <tr class="memdesc:a7724f678822e8c36e78e2f82e0b77138"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change the color of the LCD backlight.  <a href="#a7724f678822e8c36e78e2f82e0b77138">More...</a><br /></td></tr>
 <tr class="separator:a7724f678822e8c36e78e2f82e0b77138"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -145,16 +153,54 @@ Functions</h2></td></tr>
 <tr class="memitem:a2b3c3225b69e484e4a4ddd293bcd99d6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lcd_8c.html#a2b3c3225b69e484e4a4ddd293bcd99d6">menu_prev</a> (unsigned char none)</td></tr>
 <tr class="memdesc:a2b3c3225b69e484e4a4ddd293bcd99d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Go to the previous menu entry. Called by the up button.  <a href="#a2b3c3225b69e484e4a4ddd293bcd99d6">More...</a><br /></td></tr>
 <tr class="separator:a2b3c3225b69e484e4a4ddd293bcd99d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9489daaef0c9a982704c41676d37b505"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lcd_8c.html#a9489daaef0c9a982704c41676d37b505">menu_enter</a> (unsigned char none)</td></tr>
-<tr class="memdesc:a9489daaef0c9a982704c41676d37b505"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is run by pressing the enter key on the keypad.  <a href="#a9489daaef0c9a982704c41676d37b505">More...</a><br /></td></tr>
-<tr class="separator:a9489daaef0c9a982704c41676d37b505"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09d4e6d98fb071259abefd9959c29469"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lcd_8c.html#a09d4e6d98fb071259abefd9959c29469">menu_enter</a> ()</td></tr>
+<tr class="memdesc:a09d4e6d98fb071259abefd9959c29469"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is run by pressing the enter key on the keypad.  <a href="#a09d4e6d98fb071259abefd9959c29469">More...</a><br /></td></tr>
+<tr class="separator:a09d4e6d98fb071259abefd9959c29469"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad834d4493c80932e3de053b89c64db8e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lcd_8c.html#ad834d4493c80932e3de053b89c64db8e">menu_display</a> ()</td></tr>
+<tr class="separator:ad834d4493c80932e3de053b89c64db8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac64a05a9e5c5c8ba105badfca6196397"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lcd_8c.html#ac64a05a9e5c5c8ba105badfca6196397">menu_getSelection</a> ()</td></tr>
+<tr class="separator:ac64a05a9e5c5c8ba105badfca6196397"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac1f93d9cea74108ec3f277189da32cdf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lcd_8c.html#ac1f93d9cea74108ec3f277189da32cdf">menu_setLightMode</a> (unsigned char id)</td></tr>
+<tr class="memdesc:ac1f93d9cea74108ec3f277189da32cdf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the light mode (full,dim,auto,off)  <a href="#ac1f93d9cea74108ec3f277189da32cdf">More...</a><br /></td></tr>
+<tr class="separator:ac1f93d9cea74108ec3f277189da32cdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3be732dfb8703c00ab6145c4fc1bae1b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lcd_8c.html#a3be732dfb8703c00ab6145c4fc1bae1b">menu_setHurricaneMode</a> (unsigned char id)</td></tr>
+<tr class="memdesc:a3be732dfb8703c00ab6145c4fc1bae1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Menu Function for activating hurricane mode.  <a href="#a3be732dfb8703c00ab6145c4fc1bae1b">More...</a><br /></td></tr>
+<tr class="separator:a3be732dfb8703c00ab6145c4fc1bae1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3386dc6521a26e13da1a49671ff88f41"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lcd_8c.html#a3386dc6521a26e13da1a49671ff88f41">menu_setPanelMode</a> (unsigned char id)</td></tr>
+<tr class="memdesc:a3386dc6521a26e13da1a49671ff88f41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lock the solar panel (Auto/Locked) Menu Function for activating hurricane mode.  <a href="#a3386dc6521a26e13da1a49671ff88f41">More...</a><br /></td></tr>
+<tr class="separator:a3386dc6521a26e13da1a49671ff88f41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a29714040d8e0b595fee76036171e828a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lcd_8c.html#a29714040d8e0b595fee76036171e828a">menu_setACBatt</a> (unsigned char id)</td></tr>
+<tr class="memdesc:a29714040d8e0b595fee76036171e828a"><td class="mdescLeft">&#160;</td><td class="mdescRight">AC/Battery switch.  <a href="#a29714040d8e0b595fee76036171e828a">More...</a><br /></td></tr>
+<tr class="separator:a29714040d8e0b595fee76036171e828a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6aea890c67e91ac91b0d424206fe3427"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lcd_8c.html#a6aea890c67e91ac91b0d424206fe3427">menu_seeTime</a> (unsigned char na)</td></tr>
+<tr class="memdesc:a6aea890c67e91ac91b0d424206fe3427"><td class="mdescLeft">&#160;</td><td class="mdescRight">AC/Battery switch.  <a href="#a6aea890c67e91ac91b0d424206fe3427">More...</a><br /></td></tr>
+<tr class="separator:a6aea890c67e91ac91b0d424206fe3427"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac93267fb772a53a4fad5f21b9c40b6e5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lcd_8c.html#ac93267fb772a53a4fad5f21b9c40b6e5">menu_setXaxis</a> (unsigned char id)</td></tr>
+<tr class="separator:ac93267fb772a53a4fad5f21b9c40b6e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc0baf0388f0ee37e67e85caf68b0e95"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lcd_8c.html#acc0baf0388f0ee37e67e85caf68b0e95">menu_setYaxis</a> (unsigned char id)</td></tr>
+<tr class="separator:acc0baf0388f0ee37e67e85caf68b0e95"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ba50c84d3aee47210e72c96e2835827"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lcd_8c.html#a6ba50c84d3aee47210e72c96e2835827">menu_setTime</a> (unsigned char na)</td></tr>
+<tr class="separator:a6ba50c84d3aee47210e72c96e2835827"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7c2c238dddcb56c9792203892a5ba82"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lcd_8c.html#ac7c2c238dddcb56c9792203892a5ba82">menu_setDimLevel</a> (unsigned char id)</td></tr>
+<tr class="separator:ac7c2c238dddcb56c9792203892a5ba82"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a974f52f8b39a2da2ca267767ddc23b0b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lcd_8c.html#a974f52f8b39a2da2ca267767ddc23b0b">menu_setDimLength</a> (unsigned char id)</td></tr>
+<tr class="separator:a974f52f8b39a2da2ca267767ddc23b0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a783871a6287d801fdaaed7ebcb018b31"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lcd_8c.html#a783871a6287d801fdaaed7ebcb018b31">menu_setAddr</a> (unsigned char id)</td></tr>
+<tr class="separator:a783871a6287d801fdaaed7ebcb018b31"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a847dec7d06b76e78b706c974e1e0f4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lcd_8c.html#a5a847dec7d06b76e78b706c974e1e0f4">menu_battVoltage</a> (unsigned char id)</td></tr>
+<tr class="separator:a5a847dec7d06b76e78b706c974e1e0f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade1e1e6293e91e1a36419f16539a358e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lcd_8c.html#ade1e1e6293e91e1a36419f16539a358e">menu_alarm_battery</a> (unsigned char id)</td></tr>
+<tr class="memdesc:ade1e1e6293e91e1a36419f16539a358e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Alarm for the battery: DONE!  <a href="#ade1e1e6293e91e1a36419f16539a358e">More...</a><br /></td></tr>
+<tr class="separator:ade1e1e6293e91e1a36419f16539a358e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3ff92534f6b609f55114825b4e9ab62"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lcd_8c.html#ab3ff92534f6b609f55114825b4e9ab62">menu_alarm_light</a> (unsigned char id)</td></tr>
+<tr class="separator:ab3ff92534f6b609f55114825b4e9ab62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7f5d7deab7ff27f83b4eaa97dd4c1e5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lcd_8c.html#af7f5d7deab7ff27f83b4eaa97dd4c1e5">menu_alarm_comm</a> (unsigned char id)</td></tr>
+<tr class="separator:af7f5d7deab7ff27f83b4eaa97dd4c1e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a23f345f0be9d9b485f4bb285a93f9d84"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lcd_8c.html#a23f345f0be9d9b485f4bb285a93f9d84">mainMenuPtr</a> = 0</td></tr>
-<tr class="separator:a23f345f0be9d9b485f4bb285a93f9d84"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac8f16df2040999069955c799a0134427"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lcd_8c.html#ac8f16df2040999069955c799a0134427">subMenuPtr</a> = 0</td></tr>
-<tr class="separator:ac8f16df2040999069955c799a0134427"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d0212d740496005ea3e6effb2a1bbaf"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lcd_8c.html#a1d0212d740496005ea3e6effb2a1bbaf">lineData</a> [21]</td></tr>
+<tr class="separator:a1d0212d740496005ea3e6effb2a1bbaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a class="anchor" id="a82a25d7cc1371c9057f7d0193ea8ca03"></a>
@@ -162,14 +208,14 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define NUMMENUENTRIES&#160;&#160;&#160;6</td>
+          <td class="memname">#define NUMMENUENTRIES&#160;&#160;&#160;7</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="lcd_8c_source.html#l00012">12</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+<p>Definition at line <a class="el" href="lcd_8c_source.html#l00023">23</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
 
-<p>Referenced by <a class="el" href="lcd_8c_source.html#l00165">menu_next()</a>, and <a class="el" href="lcd_8c_source.html#l00185">menu_prev()</a>.</p>
+<p>Referenced by <a class="el" href="lcd_8c_source.html#l00316">menu_next()</a>, and <a class="el" href="lcd_8c_source.html#l00338">menu_prev()</a>.</p>
 
 </div>
 </div>
@@ -205,29 +251,29 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Change the color of the LCD backlight. </p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000017">Todo:</a></b></dt><dd>FIXME: Change channels to correct numbers </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000016">Todo:</a></b></dt><dd>FIXME: Change channels to correct numbers </dd></dl>
 
-<p>Definition at line <a class="el" href="lcd_8c_source.html#l00142">142</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+<p>Definition at line <a class="el" href="lcd_8c_source.html#l00285">285</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
 
-<p>Referenced by <a class="el" href="hid_8c_source.html#l00053">lcd_begin()</a>, and <a class="el" href="lcd_8c_source.html#l00097">lcd_usb()</a>.</p>
+<p>Referenced by <a class="el" href="hid_8c_source.html#l00103">lcd_begin()</a>, <a class="el" href="hid_8c_source.html#l00163">lcd_end()</a>, and <a class="el" href="lcd_8c_source.html#l00229">lcd_usb()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="ad782dd1ff5a194164a9bda66b50cf164"></a>
+<a class="anchor" id="aa258240234d95b393c84d1f56c77357b"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">unsigned char lcd_display </td>
           <td>(</td>
-          <td class="paramtype">char&#160;</td>
-          <td class="paramname"><em>line1</em>[21], </td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>line</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">char&#160;</td>
-          <td class="paramname"><em>line2</em>[21]&#160;</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>data</em>[21]&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -239,9 +285,9 @@ Variables</h2></td></tr>
 <h1>Research into the ST7036</h1>
 <p>found a link (<a href="https://www.newhavendisplay.com/app_notes/NHD-C0220BiZ.txt">https://www.newhavendisplay.com/app_notes/NHD-C0220BiZ.txt</a>)[<a href="https://www.newhavendisplay.com/app_notes/NHD-C0220BiZ.txt">https://www.newhavendisplay.com/app_notes/NHD-C0220BiZ.txt</a>]</p>
 
-<p>Definition at line <a class="el" href="lcd_8c_source.html#l00105">105</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+<p>Definition at line <a class="el" href="lcd_8c_source.html#l00242">242</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
 
-<p>Referenced by <a class="el" href="hid_8c_source.html#l00053">lcd_begin()</a>, <a class="el" href="hid_8c_source.html#l00091">lcd_end()</a>, and <a class="el" href="lcd_8c_source.html#l00097">lcd_usb()</a>.</p>
+<p>Referenced by <a class="el" href="lcd_8c_source.html#l00229">lcd_usb()</a>, <a class="el" href="lcd_8c_source.html#l01220">menu_alarm_battery()</a>, <a class="el" href="lcd_8c_source.html#l01328">menu_alarm_comm()</a>, <a class="el" href="lcd_8c_source.html#l01304">menu_alarm_light()</a>, <a class="el" href="lcd_8c_source.html#l01185">menu_battVoltage()</a>, <a class="el" href="lcd_8c_source.html#l00379">menu_display()</a>, <a class="el" href="lcd_8c_source.html#l00411">menu_getSelection()</a>, <a class="el" href="lcd_8c_source.html#l00820">menu_seeTime()</a>, <a class="el" href="lcd_8c_source.html#l00728">menu_setACBatt()</a>, <a class="el" href="lcd_8c_source.html#l01135">menu_setAddr()</a>, <a class="el" href="lcd_8c_source.html#l01082">menu_setDimLength()</a>, <a class="el" href="lcd_8c_source.html#l01030">menu_setDimLevel()</a>, <a class="el" href="lcd_8c_source.html#l00617">menu_setHurricaneMode()</a>, <a class="el" href="lcd_8c_source.html#l00520">menu_setLightMode()</a>, <a class="el" href="lcd_8c_source.html#l00677">menu_setPanelMode()</a>, <a class="el" href="lcd_8c_source.html#l00892">menu_setTime()</a>, <a class="el" href="lcd_8c_source.html#l00852">menu_setXaxis()</a>, and <a class="el" href="lcd_8c_source.html#l00872">menu_setYaxis()</a>.</p>
 
 </div>
 </div>
@@ -260,11 +306,10 @@ Variables</h2></td></tr>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000013">Todo:</a></b></dt><dd>TODO: Make the menues into a Constant that resides in program memory. </dd></dl>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000014">Todo:</a></b></dt><dd>TODO: Remove "Initializing PIC" from the screen once it is done. </dd></dl>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000015">Todo:</a></b></dt><dd>TODO: Add functions to the menues. this is for EVERYONE to do. Contains each entry for the menu. This is a constant. </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000016">Todo:</a></b></dt><dd>FIXME: Can I use sprintf <code>d</code>? </dd></dl>
 
-<p>Definition at line <a class="el" href="lcd_8c_source.html#l00014">14</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+<p>Definition at line <a class="el" href="lcd_8c_source.html#l00025">25</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
 
-<p>Referenced by <a class="el" href="hid_8c_source.html#l00008">hid_setup()</a>.</p>
+<p>Referenced by <a class="el" href="hid_8c_source.html#l00011">hid_setup()</a>.</p>
 
 </div>
 </div>
@@ -287,27 +332,141 @@ Variables</h2></td></tr>
 <p>Set Color to Blue</p>
 <p>Then display USB Connected </p>
 
-<p>Definition at line <a class="el" href="lcd_8c_source.html#l00097">97</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+<p>Definition at line <a class="el" href="lcd_8c_source.html#l00229">229</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a9489daaef0c9a982704c41676d37b505"></a>
+<a class="anchor" id="ade1e1e6293e91e1a36419f16539a358e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void menu_alarm_battery </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Alarm for the battery: DONE! </p>
+
+<p>Definition at line <a class="el" href="lcd_8c_source.html#l01220">1220</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="af7f5d7deab7ff27f83b4eaa97dd4c1e5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void menu_alarm_comm </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="lcd_8c_source.html#l01328">1328</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ab3ff92534f6b609f55114825b4e9ab62"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void menu_alarm_light </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="lcd_8c_source.html#l01304">1304</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a5a847dec7d06b76e78b706c974e1e0f4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void menu_battVoltage </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="lcd_8c_source.html#l01185">1185</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad834d4493c80932e3de053b89c64db8e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void menu_display </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="lcd_8c_source.html#l00379">379</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+
+<p>Referenced by <a class="el" href="hid_8c_source.html#l00032">hid_loop()</a>, <a class="el" href="hid_8c_source.html#l00103">lcd_begin()</a>, and <a class="el" href="lcd_8c_source.html#l00316">menu_next()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a09d4e6d98fb071259abefd9959c29469"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">void menu_enter </td>
           <td>(</td>
-          <td class="paramtype">unsigned char&#160;</td>
-          <td class="paramname"><em>none</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>This function is run by pressing the enter key on the keypad. </p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000017">Todo:</a></b></dt><dd>TODO: Get the pole ID if the main menu items are not 0, 4, or 6. </dd></dl>
 
-<p>Definition at line <a class="el" href="lcd_8c_source.html#l00205">205</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+<p>Definition at line <a class="el" href="lcd_8c_source.html#l00359">359</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+
+<p>Referenced by <a class="el" href="hid_8c_source.html#l00032">hid_loop()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac64a05a9e5c5c8ba105badfca6196397"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void menu_getSelection </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="lcd_8c_source.html#l00411">411</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+
+<p>Referenced by <a class="el" href="lcd_8c_source.html#l00359">menu_enter()</a>.</p>
 
 </div>
 </div>
@@ -327,7 +486,9 @@ Variables</h2></td></tr>
 
 <p>Change the pointer to next number or come around. Called by the down button. </p>
 
-<p>Definition at line <a class="el" href="lcd_8c_source.html#l00165">165</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+<p>Definition at line <a class="el" href="lcd_8c_source.html#l00316">316</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+
+<p>Referenced by <a class="el" href="hid_8c_source.html#l00032">hid_loop()</a>.</p>
 
 </div>
 </div>
@@ -347,7 +508,220 @@ Variables</h2></td></tr>
 
 <p>Go to the previous menu entry. Called by the up button. </p>
 
-<p>Definition at line <a class="el" href="lcd_8c_source.html#l00185">185</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+<p>Definition at line <a class="el" href="lcd_8c_source.html#l00338">338</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+
+<p>Referenced by <a class="el" href="hid_8c_source.html#l00032">hid_loop()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a6aea890c67e91ac91b0d424206fe3427"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void menu_seeTime </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>na</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>AC/Battery switch. </p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000018">Todo:</a></b></dt><dd>TODO: If we ever get time, we need to make these functions non-blocking </dd></dl>
+
+<p>Definition at line <a class="el" href="lcd_8c_source.html#l00820">820</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a29714040d8e0b595fee76036171e828a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void menu_setACBatt </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>AC/Battery switch. </p>
+
+<p>Definition at line <a class="el" href="lcd_8c_source.html#l00728">728</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a783871a6287d801fdaaed7ebcb018b31"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void menu_setAddr </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="lcd_8c_source.html#l01135">1135</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a974f52f8b39a2da2ca267767ddc23b0b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void menu_setDimLength </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="lcd_8c_source.html#l01082">1082</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac7c2c238dddcb56c9792203892a5ba82"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void menu_setDimLevel </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="lcd_8c_source.html#l01030">1030</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a3be732dfb8703c00ab6145c4fc1bae1b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void menu_setHurricaneMode </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Menu Function for activating hurricane mode. </p>
+
+<p>Definition at line <a class="el" href="lcd_8c_source.html#l00617">617</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac1f93d9cea74108ec3f277189da32cdf"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void menu_setLightMode </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the light mode (full,dim,auto,off) </p>
+
+<p>Definition at line <a class="el" href="lcd_8c_source.html#l00520">520</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a3386dc6521a26e13da1a49671ff88f41"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void menu_setPanelMode </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Lock the solar panel (Auto/Locked) Menu Function for activating hurricane mode. </p>
+
+<p>Definition at line <a class="el" href="lcd_8c_source.html#l00677">677</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+
+<p>Referenced by <a class="el" href="lcd_8c_source.html#l00617">menu_setHurricaneMode()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a6ba50c84d3aee47210e72c96e2835827"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void menu_setTime </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>na</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="lcd_8c_source.html#l00892">892</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac93267fb772a53a4fad5f21b9c40b6e5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void menu_setXaxis </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="lcd_8c_source.html#l00852">852</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="acc0baf0388f0ee37e67e85caf68b0e95"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void menu_setYaxis </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="lcd_8c_source.html#l00872">872</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
 
 </div>
 </div>
@@ -368,40 +742,26 @@ Variables</h2></td></tr>
 <p>Change the pointer to which menu item we are displaying. </p>
 <p>TODO: What if we are in the main menu? </p>
 
-<p>Definition at line <a class="el" href="lcd_8c_source.html#l00155">155</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+<p>Definition at line <a class="el" href="lcd_8c_source.html#l00299">299</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+
+<p>Referenced by <a class="el" href="hid_8c_source.html#l00032">hid_loop()</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Variable Documentation</h2>
-<a class="anchor" id="a23f345f0be9d9b485f4bb285a93f9d84"></a>
+<a class="anchor" id="a1d0212d740496005ea3e6effb2a1bbaf"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char mainMenuPtr = 0</td>
+          <td class="memname">unsigned char lineData[21]</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="lcd_8c_source.html#l00010">10</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+<p>Definition at line <a class="el" href="lcd_8c_source.html#l00021">21</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
 
-<p>Referenced by <a class="el" href="lcd_8c_source.html#l00205">menu_enter()</a>, <a class="el" href="lcd_8c_source.html#l00165">menu_next()</a>, and <a class="el" href="lcd_8c_source.html#l00185">menu_prev()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ac8f16df2040999069955c799a0134427"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">char subMenuPtr = 0</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="lcd_8c_source.html#l00010">10</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
-
-<p>Referenced by <a class="el" href="lcd_8c_source.html#l00205">menu_enter()</a>, <a class="el" href="lcd_8c_source.html#l00165">menu_next()</a>, <a class="el" href="lcd_8c_source.html#l00185">menu_prev()</a>, and <a class="el" href="lcd_8c_source.html#l00155">menu_up()</a>.</p>
+<p>Referenced by <a class="el" href="hid_8c_source.html#l00103">lcd_begin()</a>, <a class="el" href="lcd_8c_source.html#l00229">lcd_usb()</a>, <a class="el" href="lcd_8c_source.html#l01220">menu_alarm_battery()</a>, <a class="el" href="lcd_8c_source.html#l01328">menu_alarm_comm()</a>, <a class="el" href="lcd_8c_source.html#l01304">menu_alarm_light()</a>, <a class="el" href="lcd_8c_source.html#l00411">menu_getSelection()</a>, <a class="el" href="lcd_8c_source.html#l00728">menu_setACBatt()</a>, <a class="el" href="lcd_8c_source.html#l01135">menu_setAddr()</a>, <a class="el" href="lcd_8c_source.html#l01082">menu_setDimLength()</a>, <a class="el" href="lcd_8c_source.html#l01030">menu_setDimLevel()</a>, <a class="el" href="lcd_8c_source.html#l00617">menu_setHurricaneMode()</a>, <a class="el" href="lcd_8c_source.html#l00520">menu_setLightMode()</a>, <a class="el" href="lcd_8c_source.html#l00677">menu_setPanelMode()</a>, <a class="el" href="lcd_8c_source.html#l00852">menu_setXaxis()</a>, and <a class="el" href="lcd_8c_source.html#l00872">menu_setYaxis()</a>.</p>
 
 </div>
 </div>
@@ -411,7 +771,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="lcd_8c.html">lcd.c</a></li>
-    <li class="footer">Generated on Wed Apr 15 2015 22:43:23 for Sr. Design 2015 by
+    <li class="footer">Generated on Thu Apr 23 2015 21:58:24 for Sr. Design 2015 by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.9.1 </li>
   </ul>

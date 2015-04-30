@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['bd_5fstat',['BD_STAT',['../usb__hal__pic18_8h.html#a669828f95c5a1f57f02f0a5481368db6',1,'usb_hal_pic18.h']]],
-  ['bdt_5fentry',['BDT_ENTRY',['../usb__hal__pic18_8h.html#a3b1960177312c88a9f6447cd2304f5bb',1,'usb_hal_pic18.h']]]
+  ['menufunct',['menuFunct',['../lcd_8h.html#a25d2ea3a6d8f66edcade7eccd758c910',1,'lcd.h']]]
 ];

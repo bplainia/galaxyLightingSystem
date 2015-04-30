@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.9.1"/>
-<title>Sr. Design 2015: C:/Users/Benjaminp/Documents/GitHub/firmware/src/communication.c File Reference</title>
+<title>Sr. Design 2015: C:/Users/Benjaminp/Documents/GitHub/firmware.X/src/communication.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -117,7 +117,6 @@ $(document).ready(function(){initNavTree('communication_8c.html','');});
 <div class="textblock"><code>#include &lt;<a class="el" href="shared_8h_source.html">shared.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="communication_8h_source.html">communication.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="eeprom_8h_source.html">eeprom.h</a>&gt;</code><br />
-<code>#include &quot;<a class="el" href="usb__hal__pic18_8h_source.html">usb/usb_hal_pic18.h</a>&quot;</code><br />
 </div>
 <p><a href="communication_8c_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -129,14 +128,14 @@ Functions</h2></td></tr>
 <tr class="memitem:a5e07c8337b5c325fbe5a933a10b13a37"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="communication_8c.html#a5e07c8337b5c325fbe5a933a10b13a37">comm_flush</a> ()</td></tr>
 <tr class="memdesc:a5e07c8337b5c325fbe5a933a10b13a37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flush both communications buffers.  <a href="#a5e07c8337b5c325fbe5a933a10b13a37">More...</a><br /></td></tr>
 <tr class="separator:a5e07c8337b5c325fbe5a933a10b13a37"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5201c7ac8117da0f993e5032b5c653c3"><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="communication_8c.html#a5201c7ac8117da0f993e5032b5c653c3">comm_tx</a> (unsigned char data, unsigned <a class="el" href="communication_8h.html#a4757189555ebbe4b4f1ac6acfb98bc68">isAddress</a>)</td></tr>
+<tr class="memitem:a5201c7ac8117da0f993e5032b5c653c3"><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="communication_8c.html#a5201c7ac8117da0f993e5032b5c653c3">comm_tx</a> (unsigned char data, unsigned isAddress)</td></tr>
 <tr class="separator:a5201c7ac8117da0f993e5032b5c653c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abdf20e6b5b4aeef53ff46994668db800"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="communication_8c.html#abdf20e6b5b4aeef53ff46994668db800">comm_rx</a> ()</td></tr>
 <tr class="memdesc:abdf20e6b5b4aeef53ff46994668db800"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a byte off the stack. Returns that byte.  <a href="#abdf20e6b5b4aeef53ff46994668db800">More...</a><br /></td></tr>
 <tr class="separator:abdf20e6b5b4aeef53ff46994668db800"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a387a712f460e0298392bcf0755ad2737"><td class="memItemLeft" align="right" valign="top">unsigned short&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="communication_8c.html#a387a712f460e0298392bcf0755ad2737">comm_rx_word</a> ()</td></tr>
-<tr class="memdesc:a387a712f460e0298392bcf0755ad2737"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get two bytes off the stack. Returns a short.  <a href="#a387a712f460e0298392bcf0755ad2737">More...</a><br /></td></tr>
-<tr class="separator:a387a712f460e0298392bcf0755ad2737"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74ff4df5bbded2273ddd72a097910e03"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="communication_8c.html#a74ff4df5bbded2273ddd72a097910e03">comm_rx_word</a> ()</td></tr>
+<tr class="memdesc:a74ff4df5bbded2273ddd72a097910e03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get two bytes off the stack. Returns a short.  <a href="#a74ff4df5bbded2273ddd72a097910e03">More...</a><br /></td></tr>
+<tr class="separator:a74ff4df5bbded2273ddd72a097910e03"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af4ed7370a54ee95ff06f73a340cc28a5"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="communication_8c.html#af4ed7370a54ee95ff06f73a340cc28a5">comm_get_status</a> (unsigned char addr)</td></tr>
 <tr class="separator:af4ed7370a54ee95ff06f73a340cc28a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae2143bb61a5f875ab86abb512a66aec6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="communication_8c.html#ae2143bb61a5f875ab86abb512a66aec6">comm_loop</a> ()</td></tr>
@@ -167,7 +166,7 @@ Functions</h2></td></tr>
 
 <p>Definition at line <a class="el" href="communication_8c_source.html#l00058">58</a> of file <a class="el" href="communication_8c_source.html">communication.c</a>.</p>
 
-<p>Referenced by <a class="el" href="communication_8c_source.html#l00018">comm_start()</a>, and <a class="el" href="solar_light_8c_source.html#l00188">isr()</a>.</p>
+<p>Referenced by <a class="el" href="communication_8c_source.html#l00018">comm_start()</a>, and <a class="el" href="solar_light_8c_source.html#l00198">isr()</a>.</p>
 
 </div>
 </div>
@@ -185,7 +184,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="communication_8c_source.html#l00118">118</a> of file <a class="el" href="communication_8c_source.html">communication.c</a>.</p>
+<p>Definition at line <a class="el" href="communication_8c_source.html#l00120">120</a> of file <a class="el" href="communication_8c_source.html">communication.c</a>.</p>
 
 </div>
 </div>
@@ -204,7 +203,7 @@ Functions</h2></td></tr>
 
 <p>this is called by the main loop.exe </p>
 
-<p>Definition at line <a class="el" href="communication_8c_source.html#l00128">128</a> of file <a class="el" href="communication_8c_source.html">communication.c</a>.</p>
+<p>Definition at line <a class="el" href="communication_8c_source.html#l00130">130</a> of file <a class="el" href="communication_8c_source.html">communication.c</a>.</p>
 
 </div>
 </div>
@@ -227,16 +226,16 @@ Functions</h2></td></tr>
 
 <p>Definition at line <a class="el" href="communication_8c_source.html#l00089">89</a> of file <a class="el" href="communication_8c_source.html">communication.c</a>.</p>
 
-<p>Referenced by <a class="el" href="communication_8c_source.html#l00118">comm_get_status()</a>, and <a class="el" href="communication_8c_source.html#l00099">comm_rx_word()</a>.</p>
+<p>Referenced by <a class="el" href="communication_8c_source.html#l00120">comm_get_status()</a>, and <a class="el" href="communication_8c_source.html#l00101">comm_rx_word()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a387a712f460e0298392bcf0755ad2737"></a>
+<a class="anchor" id="a74ff4df5bbded2273ddd72a097910e03"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">unsigned short comm_rx_word </td>
+          <td class="memname">unsigned int comm_rx_word </td>
           <td>(</td>
           <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
@@ -248,7 +247,7 @@ Functions</h2></td></tr>
 <p>Get two bytes off the stack. Returns a short. </p>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000006">Todo:</a></b></dt><dd>TODO: What happens if ther is no data there? </dd></dl>
 
-<p>Definition at line <a class="el" href="communication_8c_source.html#l00099">99</a> of file <a class="el" href="communication_8c_source.html">communication.c</a>.</p>
+<p>Definition at line <a class="el" href="communication_8c_source.html#l00101">101</a> of file <a class="el" href="communication_8c_source.html">communication.c</a>.</p>
 
 </div>
 </div>
@@ -313,7 +312,7 @@ Functions</h2></td></tr>
 
 <p>Definition at line <a class="el" href="communication_8c_source.html#l00071">71</a> of file <a class="el" href="communication_8c_source.html">communication.c</a>.</p>
 
-<p>Referenced by <a class="el" href="communication_8c_source.html#l00118">comm_get_status()</a>, and <a class="el" href="communication_8c_source.html#l00128">comm_loop()</a>.</p>
+<p>Referenced by <a class="el" href="communication_8c_source.html#l00120">comm_get_status()</a>.</p>
 
 </div>
 </div>
@@ -323,7 +322,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="communication_8c.html">communication.c</a></li>
-    <li class="footer">Generated on Wed Apr 15 2015 22:43:23 for Sr. Design 2015 by
+    <li class="footer">Generated on Thu Apr 23 2015 21:58:24 for Sr. Design 2015 by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.9.1 </li>
   </ul>
